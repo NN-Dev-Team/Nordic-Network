@@ -1,0 +1,58 @@
+#img-main {
+  margin-left: 12.5%;
+  margin-top: 75px;
+  position: absolute;
+  z-index: 1;
+}
+
+#main-menu {
+  width: 100%;
+  position: relative;
+}
+
+#mm-button-login {
+  background: lightgreen;
+  text-align: center;
+  width: 35%;
+  height: 100px;
+  margin-top: -130px;
+  margin-left: 12.5%;
+  line-height: 100px;
+  position: absolute;
+  opacity: 0.75;
+  filter: alpha(opacity=75);
+}
+
+#mm-button-login:hover {
+  opacity: 0.9;
+  filter: alpha(opacity=90);
+}
+
+#mm-button-register {
+  background: lightgreen;
+  text-align: center;
+  width: 35%;
+  height: 100px;
+  margin-top: -130px;
+  margin-left: 52.5%;
+  line-height: 100px;
+  position: absolute;
+  opacity: 0.75;
+  filter: alpha(opacity=75);
+}
+
+#mm-button-register:hover {
+  opacity: 0.90;
+  filter: alpha(opacity=90);
+}
+
+#server-list {
+  background: white;
+  width: 100%;
+  height: 500px;
+  margin-top: 5px;
+}
+
+.round-edges {
+  border-radius: 25px;
+}
