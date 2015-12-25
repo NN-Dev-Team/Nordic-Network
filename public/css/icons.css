@@ -1,0 +1,54 @@
+@font-face {
+	font-family: 'Codeus';
+	src:url('Codeus.eot');
+	src:url('Codeus.eot?#iefix') format('embedded-opentype'),
+		url('Codeus.ttf') format('truetype'),
+		url('Codeus.woff') format('woff'),
+		url('Codeus.svg#Codeus') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Codeus-Socials';
+	src:url('Codeus-Socials.eot');
+	src:url('Codeus-Socials.eot?#iefix') format('embedded-opentype'),
+		url('Codeus-Socials.ttf') format('truetype'),
+		url('Codeus-Socials.woff') format('woff'),
+		url('Codeus-Socials.svg#Codeus-Socials') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Codeus-portfolio';
+	src:url('Codeus-portfolio.eot');
+	src:url('Codeus-portfolio.eot?#iefix') format('embedded-opentype'),
+		url('Codeus-portfolio.ttf') format('truetype'),
+		url('Codeus-portfolio.woff') format('woff'),
+		url('Codeus-portfolio.svg#Codeus') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Codeus-Icons';
+	src:url('Codeus-Icons.eot');
+	src:url('Codeus-Icons.eot?#iefix') format('embedded-opentype'),
+		url('Codeus-Icons.ttf') format('truetype'),
+		url('Codeus-Icons.woff') format('woff'),
+		url('Codeus-Icons.svg#Codeus Icons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Codeus-Woocommerce';
+	src:url('Codeus-Woocommerce.eot?ujcbxe');
+	src:url('Codeus-Woocommerce.eot?#iefixujcbxe') format('embedded-opentype'),
+		url('Codeus-Woocommerce.woff?ujcbxe') format('woff'),
+		url('Codeus-Woocommerce.ttf?ujcbxe') format('truetype'),
+		url('Codeus-Woocommerce.svg?ujcbxe#Codeus-Woocommerce') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
