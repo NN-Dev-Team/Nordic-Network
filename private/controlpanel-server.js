@@ -17,7 +17,8 @@ fs.readFile('../public/properities.txt', 'utf8', function (err, data) {
 var port = values[1];
 
 app.get('/', function(req, res){ // For those who think res means resolution it doesn't; it means result
-	res.sendFile(__dirname + '../public/controlpanel.html'); // ethernity4ever what is the name of the control panel html file?
+	res.sendFile(__dirname + '../public/html/controlpanel.html'); // ethernity4ever what is the name of the control panel html file?
+        res.sendFile(__dirname + '../public/js/controlpanel-client.js
 });
 
 io.on('connection', function(socket){
