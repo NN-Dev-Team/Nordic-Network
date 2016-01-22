@@ -19,9 +19,9 @@ fs.readFile('../public/properities.txt', 'utf8', function (err, data) {
 
 });
 
-app.get('/', function(req, res){ // For those who think res means resolution it doesn't; it means result
-	res.sendFile(__dirname + '../public/php/controlpanel.php');
-        res.sendFile(__dirname + '../public/js/controlpanel-client.js');
+app.get('/', function(req, response){ // For those who think res means resolution it doesn't; it means result
+	response.sendFile(__dirname + '../public/php/controlpanel.php');
+        response.sendFile(__dirname + '../public/js/controlpanel-client.js');
 });
 
 io.on('connection', function(socket){
