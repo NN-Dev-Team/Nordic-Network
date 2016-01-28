@@ -4,7 +4,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			<link rel="shortcut icon" href="http://dhive.space/Nordic/wp-content/uploads/2015/12/32.png" />
-		<title>Nordic Hosting</title>
+		<title>Nordic Network</title>
 	<!--[if lt IE 9]>
 		<script src="http://dhive.space/Nordic/wp-content/themes/codeus/js/html5.js" type="text/javascript"></script>
 	<![endif]-->
@@ -1460,9 +1460,9 @@ table.myaccount-orders-table thead th {
 				<div class="central-wrapper">
 					<div class="navigation clearfix logo-position-left">
 														<h1 class="site-title logo">
-									<a href="http://nordic-network.tk" title="Nordic Hosting" rel="home">
-										<img src="http://dhive.space/Nordic/wp-content/uploads/2015/12/default-logo.png" alt="Nordic Hosting">
-										<img src="http://dhive.space/Nordic/wp-content/uploads/2015/12/default-logo.png" alt="Nordic Hosting" class="header-fixed-logo" style="display: none;">
+									<a href="http://nordic-network.tk" title="Nordic Network" rel="home">
+										<img src="http://dhive.space/Nordic/wp-content/uploads/2015/12/default-logo.png" alt="Nordic Network">
+										<img src="http://dhive.space/Nordic/wp-content/uploads/2015/12/default-logo.png" alt="Nordic Network" class="header-fixed-logo" style="display: none;">
 									</a>
 								</h1>
 						
@@ -1506,7 +1506,7 @@ lsjQuery("#layerslider_1").layerSlider({responsiveUnder: 1200, layersContainer: 
 															<span class="image lazy-loading-item" data-ll-item-delay="0" data-ll-effect="clip" style="background-color: #54734e; color: #ffffff;">&#xe612;</span>
 										<span class="lazy-loading-item caption" data-ll-item-delay="200" data-ll-effect="fading">
 						<span class="title">Powerful Hardware</span>
-						<span class="description">Description about server how awesome they are</span>					</span>
+						<span class="description">Intel  i7-4790K with 32 GB RAM available in both UK & US</span>					</span>
 							</li>
 								<li>
 															<span class="image lazy-loading-item" data-ll-item-delay="0" data-ll-effect="clip" style="background-color: #4a8ac2; color: #ffffff;">&#xe61b;</span>
@@ -1518,7 +1518,7 @@ lsjQuery("#layerslider_1").layerSlider({responsiveUnder: 1200, layersContainer: 
 															<span class="image lazy-loading-item" data-ll-item-delay="0" data-ll-effect="clip" style="background-color: #613434; color: #ffffff;">&#xe607;</span>
 										<span class="lazy-loading-item caption" data-ll-item-delay="200" data-ll-effect="fading">
 						<span class="title">DDoS Protection</span>
-						<span class="description">all of our server are ddos protected.</span>					</span>
+						<span class="description">All of our server are ddos protected.</span>					</span>
 							</li>
 								<li>
 															<span class="image lazy-loading-item" data-ll-item-delay="0" data-ll-effect="clip" style="background-color: #4c8c2b; color: #ffffff;">&#xe604;</span>
@@ -1628,7 +1628,7 @@ lsjQuery("#layerslider_1").layerSlider({responsiveUnder: 1200, layersContainer: 
 												</div><!-- .footer-nav -->
 
 					<div class="site-info sidebar">
-						© Made by <a href="#">D-hive.net</a>					</div><!-- .site-info -->
+						© Made by <a href="http://d-hive.net">D-hive.net</a>					</div><!-- .site-info -->
 
 				</div>
 

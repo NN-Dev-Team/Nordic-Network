@@ -4,7 +4,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			<link rel="shortcut icon" href="http://dhive.space/Nordic/wp-content/uploads/2015/12/32.png" />
-		<title>Control Panel | Nordic Hosting</title>
+		<title>Control Panel | Nordic Network</title>
 	<!--[if lt IE 9]>
 		<script src="http://dhive.space/Nordic/wp-content/themes/codeus/js/html5.js" type="text/javascript"></script>
 	<![endif]-->
@@ -1468,16 +1468,16 @@ table.myaccount-orders-table thead th {
 				<div class="central-wrapper">
 					<div class="navigation clearfix logo-position-left">
 														<h1 class="site-title logo">
-									<a href="http://dhive.space/Nordic/" title="Nordic Hosting" rel="home">
-										<img src="http://dhive.space/Nordic/wp-content/uploads/2015/12/default-logo.png" alt="Nordic Hosting">
-										<img src="http://dhive.space/Nordic/wp-content/uploads/2015/12/default-logo.png" alt="Nordic Hosting" class="header-fixed-logo" style="display: none;">
+									<a href="http://nordic-network.tk" title="Nordic Network" rel="home">
+										<img src="http://dhive.space/Nordic/wp-content/uploads/2015/12/default-logo.png" alt="Nordic Network">
+										<img src="http://dhive.space/Nordic/wp-content/uploads/2015/12/default-logo.png" alt="Nordic Network" class="header-fixed-logo" style="display: none;">
 									</a>
 								</h1>
 						
 						<nav id="site-navigation">
 							<a href="javascript:void(0);" class="menu-toggle dl-trigger">Menu</a>
-							<ul id="menu-default" class="nav-menu styled main_menu dl-menu"><li id="menu-item-23" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-23"><a href="http://dhive.space/Nordic/sample-page/">Sample Page</a></li>
-<li id="menu-item-22" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-5 current_page_item menu-item-22"><a href="http://dhive.space/Nordic/home/">Home</a></li>
+							<ul id="menu-default" class="nav-menu styled main_menu dl-menu"><li id="menu-item-23" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-23"><a href="http://nordic-network.tk/controlpanel.php">Control Panel</a></li>
+<li id="menu-item-22" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-5 current_page_item menu-item-22"><a href="http://nordic-network.tk">Home</a></li>
 </ul>						</nav><!-- #site-navigation -->
 					</div>
 
@@ -1564,7 +1564,7 @@ table.myaccount-orders-table thead th {
 												</div><!-- .footer-nav -->
 
 					<div class="site-info sidebar">
-						© Made by <a href="#">D-hive.net</a>					</div><!-- .site-info -->
+						© Made by <a href="http://d-hive.net">D-hive.net</a>					</div><!-- .site-info -->
 
 				</div>
 
