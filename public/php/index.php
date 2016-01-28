@@ -4,7 +4,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			<link rel="shortcut icon" href="http://dhive.space/Nordic/wp-content/uploads/2015/12/32.png" />
-		<title>Control Panel | Nordic Network</title>
+		<title>Nordic Network</title>
 	<!--[if lt IE 9]>
 		<script src="http://dhive.space/Nordic/wp-content/themes/codeus/js/html5.js" type="text/javascript"></script>
 	<![endif]-->
@@ -30,7 +30,6 @@ img.emoji {
 </style>
 <link rel='stylesheet' id='layerslider-css'  href='http://dhive.space/Nordic/wp-content/plugins/LayerSlider/static/css/layerslider.css?ver=5.6.2' type='text/css' media='all' />
 <link rel='stylesheet' id='ls-google-fonts-css'  href='http://fonts.googleapis.com/css?family=Lato:100,300,regular,700,900%7COpen+Sans:300%7CIndie+Flower:regular%7COswald:300,regular,700&#038;subset=latin%2Clatin-ext' type='text/css' media='all' />
-<link rel='stylesheet' id='js_composer_front-css'  href='http://dhive.space/Nordic/wp-content/plugins/js_composer/assets/css/js_composer.min.css?ver=4.8.0.1' type='text/css' media='all' />
 <link rel='stylesheet' id='fancybox-style-css'  href='http://dhive.space/Nordic/wp-content/themes/codeus/js/fancyBox/jquery.fancybox.css?ver=4.4.1' type='text/css' media='all' />
 <link rel='stylesheet' id='nivo-slider-style-css'  href='http://dhive.space/Nordic/wp-content/themes/codeus/plugins/slideshow/nivo-slider/nivo-slider.css?ver=4.4.1' type='text/css' media='all' />
 <link rel='stylesheet' id='codeus-jquery-ui-style-css'  href='http://dhive.space/Nordic/wp-content/themes/codeus/js/jquery-ui/jquery-ui.css?ver=4.4.1' type='text/css' media='all' />
@@ -44,9 +43,6 @@ img.emoji {
 <link rel='stylesheet' id='codeus-ie9-css'  href='http://dhive.space/Nordic/wp-content/themes/codeus/css/ie9.css?ver=4.4.1' type='text/css' media='all' />
 <![endif]-->
 <link rel='stylesheet' id='codeus-js-composer-css'  href='http://dhive.space/Nordic/wp-content/themes/codeus/css/js_composer.css?ver=4.4.1' type='text/css' media='all' />
-<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-<script src="js/controlpanel-client.js"></script>
 <script type='text/javascript' src='http://dhive.space/Nordic/wp-content/plugins/LayerSlider/static/js/greensock.js?ver=1.11.8'></script>
 <script type='text/javascript' src='http://dhive.space/Nordic/wp-includes/js/jquery/jquery.js?ver=1.11.3'></script>
 <script type='text/javascript' src='http://dhive.space/Nordic/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
@@ -58,10 +54,6 @@ img.emoji {
 <link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://dhive.space/Nordic/xmlrpc.php?rsd" />
 <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://dhive.space/Nordic/wp-includes/wlwmanifest.xml" /> 
 <meta name="generator" content="WordPress 4.4.1" />
-<link rel="canonical" href="http://dhive.space/Nordic/home/" />
-<link rel='shortlink' href='http://dhive.space/Nordic/?p=5' />
-<link rel="alternate" type="application/json+oembed" href="http://dhive.space/Nordic/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fdhive.space%2FNordic%2Fhome%2F" />
-<link rel="alternate" type="text/xml+oembed" href="http://dhive.space/Nordic/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fdhive.space%2FNordic%2Fhome%2F&#038;format=xml" />
 <script type='text/javascript'>
                     var cwpCustomBarIcon = '';
                     var isSetToPro = '';
@@ -1455,7 +1447,7 @@ table.myaccount-orders-table thead th {
 <noscript><style type="text/css"> .wpb_animate_when_almost_visible { opacity: 1; }</style></noscript></head>
 
 
-<body class="page page-id-5 page-template-default wpb-js-composer js-comp-ver-4.8.0.1 vc_responsive">
+<body class="home blog lazy-enabled home-constructor wpb-js-composer js-comp-ver-4.8.0.1 vc_responsive">
 <script type="text/javascript">
 	if(jQuery('body').hasClass('lazy-enabled') && jQuery(window).width() <= 800) {
 		jQuery('body').removeClass('lazy-enabled')
@@ -1477,7 +1469,7 @@ table.myaccount-orders-table thead th {
 						<nav id="site-navigation">
 							<a href="javascript:void(0);" class="menu-toggle dl-trigger">Menu</a>
 							<ul id="menu-default" class="nav-menu styled main_menu dl-menu"><li id="menu-item-23" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-23"><a href="http://nordic-network.tk/controlpanel.php">Control Panel</a></li>
-<li id="menu-item-22" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-5 current_page_item menu-item-22"><a href="http://nordic-network.tk">Home</a></li>
+<li id="menu-item-22" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-22"><a href="http://nordic-network.tk">Home</a></li>
 </ul>						</nav><!-- #site-navigation -->
 					</div>
 
@@ -1486,43 +1478,115 @@ table.myaccount-orders-table thead th {
 		</div>
 		<!-- #header -->
 		
-																	<div class="page-title-block" style="background-image: url(http://dhive.space/Nordic/wp-content/themes/codeus/images/backgrounds/title/06.jpg); background-color: #f5f4f0;">
-					<div class="central-wrapper page-title-block-content">
-						<div class="page-title-block-header"><h1 style="">  Control Panel</h1></div>
-											</div>
-				</div>
-					
-		
-		
-	</div><!-- wrap end -->
-
-	<!-- wrap start --><div class="content-wrap">
-
-		
-			<div id="main">
-				<div class="central-wrapper clearfix">
-					<div id="center" class="fullwidth">
-
-						<div id="content">
+				
 
 							
-							<div class="inner">
-								<div class="vc_row wpb_row vc_row-fluid"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="wpb_wrapper"><p>Press Inspect Element and switch to the console :)</p><p>(Type startServer(0, 0); and press enter when in the console)</p></div></div></div>
+			<div class="block slideshow noscript">
+					
+																		<script data-cfasync="false" type="text/javascript">var lsjQuery = jQuery;</script><script data-cfasync="false" type="text/javascript">
+lsjQuery(document).ready(function() {
+if(typeof lsjQuery.fn.layerSlider == "undefined") { lsShowNotice('layerslider_1','jquery'); }
+else {
+lsjQuery("#layerslider_1").layerSlider({responsiveUnder: 1200, layersContainer: 1200, startInViewport: false, pauseOnHover: false, keybNav: false, skin: 'fullwidth', globalBGColor: '#141414', thumbnailNavigation: 'disabled', skinsPath: 'http://dhive.space/Nordic/wp-content/plugins/LayerSlider/static/skins/'})
+}
+});
+</script><div class="ls-wp-fullwidth-container" style="height:610px;"><div class="ls-wp-fullwidth-helper"><div id="layerslider_1" class="ls-wp-container" style="width:100%;height:610px;margin:0 auto;margin-bottom: 0px;"><div class="ls-slide" data-ls="slidedelay:6000; transition2d: all;"><img src="http://dhive.space/Nordic/wp-content/uploads/2015/12/nhd3.png" class="ls-bg" alt="nhd3" /></div></div></div></div>												
+						
+						
+						
+						
+						
 							</div>
-						</div><!-- #content -->
+			<div class="loading"></div>						
+			<div class="block quickfinder">
+				<div class="central-wrapper clearfix">	
+						
+												<ul class="lazy-loading styled" data-ll-force-start="1">
+					<li>
+															<span class="image lazy-loading-item" data-ll-item-delay="0" data-ll-effect="clip" style="background-color: #54734e; color: #ffffff;">&#xe612;</span>
+										<span class="lazy-loading-item caption" data-ll-item-delay="200" data-ll-effect="fading">
+						<span class="title">Powerful Hardware</span>
+						<span class="description">Intel  i7-4790K with 32 GB RAM available in both UK & US</span>					</span>
+							</li>
+								<li>
+															<span class="image lazy-loading-item" data-ll-item-delay="0" data-ll-effect="clip" style="background-color: #4a8ac2; color: #ffffff;">&#xe61b;</span>
+										<span class="lazy-loading-item caption" data-ll-item-delay="200" data-ll-effect="fading">
+						<span class="title">Top class uptime</span>
+						<span class="description">We are the best of the best of the best, 99% uptime</span>					</span>
+							</li>
+								<li>
+															<span class="image lazy-loading-item" data-ll-item-delay="0" data-ll-effect="clip" style="background-color: #613434; color: #ffffff;">&#xe607;</span>
+										<span class="lazy-loading-item caption" data-ll-item-delay="200" data-ll-effect="fading">
+						<span class="title">DDoS Protection</span>
+						<span class="description">All of our server are ddos protected.</span>					</span>
+							</li>
+								<li>
+															<span class="image lazy-loading-item" data-ll-item-delay="0" data-ll-effect="clip" style="background-color: #4c8c2b; color: #ffffff;">&#xe604;</span>
+										<span class="lazy-loading-item caption" data-ll-item-delay="200" data-ll-effect="fading">
+						<span class="title">Totally Free</span>
+						<span class="description">Our services are totally free, no hidden fees, etc etc etc.</span>					</span>
+							</li>
+						</ul>
 
-					</div><!-- #center -->
-				</div><!-- .central-wrapper -->
-			</div><!-- #main -->
+						
+						
+						
+						
+						
+				</div>			</div>
+									
+			<div class="block portfolio">
+					
+						
+						
+											
+						
+						
+						
+						
+							</div>
+									
+			<div class="block clients">
+					
+						
+						
+						
+						
+						
+											
+						
+							</div>
+												</div><!-- wrap end -->
+				<!-- wrap start --><div class="content-wrap">
+								
+			<div class="block news">
+				<div class="central-wrapper clearfix">	
+						
+						
+						
+						
+											
+	<div class="panel clearfix">
 
-		
-	</div><!-- wrap end -->
+<div class="center">
+	<h2>News</h2>
+	<div class="news_list lazy-loading clearfix" data-ll-item-delay="0">
+					<div class="empty">No News found</div>
+						<div class="all-news lazy-loading-item" data-ll-effect="fading"><a href="">Read all news</a></div>
+	</div>
+</div>
 
-	<!-- wrap start --><div class="block-wrap">
+		<div class="sidebar">
+							<h3 class="widget-title"></h3>
+										<div></div>
+					</div>
+	</div><!-- .panel -->
 
-		
-		
-	</div><!-- wrap end -->
+						
+						
+				</div>			</div>
+							
+	
 
 	<footer id="footer">
 
@@ -1667,6 +1731,5 @@ table.myaccount-orders-table thead th {
 <script type='text/javascript' src='http://dhive.space/Nordic/wp-includes/js/wp-embed.min.js?ver=4.4.1'></script>
 <script type='text/javascript' src='http://dhive.space/Nordic/wp-content/plugins/wp-product-review/javascript/pie-chart.js?ver=2.7.1'></script>
 <script type='text/javascript' src='http://dhive.space/Nordic/wp-content/plugins/wp-product-review/javascript/main.js?ver=2.7.1'></script>
-<script type='text/javascript' src='http://dhive.space/Nordic/wp-content/plugins/js_composer/assets/js/js_composer_front.js?ver=4.8.0.1'></script>
 </body>
 </html>

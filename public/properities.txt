@@ -1,2 +1,2 @@
-localhost
+nordic-network.tk
 15015
