@@ -24,7 +24,7 @@ fs.readFile('../public/properities.txt', 'utf8', function (err, data) {
 });
 
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/test-client.html'));
+    res.sendFile(path.join(__dirname + '/test-client.html')); // This is only necessary when testing on localhost, else it can be removed.
 });
 
 function printError(reason, id) {
