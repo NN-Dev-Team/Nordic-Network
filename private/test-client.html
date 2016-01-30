@@ -1,17 +1,12 @@
-var values = [];
-var host = "N/A";
-var port = -1;
-
-$(document).ready(function() {
-    $.get("../properities.txt", function(data) {
-        values = data.split("\n");
-		return values;
-    }, 'text');
-	return values;
-});
-
-host = values[0];
-port = Number(values[1]);
+<html>
+<head>
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+</head>
+<body>
+<script>
+var host = "localhost";
+var port = 15015;
 
 if(host == "N/A" || port == -1) {
 	console.log("ERROR: Couldn't find host/port");
@@ -41,3 +36,6 @@ function startServer(serverID, sessionID){
 	socket.emit('start-server', { "server": serverID, "session": sessionID });
 	console.log("Starting server...");
 }
+</script>
+</body>
+</html>
