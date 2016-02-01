@@ -1,0 +1,49 @@
+#sidebar {
+    padding-top: 0px;
+    margin-top: 0px;
+    background-color: #dddbdb;
+    width: 20vh;
+    height: 100vh;
+    display: inline-block;
+}
+
+#sidebar ul li a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    margin-left: 0px;
+    font-size: 15px;
+    font-family: ubuntu;
+    padding: 5px;
+}
+
+#sidebar ul {
+    list-style: none;
+    width: 100%;
+    padding-left: 0;
+}
+
+#sidebar ul li a:hover {
+text-decoration: none;
+    background-color: #a7a3a3;
+    color: black;
+    display: block;
+    
+}
+
+#container {
+    padding-top: 0px;
+    margin-top: 0px;
+    font-family: ubuntu;
+    display: inline-block;
+    align-content: center;
+    width: 150vh;
+    align-content: center;
+    text-align: center;
+}
+
+#usages {
+    display: inline-block;
+    padding: 50px;
+    width: 100vh;
+}
