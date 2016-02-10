@@ -5,7 +5,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
 var exec = require('child_process').exec;
-var toobusy = require('toobusy');
+var toobusy = require('toobusy-js');
 
 var values = [];
 var props = [];
