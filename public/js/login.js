@@ -25,7 +25,23 @@ if(host == "N/A" || port == -1) {
 	}
 }
 
+socket.on('login-complete', function(data){
+	if(data.success){
+		console.log("Successfully logged in!");
+	} else {
+		console.log("Failed to login.");
+		console.log("Reason: ", data.reason);
+		console.log("ID: ", data.id);
+	}
+});
+
 $('form').submit(function(){
+	console.log("Logging in...");
     socket.emit('login', {email: $('#email').val(), pass: $('#passwrd'.val())});
     return false;
 });
+
+function login(email, password) {
+	console.log("Logging in...");
+	socket.emit('login', {email: email, pass: password});
+}
