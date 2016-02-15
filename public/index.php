@@ -1732,7 +1732,7 @@ lsjQuery("#layerslider_1").layerSlider({responsiveUnder: 1200, layersContainer: 
 <script type='text/javascript' src='http://dhive.space/Nordic/wp-content/plugins/wp-product-review/javascript/pie-chart.js?ver=2.7.1'></script>
 <script type='text/javascript' src='http://dhive.space/Nordic/wp-content/plugins/wp-product-review/javascript/main.js?ver=2.7.1'></script>
 <script>
-alert("Website is currently being rebuilded, view prototype at /index-proto.php");
+alert("Website is currently being rebuilded, view prototype at /index-proto");
 </script>
 </body>
 </html>

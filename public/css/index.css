@@ -1,65 +1,89 @@
-@font-face {
-    font-family: "Viking";
-    src: url(fonts/Viking.ttf) format("truetype");
-}
-
-html, body {
-	margin: 0;
-	padding-top: 0;
-}
-
-ul.horizontal {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-li.horizontal {
-    float: right;
-}
-
-li.horizontal a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 15px 15px;
-    text-decoration: none;
-    font-size: 22px;
-    font-family: "Viking";
-	transition: color 0.3s;
-}
-
-li.horizontal a:hover {
-    color: #212130;
-	font-weight: bold;
-}
-
-#banner {
-	float: left;
-	margin: 2.5px;
-}
-
-#nav-bar {
-	background: linear-gradient(to right, rgba(33, 33, 48, 1), rgba(33, 33, 48, 0.2));
-	width: 100%;
-	height: 60px;
-	position: fixed;
+body, html {
+	overflow-x: hidden;
+	overflow-y: hidden;
 }
 
 #main-pic {
-	width: 100%;
-	margin-top: -100px;
-	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	position: relative;
+	display: block;
 	z-index: -1;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
 }
 
-#footer {
-	background-color: rgba(33, 33, 48, 0.1);
-	width: 100%;
-	height: 30px;
-	text-align: center;
+#server-button {
+	width: 30vw;
+	height: 12.5vh;
+	top: 25vh;
+	left: 35vw;
+	background-color: rgba(0, 127, 0, 0.75);
+	border-radius: 1vh;
+	border: 2px solid rgba(0, 95, 0, 0.25);
 	position: absolute;
-	bottom: 0;
-	margin-bottom: -164px;
+	font-family: Viking;
+	font-size: 1.65vw;
+	z-index: 1;
+}
+
+#server-button p {
+	padding-left: 2.5%;
+}
+
+#server-button p a {
+	color: rgba(255, 255, 255, 0.75);
+	transition: color 0.3s;
+}
+
+#server-button p a:hover {
+	color: rgba(255, 255, 255, 1);
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+	#main-pic {
+		width: 200vw;
+	}
+	
+	#server-button {
+		font-size: 1.625vw;
+		height: 5vh;
+	}
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+	#main-pic {
+		width: 150vw;
+	}
+	
+	#server-button {
+		height: 8vh;
+	}
+}
+
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : portrait) {
+	#main-pic {
+		width: 200vw;
+	}
+	
+	#server-button {
+		font-size: 3.2vw;
+		width: 60vw;
+		height: 6.5vh;
+		top: 16vh;
+		left: 21vw;
+	}
+}
+
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : landscape) {
+	#main-pic {
+		width: 150vw;
+	}
+	
+	#server-button {
+		height: 11vh;
+	}
 }
