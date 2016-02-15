@@ -1,3 +1,0 @@
-0123456789abcdef
-false
-0 <-- Total time server has runned. Resets every week.

@@ -12,17 +12,15 @@ In total 64 GB RAM will be available the first month;
 
 You can now run a Minecraft test server by following these instructions:
 -------------------------------------------------------------------------
-1. Clone this repository to your computer.
-2. Edit the first line in public/properities.txt (where it says
-"nordic-network.tk") to "localhost".
-3. Go to Nordic-Network/private/servers/0 and add the Minecraft server
+1.  Clone this repository to your computer.
+2.  Go to Nordic-Network/private/servers/0 and add the Minecraft server
 jar in there. Make sure it's named minecraft_server.jar, it can actually
-be any jar and not only Minecraft but it must have that name _for now_
+be any jar and not only Minecraft but it must have that name *for now*
 :)
-4. Go to your terminal, type in "cd
+3.  Go to your terminal, type in "cd
 path/to/github/projects/Nordic-Network/private" (use "\" instead of "/"
 if on Windows) and after that type in "node controlpanel-server". **Make
 sure node.js AND required libraries are installed.**
-5. Start your browser and go to "localhost:15015", press Inspect Element
+4.  Start your browser and go to "localhost:15015", press Inspect Element
 and click on "Console". Then type in "startServer(0, "01234569abcdef");"
 and press enter. The server will now start on your computer :)

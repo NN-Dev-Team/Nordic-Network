@@ -35,7 +35,17 @@ if(host == "N/A" || port == -1) {
 			console.log("ID: ", data.id);
 		}
 	});
+	
+	socket.on('client-id', function(data){
+		console.log("ID:", data);
+	});
 }
+
+$('button #start-server').click(function(){
+	socket.emit('start-server', { "server": serverID, "session": sessionID });
+	console.log("Starting server...");
+	return false;
+});
 
 function startServer(serverID, sessionID){
 	socket.emit('start-server', { "server": serverID, "session": sessionID });

@@ -1,5 +1,3 @@
-// THIS FILE IS NOT NEAR DONE
-
 var path = require('path');
 var express = require('express');
 var app = express();
@@ -7,6 +5,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
 var exec = require('child_process').exec;
+var toobusy = require('toobusy-js');
 
 var values = [];
 var props = [];
@@ -23,9 +22,15 @@ fs.readFile('../public/properities.txt', 'utf8', function (err, data) {
 
 });
 
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/test-client.html')); // This is only necessary when testing on localhost, else it can be removed.
+app.use(function(req, res, next) {
+	if (toobusy()) res.send(503, "Sorry, either we're too popular or someone is DDoS:ing (Server is overloaded)");
+	else next();
 });
+
+// REMOVE THIS WHEN PUTTING THE CODE ONLINE                      |
+app.get('/', function(req, res) { //                             |
+    res.sendFile(path.join(__dirname + '/test-client.html')); // |
+}); //                                                           v
 
 function printError(reason, id) {
 	io.emit('server-checked', {"success": false, "reason": reason, "id": id});
@@ -34,10 +39,10 @@ function printError(reason, id) {
 io.on('connection', function(socket){
 	socket.on('start-server', function(data){
 		if(typeof data.server != 'number' || typeof data.session != 'string') {
-			return printError("Invalid server ID/session ID.", 0);
+			return printError("Invalid server ID and/or session ID.", 0);
 		}
 		
-		fs.readFile('servers/' + (data.server).toString() + '/properities.txt', 'utf8', function(err, dat) {
+		fs.readFile('servers/' + (data.server).toString() + '/.properities', 'utf8', function(err, dat) {
 			if (err) {
 				return printError(err, 1);
 			}

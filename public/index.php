@@ -1461,8 +1461,8 @@ table.myaccount-orders-table thead th {
 					<div class="navigation clearfix logo-position-left">
 														<h1 class="site-title logo">
 									<a href="http://nordic-network.tk" title="Nordic Network" rel="home">
-										<img src="http://dhive.space/Nordic/wp-content/uploads/2015/12/default-logo.png" alt="Nordic Network">
-										<img src="http://dhive.space/Nordic/wp-content/uploads/2015/12/default-logo.png" alt="Nordic Network" class="header-fixed-logo" style="display: none;">
+										<img src="http://nordic-network.tk/pics/banner.png" alt="Nordic Network">
+										<img src="http://nordic-network.tk/pics/banner.png" alt="Nordic Network" class="header-fixed-logo" style="display: none;">
 									</a>
 								</h1>
 						
@@ -1490,7 +1490,7 @@ else {
 lsjQuery("#layerslider_1").layerSlider({responsiveUnder: 1200, layersContainer: 1200, startInViewport: false, pauseOnHover: false, keybNav: false, skin: 'fullwidth', globalBGColor: '#141414', thumbnailNavigation: 'disabled', skinsPath: 'http://dhive.space/Nordic/wp-content/plugins/LayerSlider/static/skins/'})
 }
 });
-</script><div class="ls-wp-fullwidth-container" style="height:610px;"><div class="ls-wp-fullwidth-helper"><div id="layerslider_1" class="ls-wp-container" style="width:100%;height:610px;margin:0 auto;margin-bottom: 0px;"><div class="ls-slide" data-ls="slidedelay:6000; transition2d: all;"><img src="http://dhive.space/Nordic/wp-content/uploads/2015/12/nhd3.png" class="ls-bg" alt="nhd3" /></div></div></div></div>												
+</script><div class="ls-wp-fullwidth-container" style="height:610px;"><div class="ls-wp-fullwidth-helper"><div id="layerslider_1" class="ls-wp-container" style="width:100%;height:610px;margin:0 auto;margin-bottom: 0px;"><div class="ls-slide" data-ls="slidedelay:6000; transition2d: all;"><img src="http://nordic-network.tk/pics/nordic-nature.png" class="ls-bg" alt="nhd3" /></div></div></div></div>												
 						
 						
 						
@@ -1731,5 +1731,8 @@ lsjQuery("#layerslider_1").layerSlider({responsiveUnder: 1200, layersContainer: 
 <script type='text/javascript' src='http://dhive.space/Nordic/wp-includes/js/wp-embed.min.js?ver=4.4.1'></script>
 <script type='text/javascript' src='http://dhive.space/Nordic/wp-content/plugins/wp-product-review/javascript/pie-chart.js?ver=2.7.1'></script>
 <script type='text/javascript' src='http://dhive.space/Nordic/wp-content/plugins/wp-product-review/javascript/main.js?ver=2.7.1'></script>
+<script>
+alert("Website is currently being rebuilded, view prototype at /index-proto");
+</script>
 </body>
 </html>
