@@ -10,7 +10,7 @@ In total 64 GB RAM will be available the first month;
 - 32 GB RAM in UK
 
 
-You can now run a Minecraft test server by following these instructions:
+You can now *test* the program by following these instructions:
 -------------------------------------------------------------------------
 1.  Clone this repository to your computer.
 2.  Go to Nordic-Network/private/servers/0 and add the Minecraft server
@@ -23,4 +23,4 @@ if on Windows) and after that type in "node controlpanel-server". **Make
 sure node.js AND required libraries are installed.**
 4.  Start your browser and go to "localhost:15015", press Inspect Element
 and click on "Console". Then type in "startServer(0, "01234569abcdef");"
-and press enter. The server will now start on your computer :)
+and press enter. The server will now start on your computer **locally**, and remember this is only for testing the program. In the future you'll just need to enter the website to start your server and it will be up online :)
