@@ -1,4 +1,5 @@
 DirectoryIndex index-proto.php index.php index.html down.php
+ErrorDocument 404 /404.php
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^/]+)/$ $1.php

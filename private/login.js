@@ -6,6 +6,7 @@ var io = require('socket.io')(http);
 var fs = require('fs');
 var bcrypt = require('bcryptjs');
 var toobusy = require('toobusy-js');
+var randomstring = require('randomstring');
 
 var values = [];
 var props = [];
@@ -31,26 +32,6 @@ app.use(function(req, res, next) {
 	}
 });
 
-app.configure(function () {
-    app.use(express.cookieParser());
-    app.use(express.session({secret: 'CHANGE_THIS', key: 'express.sid'}));
-});
-
-io.use(function (socket, next) {
-	var handshakeData = socket.request;
-	if(handshakeData.headers.cookie) {
-		handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
-		handshakeData.sessionID = connect.utils.parseSignedCookie(handshakeData.cookie['express.sid'], 'CHANGE_THIS');
-		
-		if (handshakeData.cookie['express.sid'] == handshakeData.sessionID) {
-			return next(new Error("Cookie is invalid."));
-		}
-	} else {
-		return next(new Error("No cookie transmitted"));
-	} 
-	next();
-});
-
 // REMOVE THIS WHEN PUTTING THE CODE ONLINE                            |
 app.get('/', function(req, res) { //                                   |
     res.sendFile(path.join(__dirname + '/test-client-login.html')); // |
@@ -69,7 +50,7 @@ io.on('connection', function(socket){
 		if(((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
 			fs.readdir("users", function(err, li) {
 				if(err) {
-					return printError(err, 1);
+					return printError(err, 2);
 				}
 				
 				var files = 0;
@@ -84,9 +65,15 @@ io.on('connection', function(socket){
 						var esc = false;
 						values = dat.split("\n");
 						if(values[0].toString() == data.email) {
-							data = bcrypt.compareSync(data.pass, values[1].toString());
-							if(data) {
-								io.emit('login-complete', {"success": true});
+							dat = bcrypt.compareSync(data.pass, values[1].toString());
+							if(dat) {
+								var userSession = randomstring.generate(16);
+								data = fs.readFileSync("servers/" + file.substring(0, file.length - 4) + "/.properities", 'utf8');
+								values = data.split("\n");
+								values[0] = userSession;
+									
+								fs.writeFileSync("servers/" + file.substring(0, file.length - 4) + "/.properities", values.join("\n"));
+								io.emit('login-complete', {"success": true, "session": userSession});
 								valid = true;
 							} else {
 								valid = false;
@@ -101,11 +88,11 @@ io.on('connection', function(socket){
 				}
 				
 				if(!valid) {
-					return printError("Incorrect email and/or password", 2);
+					return printError("Incorrect email and/or password", 3);
 				}
 			});
 		} else {
-			printError("Invalid email.", 3);
+			printError("Invalid email.", 4);
 		}
 	});
 });

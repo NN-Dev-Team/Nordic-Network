@@ -16,9 +16,17 @@ if(typeof socket === 'undefined') {
 	console.log("Successfully created socket!");
 }
 
+function addCookie(name, value, time) {
+    var day = new Date();
+    day.setTime(day.getTime() + (time*24*60*60*1000));
+    var expires = "expires="+day.toUTCString();
+    document.cookie = name + "=" + value + "; " + expires + "; path=/";
+}
+
 socket.on('login-complete', function(data){
 	if(data.success){
 		console.log("Successfully logged in!");
+		addCookie("session", data.session, 1);
 	} else {
 		console.log("Failed to login.");
 		console.log("Reason: ", data.reason);
@@ -26,15 +34,9 @@ socket.on('login-complete', function(data){
 	}
 });
 
-$('form').submit(function(){
+function login(email, passwrd) {
 	console.log("Logging in...");
-    socket.emit('login', {email: $('#email').val(), pass: $('#passwrd'.val())});
-    return false;
-});
-
-function login(email, password) {
-	console.log("Logging in...");
-	socket.emit('login', {email: email, pass: password});
+	socket.emit('login', {email: email, pass: passwrd});
 }
 </script>
 </body>
