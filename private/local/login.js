@@ -1,16 +1,40 @@
 var path = require('path');
-var mods = require('./getProps.js');
-var express = mods.express;
-var app = mods.app;
-var http = mods.http;
-var io = mods.io;
+var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var fs = require('fs');
 var bcrypt = require('bcryptjs');
+var toobusy = require('toobusy-js');
 var randomstring = require('randomstring');
 
-var values = mods.values;
-var props = mods.props;
+var values = [];
+var props = [];
 var valid = false;
+
+fs.readFile('../../public/properities.txt', 'utf8', function (err, data) {
+	if (err) {
+		return console.log(err);
+	}
+	values = data.split("\n");
+	var port = values[1];
+	http.listen(port, function(){
+		console.log('listening on *:' + port);
+	});
+
+});
+
+app.use(function(req, res, next) {
+	if (toobusy()) {
+		res.send(503, "Sorry, either we're too popular or someone is DDoS:ing (Server is overloaded)");
+	} else {
+		next();
+	}
+});
+
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/test-client-login.html'));
+});
 
 function printError(reason, id) {
 	io.emit('login-complete', {"success": false, "reason": reason, "id": id});

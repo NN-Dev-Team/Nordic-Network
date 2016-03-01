@@ -53,8 +53,3 @@ $('button #start-server').click(function(){
 	console.log("Starting server...");
 	return false;
 });
-
-function startServer(serverID){
-	socket.emit('start-server', { "server": serverID, "session": getCookie("session") });
-	console.log("Starting server...");
-}
