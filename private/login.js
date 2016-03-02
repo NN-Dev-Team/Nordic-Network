@@ -39,7 +39,7 @@ io.on('connection', function(socket){
 						var dat = fs.readFileSync("users/" + file, 'utf8');
 						var esc = false;
 						values = dat.split("\n");
-						if(values[0].toString() == data.email) {
+						if(values[0].trim() == data.email) {
 							dat = bcrypt.compareSync(data.pass, values[1].toString());
 							if(dat) {
 								var userSession = randomstring.generate(16);
