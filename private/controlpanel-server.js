@@ -51,18 +51,22 @@ io.on('connection', function(socket){
 			var serv_ram = [[256, 512, 1024, 2048, 4096], [512, 1024, 2048, 4096], [512, 1024, 2048, 4096]];
 			
 			// Check if session is matching
-			if(serv_session == (data.session).trim()) {
+			if(serv_session == data.session) {
 			
 				// Run server
-				if(serv_type == 0) { // Minecraft
-					exec("java -Xmx" + serv_ram[serv_type][serv_rank] + "M -Xms" + serv_ram[serv_type][serv_rank] + "M -jar minecraft_server.jar nogui", function(err2, out, stderr) {
+				if(serv_type == 0) {
+					// Minecraft
+					
+					exec("java -Xmx" + serv_ram[serv_type][serv_rank] + "M -Xms" + serv_ram[serv_type][serv_rank] + "M -jar ../servers/" + data.server + "/minecraft_server.jar nogui", function(err2, out, stderr) {
 						if(err2) {
 							return printError(stderr, 2);
 						}
 						
 						printSuccess(serv_type);
 					});
-				} else if(serv_type.substring(0, 1) == 1) { // CS:GO
+				} else if(serv_type.substring(0, 1) == 1) {
+					// CS:GO
+					
 					if(serv_typeCS == 1) { // Classic Competive
 						exec("./srcds_run -game csgo -console -usercon +game_type 0 +game_mode 1 +mapgroup mg_active +map de_dust2", function(err, out, stderr) {
 							if(err) {
@@ -104,6 +108,9 @@ io.on('connection', function(socket){
 							printSuccess(serv_type);
 						});
 					}
+				} else if(serv_type == 2) {
+					// TF2
+					
 				} else {
 					return printError("Unknown server type", 4);
 				}

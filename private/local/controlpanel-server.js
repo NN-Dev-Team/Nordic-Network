@@ -57,7 +57,7 @@ io.on('connection', function(socket){
 			return printError("Invalid server ID and/or session ID.", 0);
 		}
 		
-		fs.readFile('servers/' + (data.server).toString() + '/.properities', 'utf8', function(err, dat) {
+		fs.readFile('../servers/' + data.server + '/.properities', 'utf8', function(err, dat) {
 			if (err) {
 				return printError(err, 1);
 			}
@@ -72,11 +72,11 @@ io.on('connection', function(socket){
 			var serv_ram = [[256, 512, 1024, 2048, 4096], [512, 1024, 2048, 4096], [512, 1024, 2048, 4096]];
 			
 			// Check if session is matching
-			if(serv_session == (data.session).trim()) {
+			if(serv_session == data.session) {
 			
 				// Run server
 				if(serv_type == 0) { // Minecraft
-					exec("java -Xmx" + serv_ram[serv_type][serv_rank] + "M -Xms" + serv_ram[serv_type][serv_rank] + "M -jar minecraft_server.jar nogui", function(err2, out, stderr) {
+					exec("java -Xmx" + serv_ram[serv_type][serv_rank] + "M -Xms" + serv_ram[serv_type][serv_rank] + "M -jar ../servers/" + data.server + "/minecraft_server.jar nogui", function(err2, out, stderr) {
 						if(err2) {
 							return printError(stderr, 2);
 						}
