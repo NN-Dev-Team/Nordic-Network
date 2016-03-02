@@ -45,8 +45,8 @@ socket.on('creation-complete', function(data){
 	}
 });
 
-function createServer(type, user){
-	socket.emit('create-server', { "id": user, "session": getCookie("session"), "type": type });
+function createServer(type){
+	socket.emit('create-server', { "id": getCookie("user_id"), "session": getCookie("session"), "type": type });
 	console.log("Starting server...");
 }
 </script>

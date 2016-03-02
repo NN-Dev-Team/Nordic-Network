@@ -47,7 +47,7 @@ io.on('connection', function(socket){
 		}
 		
 		if(((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
-			fs.readdir("users", function(err, li) {
+			fs.readdir("../users", function(err, li) {
 				if(err) {
 					return printError(err, 2);
 				}
@@ -60,7 +60,7 @@ io.on('connection', function(socket){
 				
 				if(files > 0) {
 					li.forEach(function(file) {
-						var dat = fs.readFileSync("users/" + file, 'utf8');
+						var dat = fs.readFileSync("../users/" + file, 'utf8');
 						var esc = false;
 						values = dat.split("\n");
 						if(values[0].toString() == data.email) {
@@ -68,11 +68,11 @@ io.on('connection', function(socket){
 							if(dat) {
 								var userSession = randomstring.generate(16);
 								userSession += Math.round(((new Date()).getTime() / 60000) + 60*24);
-								data = fs.readFileSync("servers/" + file.substring(0, file.length - 4) + "/.properities", 'utf8');
+								data = fs.readFileSync("../servers/" + file.substring(0, file.length - 4) + "/.properities", 'utf8');
 								values = data.split("\n");
 								values[0] = userSession;
 									
-								fs.writeFileSync("servers/" + file.substring(0, file.length - 4) + "/.properities", values.join("\n"));
+								fs.writeFileSync("../servers/" + file.substring(0, file.length - 4) + "/.properities", values.join("\n"));
 								io.emit('login-complete', {"success": true, "session": userSession});
 								valid = true;
 							} else {

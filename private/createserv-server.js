@@ -72,6 +72,8 @@ io.on('connection', function(socket){
 		}
 		
 		if(typeof data.id == 'number') {
+			// User id is available; no search needed
+			
 			fs.readFile("users/" + data.id + ".txt", 'utf8', function(err, dat) {
 				if(err) {
 					return printError(err, 4, 65535, IP);
@@ -97,28 +99,34 @@ io.on('connection', function(socket){
 				}
 			});
 		} else {
-			fs.readdir("users", function(err, li) {
+			// User id isn't available; search required
+			
+			fs.readdir("users", function(err, li) { // Get dir files
 				if(err) {
 					return printError(err, 8);
 				}
 				
 				var currentFile = 0;
 				
-				li.forEach(function(file) {
-					var dat = fs.readFileSync("users/" + file, 'utf8');
+				li.forEach(function(file) { // Loop through files in dir
+					var dat = fs.readFileSync("users/" + file, 'utf8'); // Get user data
 					var values = dat.split("\n");
-					if(values[1].toString() == data.session) {
+					if(values[1].toString() == data.session) { // values[1] is the session id
+						// Session is valid; create server
+						
 						mkdir("servers/" + currentFile, function(err) {
 							if(err) {
 								return printError(err, 9);
 							}
 							
 							fs.writeFile("servers/" + currentFile + "/.properities", data.session + "\n0\n" + data.type + "\n0\n0", function(err, data) {
+								// Create server with properities [{session: data.session}, {sleeping: true}, {type: "Minecraft"}, {rank: 0}, {timeOnline: 0}]
+								
 								if(err) {
 									return printError(err, 10);
 								}
 								
-								printSuccess(currentFile);
+								printSuccess(currentFile); // Send user id to client & confirm success
 								return doneSearching = true;
 							}
 						});

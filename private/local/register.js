@@ -60,7 +60,7 @@ io.on('connection', function(socket){
 						return printError(err, 2);
 					}
 					
-					fs.readdir("users", function(err, li) {
+					fs.readdir("../users", function(err, li) {
 						if(err) {
 							return printError(err, 3);
 						}
@@ -73,7 +73,7 @@ io.on('connection', function(socket){
 						
 						if(files > 0) {
 							li.forEach(function(file) {
-								var dat = fs.readFileSync("users/" + file, 'utf8');
+								var dat = fs.readFileSync("../users/" + file, 'utf8');
 								values = dat.split("\n");
 								if(values[0].toString() == data.email) {
 									printError("An account with this email has already been registered...", 4);
@@ -90,18 +90,18 @@ io.on('connection', function(socket){
 							return;
 						}
 						
-						fs.readFile("users/user.txt", 'utf8', function(error, dat) {
+						fs.readFile("../users/user.txt", 'utf8', function(error, dat) {
 							if(error) {
 								return printError(error, 5);
 							}
 							
 							values = dat.split("\n");
-							fs.writeFile("users/" + values[0].toString() + ".txt", data.email + "\n" + hash, function(err, data) {
+							fs.writeFile("../users/" + values[0].toString() + ".txt", data.email + "\n" + hash, function(err, data) {
 								if(err) {
 									return printError(err, 6);
 								}
 								
-								fs.writeFile("users/user.txt", Number(values[0]) + 1, function(err, data) {
+								fs.writeFile("../users/user.txt", Number(values[0]) + 1, function(err, data) {
 									if(err) {
 										return printError(err, 7);
 									}
