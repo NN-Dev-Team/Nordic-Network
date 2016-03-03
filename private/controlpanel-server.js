@@ -57,7 +57,7 @@ io.on('connection', function(socket){
 				if(serv_type == 0) {
 					// Minecraft
 					
-					exec("java -Xmx" + serv_ram[serv_type][serv_rank] + "M -Xms" + serv_ram[serv_type][serv_rank] + "M -jar ../servers/" + data.server + "/minecraft_server.jar nogui", function(err2, out, stderr) {
+					exec("java -Xmx" + serv_ram[serv_type][serv_rank] + "M -Xms" + serv_ram[serv_type][serv_rank] + "M -jar servers/" + data.server + "/minecraft_server.jar nogui", function(err2, out, stderr) {
 						if(err2) {
 							return printError(stderr, 2);
 						}
