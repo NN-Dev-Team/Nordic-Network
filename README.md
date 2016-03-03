@@ -18,7 +18,7 @@ jar in there. Make sure it's named minecraft_server.jar, it can actually
 be any jar and not only Minecraft but it must have that name *for now*
 :)
 3.  Go to your terminal, type in "cd
-path/to/github/projects/Nordic-Network/private" (use "\" instead of "/"
+path/to/github/projects/Nordic-Network/private/local" (use "\" instead of "/"
 if on Windows) and after that type in "node login". **Make
 sure node.js AND required libraries are installed and DON'T close the terminal!**
 4.  Start your browser and go to "localhost:15015", press Inspect Element
