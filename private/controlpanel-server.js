@@ -36,7 +36,7 @@ io.on('connection', function(socket){
 			return printError("Invalid server ID and/or session ID.", 0);
 		}
 		
-		fs.readFile('servers/' + (data.server).toString() + '/.properities', 'utf8', function(err, dat) {
+		fs.readFile('servers/' + data.server + '/.properities', 'utf8', function(err, dat) {
 			if (err) {
 				return printError(err, 1);
 			}
@@ -110,7 +110,7 @@ io.on('connection', function(socket){
 					}
 				} else if(serv_type == 2) {
 					// TF2
-					
+					return printError("WIP", -1);
 				} else {
 					return printError("Unknown server type", 4);
 				}

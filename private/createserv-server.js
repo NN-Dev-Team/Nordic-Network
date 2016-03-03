@@ -111,7 +111,7 @@ io.on('connection', function(socket){
 				li.forEach(function(file) { // Loop through files in dir
 					var dat = fs.readFileSync("users/" + file, 'utf8'); // Get user data
 					var values = dat.split("\n");
-					if(values[1].toString() == data.session) { // values[1] is the session id
+					if(values[1].trim() == data.session) { // values[1] is the session id
 						// Session is valid; create server
 						
 						mkdir("servers/" + currentFile, function(err) {

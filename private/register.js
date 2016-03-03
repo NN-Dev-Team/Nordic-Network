@@ -51,7 +51,7 @@ io.on('connection', function(socket){
 							li.forEach(function(file) {
 								var dat = fs.readFileSync("users/" + file, 'utf8');
 								values = dat.split("\n");
-								if(values[0].toString() == data.email) {
+								if(values[0].trim() == data.email) {
 									printError("An account with this email has already been registered...", 4);
 									return escapeAll = true;
 								}
