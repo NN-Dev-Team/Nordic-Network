@@ -9,9 +9,9 @@
     "randomstring": "^1.1.4",
     "socket.io": "^1.4.0",
     "toobusy-js": "^0.4.3"
-  }
+  },
   "repository": {
     "type": "git",
-	"url": "git://github.com/TropicSapling/Nordic-Network.git"
+    "url": "git://github.com/TropicSapling/Nordic-Network.git"
   }
 }
