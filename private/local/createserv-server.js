@@ -99,19 +99,19 @@ io.on('connection', function(socket){
 			}
 			
 			if(typeof data.id == 'number') {
-				fs.readFile("users/" + data.id + ".txt", 'utf8', function(err, dat) {
+				fs.readFile("../users/" + data.id + ".txt", 'utf8', function(err, dat) {
 					if(err) {
 						return printError(err, 4, 65535, IP);
 					}
 					
 					var values = dat.split("\n");
 					if(values[1].toString == data.session) {
-						mkdir("servers/" + data.id, function(err) {
+						mkdir("../servers/" + data.id, function(err) {
 							if(err) {
 								return printError(err, 5);
 							}
 							
-							fs.writeFile("servers/" + data.id + "/.properities", data.session + "\n0\n" + data.type + "\n0\n0", function(err, data) {
+							fs.writeFile("../servers/" + data.id + "/.properities", data.session + "\n0\n" + data.type + "\n0\n0", function(err, data) {
 								if(err) {
 									return printError(err, 6, 65535, IP);
 								}
@@ -124,7 +124,7 @@ io.on('connection', function(socket){
 					}
 				});
 			} else {
-				fs.readdir("users", function(err, li) {
+				fs.readdir("../users", function(err, li) {
 					if(err) {
 						return printError(err, 8);
 					}
@@ -132,15 +132,15 @@ io.on('connection', function(socket){
 					var currentFile = 0;
 					
 					li.forEach(function(file) {
-						var dat = fs.readFileSync("users/" + file, 'utf8');
+						var dat = fs.readFileSync("../users/" + file, 'utf8');
 						var values = dat.split("\n");
 						if(values[1].toString() == data.session) {
-							mkdir("servers/" + currentFile, function(err) {
+							mkdir("../servers/" + currentFile, function(err) {
 								if(err) {
 									return printError(err, 9);
 								}
 								
-								fs.writeFile("servers/" + currentFile + "/.properities", data.session + "\n0\n" + data.type + "\n0\n0", function(err, data) {
+								fs.writeFile("../servers/" + currentFile + "/.properities", data.session + "\n0\n" + data.type + "\n0\n0", function(err, data) {
 									if(err) {
 										return printError(err, 10);
 									}
