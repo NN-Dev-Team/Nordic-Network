@@ -21,7 +21,6 @@ fs.readFile('../../public/properities.txt', 'utf8', function (err, data) {
 	http.listen(port, function(){
 		console.log('listening on *:' + port);
 	});
-
 });
 
 app.use(function(req, res, next) {

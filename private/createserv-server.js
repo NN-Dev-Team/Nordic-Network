@@ -23,7 +23,7 @@ function addLine(dir, item) {
 		if(fileRes2) {
 			return fileRes2;
 		}
-	}
+	});
 	
 	if(fileRes) {
 		return fileRes;
@@ -128,7 +128,7 @@ io.on('connection', function(socket){
 								
 								printSuccess(currentFile); // Send user id to client & confirm success
 								return doneSearching = true;
-							}
+							});
 						});
 					}
 				
