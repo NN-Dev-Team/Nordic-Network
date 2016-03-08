@@ -1,4 +1,5 @@
 var mods = require('./getProps.js');
+var fsExt = require('./fsPlus.js');
 var express = mods.express;
 var app = mods.app;
 var http = mods.http;
@@ -6,35 +7,10 @@ var io = mods.io;
 var fs = require('fs');
 var mkdir = require('mkdirp');
 
-function addLine(dir, item) {
-	var fileRes = fs.readFile(dir, 'utf8', function(err, data) {
-		if(err) {
-			return err;
-		}
-		
-		var items = data.split("\n");
-		items.push(item);
-		items = items.join("\n");
-		var fileRes2 = fs.writeFile(dir, items, function(err, data) {
-			if(err) {
-				return err;
-			}
-		});
-		
-		if(fileRes2) {
-			return fileRes2;
-		}
-	});
-	
-	if(fileRes) {
-		return fileRes;
-	}
-}
-
 function printError(reason, id, time, IP) {
 	io.emit('creation-complete', {"success": false, "reason": reason, "id": id});
 	if(typeof time == 'number' && typeof IP == 'string') {
-		var result = addLine("bans.txt", IP + " " + ((new Date()).getTime + time));
+		var result = fsExt.addLine("bans.txt", IP + " " + ((new Date()).getTime + time));
 		if(result) {
 			console.log(result);
 		}
@@ -49,16 +25,10 @@ function printSuccess(id) {
 	}
 }
 
-function fileContains(file, item) {
-	fs.readFile(file, 'utf8', function(err, data) {
-		callback(err, ~data.indexOf(item));
-	});
-}
-
 io.on('connection', function(socket){
 	var IP = socket.request.connection.remoteAddress;
 	socket.on('create-serv', function(data){
-		fileContains("bans.txt", IP, function(err, info) {
+		fsExt.fileContains("bans.txt", IP, function(err, info) {
 			if(err) {
 				return console.log(err);
 			}
@@ -73,14 +43,21 @@ io.on('connection', function(socket){
 				return printError("Invalid server type.", 3, 131071, IP);
 			}
 			
+			// Check if user id was specified
 			if(typeof data.id == 'number') {
+				
+				// User id specified, get user session
 				fs.readFile("users/" + data.id + ".txt", 'utf8', function(err, dat) {
 					if(err) {
 						return printError(err, 4, 65535, IP);
 					}
 					
 					var values = dat.split("\n");
+					
+					// Check if session is valid
 					if(values[1].toString == data.session) {
+						
+						// Session valid, create server
 						mkdir("servers/" + data.id, function(err) {
 							if(err) {
 								return printError(err, 5);
@@ -99,6 +76,8 @@ io.on('connection', function(socket){
 					}
 				});
 			} else {
+				
+				// User id not specified, look through every user file for a matching session
 				fs.readdir("users", function(err, li) {
 					if(err) {
 						return printError(err, 8);
@@ -110,6 +89,8 @@ io.on('connection', function(socket){
 						var dat = fs.readFileSync("users/" + file, 'utf8');
 						var values = dat.split("\n");
 						if(values[1].toString() == data.session) {
+							
+							// Session valid, create server
 							mkdir("servers/" + currentFile, function(err) {
 								if(err) {
 									return printError(err, 9);
