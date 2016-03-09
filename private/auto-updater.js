@@ -18,7 +18,7 @@ function getMCSnapshotUrl(year, week) {
 	var strWeek = thisWeek.toString();
 	var strYear = year.toString();
 	if(strWeek.substring(0, 1) != "0") {
-		strWeek = "0" + week;
+		strWeek = "0" + week; // Makes sure week number always is 2 digits
 	}
 	
 	do {
