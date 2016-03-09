@@ -12,6 +12,25 @@ var values = mods.values;
 var props = mods.props;
 var escapeAll = false;
 
+// Get line number; for debugging
+Object.defineProperty(global, '__stack', {
+  get: function(){
+    var orig = Error.prepareStackTrace;
+    Error.prepareStackTrace = function(_, stack){ return stack; };
+    var err = new Error;
+    Error.captureStackTrace(err, arguments.callee);
+    var stack = err.stack;
+    Error.prepareStackTrace = orig;
+    return stack;
+  }
+});
+
+Object.defineProperty(global, '__line', {
+  get: function(){
+    return __stack[1].getLineNumber();
+  }
+});
+
 function printError(reason, id, time, IP) {
 	io.emit('reg-complete', {"success": false, "reason": reason, "id": id});
 	
@@ -49,85 +68,93 @@ function printSuccess(IP, time) {
 io.on('connection', function(socket){
 	var IP = socket.request.connection.remoteAddress;
 	socket.on('register', function(data){
-		if(typeof data.email != 'string' || typeof data.pass != 'string') {
-			return printError("Invalid email and/or password.", 0, IP, 1048575);
-		}
-		
-		if(((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
-			bcrypt.genSalt(10, function(err, salt) {
-				if(err) {
-					return printError(err, 1, IP);
-				}
-				
-				// Hash password
-				bcrypt.hash(data.pass, salt, function(err, hash) { 
+		fsExt.fileContains("bans.txt", IP, function(err, banned) {
+			if(err) {
+				return console.log(err);
+			}
+			
+			if(banned) {
+				return printError("Please don't overload our servers.", Number('0.' + __line));
+			} else if(typeof data.email != 'string' || typeof data.pass != 'string') {
+				return printError("Invalid email and/or password.", Number('1.' + __line), IP, 1048575);
+			}
+			
+			if(((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
+				bcrypt.genSalt(10, function(err, salt) {
 					if(err) {
-						return printError(err, 2, IP);
+						return printError(err, Number('2.' + __line), IP);
 					}
 					
-					fs.readdir("users", function(err, li) {
+					// Hash password
+					bcrypt.hash(data.pass, salt, function(err, hash) { 
 						if(err) {
-							return printError(err, 3, IP);
+							return printError(err, Number('3.' + __line), IP);
 						}
 						
-						var files = 0;
-						var currentFile = 0;
-						
-						// Count files
-						li.forEach(function(file) {
-							files += 1;
-						});
-						
-						if(files > 0) {
-							
-							// Directory isn't empty, search the database to check if the user already exists
-							li.forEach(function(file) {
-								var dat = fs.readFileSync("users/" + file, 'utf8');
-								values = dat.split("\n");
-								if(values[0].trim() == data.email) {
-									printError("An account with this email has already been registered...", 4);
-									return escapeAll = true;
-								}
-								
-								/* currentFile += 1;
-								printData(((currentFile/files)*100).toFixed(2) + "%" + "\r"); */
-							});
-						}
-						
-						if(escapeAll) {
-							escapeAll = false;
-							return;
-						}
-						
-						// User doesn't exist yet, register new user
-						fs.readFile("users/user.txt", 'utf8', function(error, dat) {
-							if(error) {
-								return printError(error, 5, IP);
+						fs.readdir("users", function(err, li) {
+							if(err) {
+								return printError(err, Number('4.' + __line), IP);
 							}
 							
-							values = dat.split("\n");
+							var files = 0;
+							var currentFile = 0;
 							
-							// Add email & password to user file
-							fs.writeFile("users/" + values[0].toString() + ".txt", data.email + "\n" + hash, function(err, data) {
-								if(err) {
-									return printError(err, 6, IP);
-								}
+							// Count files
+							li.forEach(function(file) {
+								files += 1;
+							});
+							
+							if(files > 0) {
 								
-								// Make sure next user registered doesn't get the same user id
-								fs.writeFile("users/user.txt", Number(values[0]) + 1, function(err, data) {
-									if(err) {
-										return printError(err, 7, IP);
+								// Directory isn't empty, search the database to check if the user already exists
+								li.forEach(function(file) {
+									var dat = fs.readFileSync("users/" + file, 'utf8');
+									values = dat.split("\n");
+									if(values[0].trim() == data.email) {
+										printError("An account with this email has already been registered...", Number('5.' + __line));
+										return escapeAll = true;
 									}
 									
-									io.emit('reg-complete', {"success": true});
+									/* currentFile += 1;
+									printData(((currentFile/files)*100).toFixed(2) + "%" + "\r"); */
+								});
+							}
+							
+							if(escapeAll) {
+								escapeAll = false;
+								return;
+							}
+							
+							// User doesn't exist yet, register new user
+							fs.readFile("users/user.txt", 'utf8', function(error, dat) {
+								if(error) {
+									return printError(error, Number('6.' + __line), IP);
+								}
+								
+								values = dat.split("\n");
+								
+								// Add email & password to user file
+								fs.writeFile("users/" + values[0].toString() + ".txt", data.email + "\n" + hash, function(err, data) {
+									if(err) {
+										return printError(err, Number('7.' + __line), IP);
+									}
+									
+									// Make sure next user registered doesn't get the same user id
+									fs.writeFile("users/user.txt", Number(values[0]) + 1, function(err, data) {
+										if(err) {
+											return printError(err, Number('8.' + __line), IP);
+										}
+										
+										io.emit('reg-complete', {"success": true});
+									});
 								});
 							});
 						});
 					});
 				});
-			});
-		} else {
-			printError("This is impossible unless you hacked :/", 8, IP, 1048575);
-		}
+			} else {
+				printError("This is impossible unless you hacked :/", Number('9.' + __line), IP, 1048575);
+			}
+		});
 	});
 });
