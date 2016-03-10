@@ -8,7 +8,35 @@ Date.prototype.getWeek = function() {
 	return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
 }
 
-function getMCSnapshotUrl(year, week) {
+exports.addJar = function copyLatestStableJar(dest, callback) {
+	var cbCalled = false;
+	var src = "versions/mc/minecraft_server.1.9.1.jar";
+	dest += "/minecraft_server.jar";
+	
+	var read = fs.createReadStream(src);
+	read.on("error", function(err) {
+		done(err);
+	});
+	
+	var write = fs.createWriteStream(dest);
+	write.on("error", function(err) {
+		done(err);
+	});
+	write.on("close", function(ex) {
+		done();
+	});
+	
+	read.pipe(write);
+
+	function done(err) {
+		if (!cbCalled) {
+			callback(err);
+			cbCalled = true;
+		}
+	}
+}
+
+exports.getSnapshot = function getMCSnapshotUrl(year, week) {
 	var base_url = "https://s3.amazonaws.com/Minecraft.Download/versions/";
 	var url = base_url;
 	var sUrl = 0;
@@ -45,7 +73,7 @@ function getMCSnapshotUrl(year, week) {
 	return sUrl;
 }
 
-function getMCPreUrl(version) {
+exports.getPre = function getMCPreUrl(version) {
 	var thisVersion = version;
 	var base_url = "https://s3.amazonaws.com/Minecraft.Download/versions/";
 	var url = base_url;
@@ -73,7 +101,3 @@ function getMCPreUrl(version) {
 	
 	return preUrl;
 }
-
-// Testing below:
-console.log(getMCSnapshotUrl(2016, 9));
-console.log(getMCPreUrl(1.9));

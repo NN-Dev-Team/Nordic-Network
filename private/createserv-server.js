@@ -1,5 +1,6 @@
 var mods = require('./getProps.js');
 var fsExt = require('./fsPlus.js');
+var mcLib = require('./auto-updater.js');
 var express = mods.express;
 var app = mods.app;
 var http = mods.http;
@@ -60,7 +61,7 @@ function printSuccess(IP, id, time) {
 			console.log(result);
 		}
 	}
-}
+}<
 
 io.on('connection', function(socket){
 	var IP = socket.request.connection.remoteAddress;
@@ -105,11 +106,19 @@ io.on('connection', function(socket){
 									return printError(err, Number('6.' + __line), IP);
 								}
 								
-								printSuccess(IP);
+								if(data.type == 0) {
+									mcLib.addJar("servers/" + data.id, function(err) {
+										if(err) {
+											return printError(err, Number('7' + __line), IP);
+										}
+										
+										printSuccess(IP);
+									});
+								}
 							});
 						});
 					} else {
-						printError("Unknown session.", Number('7.' + __line), IP, 262143);
+						printError("Unknown session.", Number('8.' + __line), IP, 262143);
 					}
 				});
 			} else {
@@ -117,7 +126,7 @@ io.on('connection', function(socket){
 				// User id not specified, look through every user file for a matching session
 				fs.readdir("users", function(err, li) {
 					if(err) {
-						return printError(err, Number('8.' + __line), IP);
+						return printError(err, Number('9.' + __line), IP);
 					}
 					
 					li.forEach(function(file) {
@@ -130,14 +139,15 @@ io.on('connection', function(socket){
 								// Session valid, create server
 								mkdir("servers/" + currentFile, function(err) {
 									if(err) {
-										return printError(err, Number('9.' + __line), IP);
+										return printError(err, Number('10.' + __line), IP);
 									}
 									
 									fs.writeFile("servers/" + currentFile + "/.properities", data.session + "\n0\n" + data.type + "\n0\n0", function(err, data) {
 										if(err) {
-											return printError(err, Number('10.' + __line), IP);
+											return printError(err, Number('11.' + __line), IP);
 										}
 										
+										mcLib.addJar("servers/" + currentFile);
 										printSuccess(IP, currentFile);
 										return doneSearching = true;
 									});
@@ -158,7 +168,7 @@ io.on('connection', function(socket){
 				if(doneSearching) {
 					doneSearching = false;
 				} else {
-					printError("Unknown session.", Number('11.' + __line), IP, 262143);
+					printError("Unknown session.", Number('12.' + __line), IP, 262143);
 				}
 			}
 		});
