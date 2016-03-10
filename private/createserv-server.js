@@ -37,10 +37,11 @@ function printError(reason, id, IP, time) {
 			time = 1023;
 		}
 		
-		var result = fsExt.addLine("bans.txt", IP + " " + ((new Date()).getTime + time));
-		if(result) {
-			console.log(result);
-		}
+		fsExt.addLine("bans.txt", IP + " " + ((new Date()).getTime + time), function(err, data) {
+			if(err) {
+				console.log(err);
+			}
+		});
 	}
 }
 
@@ -56,10 +57,11 @@ function printSuccess(IP, id, time) {
 			time = 1023;
 		}
 		
-		var result = fsExt.addLine("bans.txt", IP + " " + ((new Date()).getTime + time));
-		if(result) {
-			console.log(result);
-		}
+		fsExt.addLine("bans.txt", IP + " " + ((new Date()).getTime + time), function(err, data) {
+			if(err) {
+				console.log(err);
+			}
+		});
 	}
 }
 

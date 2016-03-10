@@ -53,17 +53,18 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/test-client-createserv.html'));
 });
 
-function printError(reason, id, time, IP) {
+function printError(reason, id, IP, time) {
 	io.emit('creation-complete', {"success": false, "reason": reason, "id": id});
-	if(typeof IP == 'string') {
+	if(typeof IP != 'undefined') {
 		if(typeof time != 'number') {
 			time = 1023;
 		}
 		
-		var result = fsExt.addLine("../bans.txt", IP + " " + ((new Date()).getTime + time));
-		if(result) {
-			console.log(result);
-		}
+		fsExt.addLine("../bans.txt", IP + " " + ((new Date()).getTime() + time), function(err, data) {
+			if(err) {
+				console.log(err);
+			}
+		});
 	}
 }
 
@@ -74,15 +75,16 @@ function printSuccess(IP, id, time) {
 		io.emit('creation-complete', {"success": true});
 	}
 	
-	if(typeof IP == 'string') {
+	if(typeof IP != 'undefined') {
 		if(typeof time != 'number') {
 			time = 1023;
 		}
 		
-		var result = fsExt.addLine("../bans.txt", IP + " " + ((new Date()).getTime + time));
-		if(result) {
-			console.log(result);
-		}
+		fsExt.addLine("../bans.txt", IP + " " + ((new Date()).getTime() + time), function(err, data) {
+			if(err) {
+				console.log(err);
+			}
+		});
 	}
 }
 
