@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-function addLine(dir, item) {
+exports.addLine = function addLine(dir, item) {
 	var fileRes = fs.readFile(dir, 'utf8', function(err, data) {
 		if(err) {
 			return err;
@@ -25,8 +25,10 @@ function addLine(dir, item) {
 	}
 }
 
-function fileContains(file, item) {
+exports.fileContains = function fileContains(file, item, callback) {
 	fs.readFile(file, 'utf8', function(err, data) {
-		callback(err, ~data.indexOf(item));
+		process.nextTick(function() {
+			callback(err, ~data.indexOf(item));
+		});
 	});
 }

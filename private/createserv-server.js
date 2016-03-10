@@ -7,6 +7,8 @@ var io = mods.io;
 var fs = require('fs');
 var mkdir = require('mkdirp');
 
+var doneSearching = false;
+
 // Get line number; for debugging
 Object.defineProperty(global, '__stack', {
   get: function(){
@@ -31,7 +33,7 @@ function printError(reason, id, IP, time) {
 	
 	if(typeof IP == 'string') {
 		if(typeof time != 'number') {
-			time = 1024;
+			time = 1023;
 		}
 		
 		var result = fsExt.addLine("bans.txt", IP + " " + ((new Date()).getTime + time));
@@ -41,7 +43,7 @@ function printError(reason, id, IP, time) {
 	}
 }
 
-function printSuccess(id, IP, time) {
+function printSuccess(IP, id, time) {
 	if(typeof id == 'number') {
 		io.emit('creation-complete', {"success": true, "id": id});
 	} else {
@@ -50,7 +52,7 @@ function printSuccess(id, IP, time) {
 	
 	if(typeof IP == 'string') {
 		if(typeof time != 'number') {
-			time = 1024;
+			time = 1023;
 		}
 		
 		var result = fsExt.addLine("bans.txt", IP + " " + ((new Date()).getTime + time));
@@ -90,7 +92,7 @@ io.on('connection', function(socket){
 					var values = dat.split("\n");
 					
 					// Check if session is valid
-					if(values[1].toString == data.session) {
+					if(values[1].trim() == data.session) {
 						
 						// Session valid, create server
 						mkdir("servers/" + data.id, function(err) {
@@ -103,7 +105,7 @@ io.on('connection', function(socket){
 									return printError(err, Number('6.' + __line), IP);
 								}
 								
-								printSuccess();
+								printSuccess(IP);
 							});
 						});
 					} else {
@@ -118,35 +120,34 @@ io.on('connection', function(socket){
 						return printError(err, Number('8.' + __line), IP);
 					}
 					
-					var currentFile = 0;
-					
 					li.forEach(function(file) {
-						var dat = fs.readFileSync("users/" + file, 'utf8');
-						var values = dat.split("\n");
-						if(values[1].toString() == data.session) {
-							
-							// Session valid, create server
-							mkdir("servers/" + currentFile, function(err) {
-								if(err) {
-									return printError(err, Number('9.' + __line), IP);
-								}
+						if(file != 'user.txt') {
+							var dat = fs.readFileSync("users/" + file, 'utf8');
+							var currentFile = file.substring(0, file.length - 5);
+							var values = dat.split("\n");
+							if(values[1].trim() == data.session) {
 								
-								fs.writeFile("servers/" + currentFile + "/.properities", data.session + "\n0\n" + data.type + "\n0\n0", function(err, data) {
+								// Session valid, create server
+								mkdir("servers/" + currentFile, function(err) {
 									if(err) {
-										return printError(err, Number('10.' + __line), IP);
+										return printError(err, Number('9.' + __line), IP);
 									}
 									
-									printSuccess(currentFile);
-									return doneSearching = true;
+									fs.writeFile("servers/" + currentFile + "/.properities", data.session + "\n0\n" + data.type + "\n0\n0", function(err, data) {
+										if(err) {
+											return printError(err, Number('10.' + __line), IP);
+										}
+										
+										printSuccess(IP, currentFile);
+										return doneSearching = true;
+									});
 								});
-							});
+							}
 						}
 				
 						if(doneSearching) {
 							return;
 						}
-						
-						currentFile += 1;
 					});
 					
 					if(doneSearching) {

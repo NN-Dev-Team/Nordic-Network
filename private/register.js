@@ -36,7 +36,7 @@ function printError(reason, id, time, IP) {
 	
 	if(typeof IP == 'string') {
 		if(typeof time != 'number') {
-			time = 1024;
+			time = 1023;
 		}
 		
 		var result = fsExt.addLine("bans.txt", IP + " " + ((new Date()).getTime + time));
@@ -51,7 +51,7 @@ function printSuccess(IP, time) {
 	
 	if(typeof IP == 'string') {
 		if(typeof time != 'number') {
-			time = 1024;
+			time = 1023;
 		}
 		
 		var result = fsExt.addLine("bans.txt", IP + " " + ((new Date()).getTime + time));
@@ -60,10 +60,6 @@ function printSuccess(IP, time) {
 		}
 	}
 }
-
-/* function printData(data) {
-	io.emit('reg-status', data);
-} */
 
 io.on('connection', function(socket){
 	var IP = socket.request.connection.remoteAddress;
@@ -96,29 +92,17 @@ io.on('connection', function(socket){
 								return printError(err, Number('4.' + __line), IP);
 							}
 							
-							var files = 0;
-							var currentFile = 0;
-							
-							// Count files
+							// Search the database to check if the user already exists
 							li.forEach(function(file) {
-								files += 1;
-							});
-							
-							if(files > 0) {
-								
-								// Directory isn't empty, search the database to check if the user already exists
-								li.forEach(function(file) {
+								if(file != 'user.txt') {
 									var dat = fs.readFileSync("users/" + file, 'utf8');
 									values = dat.split("\n");
 									if(values[0].trim() == data.email) {
-										printError("An account with this email has already been registered...", Number('5.' + __line));
+										printError("An account with this email has already been registered...", Number('5.' + __line), IP);
 										return escapeAll = true;
 									}
-									
-									/* currentFile += 1;
-									printData(((currentFile/files)*100).toFixed(2) + "%" + "\r"); */
-								});
-							}
+								}
+							});
 							
 							if(escapeAll) {
 								escapeAll = false;
@@ -134,7 +118,7 @@ io.on('connection', function(socket){
 								values = dat.split("\n");
 								
 								// Add email & password to user file
-								fs.writeFile("users/" + values[0].toString() + ".txt", data.email + "\n" + hash, function(err, data) {
+								fs.writeFile("users/" + values[0].trim() + ".txt", data.email + "\n" + hash, function(err, data) {
 									if(err) {
 										return printError(err, Number('7.' + __line), IP);
 									}
@@ -145,7 +129,7 @@ io.on('connection', function(socket){
 											return printError(err, Number('8.' + __line), IP);
 										}
 										
-										io.emit('reg-complete', {"success": true});
+										printSuccess(IP)
 									});
 								});
 							});

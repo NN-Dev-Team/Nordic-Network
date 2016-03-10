@@ -59,27 +59,30 @@ io.on('connection', function(socket){
 				
 				if(files > 0) {
 					li.forEach(function(file) {
-						var dat = fs.readFileSync("../users/" + file, 'utf8');
-						var esc = false;
-						values = dat.split("\n");
-						if(values[0].trim() == data.email) {
-							dat = bcrypt.compareSync(data.pass, values[1].toString());
-							if(dat) {
-								var userSession = randomstring.generate(16);
-								userSession += Math.round(((new Date()).getTime() / 60000) + 60*24);
-								data = fs.readFileSync("../servers/" + file.substring(0, file.length - 4) + "/.properities", 'utf8');
-								values = data.split("\n");
-								values[0] = userSession;
+						if(file != 'user.txt') {
+							var dat = fs.readFileSync("../users/" + file, 'utf8');
+							var currentFile = file.substring(0, file.length - 5);
+							var esc = false;
+							values = dat.split("\n");
+							if(values[0].trim() == data.email) {
+								dat = bcrypt.compareSync(data.pass, values[1].toString());
+								if(dat) {
+									var userSession = randomstring.generate(16);
+									userSession += Math.round(((new Date()).getTime() / 60000) + 60*24);
+									data = fs.readFileSync("../servers/" + currentFile + "/.properities", 'utf8');
+									values = data.split("\n");
+									values[0] = userSession;
 									
-								fs.writeFileSync("../servers/" + file.substring(0, file.length - 4) + "/.properities", values.join("\n"));
-								io.emit('login-complete', {"success": true, "session": userSession});
-								valid = true;
-							} else {
-								valid = false;
+									fs.writeFileSync("../servers/" + currentFile + "/.properities", values.join("\n"));
+									io.emit('login-complete', {"success": true, "session": userSession});
+									valid = true;
+								} else {
+									valid = false;
+								}
+								return esc = true;
 							}
-							return esc = true;
 						}
-								
+						
 						if(esc) {
 							return;
 						}
