@@ -66,6 +66,7 @@ function printSuccess(IP, id, time) {
 }
 
 io.on('connection', function(socket){
+	var IP = socket.request.connection.remoteAddress;
 	socket.on('login', function(data){
 		if(typeof data.email != 'string' || typeof data.pass != 'string') {
 			return printError("Invalid email and/or password.", 0);

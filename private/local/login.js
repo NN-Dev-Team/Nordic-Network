@@ -1,4 +1,5 @@
 var path = require('path');
+var fsExt = require('../fsPlus.js');
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
@@ -62,10 +63,11 @@ function printError(reason, id, IP, time) {
 			time = 1023;
 		}
 		
-		var result = fsExt.addLine("../bans.txt", IP + " " + ((new Date()).getTime + time));
-		if(result) {
-			console.log(result);
-		}
+		fsExt.addLine("../bans.txt", IP + " " + ((new Date()).getTime() + time), function(err, data) {
+			if(err) {
+				console.log(err);
+			}
+		});
 	}
 }
 
@@ -81,23 +83,25 @@ function printSuccess(IP, id, time) {
 			time = 1023;
 		}
 		
-		var result = fsExt.addLine("../bans.txt", IP + " " + ((new Date()).getTime + time));
-		if(result) {
-			console.log(result);
-		}
+		fsExt.addLine("../bans.txt", IP + " " + ((new Date()).getTime() + time), function(err, data) {
+			if(err) {
+				console.log(err);
+			}
+		});
 	}
 }
 
 io.on('connection', function(socket){
+	var IP = socket.request.connection.remoteAddress;
 	socket.on('login', function(data){
 		if(typeof data.email != 'string' || typeof data.pass != 'string') {
-			return printError("Invalid email and/or password.", 0);
+			return printError("Invalid email and/or password.", 0, IP, 131071);
 		}
 		
 		if(((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
 			fs.readdir("../users", function(err, li) {
 				if(err) {
-					return printError(err, 2);
+					return printError(err, 2, IP);
 				}
 				
 				var files = 0;
@@ -139,11 +143,11 @@ io.on('connection', function(socket){
 				}
 				
 				if(!valid) {
-					return printError("Incorrect email and/or password", 3);
+					return printError("Incorrect email and/or password", 3, IP, 2048);
 				}
 			});
 		} else {
-			printError("Invalid email.", 4);
+			printError("Invalid email.", 4, IP, 131071);
 		}
 	});
 });
