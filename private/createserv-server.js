@@ -61,7 +61,7 @@ function printSuccess(IP, id, time) {
 			console.log(result);
 		}
 	}
-}<
+}
 
 io.on('connection', function(socket){
 	var IP = socket.request.connection.remoteAddress;

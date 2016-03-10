@@ -12,8 +12,57 @@ var values = mods.values;
 var props = mods.props;
 var valid = false;
 
-function printError(reason, id) {
+// Get line number; for debugging
+Object.defineProperty(global, '__stack', {
+  get: function(){
+    var orig = Error.prepareStackTrace;
+    Error.prepareStackTrace = function(_, stack){ return stack; };
+    var err = new Error;
+    Error.captureStackTrace(err, arguments.callee);
+    var stack = err.stack;
+    Error.prepareStackTrace = orig;
+    return stack;
+  }
+});
+
+Object.defineProperty(global, '__line', {
+  get: function(){
+    return __stack[1].getLineNumber();
+  }
+});
+
+function printError(reason, id, IP, time) {
 	io.emit('login-complete', {"success": false, "reason": reason, "id": id});
+	
+	if(typeof IP == 'string') {
+		if(typeof time != 'number') {
+			time = 1023;
+		}
+		
+		var result = fsExt.addLine("bans.txt", IP + " " + ((new Date()).getTime + time));
+		if(result) {
+			console.log(result);
+		}
+	}
+}
+
+function printSuccess(IP, id, time) {
+	if(typeof id == 'number') {
+		io.emit('login-complete', {"success": true, "id": id});
+	} else {
+		io.emit('login-complete', {"success": true});
+	}
+	
+	if(typeof IP == 'string') {
+		if(typeof time != 'number') {
+			time = 1023;
+		}
+		
+		var result = fsExt.addLine("bans.txt", IP + " " + ((new Date()).getTime + time));
+		if(result) {
+			console.log(result);
+		}
+	}
 }
 
 io.on('connection', function(socket){
