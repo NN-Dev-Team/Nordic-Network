@@ -1,5 +1,6 @@
 var path = require('path');
 var mods = require('./getProps.js');
+var fsExt = require('./fsPlus.js');
 var express = mods.express;
 var app = mods.app;
 var http = mods.http;
@@ -10,12 +11,59 @@ var exec = require('child_process').exec;
 var values = mods.values;
 var props = mods.props;
 
-function printError(reason, id) {
-	io.emit('server-checked', {"success": false, "reason": reason, "id": id});
+// Get line number; for debugging
+Object.defineProperty(global, '__stack', {
+  get: function(){
+    var orig = Error.prepareStackTrace;
+    Error.prepareStackTrace = function(_, stack){ return stack; };
+    var err = new Error;
+    Error.captureStackTrace(err, arguments.callee);
+    var stack = err.stack;
+    Error.prepareStackTrace = orig;
+    return stack;
+  }
+});
+
+Object.defineProperty(global, '__line', {
+  get: function(){
+    return __stack[1].getLineNumber();
+  }
+});
+
+function printError(reason, id, IP, time) {
+	io.emit('server-complete', {"success": false, "reason": reason, "id": id});
+	
+	if(typeof IP == 'string') {
+		if(typeof time != 'number') {
+			time = 1023;
+		}
+		
+		fsExt.addLine("bans.txt", IP + " 2 " + ((new Date()).getTime() + time), function(err, data) {
+			if(err) {
+				console.log(err);
+			}
+		});
+	}
 }
 
-function printSuccess(type) {
-	io.emit('server-checked', {"success": true, "type": type});
+function printSuccess(IP, id, time) {
+	if(typeof id == 'number') {
+		io.emit('server-checked', {"success": true, "id": id});
+	} else {
+		io.emit('server-checked', {"success": true});
+	}
+	
+	if(typeof IP == 'string') {
+		if(typeof time != 'number') {
+			time = 1023;
+		}
+		
+		fsExt.addLine("bans.txt", IP + " 2 " + ((new Date()).getTime() + time), function(err, data) {
+			if(err) {
+				console.log(err);
+			}
+		});
+	}
 }
 
 function boolify(obj, ignoreCase) {

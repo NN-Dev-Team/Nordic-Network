@@ -1,6 +1,6 @@
 var path = require('path');
 var mods = require('./getProps.js');
-var fsExt = require('./fsPlus.js');
+var user = require('./user-extras.js');
 var express = mods.express;
 var app = mods.app;
 var http = mods.http;
@@ -31,65 +31,53 @@ Object.defineProperty(global, '__line', {
   }
 });
 
-function printError(reason, id, time, IP) {
+function printError(reason, id) {
 	io.emit('reg-complete', {"success": false, "reason": reason, "id": id});
-	
-	if(typeof IP == 'string') {
-		if(typeof time != 'number') {
-			time = 1023;
-		}
-		
-		var result = fsExt.addLine("bans.txt", IP + " " + ((new Date()).getTime + time));
-		if(result) {
-			console.log(result);
-		}
-	}
 }
 
-function printSuccess(IP, time) {
+function printSuccess() {
 	io.emit('reg-complete', {"success": true});
-	
-	if(typeof IP == 'string') {
-		if(typeof time != 'number') {
-			time = 1023;
-		}
-		
-		var result = fsExt.addLine("bans.txt", IP + " " + ((new Date()).getTime + time));
-		if(result) {
-			console.log(result);
-		}
-	}
 }
 
 io.on('connection', function(socket){
 	var IP = socket.request.connection.remoteAddress;
 	socket.on('register', function(data){
-		fsExt.fileContains("bans.txt", IP, function(err, banned) {
+		user.isBanned(IP, function(err, banned) {
 			if(err) {
 				return console.log(err);
 			}
 			
-			if(banned) {
+			if(banned[0]) {
 				return printError("Please don't overload our servers.", Number('0.' + __line));
-			} else if(typeof data.email != 'string' || typeof data.pass != 'string') {
-				return printError("Invalid email and/or password.", Number('1.' + __line), IP, 1048575);
+			} else if(!banned[1]) {
+				user.addIP(IP, function(err) {
+					if(err) {
+						console.log(err);
+					}
+					
+					user.incrUsage(IP, 16);
+				});
+			} else {
+				user.incrUsage(IP, 16);
 			}
 			
-			if(((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
+			if(typeof data.email != 'string' || typeof data.pass != 'string') {
+				return printError("Invalid email and/or password.", Number('1.' + __line));
+			} else if(((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
 				bcrypt.genSalt(10, function(err, salt) {
 					if(err) {
-						return printError(err, Number('2.' + __line), IP);
+						return printError(err, Number('2.' + __line));
 					}
 					
 					// Hash password
 					bcrypt.hash(data.pass, salt, function(err, hash) { 
 						if(err) {
-							return printError(err, Number('3.' + __line), IP);
+							return printError(err, Number('3.' + __line));
 						}
 						
 						fs.readdir("users", function(err, li) {
 							if(err) {
-								return printError(err, Number('4.' + __line), IP);
+								return printError(err, Number('4.' + __line));
 							}
 							
 							// Search the database to check if the user already exists
@@ -98,7 +86,7 @@ io.on('connection', function(socket){
 									var dat = fs.readFileSync("users/" + file, 'utf8');
 									values = dat.split("\n");
 									if(values[0].trim() == data.email) {
-										printError("An account with this email has already been registered...", Number('5.' + __line), IP);
+										printError("An account with this email has already been registered...", Number('5.' + __line));
 										return escapeAll = true;
 									}
 								}
@@ -112,7 +100,7 @@ io.on('connection', function(socket){
 							// User doesn't exist yet, register new user
 							fs.readFile("users/user.txt", 'utf8', function(error, dat) {
 								if(error) {
-									return printError(error, Number('6.' + __line), IP);
+									return printError(error, Number('6.' + __line));
 								}
 								
 								values = dat.split("\n");
@@ -120,13 +108,13 @@ io.on('connection', function(socket){
 								// Add email & password to user file
 								fs.writeFile("users/" + values[0].trim() + ".txt", data.email + "\n" + hash, function(err, data) {
 									if(err) {
-										return printError(err, Number('7.' + __line), IP);
+										return printError(err, Number('7.' + __line));
 									}
 									
 									// Make sure next user registered doesn't get the same user id
 									fs.writeFile("users/user.txt", Number(values[0]) + 1, function(err, data) {
 										if(err) {
-											return printError(err, Number('8.' + __line), IP);
+											return printError(err, Number('8.' + __line));
 										}
 										
 										printSuccess(IP)
@@ -137,7 +125,7 @@ io.on('connection', function(socket){
 					});
 				});
 			} else {
-				printError("This is impossible unless you hacked :/", Number('9.' + __line), IP, 1048575);
+				printError("This is impossible unless you hacked :/", Number('9.' + __line));
 			}
 		});
 	});

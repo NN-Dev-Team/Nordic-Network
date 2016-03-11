@@ -37,7 +37,7 @@ function printError(reason, id, IP, time) {
 			time = 1023;
 		}
 		
-		fsExt.addLine("bans.txt", IP + " " + ((new Date()).getTime() + time), function(err, data) {
+		fsExt.addLine("bans.txt", IP + " 2 " + ((new Date()).getTime() + time), function(err, data) {
 			if(err) {
 				console.log(err);
 			}
@@ -57,7 +57,7 @@ function printSuccess(IP, id, time) {
 			time = 1023;
 		}
 		
-		fsExt.addLine("bans.txt", IP + " " + ((new Date()).getTime() + time), function(err, data) {
+		fsExt.addLine("bans.txt", IP + " 2 " + ((new Date()).getTime() + time), function(err, data) {
 			if(err) {
 				console.log(err);
 			}
@@ -68,7 +68,7 @@ function printSuccess(IP, id, time) {
 io.on('connection', function(socket){
 	var IP = socket.request.connection.remoteAddress;
 	socket.on('create-serv', function(data){
-		fsExt.fileContains("bans.txt", IP, function(err, banned) {
+		fsExt.fileContains("bans.txt", IP + " 2", function(err, banned) {
 			if(err) {
 				return console.log(err);
 			}
@@ -114,7 +114,7 @@ io.on('connection', function(socket){
 											return printError(err, Number('7' + __line), IP);
 										}
 										
-										printSuccess(IP);
+										printSuccess(IP, 65535);
 									});
 								}
 							});
@@ -150,7 +150,7 @@ io.on('connection', function(socket){
 										}
 										
 										mcLib.addJar("servers/" + currentFile);
-										printSuccess(IP, currentFile);
+										printSuccess(IP, currentFile, 262143);
 										return doneSearching = true;
 									});
 								});
