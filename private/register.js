@@ -49,7 +49,7 @@ io.on('connection', function(socket){
 			
 			if(banned[0]) {
 				return printError("Please don't overload our servers.", Number('0.' + __line));
-			} else if(!banned[1]) {
+			} else if(banned[1] == 0) {
 				user.addIP(IP, function(err) {
 					if(err) {
 						console.log(err);
