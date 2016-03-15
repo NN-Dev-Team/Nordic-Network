@@ -1,3 +1,12 @@
+@font-face {
+    font-family: "Viking";
+    src: url('/fonts/Viking.ttf') format("truetype");
+}
+
 body {
 	overflow-x: hidden;
+}
+
+a {
+	text-decoration: none;
 }
