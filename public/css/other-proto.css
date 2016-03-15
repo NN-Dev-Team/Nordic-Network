@@ -9,7 +9,7 @@ body {
 
 a {
 	text-decoration: none;
-	color: black;
+	color: #333;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -20,5 +20,5 @@ a {
 
 a:hover {
 	text-decoration: none;
-	color: black;
+	color: #333;
 }
