@@ -14,7 +14,7 @@
 			<div class="ad" id="ad-box-inner"></div>
 		</div>
 		<div class="center-box" id="upper-box">
-			<div id="get-server">Get your free server</div>
+			<div id="get-server"><a href="/register">Get your free server</a></div>
 			<div id="stats">
 				RAM usage:
 				<div class="progress">

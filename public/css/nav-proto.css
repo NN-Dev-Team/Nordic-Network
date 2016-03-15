@@ -15,7 +15,7 @@
 	font-family: Viking;
 	font-size: 35px;
 	padding: 9px;
-	border-bottom: 1px solid rgba(208, 208, 208, 1);
+	border-bottom: none;
 	position: relative;
 	z-index: -1;
 }
