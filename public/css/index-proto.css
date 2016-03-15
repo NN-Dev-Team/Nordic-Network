@@ -38,6 +38,10 @@
 	display: inline-block;
 }
 
+#upper-box > a {
+	display: inline-block;
+}
+
 #middle-box {
 	width: calc(90vw - 330px);
 	display: inline-block;
