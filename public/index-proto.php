@@ -1,28 +1,34 @@
-<!DOCTYPE HTML>
-<html lang="en">
+<html>
 	<head>
-		<title>Nordic Network | Free Server Hosting</title>
-		<meta name="viewport" content="width=device-width; initial-scale=1.0;">
-		
-		<link rel="stylesheet" type="text/css" href="css/other.css">
-		<link rel="stylesheet" type="text/css" href="css/nav.css">
-		<link rel="stylesheet" type="text/css" href="css/footer.css">
-		<link rel="stylesheet" type="text/css" href="css/index.css">
-		
-		<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-		<script src="js/nav.js"></script>
+		<title>Nordic Network</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/nav-proto.css">
+		<link rel="stylesheet" href="/css/other-proto.css">
+		<link rel="stylesheet" href="/css/index-proto.css">
+		<link rel="stylesheet" href="/css/footer-proto.css">
 	</head>
 	<body>
-		<?php include 'navbar.html'; ?>
-		<img src="pics/nordic-nature.jpg" id="main-pic"/>
-		<div id="server-button"><p><a href="/register">GET YOUR <strong>FREE</strong> SERVER</a></p></div>
-		<div id="status">
-			<p>Servers Left</p>
-			<div class="progress-bar"><span style="width: 100%"></span><p id="status-p">256</p></div>
-			<p>RAM Usage</p>
-			<div class="progress-bar" style="margin-bottom: 2vh"><span style="width: 0%"></span><p id="status-p">0% (0 out of 64 GB)</p></div>
+		<img id="main-pic" src="../pics/nordic-nature.jpg">
+		<?php include 'navbar-proto.html'; ?>
+		<div id="ad-box-outer">
+			<div class="ad" id="ad-box-inner"></div>
 		</div>
-		<?php include 'footer.html'; ?>
-		<div id="test" style="width: 100vw; height: 100vh">Testing some stuff :P</div>
+		<div class="center-box" id="upper-box">
+			<div id="get-server">Get your free server</div>
+			<div id="stats">
+				RAM usage:
+				<div class="progress">
+					<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">0%</div>
+				</div>
+			</div>
+		</div>
+		<div class="center-box" id="middle-box">
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<div class="ad" id="ad-box-large"></div>
+		<div class="ad" id="ad-box-mobile"></div>
+		<?php include 'footer-proto.html'; ?>
 	</body>
 </html>

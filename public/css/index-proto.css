@@ -1,0 +1,111 @@
+.progress {
+	margin-bottom: 5px;
+}
+
+#main-pic {
+	position: fixed;
+	min-width: 100vw;
+	min-height: 100vh;
+	filter: blur(4px);
+	z-index: -1;
+}
+
+.ad {
+	border: 1px solid gray;
+	background-color: white;
+}
+
+#ad-box-outer {
+	width: 100vw;
+	height: 110px;
+	position: relative;
+	padding-top: 10px;
+}
+
+#ad-box-inner {
+	width: 728px;
+	height: 90px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.center-box {
+	width: 90vw;
+	margin-left: 5vw;
+}
+
+#upper-box > div {
+	display: inline-block;
+}
+
+#middle-box {
+	width: calc(90vw - 330px);
+	display: inline-block;
+}
+
+#middle-box > div {
+	width: 20%;
+	padding-top: 20%; /* This is actually the height */
+	border-radius: 10%;
+	margin-left: 13%;
+	display: inline-block;
+}
+
+#get-server {
+	background-color: rgba(0, 127, 0, 0.75);
+	width: 40vw;
+	text-align: center;
+	font-size: 40px;
+	padding: 10px;
+	margin-left: 25vw;
+	border: 2px solid rgba(0, 95, 0, 0.25);
+	border-radius: 4px;
+	font-family: normal;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.75);
+}
+
+#stats {
+	background-color: white;
+	width: 20vw;
+	margin-left: 4.5vw;
+	border: 1px solid #f0f0f0;
+	border-radius: 2px;
+	padding: 2px 5px;
+}
+
+#ad-box-large {
+	width: 300px;
+	height: 600px;
+	margin-top: 20px;
+	margin-left: 20px;
+	display: inline-block;
+}
+
+#ad-box-mobile {
+	width: 0;
+	height: 0;
+	margin: 0;
+	background-color: transparent;
+	border: none;
+}
+
+@media only screen and (min-device-height : 750px) and (orientation : portrait) {
+	#ad-box-large {
+		width: 0;
+		height: 0;
+		margin: 0;
+		background-color: transparent;
+		border: none;
+	}
+	
+	#ad-box-mobile {
+		width: 320px;
+		height: 100px;
+		margin-top: 20px;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: white;
+		border: 1px solid gray;
+	}
+}
