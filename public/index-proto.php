@@ -22,8 +22,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="center-box" id="middle-box">
-			<div></div>
+		<div id="middle-box">
 			<div></div>
 			<div></div>
 		</div>

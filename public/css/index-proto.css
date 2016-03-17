@@ -43,15 +43,18 @@
 }
 
 #middle-box {
-	width: calc(90vw - 330px);
+	width: 40vw;
 	display: inline-block;
+	vertical-align: top;
+	margin-top: 50px;
+	margin-left: 30vw;
 }
 
 #middle-box > div {
-	width: 20%;
-	padding-top: 20%; /* This is actually the height */
-	border-radius: 10%;
-	margin-left: 13%;
+	width: 30%;
+	padding-top: 30%; /* This is actually the height */
+	border-radius: 50%; /* This makes it a circle */
+	margin-left: 15%;
 	display: inline-block;
 }
 
@@ -88,7 +91,8 @@
 	width: 300px;
 	height: 600px;
 	margin-top: 20px;
-	margin-left: 20px;
+	float: right;
+	margin-right: 20px;
 	display: inline-block;
 }
 
