@@ -22,3 +22,56 @@ a:hover {
 	text-decoration: none;
 	color: #333;
 }
+
+.ad {
+	border: 1px solid gray;
+	background-color: white;
+}
+
+#ad-box-outer {
+	width: 100vw;
+	height: 110px;
+	position: relative;
+	padding-top: 10px;
+}
+
+#ad-box-inner {
+	width: 728px;
+	height: 90px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#ad-box-large {
+	width: 300px;
+	height: 600px;
+	margin-top: 20px;
+	float: right;
+	margin-right: 20px;
+	display: inline-block;
+}
+
+#ad-box-mobile {
+	width: 320px;
+	height: 100px;
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white;
+	border: 1px solid gray;
+	display: none;
+}
+
+@media only screen and (min-device-height : 750px) and (orientation : portrait) {
+	#ad-box-large {
+		width: 0;
+		height: 0;
+		margin: 0;
+		background-color: transparent;
+		border: none;
+	}
+	
+	#ad-box-mobile {
+		display: default;
+	}
+}
