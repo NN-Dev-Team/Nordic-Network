@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="/css/footer-proto.css">
 	</head>
 	<body>
-		<img id="main-pic" src="../pics/nordic-nature.jpg">
+		<img id="main-pic" src="/pics/nordic-nature.jpg">
 		<?php include 'navbar-proto.html'; ?>
 		<div id="ad-box-outer">
 			<div class="ad" id="ad-box-inner"></div>
@@ -23,7 +23,7 @@
 			</div>
 		</div>
 		<div id="middle-box">
-			<div></div>
+			<div id="feature-uptime"></div>
 			<div></div>
 		</div>
 		<div class="ad" id="ad-box-large"></div>

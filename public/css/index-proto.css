@@ -46,16 +46,37 @@
 	width: 40vw;
 	display: inline-block;
 	vertical-align: top;
-	margin-top: 50px;
+	margin-top: 2.5%;
 	margin-left: 30vw;
 }
 
-#middle-box > div {
-	width: 30%;
-	padding-top: 30%; /* This is actually the height */
-	border-radius: 50%; /* This makes it a circle */
+#middle-box div {
+	width: 0%;
+	margin-top: 2.5%;
+	padding-top: 0%;
+	border-radius: 50%;
 	margin-left: 15%;
 	display: inline-block;
+	text-align: center;
+	animation-name: popup;
+	animation-duration: 0.5s;
+	animation-timing-function: ease-in;
+	animation-fill-mode: forwards;
+}
+
+#feature-uptime {
+	background-color: rgba(0, 95, 159, 0.75);
+	background-image: url("/pics/uptime-arrow.png");
+	background-position: center;
+	background-size: 65%;
+	background-repeat: no-repeat;
+	animation-delay: 0.5s;
+}
+
+@keyframes popup {
+	0% {padding-top: 0%; width: 0%; margin-left: 30%; margin-top: 17.5%}
+	90% {padding-top: 35%; width: 35%; margin-left: 12.5%; margin-top: 0%}
+	100% {padding-top: 30%; width: 30%; margin-left: 15%; margin-top: 2.5%}
 }
 
 #get-server {
