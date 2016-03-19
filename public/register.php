@@ -16,9 +16,9 @@
 			<fieldset>
 				<legend>Register</legend>
 				Email<br></br>
-				<input id="email"></input><br></br>
+				<input type="email" id="email"></input><br></br>
 				Password<br></br>
-				<input id="passwrd"></input><br></br><br></br>
+				<input type="password" id="passwrd"></input><br></br><br></br>
 				<input type="submit" value="Submit"></input>
 			</fieldset>
 		<form>
