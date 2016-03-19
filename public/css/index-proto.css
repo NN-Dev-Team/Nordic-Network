@@ -4,8 +4,10 @@
 
 #main-pic {
 	position: fixed;
-	min-width: 100vw;
-	min-height: 100vh;
+	min-width: 104vw;
+	min-height: 104vh;
+	left: -2vw;
+	bottom: -2vw;
 	filter: blur(4px);
 	z-index: -1;
 }
