@@ -12,7 +12,17 @@
 		<div id="ad-box-outer">
 			<div class="ad" id="ad-box-inner"></div>
 		</div>
+		<form action="/">
+			<fieldset>
+				<legend>Register</legend>
+				Email<br></br>
+				<input id="email"></input><br></br>
+				Password<br></br>
+				<input id="passwrd"></input><br></br><br></br>
+				<input type="submit" value="Submit"></input>
+			</fieldset>
+		<form>
 		<div class="ad" id="ad-box-mobile"></div>
-		<?php include 'footer-proto.html'; ?>
+		<?php include 'footer.html'; ?>
 	</body>
 </html>

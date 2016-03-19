@@ -28,6 +28,6 @@
 		</div>
 		<div class="ad" id="ad-box-large"></div>
 		<div class="ad" id="ad-box-mobile"></div>
-		<?php include 'footer-proto.html'; ?>
+		<?php include 'footer.html'; ?>
 	</body>
 </html>

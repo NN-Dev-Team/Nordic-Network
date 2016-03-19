@@ -1,0 +1,11 @@
+footer {
+	width: 100%;
+	background-color: rgba(240, 240, 240, 0.5);
+	text-align: center;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+footer p {
+	margin-top: 10px;
+}

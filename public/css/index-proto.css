@@ -15,6 +15,10 @@
 	margin-left: 5vw;
 }
 
+#upper-box {
+	margin-top: 10px;
+}
+
 #upper-box > div {
 	display: inline-block;
 }
