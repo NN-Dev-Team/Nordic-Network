@@ -72,6 +72,6 @@ a:hover {
 	}
 	
 	#ad-box-mobile {
-		display: default;
+		display: block;
 	}
 }
