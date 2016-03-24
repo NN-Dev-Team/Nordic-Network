@@ -5,8 +5,8 @@
 #cookie-notice {
 	width: 100vw;
 	height: 70px;
-	position: absolute;
-	top: 0;
+	position: fixed;
+	bottom: 0;
 	background-color: #eee;
 	text-align: center;
 	font-size: 15px;
@@ -20,9 +20,9 @@
 	width: 10vw;
 	background-color: #ddd;
 	height: 30px;
-	position: absolute;
+	position: fixed;
 	z-index: 2;
-	top: 20px;
+	bottom: 20px;
 	left: 75vw;
 	text-align: center;
 	display: none;
