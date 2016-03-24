@@ -6,10 +6,14 @@
 		<link rel="stylesheet" href="/css/other-proto.css">
 		<link rel="stylesheet" href="/css/index-proto.css">
 		<link rel="stylesheet" href="/css/footer-proto.css">
+		<script src="http://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
+		<script src="/js/index.js"></script>
 	</head>
 	<body>
 		<img id="main-pic" src="/pics/nordic-nature.jpg">
 		<?php include 'navbar-proto.html'; ?>
+		<div id="cookie-notice">We use cookies to enhance your user experience and to make the ads displayed better.</div>
+		<button id="cookie-notice-button" onclick="acceptCookies();">OK</button>
 		<div id="ad-box-outer">
 			<div class="ad" id="ad-box-inner"></div>
 		</div>

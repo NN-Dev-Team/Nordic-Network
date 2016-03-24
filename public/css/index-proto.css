@@ -2,6 +2,32 @@
 	margin-bottom: 5px;
 }
 
+#cookie-notice {
+	width: 100vw;
+	height: 70px;
+	position: absolute;
+	top: 0;
+	background-color: #eee;
+	text-align: center;
+	font-size: 15px;
+	padding-top: 20px;
+	padding-right: 20px;
+	z-index: 2;
+	display: none;
+}
+
+#cookie-notice-button {
+	width: 10vw;
+	background-color: #ddd;
+	height: 30px;
+	position: absolute;
+	z-index: 2;
+	top: 20px;
+	left: 75vw;
+	text-align: center;
+	display: none;
+}
+
 #main-pic {
 	position: fixed;
 	min-width: 104vw;
