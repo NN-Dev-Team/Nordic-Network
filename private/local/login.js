@@ -114,7 +114,7 @@ io.on('connection', function(socket){
 					li.forEach(function(file) {
 						if(file != 'user.txt') {
 							var dat = fs.readFileSync("../users/" + file, 'utf8');
-							var currentFile = file.substring(0, file.length - 5);
+							var currentFile = file.substring(0, file.length - 4);
 							var esc = false;
 							values = dat.split("\n");
 							if(values[0].trim() == data.email) {
