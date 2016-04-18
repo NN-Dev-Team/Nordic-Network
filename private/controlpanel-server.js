@@ -1,6 +1,6 @@
 var path = require('path');
 var mods = require('./getProps.js');
-var fsExt = require('./fsPlus.js');
+var user = require('./user-extras.js');
 var express = mods.express;
 var app = mods.app;
 var http = mods.http;
@@ -33,7 +33,7 @@ Object.defineProperty(global, '__line', {
 function printError(reason, id, IP, time) {
 	io.emit('server-complete', {"success": false, "reason": reason, "id": id});
 	
-	if(typeof IP == 'string') {
+/*	if(typeof IP == 'string') {
 		if(typeof time != 'number') {
 			time = 1023;
 		}
@@ -43,7 +43,7 @@ function printError(reason, id, IP, time) {
 				console.log(err);
 			}
 		});
-	}
+	} */
 }
 
 function printSuccess(IP, id, time) {
@@ -53,7 +53,7 @@ function printSuccess(IP, id, time) {
 		io.emit('server-checked', {"success": true});
 	}
 	
-	if(typeof IP == 'string') {
+/*	if(typeof IP == 'string') {
 		if(typeof time != 'number') {
 			time = 1023;
 		}
@@ -63,7 +63,7 @@ function printSuccess(IP, id, time) {
 				console.log(err);
 			}
 		});
-	}
+	} */
 }
 
 function boolify(obj, ignoreCase) {

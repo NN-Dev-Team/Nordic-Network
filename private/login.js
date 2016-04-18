@@ -34,7 +34,7 @@ Object.defineProperty(global, '__line', {
 function printError(reason, id, IP, time) {
 	io.emit('login-complete', {"success": false, "reason": reason, "id": id});
 	
-	if(typeof IP == 'string') {
+/*	if(typeof IP == 'string') {
 		if(typeof time != 'number') {
 			time = 1023;
 		}
@@ -44,7 +44,7 @@ function printError(reason, id, IP, time) {
 				console.log(err);
 			}
 		});
-	}
+	} */
 }
 
 function printSuccess(IP, id, time) {
@@ -54,7 +54,7 @@ function printSuccess(IP, id, time) {
 		io.emit('login-complete', {"success": true});
 	}
 	
-	if(typeof IP == 'string') {
+/*	if(typeof IP == 'string') {
 		if(typeof time != 'number') {
 			time = 1023;
 		}
@@ -64,13 +64,13 @@ function printSuccess(IP, id, time) {
 				console.log(err);
 			}
 		});
-	}
+	} */
 }
 
 io.on('connection', function(socket){
 	var IP = socket.request.connection.remoteAddress;
 	socket.on('login', function(data){
-		fsExt.fileContains("bans.txt", IP + " 1", function(err, banned) {
+/*		fsExt.fileContains("bans.txt", IP + " 1", function(err, banned) {
 			if(err) {
 				return console.log(err);
 			}
@@ -79,7 +79,7 @@ io.on('connection', function(socket){
 				return printError("Please don't overload our servers.", Number('0.' + __line));
 			} else if(typeof data.email != 'string' || typeof data.pass != 'string') {
 				return printError("Invalid email and/or password.", Number('1.' + __line), IP, 262143);
-			}
+			} */
 		
 		if(((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
 			fs.readdir("users", function(err, li) {

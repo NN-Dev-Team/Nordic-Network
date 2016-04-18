@@ -1,5 +1,5 @@
 var path = require('path');
-var fsExt = require('../fsPlus.js');
+var user = require('user-extras.js');
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
@@ -55,7 +55,7 @@ app.get('/', function(req, res) {
 
 function printError(reason, id, IP, time) {
 	io.emit('creation-complete', {"success": false, "reason": reason, "id": id});
-	if(typeof IP != 'undefined') {
+/*	if(typeof IP != 'undefined') {
 		if(typeof time != 'number') {
 			time = 1023;
 		}
@@ -65,7 +65,7 @@ function printError(reason, id, IP, time) {
 				console.log(err);
 			}
 		});
-	}
+	} */
 }
 
 function printSuccess(IP, id, time) {
@@ -75,7 +75,7 @@ function printSuccess(IP, id, time) {
 		io.emit('creation-complete', {"success": true});
 	}
 	
-	if(typeof IP != 'undefined') {
+/*	if(typeof IP != 'undefined') {
 		if(typeof time != 'number') {
 			time = 1023;
 		}
@@ -85,13 +85,13 @@ function printSuccess(IP, id, time) {
 				console.log(err);
 			}
 		});
-	}
+	} */
 }
 
 io.on('connection', function(socket){
 	var IP = socket.request.connection.remoteAddress;
 	socket.on('create-serv', function(data){
-		fsExt.fileContains("../bans.txt", IP, function(err, banned) {
+/*		fsExt.fileContains("../bans.txt", IP, function(err, banned) {
 			if(err) {
 				return console.log(err);
 			}
@@ -104,7 +104,7 @@ io.on('connection', function(socket){
 				return printError("Session has expired.", Number('2.' + __line), IP, 524287);
 			} else if(data.type < 0 || data.type > 2) {
 				return printError("Invalid server type.", Number('3.' + __line), IP, 65535);
-			}
+			} */
 			
 			// Check if user id was specified
 			if(typeof data.id == 'number') {
@@ -189,6 +189,6 @@ io.on('connection', function(socket){
 					printError("Unknown session.", Number('11.' + __line), IP, 262143);
 				}
 			}
-		});
+/*		}); */
 	});
 });
