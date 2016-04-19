@@ -1,5 +1,6 @@
 var path = require('path');
 var mods = require('./getProps.js');
+var user = require('./user-extras.js');
 var express = mods.express;
 var app = mods.app;
 var http = mods.http;
