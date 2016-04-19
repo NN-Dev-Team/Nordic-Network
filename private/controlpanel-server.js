@@ -31,7 +31,7 @@ Object.defineProperty(global, '__line', {
 });
 
 function printError(reason, id) {
-	io.emit('server-complete', {"success": false, "reason": reason, "id": id});
+	io.emit('server-checked', {"success": false, "reason": reason, "id": id});
 }
 
 function printSuccess(id) {
