@@ -1,5 +1,5 @@
 var path = require('path');
-var user = require('user-extras.js');
+var user = require('./user-extras.js');
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
