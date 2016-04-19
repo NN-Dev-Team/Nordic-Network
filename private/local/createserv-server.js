@@ -53,66 +53,52 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/test-client-createserv.html'));
 });
 
-function printError(reason, id, IP, time) {
+function printError(reason, id) {
 	io.emit('creation-complete', {"success": false, "reason": reason, "id": id});
-/*	if(typeof IP != 'undefined') {
-		if(typeof time != 'number') {
-			time = 1023;
-		}
-		
-		fsExt.addLine("../bans.txt", IP + " " + ((new Date()).getTime() + time), function(err, data) {
-			if(err) {
-				console.log(err);
-			}
-		});
-	} */
 }
 
-function printSuccess(IP, id, time) {
+function printSuccess(id) {
 	if(typeof id == 'number') {
 		io.emit('creation-complete', {"success": true, "id": id});
 	} else {
 		io.emit('creation-complete', {"success": true});
 	}
-	
-/*	if(typeof IP != 'undefined') {
-		if(typeof time != 'number') {
-			time = 1023;
-		}
-		
-		fsExt.addLine("../bans.txt", IP + " " + ((new Date()).getTime() + time), function(err, data) {
-			if(err) {
-				console.log(err);
-			}
-		});
-	} */
 }
 
 io.on('connection', function(socket){
 	var IP = socket.request.connection.remoteAddress;
 	socket.on('create-serv', function(data){
-/*		fsExt.fileContains("../bans.txt", IP, function(err, banned) {
+		user.isBanned(IP, function(err, banned) {
 			if(err) {
 				return console.log(err);
 			}
 			
-			if(banned) {
+			if(banned[0]) {
 				return printError("Please don't overload our servers.", Number('0.' + __line));
-			} else if(typeof data.session != 'string' || (data.session).length < 24) {
-				return printError("Invalid session ID.", Number('1.' + __line), IP, 131071);
-			} else if(Math.round((new Date).getTime() / 60000 > (data.session).substring(16))) {
-				return printError("Session has expired.", Number('2.' + __line), IP, 524287);
-			} else if(data.type < 0 || data.type > 2) {
-				return printError("Invalid server type.", Number('3.' + __line), IP, 65535);
-			} */
+			} else if(banned[1] == 0) {
+				user.addIP(IP, function(err) {
+					if(err) {
+						console.log(err);
+					}
+					
+					user.incrUsage(IP, 16);
+				});
+			} else {
+				user.incrUsage(IP, 16);
+			}
 			
-			// Check if user id was specified
-			if(typeof data.id == 'number') {
+			if(typeof data.session != 'string' || (data.session).length < 24) {
+				return printError("Invalid session ID.", Number('1.' + __line));
+			} else if(Math.round((new Date).getTime() / 60000 > (data.session).substring(16))) {
+				return printError("Session has expired.", Number('2.' + __line));
+			} else if(data.type < 0 || data.type > 2) {
+				return printError("Invalid server type.", Number('3.' + __line));
+			} else if(typeof data.id == 'number') {
 				
 				// User id specified, get user session
 				fs.readFile("../users/" + data.id + ".txt", 'utf8', function(err, dat) {
 					if(err) {
-						return printError(err, Number('4.' + __line), IP, 131071);
+						return printError(err, Number('4.' + __line));
 					}
 					
 					var values = dat.split("\n");
@@ -123,19 +109,27 @@ io.on('connection', function(socket){
 						// Session valid, create server
 						mkdir("../servers/" + data.id, function(err) {
 							if(err) {
-								return printError(err, Number('5.' + __line), IP);
+								return printError(err, Number('5.' + __line));
 							}
 							
 							fs.writeFile("../servers/" + data.id + "/.properities", data.session + "\n0\n" + data.type + "\n0\n0", function(err, data) {
 								if(err) {
-									return printError(err, Number('6.' + __line), IP);
+									return printError(err, Number('6.' + __line));
 								}
 								
-								printSuccess(IP);
+								if(data.type == 0) {
+									mcLib.addJar("../servers/" + data.id, function(err) {
+										if(err) {
+											return printError(err, Number('7' + __line));
+										}
+										
+										printSuccess();
+									});
+								}
 							});
 						});
 					} else {
-						printError("Unknown session.", Number('7.' + __line), IP, 262143);
+						printError("Unknown session.", Number('8.' + __line));
 					}
 				});
 			} else {
@@ -143,7 +137,7 @@ io.on('connection', function(socket){
 				// User id not specified, look through every user file for a matching session
 				fs.readdir("../users", function(err, li) {
 					if(err) {
-						return printError(err, Number('8.' + __line), IP);
+						return printError(err, Number('9.' + __line));
 					}
 					
 					li.forEach(function(file) {
@@ -153,20 +147,19 @@ io.on('connection', function(socket){
 							var values = dat.split("\n");
 							if(values[1].trim() == data.session) {
 								
-								var currentFile = file.substring(0, file.length - 5);
-								
 								// Session valid, create server
 								mkdir("../servers/" + currentFile, function(err) {
 									if(err) {
-										return printError(err, Number('9.' + __line), IP);
+										return printError(err, Number('10.' + __line));
 									}
 									
 									fs.writeFile("../servers/" + currentFile + "/.properities", data.session + "\n0\n" + data.type + "\n0\n0", function(err, data) {
 										if(err) {
-											return printError(err, Number('10.' + __line), IP);
+											return printError(err, Number('11.' + __line));
 										}
 										
-										printSuccess(IP, currentFile);
+										mcLib.addJar("../servers/" + currentFile);
+										printSuccess(currentFile);
 										return doneSearching = true;
 									});
 								});
@@ -186,9 +179,9 @@ io.on('connection', function(socket){
 				if(doneSearching) {
 					doneSearching = false;
 				} else {
-					printError("Unknown session.", Number('11.' + __line), IP, 262143);
+					printError("Unknown session.", Number('12.' + __line));
 				}
 			}
-/*		}); */
+		});
 	});
 });

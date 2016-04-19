@@ -31,12 +31,35 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/test-client.html'));
 });
 
+// Get line number; for debugging
+Object.defineProperty(global, '__stack', {
+  get: function(){
+    var orig = Error.prepareStackTrace;
+    Error.prepareStackTrace = function(_, stack){ return stack; };
+    var err = new Error;
+    Error.captureStackTrace(err, arguments.callee);
+    var stack = err.stack;
+    Error.prepareStackTrace = orig;
+    return stack;
+  }
+});
+
+Object.defineProperty(global, '__line', {
+  get: function(){
+    return __stack[1].getLineNumber();
+  }
+});
+
 function printError(reason, id) {
-	io.emit('server-checked', {"success": false, "reason": reason, "id": id});
+	io.emit('server-complete', {"success": false, "reason": reason, "id": id});
 }
 
-function printSuccess(type) {
-	io.emit('server-checked', {"success": true, "type": type});
+function printSuccess(id) {
+	if(typeof id == 'number') {
+		io.emit('server-checked', {"success": true, "id": id});
+	} else {
+		io.emit('server-checked', {"success": true});
+	}
 }
 
 function boolify(obj, ignoreCase) {
@@ -54,12 +77,12 @@ function boolify(obj, ignoreCase) {
 io.on('connection', function(socket){
 	socket.on('start-server', function(data){
 		if(typeof data.server != 'number' || typeof data.session != 'string') {
-			return printError("Invalid server ID and/or session ID.", 0);
+			return printError("Invalid server ID and/or session ID.", Number('0.' + __line));
 		}
 		
 		fs.readFile('../servers/' + data.server + '/.properities', 'utf8', function(err, dat) {
 			if (err) {
-				return printError(err, 1);
+				return printError(err, Number('1.' + __line));
 			}
 			
 			props = dat.split("\n");
@@ -75,19 +98,23 @@ io.on('connection', function(socket){
 			if(serv_session == data.session) {
 			
 				// Run server
-				if(serv_type == 0) { // Minecraft
+				if(serv_type == 0) {
+					// Minecraft
+					
 					exec("java -Xmx" + serv_ram[serv_type][serv_rank] + "M -Xms" + serv_ram[serv_type][serv_rank] + "M -jar ../servers/" + data.server + "/minecraft_server.jar nogui", function(err2, out, stderr) {
 						if(err2) {
-							return printError(stderr, 2);
+							return printError(stderr, Number('2.' + __line));
 						}
 						
 						printSuccess(serv_type);
 					});
-				} else if(serv_type.substring(0, 1) == 1) { // CS:GO
+				} else if(serv_type.substring(0, 1) == 1) {
+					// CS:GO
+					
 					if(serv_typeCS == 1) { // Classic Competive
 						exec("./srcds_run -game csgo -console -usercon +game_type 0 +game_mode 1 +mapgroup mg_active +map de_dust2", function(err, out, stderr) {
 							if(err) {
-								return printError(stderr, 3.0);
+								return printError(stderr, Number('3.' + __line));
 							}
 							
 							printSuccess(serv_type);
@@ -95,7 +122,7 @@ io.on('connection', function(socket){
 					} else if(serv_typeCS == 2) { // Arms Race
 						exec("./srcds_run -game csgo -console -usercon +game_type 1 +game_mode 0 +mapgroup mg_armsrace +map ar_shoots", function(err, out, stderr) {
 							if(err) {
-								return printError(stderr, 3.1);
+								return printError(stderr, Number('4.' + __line));
 							}
 							
 							printSuccess(serv_type);
@@ -103,7 +130,7 @@ io.on('connection', function(socket){
 					} else if(serv_typeCS == 3) { // Demolition
 						exec("./srcds_run -game csgo -console -usercon +game_type 1 +game_mode 1 +mapgroup mg_demolition +map de_lake", function(err, out, stderr) {
 							if(err) {
-								return printError(stderr, 3.2);
+								return printError(stderr, Number('5.' + __line));
 							}
 							
 							printSuccess(serv_type);
@@ -111,7 +138,7 @@ io.on('connection', function(socket){
 					} else if(serv_typeCS == 4) { // Deathmatch
 						exec("./srcds_run -game csgo -console -usercon +game_type 1 +game_mode 2 +mapgroup mg_allclassic +map de_dust", function(err, out, stderr) {
 							if(err) {
-								return printError(stderr, 3.3);
+								return printError(stderr, Number('6.' + __line));
 							}
 							
 							printSuccess(serv_type);
@@ -119,17 +146,20 @@ io.on('connection', function(socket){
 					} else { // Classic Casual
 						exec("./srcds_run -game csgo -console -usercon +game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2", function(err, out, stderr) {
 							if(err) {
-								return printError(stderr, 3.4);
+								return printError(stderr, Number('7.' + __line));
 							}
 							
 							printSuccess(serv_type);
 						});
 					}
+				} else if(serv_type == 2) {
+					// TF2
+					return printError("WIP", Number('8' + __line));
 				} else {
-					return printError("Unknown server type", 4);
+					return printError("Unknown server type", Number('9.' + __line));
 				}
 			} else {
-				return printError("ACCESS DENIED. But seriously, start your own server instead of others :P", 5);
+				return printError("ACCESS DENIED. But seriously, start your own server instead of others :P", Number('10.' + __line));
 			}
 		});
 	});
