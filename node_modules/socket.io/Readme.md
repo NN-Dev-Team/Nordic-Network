@@ -2,6 +2,8 @@
 # socket.io
 
 [![Build Status](https://secure.travis-ci.org/socketio/socket.io.svg)](https://travis-ci.org/socketio/socket.io)
+[![Dependency Status](https://david-dm.org/socketio/socket.io.svg)](https://david-dm.org/socketio/socket.io)
+[![devDependency Status](https://david-dm.org/socketio/socket.io/dev-status.svg)](https://david-dm.org/socketio/socket.io#info=devDependencies)
 ![NPM version](https://badge.fury.io/js/socket.io.svg)
 ![Downloads](https://img.shields.io/npm/dm/socket.io.svg?style=flat)
 [![](http://slack.socket.io/badge.svg?)](http://slack.socket.io)
@@ -299,9 +301,10 @@ server.listen(3000);
   clients. A `Socket` belongs to a certain `Namespace` (by default `/`)
   and uses an underlying `Client` to communicate.
 
-### Socket#rooms:Array
+### Socket#rooms:Object
 
-  A list of strings identifying the rooms this socket is in.
+  A hash of strings identifying the rooms this socket is in, indexed by
+  room name.
 
 ### Socket#client:Client
 

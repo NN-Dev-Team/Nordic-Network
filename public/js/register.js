@@ -45,7 +45,7 @@ $('form').submit(function(){
     return false;
 });
 
-function register(email, password) {
+function register(email, passwrd) {
 	console.log("Registering...");
-	socket.emit('register', {email: email, pass: password});
+	socket.emit('register', {email: email, pass: passwrd});
 }

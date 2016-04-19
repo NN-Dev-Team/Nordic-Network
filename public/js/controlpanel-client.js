@@ -10,6 +10,17 @@ $(document).ready(function() {
 	return values;
 });
 
+function getCookie(name) {
+    name += "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
+}
+
 host = values[0];
 port = Number(values[1]);
 
@@ -35,19 +46,10 @@ if(host == "N/A" || port == -1) {
 			console.log("ID: ", data.id);
 		}
 	});
-	
-	socket.on('client-id', function(data){
-		console.log("ID:", data);
-	});
 }
 
 $('button #start-server').click(function(){
-	socket.emit('start-server', { "server": serverID, "session": sessionID });
+	socket.emit('start-server', { "server": getCookie("id"), "session": getCookie("session") });
 	console.log("Starting server...");
 	return false;
 });
-
-function startServer(serverID, sessionID){
-	socket.emit('start-server', { "server": serverID, "session": sessionID });
-	console.log("Starting server...");
-}
