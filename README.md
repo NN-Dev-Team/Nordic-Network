@@ -20,5 +20,5 @@ sure node.js AND required libraries are installed and DON'T close the terminal!*
 4.  Start your browser and go to "localhost:15015", press Inspect Element
 and click on `Console`. Then type in `login("testuser@nordic-network.tk", "testpassword");`
 and press enter.
-5.  Close the terminal, reopen it and type in `node createserv-server`. Then go back to your browser, reload the page and type in `createServer();` into the console.
+5.  Close the terminal, reopen it and type in `node createserv-server`. Then go back to your browser, reload the page and type in `createServer(0);` into the console.
 6.  Close the terminal again, reopen it and type in `node controlpanel-server`. Then go back to your browser again, reload the page and type in `startServer(0);` into the console. The server will now start on your computer **locally**, and remember this is only for testing the program. In the future you'll just need to enter the website to start your server and it will be up online :)
