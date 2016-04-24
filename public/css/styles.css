@@ -14,7 +14,7 @@
 
 #getserver {
     
-    font-size: 3vh;
+    font-size: 3.5vh;
 }
 
 #nav-nomargin {
@@ -29,5 +29,36 @@
 
 #feature-img {
     border: solid 1px #ccc;
-    align-self: center;
+    
+}
+
+#footer {
+    text-align: center;
+    font-size 2vh;
+    background-color: #b2b1b1;
+}
+
+#center-text-footer {
+    display: inline-block;
+}
+
+#feature-img-container {
+    
+    align-content: center;
+}
+
+#jumbo-container {
+    margin-top: 10px;
+    margin-bottom: 50vh;
+    
+}
+
+#feature-text {
+    
+    text-align: center;
+}
+
+.white-glyphicon, .white-glyphicon a {
+    color: #ffffff;
+    font-size: 45px;
 }

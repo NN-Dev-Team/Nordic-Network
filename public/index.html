@@ -6,11 +6,14 @@
     
 <!-- Load custom CSS from file -->    
 <link rel="stylesheet" href="css/styles.css">
-<!-- Load bootstrap from CDN -->
+<!-- Load bootstrap stylesheet from CDN -->
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- Load JQuery from CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <!-- Load bootstrap JS from CDN -->
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    
+    <!-- Load JQuery Waypoints from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
     </head>
     
 <body id="body">
@@ -45,8 +48,7 @@
     
     <div id="jumbo-nomargin" class="jumbotron">
         <div class="container-fluid">    
-            <br />  
-            <br />
+            <div id="jumbo-container">
             <h1 id=title>High quality game servers.</h1>
             <br />
             <br />
@@ -55,12 +57,10 @@
             <br />
             <br />
             <button type="button" id="getserver" class="btn btn-primary btn-lg">Get your free server now!</button>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
+            </div>
+            
+            <span class="glyphicon glyphicon-chevron-down white-glyphicon"></span>
+            
         </div>
     </div>
     
@@ -70,34 +70,31 @@
     <div id="index-info" class="container-fluid">   
         <br>
         <br>
-        <br>
         <h2 id="features-title">Features</h2>
         <br>
-        <img id="feature-img" class="img-circle" src="pics/Sword.jpg" height="150px" width="150px">
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+        
+        <div class="row">
+  <div class="col-sm-4"><img id="feature-img" class="img-circle center-block" src="" height="150px" width="150px"></div>
+  <div class="col-sm-4"><img id="feature-img" class="img-circle center-block" src="" height="150px" width="150px"></div>
+  <div class="col-sm-4"><img id="feature-img" class="img-circle center-block" src="" height="150px" width="150px"></div>
+        </div>
+        <div class="row">
+  <div class="col-sm-4"><p id="feature-text" class="center-block">This is a test.</p></div>
+  <div class="col-sm-4"><p id="feature-text" class="center-block">This is a test.</p></div>
+  <div class="col-sm-4"><p id="feature-text" class="center-block">This is a test.</p></div>
+        </div>
         
         </div>
-   
+  
     </body>
+    
+    <!-- Footer -->
+    <footer id="footer">
+ 
+            <p id="center-text-footer">© Copyright 2016 Nordic Network</p>
+            <p id="center-text-footer">|</p>
+            <p id="center-text-footer">Picture provided with <span class="glyphicon glyphicon-heart"></span> by <a href="http://www.gratisography.com">Gratisography</a></p>
+
+    </footer>
     
 </html>
