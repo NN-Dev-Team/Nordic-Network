@@ -1,0 +1,33 @@
+
+.jumbotron {
+    
+    background-image: url('../pics/277H.jpg');
+    background-size: 100% 100%;
+    min-height: 100vh;
+    text-align: center;
+    padding-top: 0px;
+}
+
+#title {
+    color: #ffffff;
+}
+
+#getserver {
+    
+    font-size: 3vh;
+}
+
+#nav-nomargin {
+   margin-bottom: 0px;
+   border-bottom: 1px solid rgba(127, 127, 127, 0.5);
+}
+
+#features-title {
+    
+    text-align: center;
+}
+
+#feature-img {
+    border: solid 1px #ccc;
+    align-self: center;
+}
