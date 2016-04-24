@@ -1,4 +1,6 @@
-
+body {
+    position: relative;
+}
 .jumbotron {
     
     background-image: url('../pics/277H.jpg');
@@ -9,6 +11,7 @@
 }
 
 #title {
+    margin-top: 20px;
     color: #ffffff;
 }
 
@@ -28,14 +31,14 @@
 }
 
 #feature-img {
-    border: solid 1px #ccc;
     
 }
 
 #footer {
+    color: white;
     text-align: center;
     font-size 2vh;
-    background-color: #b2b1b1;
+    background-color: #3b3b3b;
 }
 
 #center-text-footer {
@@ -54,7 +57,11 @@
 }
 
 #feature-text {
-    
+    color: black;
+    text-align: center;
+}
+
+#feature-text-title {
     text-align: center;
 }
 
