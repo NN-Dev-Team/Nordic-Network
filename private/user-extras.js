@@ -5,31 +5,41 @@ function getUsage(data, IP) {
 	var pos = [0, -1];
 	
 	for(i = 0; i < values.length; i++) {
-		pos[1] = values[i].indexOf(IP);
+		pos[1] = values[i].indexOf(IP); // Positive number (including 0) if current line contains the IP
 		if(~pos[1]) {
 			values = values[i].split(" ");
 			break;
 		}
 		
-		pos[0] += 1;
+		pos[0] = i;
 	}
 	
-	return [Number(values[1]), pos[0], pos[1]];
+	if(~pos[1]) {
+		return [Number(values[1]), pos[0], pos[1]];
+	} else {
+		return [-1, -1, -1];
+	}
 }
 
-exports.addIP = function logIP(IP) {
+exports.addIP = function logIP(IP, callback) {
 	fs.readFile('bans.txt', 'utf8', function(err, data) {
 		if(err) {
-			return console.log(err);
+			return callback(err);
 		}
 		
 		var items = data.split("\n");
-		items.push(IP + " 0");
+		if(items.length == 1) {
+			items[0] = IP + " 0";
+		} else {
+			items.push(IP + " 0");
+		}
 		items = items.join("\n");
 		fs.writeFile('bans.txt', items, function(err, data) {
 			if(err) {
-				return console.log(err);
+				return callback(err);
 			}
+			
+			callback();
 		});
 	});
 }
@@ -58,15 +68,15 @@ exports.incrUsage = function logUsage(IP, count) {
 exports.isBanned = function checkBans(IP, callback) {
 	fs.readFile('bans.txt', 'utf8', function(err, data) {
 		if(err) {
-			return console.log(err);
+			return callback(err);
 		}
 		
 		var usage = getUsage(data, IP);
 		
 		if(usage[0] > 64) {
-			callback([true, true]);
+			callback(err, [true, true]);
 		} else {
-			callback(false, ~usage[2]);
+			callback(err, [false, usage[2]]);
 		}
 	});
 }
