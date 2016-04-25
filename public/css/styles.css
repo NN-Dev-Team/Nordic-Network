@@ -8,6 +8,7 @@ body {
     min-height: 100vh;
     text-align: center;
     padding-top: 0px;
+    -webkit-overflow-scrolling: touch;
 }
 
 #title {
@@ -31,7 +32,7 @@ body {
 }
 
 #feature-img {
-    
+ 
 }
 
 #footer {
@@ -68,4 +69,9 @@ body {
 .white-glyphicon, .white-glyphicon a {
     color: #ffffff;
     font-size: 45px;
+}
+
+#pricing-title {
+    
+    text-align: center;
 }

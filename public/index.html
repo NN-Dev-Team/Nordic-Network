@@ -16,7 +16,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
     </head>
     
-<body>
+<body id="top">
     
     <!-- Nav -->
 <nav id="nav-nomargin" class="navbar navbar-default navbar-fixed-top">
@@ -31,10 +31,9 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="#top">Home</a></li>
         <li><a href="#index-info">About</a></li>  
-        <li><a href="#pricing">Pricing</a></li>
-        <li><a href="getserver.php">Get a server</a></li> 
+        <li><a href="#pricing">Pricing</a></li> 
         <li><a href="knowledgebase.php">Support</a></li> 
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -60,14 +59,14 @@
             <button type="button" id="getserver" class="btn btn-primary btn-lg">Get your free server now!</button>
             </div>
             
-            <span class="glyphicon glyphicon-chevron-down white-glyphicon"></span>
+            <a href="#index-info"><span class="glyphicon glyphicon-chevron-down white-glyphicon"></span></a>
             
         </div>
     </div>
     
      <!-- Content -->
     
-    
+     <!-- About -->
     <div id="index-info" class="container-fluid">   
         <br>
         <br>
@@ -77,10 +76,36 @@
         <div class="row">
   <div class="col-sm-4"><img id="feature-img" class="center-block" src="" height="150px" width="150px"><h4 id="feature-text-title">Powerful dashboard</h4><p id="feature-text" class="center-block">All of our servers come with a custom dashboard. It has a file manager, version installer and many other great features.</p></div>
   <div class="col-sm-4"><img id="feature-img" class="center-block" src="" height="150px" width="150px"><h4 id="feature-text-title">Free server page</h4><p id="feature-text" class="center-block">Each server comes with a customizable website hosted by us. Add your own videos, pictures, text, or even blogs and forums and create a a hub for your community! Players can also vote for your server to keep it alive! (Minecraft server websites have votifier support)</p></div>
-  <div class="col-sm-4"><img id="feature-img" class="center-block" src="" height="150px" width="150px"><h4 id="feature-text-title"></h4><p id="feature-text" class="center-block">This is a test.</p></div>
+  <div class="col-sm-4"><img id="feature-img" class="center-block" src="" height="150px" width="150px"><h4 id="feature-text-title">Lorem ipsum dolor sit amet, consectetur cras amet.</h4><p id="feature-text" class="center-block">Lorem ipsum dolor sit amet, consectetur cras amet.</p></div>
+        </div>
+        <br />
+               <div class="row">
+  <div class="col-sm-4"><img id="feature-img" class="center-block" src="" height="150px" width="150px"><h4 id="feature-text-title">Lorem ipsum dolor sit amet, consectetur cras amet.</h4><p id="feature-text" class="center-block">Lorem ipsum dolor sit amet, consectetur cras amet.</p></div>
+  <div class="col-sm-4"><img id="feature-img" class="center-block" src="" height="150px" width="150px"><h4 id="feature-text-title">Lorem ipsum dolor sit amet, consectetur cras amet.</h4><p id="feature-text" class="center-block">Lorem ipsum dolor sit amet, consectetur cras amet.</p></div>
+  <div class="col-sm-4"><img id="feature-img" class="center-block" src="" height="150px" width="150px"><h4 id="feature-text-title">Lorem ipsum dolor sit amet, consectetur cras amet.</h4><p id="feature-text" class="center-block">Lorem ipsum dolor sit amet, consectetur cras amet.</p></div>
+        </div>
+        
+                    <div class="row">
+  <div class="col-sm-4"><img id="feature-img" class="center-block" src="" height="150px" width="150px"><h4 id="feature-text-title">Lorem ipsum dolor sit amet, consectetur cras amet.</h4><p id="feature-text" class="center-block">Lorem ipsum dolor sit amet, consectetur cras amet..</p></div>
+  <div class="col-sm-4"><img id="feature-img" class="center-block" src="" height="150px" width="150px"><h4 id="feature-text-title">Lorem ipsum dolor sit amet, consectetur cras amet.</h4><p id="feature-text" class="center-block">Lorem ipsum dolor sit amet, consectetur cras amet.</p></div>
+  <div class="col-sm-4"><img id="feature-img" class="center-block" src="" height="150px" width="150px"><h4 id="feature-text-title">Lorem ipsum dolor sit amet, consectetur cras amet.</h4><p id="feature-text" class="center-block">Lorem ipsum dolor sit amet, consectetur cras amet.</p></div>
         </div>
         </div>
   
+        <div id="pricing" class="container-fluid">
+    
+    <br />
+    <br />
+    <h2 id="pricing-title">Pricing</h2>
+    
+    
+            
+            
+            
+            
+    
+    </div>
+    
     </body>
     
     <!-- Footer -->
@@ -93,7 +118,8 @@
     </footer>
     
 <script>
-$("#nav-nomargin ul li a[href^='#']").on('click', function(e) {
+$('body').scrollspy({target: "#myNavbar"}); 
+$("#top a[href^='#']").on('click', function(e) {
 
    // prevent default anchor click behavior
    e.preventDefault();
@@ -112,6 +138,8 @@ $("#nav-nomargin ul li a[href^='#']").on('click', function(e) {
      });
 
 });
+    
+
 </script>
 
     
