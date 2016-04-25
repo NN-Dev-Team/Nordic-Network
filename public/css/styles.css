@@ -74,6 +74,11 @@ body {
 	animation-iteration-count: infinite;
 }
 
+.white-glyphicon, .white-glyphicon a:hover {
+    text-decoration: none;
+	color: white;
+}
+
 @keyframes bounce {
 	0%, 75% {
 		transform: translateY(0px);
