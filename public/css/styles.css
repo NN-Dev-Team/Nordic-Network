@@ -60,6 +60,8 @@ body {
 #feature-text {
     color: black;
     text-align: center;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 #feature-text-title {
@@ -96,3 +98,26 @@ body {
     text-align: center;
 }
 
+#pricing-text {
+    color: black;
+    text-align: center;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+#pricing-text-title {
+    text-align: center;
+}
+
+#about-text {
+    color: black;
+    text-align: center;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 100px;
+}
+
+#about-text-container {
+    background-color: #d1d1d1;
+    margin: 0px;
+}
