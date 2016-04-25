@@ -1,4 +1,4 @@
-   <!-- Nav -->
+    <!-- Nav -->
 <nav id="nav-nomargin" class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -11,10 +11,10 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Pricing</a></li>
-        <li><a href="#">Get a server</a></li> 
-        <li><a href="#">Support</a></li> 
+        <li><a href="index.html#top">Home</a></li>
+        <li><a href="index.html#index-info">About</a></li>  
+        <li><a href="index.html#pricing">Pricing</a></li> 
+        <li><a href="knowledgebase.php">Support</a></li> 
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
