@@ -126,9 +126,9 @@ body {
 #about-text {
     color: white;
     text-align: center;
-    margin-left: 200px;
-    margin-right: 200px;
-    margin-top: 30px;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    margin-top: 0.3vh;
 }
 
 #about-text-container {
