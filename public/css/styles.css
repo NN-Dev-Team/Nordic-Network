@@ -108,16 +108,20 @@ body {
 #pricing-text-title {
     text-align: center;
 }
+#about-text-title {
+    color: white;
+    text-align: center;
+}
 
 #about-text {
-    color: black;
+    color: white;
     text-align: center;
     margin-left: 200px;
     margin-right: 200px;
-    margin-top: 100px;
+    margin-top: 30px;
 }
 
 #about-text-container {
-    background-color: #d1d1d1;
+    background-color: #3b3b3b;
     margin: 0px;
 }
