@@ -1,6 +1,12 @@
 body {
     position: relative;
 }
+
+@font-face {
+    font-family: Viking;
+    src: url(../fonts/Viking.ttf);
+}
+
 .jumbotron {
     
     background-image: url('../pics/277H.jpg');
@@ -24,6 +30,10 @@ body {
 #nav-nomargin {
    margin-bottom: 0px;
    border-bottom: 1px solid rgba(127, 127, 127, 0.5);
+}
+
+.navbar-brand {
+	font-family: Viking;
 }
 
 #features-title {
