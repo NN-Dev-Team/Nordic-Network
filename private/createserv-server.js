@@ -134,9 +134,16 @@ io.on('connection', function(socket){
 											return printError(err, Number('11.' + __line));
 										}
 										
-										mcLib.addJar("servers/" + currentFile);
-										printSuccess(currentFile);
-										return doneSearching = true;
+										if(data.type == 0) {
+											mcLib.addJar("servers/" + data.id, function(err) {
+												if(err) {
+													return printError(err, Number('7' + __line));
+												}
+												
+												printSuccess();
+												return doneSearching = true;
+											});
+										}
 									});
 								});
 							}
