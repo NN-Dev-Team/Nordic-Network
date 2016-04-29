@@ -123,6 +123,11 @@ body {
     text-align: center;
 }
 
+#pricing-img {
+    border: 1px solid;
+    border-color: #3b3b3b;
+}
+
 #about-text {
     color: white;
     text-align: center;
