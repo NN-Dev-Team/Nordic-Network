@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "account_updater_daily_report.js",
+  "sourceRoot": "",
+  "sources": [
+    "account_updater_daily_report.coffee"
+  ],
+  "names": [],
+  "mappings": ";;AAAA,IAAA,sCAAA;GAAA;kSAAA;CAAA;AAAC,CAAD,EAAoB,IAAA,QAApB,KAAoB;;AAEd,CAFN;CAGC;CAAA;;CAAc,CAAA,CAAA,OAAA,yBAAC;CACZ,GAAA,MAAA,iDAAM;CADT,EAAc;;CAAd;;CADuC;;AAIxC,CANA,EAMoC,IAA7B,kBAAP"
+}
