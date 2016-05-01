@@ -178,7 +178,7 @@ io.on('connection', function(socket){
 							}
 						} else if(serv_type == 2) {
 							// TF2
-							return printError("WIP", Number('9' + __line));
+							return printError("WIP", Number('9.' + __line));
 						} else {
 							return printError("Unknown server type", Number('10.' + __line));
 						}

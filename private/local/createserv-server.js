@@ -154,7 +154,7 @@ io.on('connection', function(socket){
 										return printError(err, Number('10.' + __line));
 									}
 									
-									fs.writeFile("../servers/" + currentFile + "/.properities", "0\n" + data.type + "\n0\n0", function(err, data) {
+									fs.writeFile("../servers/" + currentFile + "/.properities", "0\n" + data.type + "\n0\n0", function(err, dat) {
 										if(err) {
 											return printError(err, Number('11.' + __line));
 										}

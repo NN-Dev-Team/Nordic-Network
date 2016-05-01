@@ -4,6 +4,7 @@
   "description": "Free Hosting Service",
   "dependencies": {
     "bcryptjs": "^2.3.0",
+    "braintree": "^1.37.1",
     "express": "^4.10.2",
     "mkdirp": "^0.5.1",
     "randomstring": "^1.1.4",

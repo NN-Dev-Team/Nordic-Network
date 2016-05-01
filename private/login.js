@@ -77,11 +77,9 @@ io.on('connection', function(socket){
 								if(dat) {
 									var userSession = randomstring.generate(16);
 									userSession += Math.round(((new Date()).getTime() / 60000) + 60*24);
-									data = fs.readFileSync("servers/" + currentFile + "/.properities", 'utf8');
-									values = data.split("\n");
-									values[0] = userSession;
+									values[2] = userSession;
 										
-									fs.writeFileSync("servers/" + currentFile + "/.properities", values.join("\n"));
+									fs.writeFileSync("users/" + currentFile + ".txt", values.join("\n"));
 									io.emit('login-complete', {"success": true, "session": userSession});
 									valid = true;
 								} else {

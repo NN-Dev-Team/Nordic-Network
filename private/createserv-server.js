@@ -80,7 +80,7 @@ io.on('connection', function(socket){
 					var values = dat.split("\n");
 					
 					// Check if session is valid
-					if(values[1].trim() == data.session) {
+					if(values[2].trim() == data.session) {
 						
 						// Session valid, create server
 						mkdir("servers/" + data.id, function(err) {
@@ -88,7 +88,7 @@ io.on('connection', function(socket){
 								return printError(err, Number('5.' + __line));
 							}
 							
-							fs.writeFile("servers/" + data.id + "/.properities", data.session + "\n0\n" + data.type + "\n0\n0", function(err, data) {
+							fs.writeFile("servers/" + data.id + "/.properities", "0\n" + data.type + "\n0\n0", function(err, dat) {
 								if(err) {
 									return printError(err, Number('6.' + __line));
 								}
@@ -121,7 +121,7 @@ io.on('connection', function(socket){
 							var dat = fs.readFileSync("users/" + file, 'utf8');
 							var currentFile = file.substring(0, file.length - 5);
 							var values = dat.split("\n");
-							if(values[1].trim() == data.session) {
+							if(values[2].trim() == data.session) {
 								
 								// Session valid, create server
 								mkdir("servers/" + currentFile, function(err) {
@@ -129,7 +129,7 @@ io.on('connection', function(socket){
 										return printError(err, Number('10.' + __line));
 									}
 									
-									fs.writeFile("servers/" + currentFile + "/.properities", data.session + "\n0\n" + data.type + "\n0\n0", function(err, data) {
+									fs.writeFile("servers/" + currentFile + "/.properities", "0\n" + data.type + "\n0\n0", function(err, dat) {
 										if(err) {
 											return printError(err, Number('11.' + __line));
 										}
@@ -137,7 +137,7 @@ io.on('connection', function(socket){
 										if(data.type == 0) {
 											mcLib.addJar("servers/" + data.id, function(err) {
 												if(err) {
-													return printError(err, Number('7' + __line));
+													return printError(err, Number('12.' + __line));
 												}
 												
 												printSuccess();
@@ -146,6 +146,8 @@ io.on('connection', function(socket){
 										}
 									});
 								});
+							} else {
+								printError("Unknown session.", Number('13.' + __line));
 							}
 						}
 				
@@ -162,7 +164,7 @@ io.on('connection', function(socket){
 				if(doneSearching) {
 					doneSearching = false;
 				} else {
-					printError("Unknown session.", Number('12.' + __line));
+					printError("Unknown session.", Number('14.' + __line));
 				}
 			}
 		});
