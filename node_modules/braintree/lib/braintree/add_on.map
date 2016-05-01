@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "add_on.js",
+  "sourceRoot": "",
+  "sources": [
+    "add_on.coffee"
+  ],
+  "names": [],
+  "mappings": ";;AAAA,IAAA,kBAAA;GAAA;kSAAA;CAAA;AAAC,CAAD,EAAoB,IAAA,QAApB,KAAoB;;AAEd,CAFN;CAEA;CAAA;;;;CAAA;;CAAA;;CAAoB;;AAEpB,CAJA,EAIgB,EAAhB,EAAO"
+}

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "add_on_gateway.js",
+  "sourceRoot": "",
+  "sources": [
+    "add_on_gateway.coffee"
+  ],
+  "names": [],
+  "mappings": ";;AAAA,IAAA,wBAAA;GAAA;kSAAA;CAAA;AAAC,CAAD,EAAU,EAAV,EAAU,GAAA;;AACT,CADD,EACY,IAAA,IAAA;;AAEN,CAHN;CAIC;CAAA;;CAAc,CAAA,CAAA,IAAA,eAAE;CACb,EADa,CAAD,GACZ;CAAA,EAAU,CAAV,EAAA,CAAkB;CADrB,EAAc;;CAAd,EAGC,KAAK,CAAC;CACH,CAAiB,CAAlB,CAAC,CAA0D,CAAhC,CAAnB,CAAmD,EAA3D,CAAA,KAAoB,KAAuC;CAJ9D,EAGM;;CAHN;;CAD0B;;AAO3B,CAVA,EAUuB,IAAhB,KAAP"
+}
