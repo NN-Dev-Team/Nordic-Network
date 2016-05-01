@@ -12,25 +12,6 @@ var values = mods.values;
 var props = mods.props;
 var escapeAll = false;
 
-// Get line number; for debugging
-Object.defineProperty(global, '__stack', {
-  get: function(){
-    var orig = Error.prepareStackTrace;
-    Error.prepareStackTrace = function(_, stack){ return stack; };
-    var err = new Error;
-    Error.captureStackTrace(err, arguments.callee);
-    var stack = err.stack;
-    Error.prepareStackTrace = orig;
-    return stack;
-  }
-});
-
-Object.defineProperty(global, '__line', {
-  get: function(){
-    return __stack[1].getLineNumber();
-  }
-});
-
 function printError(reason, id) {
 	io.emit('reg-complete', {"success": false, "reason": reason, "id": id});
 }
