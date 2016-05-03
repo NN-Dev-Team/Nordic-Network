@@ -31,7 +31,7 @@ Object.defineProperty(global, '__line', {
 });
 
 var file_reg = require('./register.js');
-// var file_createServ = require('./createserv-server.js');
+var file_createServ = require('./createserv-server.js');
 var file_login = require('./login.js');
 var file_cpServ = require('./controlpanel-server.js');
 
