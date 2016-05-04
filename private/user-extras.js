@@ -51,17 +51,19 @@ exports.incrUsage = function logUsage(IP, count) {
 		}
 		
 		var usage = getUsage(data, IP);
-		var items = data.split("\n");
-		var row = items[usage[1]].split(" ");
-		row[1] = usage[0] + count;
-		row = row.join(" ");
-		items[usage[1]] = row;
-		items = items.join("\n");
-		fs.writeFile('bans.txt', items, function(err, data) {
-			if(err) {
-				return console.log(err);
-			}
-		});
+		if(~usage[1]) {
+			var items = data.split("\n");
+			var row = items[usage[1]].split(" ");
+			row[1] = usage[0] + count;
+			row = row.join(" ");
+			items[usage[1]] = row;
+			items = items.join("\n");
+			fs.writeFile('bans.txt', items, function(err, data) {
+				if(err) {
+					return console.log(err);
+				}
+			});
+		}
 	});
 }
 
@@ -73,7 +75,7 @@ exports.isBanned = function checkBans(IP, callback) {
 		
 		var usage = getUsage(data, IP);
 		
-		if(usage[0] > 64) {
+		if(usage[0] > 16) {
 			callback(err, [true, true]);
 		} else {
 			callback(err, [false, usage[2]]);

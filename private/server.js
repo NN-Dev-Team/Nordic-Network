@@ -80,7 +80,7 @@ function Reset() {
 	});
 }
 
-setInterval(Reset, 1000);
+setInterval(Reset, 4096);
 
 // Registration functions
 function reg_printError(reason, id) {
@@ -246,10 +246,10 @@ io.on('connection', function(socket){
 						console.log(err);
 					}
 					
-					user.incrUsage(IP, 16);
+					user.incrUsage(IP, 8);
 				});
 			} else {
-				user.incrUsage(IP, 16);
+				user.incrUsage(IP, 8);
 			}
 			
 			if(typeof data.email != 'string' || typeof data.pass != 'string') {
@@ -257,7 +257,7 @@ io.on('connection', function(socket){
 			} else if(((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
 				fs.readdir("users", function(err, li) {
 					if(err) {
-						return reg_printError(err, Number('2.' + __line));
+						return login_printError(err, Number('2.' + __line));
 					}
 					
 					li.forEach(function(file) {
@@ -441,10 +441,10 @@ io.on('connection', function(socket){
 						console.log(err);
 					}
 					
-					user.incrUsage(IP, 16);
+					user.incrUsage(IP, 8);
 				});
 			} else {
-				user.incrUsage(IP, 16);
+				user.incrUsage(IP, 8);
 			}
 			
 			if(typeof data.server != 'number' || typeof data.session != 'string') {
