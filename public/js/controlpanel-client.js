@@ -10,17 +10,6 @@ $(document).ready(function() {
 	return values;
 });
 
-function getCookie(name) {
-    name += "=";
-    var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-    }
-    return "";
-}
-
 host = values[0];
 port = Number(values[1]);
 
@@ -34,22 +23,34 @@ if(host == "N/A" || port == -1) {
 	} else {
 		console.log("Successfully created socket");
 	}
-	
-	socket.on('server-checked', function(data){
-		if(data.success){
-			if(data.type == "Minecraft") {
-				console.log("Successfully started Minecraft server!");
-			}
-		} else {
-			console.log("Failed to start server.");
-			console.log("Reason: ", data.reason);
-			console.log("ID: ", data.id);
-		}
-	});
 }
 
+function getCookie(name) {
+    name += "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
+}
+
+socket.on('server-checked', function(data){
+	if(data.success){
+		if(data.type == "Minecraft") {
+			console.log("Successfully started Minecraft server!");
+		}
+	} else {
+		console.log("Failed to start server.");
+		console.log("Reason: ", data.reason);
+		console.log("ID: ", data.id);
+	}
+});
+
+
 $('button #start-server').click(function(){
-	socket.emit('start-server', { "server": getCookie("id"), "session": getCookie("session") });
+	socket.emit('start-server', { "server": Number(getCookie("user_id")), "session": getCookie("session") });
 	console.log("Starting server...");
 	return false;
 });

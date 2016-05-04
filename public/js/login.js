@@ -10,13 +10,6 @@ $(document).ready(function() {
 	return values;
 });
 
-function addCookie(name, value, time) {
-    var day = new Date();
-    day.setTime(day.getTime() + (time*24*60*60*1000));
-    var expires = "expires="+day.toUTCString();
-    document.cookie = name + "=" + value + "; " + expires + "; path=/";
-}
-
 host = values[0];
 port = Number(values[1]);
 
@@ -30,6 +23,13 @@ if(host == "N/A" || port == -1) {
 	} else {
 		console.log("Successfully created socket");
 	}
+}
+
+function addCookie(name, value, time) {
+    var day = new Date();
+    day.setTime(day.getTime() + (time*24*60*60*1000));
+    var expires = "expires="+day.toUTCString();
+    document.cookie = name + "=" + value + "; " + expires + "; path=/";
 }
 
 socket.on('login-complete', function(data){
@@ -48,8 +48,3 @@ $('form').submit(function(){
     socket.emit('login', {email: $('#email').val(), pass: $('#passwrd'.val())});
     return false;
 });
-
-function login(email, passwrd) {
-	console.log("Logging in...");
-	socket.emit('login', {email: email, pass: passwrd});
-}
