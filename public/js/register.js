@@ -35,17 +35,8 @@ socket.on('reg-complete', function(data){
 	}
 });
 
-socket.on('reg-status', function(data) {
-	console.log(data);
-});
-
 $('form').submit(function(){
 	console.log("Registering...");
     socket.emit('register', {email: $('#email').val(), pass: $('#passwrd'.val())});
     return false;
 });
-
-function register(email, passwrd) {
-	console.log("Registering...");
-	socket.emit('register', {email: email, pass: passwrd});
-}
