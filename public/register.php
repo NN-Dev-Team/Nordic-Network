@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="/css/other-proto.css">
 		<link rel="stylesheet" href="/css/register.css">
 		<link rel="stylesheet" href="/css/footer-proto.css">
+		<link rel="stylesheet" href="css/styles.css">
 	</head>
 	<body>
 		<?php include 'navbar-proto.html'; ?>
@@ -13,15 +14,28 @@
 			<div class="ad" id="ad-box-inner"></div>
 		</div>
 		<form action="/">
+			<div id="register">
 			<fieldset>
-				<legend>Register</legend>
-				Email<br></br>
-				<input type="email" id="email"></input><br></br>
-				Password<br></br>
-				<input type="password" id="passwrd"></input><br></br><br></br>
-				<input type="submit" value="Submit"></input>
-			</fieldset>
-		<form>
+				<h1>Register</h1>
+				<br>
+				<div class="form-group">
+         
+                <input type="Email" class="form-control" id="regemail" placeholder="Email">
+                </div>
+				<div class="form-group">
+         
+                    <input type="password" class="form-control" id="regpwd" placeholder="Password">
+                </div>
+				<div class="form-group">
+         
+                    <input type="password" class="form-control" id="regpwd" placeholder="Confirm Password">
+                </div>
+	
+				<input type="submit" class="btn btn-default" value="Register" id="register-button"></input>
+	            <br></br>
+	</fieldset>
+		</form>
+		</div>
 		<div class="ad" id="ad-box-mobile"></div>
 		<?php include 'footer.html'; ?>
 	</body>
