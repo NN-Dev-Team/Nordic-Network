@@ -39,8 +39,8 @@ socket.on('server-checked', function(data){
 	}
 });
 
-function startServer(serverID){
-	socket.emit('start-server', { "server": serverID, "session": getCookie("session") });
+function startServer(){
+	socket.emit('start-server', { "server": Number(getCookie("user_id")), "session": getCookie("session") });
 	console.log("Starting server...");
 }
 </script>
