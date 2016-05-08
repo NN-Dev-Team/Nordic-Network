@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="/css/register.css">
 		<link rel="stylesheet" href="/css/footer-proto.css">
 		<link rel="stylesheet" href="css/styles.css">
+		<script src="register.js"></script>
 	</head>
 	<body>
 		<?php include 'navbar-proto.html'; ?>
