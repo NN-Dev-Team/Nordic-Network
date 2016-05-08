@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
 		<!-- Load custom CSS from file -->    
-		<link rel="stylesheet" href="css/styles.css">
+		<link rel="stylesheet" href="/css/styles.css">
 		<!-- Load bootstrap stylesheet from CDN -->
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<!-- Load JQuery from CDN -->
