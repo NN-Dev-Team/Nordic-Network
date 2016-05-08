@@ -32,10 +32,10 @@
 						<li><a href="#top">Home</a></li>
 						<li><a href="#index-info">About</a></li>  
 						<li><a href="#pricing">Pricing</a></li> 
-						<li><a href="/knowledgebase.php">Support</a></li> 
+						<li><a href="/knowledgebase">Support</a></li> 
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="/register.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+						<li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 						<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 					</ul>
 				</div>
