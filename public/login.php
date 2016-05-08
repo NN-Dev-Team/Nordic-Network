@@ -14,6 +14,9 @@
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<!-- Load JQuery Waypoints from CDN -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
+    </head>
+	
+    <body>
 		<nav id="nav-nomargin" class="navbar navbar-default navbar-fixed-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -34,9 +37,7 @@
 				</div>
 			</div>
 		</nav>
-    </head>
-	
-    <body>
+		
 		<div id="login-form">
 			<br />
 			<br />
