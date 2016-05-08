@@ -1,4 +1,4 @@
-DirectoryIndex index-proto.php index.php index.html down.php
+DirectoryIndex index.php down.php
 ErrorDocument 404 /404.php
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f

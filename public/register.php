@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="/css/other-proto.css">
 		<link rel="stylesheet" href="/css/register.css">
 		<link rel="stylesheet" href="/css/footer-proto.css">
-		<link rel="stylesheet" href="css/styles.css">
+		<link rel="stylesheet" href="/css/styles.css">
 		<script src="/js/register.js"></script>
 	</head>
 	<body>
