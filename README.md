@@ -1,5 +1,5 @@
 # Nordic Network
-++Free server hosting, the nordic way++
+### Free server hosting, the nordic way
 
 [![Join the chat at https://gitter.im/TropicSapling/Nordic-Network](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/TropicSapling/Nordic-Network?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
