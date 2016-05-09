@@ -83,7 +83,7 @@ exports.isBanned = function checkBans(IP, callback) {
 	});
 }
 
-exports.getUser = function getUserData(id, callback) {
+exports.get = function getUserData(id, callback) {
 	fs.readFile('users/' + id + '/user.txt', 'utf8', function(err, data) {
 		if(err) {
 			return callback(err);
@@ -93,7 +93,7 @@ exports.getUser = function getUserData(id, callback) {
 	});
 }
 
-exports.findUser = function findEmailMatch(email, callback) {
+exports.find = function findEmailMatch(email, callback) {
 	fs.readFile('users/user.txt', 'utf8', function(err, data) {
 		if(err) {
 			return callback(err);
@@ -106,11 +106,11 @@ exports.findUser = function findEmailMatch(email, callback) {
 				}
 				
 				if(data[0].trim() == email) {
-					callback(err, data);
+					callback(err, true, data);
 				}
 			});
 		}
 		
-		callback(err);
+		callback(err, false, data);
 	});
 }
