@@ -1,12 +1,3 @@
-# Nordic Network
-Free server hosting, the nordic way
------------------------------------
-
-[![Join the chat at https://gitter.im/TropicSapling/Nordic-Network](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/TropicSapling/Nordic-Network?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-32 GB RAM will be available the first month, hosted in UK. (Note that 1 GB will be allocated for programs and other stuff needed)
-
-
 You can now *test* the program by following these instructions:
 -------------------------------------------------------------------------
 1.  Clone this repository to your computer.
