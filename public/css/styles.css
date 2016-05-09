@@ -145,6 +145,7 @@ body {
     margin-top: 30vh;
     background-color: #3b3b3b;
     text-align: center;
+    color: white;
 } 
 
 #pwd {
@@ -165,6 +166,8 @@ body {
 	margin-top: 30vh;
     background-color: #3b3b3b;
     text-align: center;
+    color: white;
+    
 }
 
 #passwrd {
@@ -179,4 +182,10 @@ body {
 
 #register-button {
 
+}
+
+#logregbody {
+    background-image: url(/Nordic-Network/public/pics/277H.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
 }

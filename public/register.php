@@ -1,15 +1,21 @@
 <html>
-	<head>
-		<title>Nordic Network</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-		<link rel="stylesheet" href="/css/nav-proto.css">
-		<link rel="stylesheet" href="/css/other-proto.css">
-		<link rel="stylesheet" href="/css/register.css">
-		<link rel="stylesheet" href="/css/footer-proto.css">
-		<link rel="stylesheet" href="/css/styles.css">
-		<script src="/js/register.js"></script>
-	</head>
-	<body>
+		<head>
+		<script src="/js/login.js"></script>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<!-- Load custom CSS from file -->    
+		<link rel="stylesheet" href="css/styles.css">
+		<!-- Load bootstrap stylesheet from CDN -->
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<!-- Load JQuery from CDN -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<!-- Load bootstrap JS from CDN -->
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<!-- Load JQuery Waypoints from CDN -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
+    </head>
+	<body id="logregbody">
 		<nav id="nav-nomargin" class="navbar navbar-default navbar-fixed-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
