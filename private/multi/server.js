@@ -23,11 +23,20 @@ fs.readFile('../public/properities.txt', 'utf8', function (err, data) {
 	}
 	
 	values = data.split("\n");
-	var port = values[1];
-	http.listen(port, function(){
-		console.log('listening on *:' + port);
+	var c_port = values[1];
+	
+	// List of hosts & ports for dedicated servers
+	var host = values[2]; // SERV 1
+	var port = values[3]; // SERV 1
+	
+	// Listen to clients
+	http.listen(c_port, function(){
+		console.log('listening on *:' + c_port);
 	});
 });
+
+// List of dedicated servers
+var client = require('socket.io-client')('http://' + host + ":" + port); // SERV 1
 
 app.use(function(req, res, next) {
 	if (toobusy()) {
@@ -176,7 +185,7 @@ io.on('connection', function(socket){
 						}
 						
 						// Search the database to check if the user already exists
-						user.find(data.email, function(err, found, data) {
+						user.find(data.email, function(err, found, dat) {
 							if(err) {
 								return reg_printError(err, Number('4.' + __line));
 							}
@@ -186,29 +195,35 @@ io.on('connection', function(socket){
 							}
 							
 							// Check other databases
-							// WIP
+							client.emit('find-user', {"email": data.email});
 							
-							// User doesn't exist yet, register new user
-							fs.readFile("users/user.txt", 'utf8', function(error, dat) {
-								if(error) {
-									return reg_printError(error, Number('6.' + __line));
+							client.on('done-looking', function(err, found) {
+								if(err) {
+									return reg_printError(err, Number('6.' + __line));
 								}
-								
-								values = dat.split("\n");
-								
-								// Add email & password to user file
-								fs.writeFile("users/" + values[0].trim() + ".txt", data.email + "\n" + hash, function(err, data) {
-									if(err) {
-										return reg_printError(err, Number('7.' + __line));
+							
+								// User doesn't exist yet, register new user
+								fs.readFile("users/user.txt", 'utf8', function(error, dat) {
+									if(error) {
+										return reg_printError(error, Number('7.' + __line));
 									}
 									
-									// Make sure next user registered doesn't get the same user id
-									fs.writeFile("users/user.txt", Number(values[0]) + 1, function(err, data) {
+									values = dat.split("\n");
+									
+									// Add email & password to user file
+									fs.writeFile("users/" + values[0].trim() + ".txt", data.email + "\n" + hash, function(err, data) {
 										if(err) {
 											return reg_printError(err, Number('8.' + __line));
 										}
 										
-										reg_printSuccess()
+										// Make sure next user registered doesn't get the same user id
+										fs.writeFile("users/user.txt", Number(values[0]) + 1, function(err, data) {
+											if(err) {
+												return reg_printError(err, Number('9.' + __line));
+											}
+											
+											reg_printSuccess()
+										});
 									});
 								});
 							});
@@ -216,7 +231,7 @@ io.on('connection', function(socket){
 					});
 				});
 			} else {
-				reg_printError("This is impossible unless you hacked :/", Number('9.' + __line));
+				reg_printError("This is impossible unless you hacked :/", Number('10.' + __line));
 			}
 		});
 	});
