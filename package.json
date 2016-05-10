@@ -8,7 +8,7 @@
     "express": "^4.10.2",
     "mkdirp": "^0.5.1",
     "randomstring": "^1.1.4",
-    "socket.io": "^1.4.0",
+    "socket.io": "^1.4.6",
     "socket.io-client": "^1.4.6",
     "toobusy-js": "^0.4.3"
   },

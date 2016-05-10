@@ -1,4 +1,2 @@
 nordic-network.tk
 15015
-SERV 1 IP HERE
-SERV 1 PORT HERE
