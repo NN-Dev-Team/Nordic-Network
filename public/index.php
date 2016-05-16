@@ -39,7 +39,7 @@
 					<a type="button" id="getserver" class="btn btn-primary btn-lg" href="register.php">Get your free server now!</a>
 				</div>
 				
-				<a href="#index-info" class="glyphicon glyphicon-chevron-down white-glyphicon"></a>
+				<a href="/index/#index-info" class="glyphicon glyphicon-chevron-down white-glyphicon"></a>
 				
 			</div>
 		</div>
@@ -125,7 +125,7 @@
     <!-- Smooth scrolling and scrollspy -->
 	<script>
 		$('body').scrollspy({target: "#myNavbar"}); 
-		$("#top a[href^='#']").on('click', function(e) {
+		$("#top a[href^='/index/#']").on('click', function(e) {
 		
 			// prevent default anchor click behavior
 			e.preventDefault();
