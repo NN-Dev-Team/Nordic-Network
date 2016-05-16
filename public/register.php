@@ -21,9 +21,9 @@
 	<body>
 		<?php
 			if(isset($_COOKIE['session'])) {
-				include '/nav-user.php';
+				include 'nav-user.php';
 			} else {
-				include '/nav-guest.php';
+				include 'nav-guest.php';
 			}
 		?>
 		
