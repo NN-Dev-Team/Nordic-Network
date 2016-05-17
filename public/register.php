@@ -44,8 +44,12 @@
 		<div id="ad-box-outer">
 			<div class="ad" id="ad-box-inner"></div>
 		</div>
+        
+        <div id="register">
+        <br />
+        <br />
 		<form action="/">
-			<div id="register">
+			
 			<fieldset>
 				<h1>Register</h1>
 				<br>
@@ -62,9 +66,9 @@
                     <input type="password" class="form-control" id="passwrd" placeholder="Confirm Password">
                 </div>
 	
-				<input type="submit" class="btn btn-default" value="Register" id="register-button"></input>
-	            <br></br>
+				<input type="submit" class="btn btn-default" value="Register" id="register-button">
 	</fieldset>
+            <br />
 		</form>
 		</div>
 		<div class="ad" id="ad-box-mobile"></div>
