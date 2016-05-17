@@ -1,0 +1,1 @@
+Put the Minecraft version(s) you want to use in this folder :)
