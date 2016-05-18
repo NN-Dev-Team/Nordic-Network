@@ -190,32 +190,11 @@ body {
     background-position: center;
 }
 
-#cp-sidenav {
-    max-width: 15vw;
-    min-height: 100vh;
-    background-color: #3b3b3b;
-    margin-right: 0vh;
-    
+#cpbody {
+    height: 100vh;
 }
 
-#cp-sidenav ul {
-    width: 100%;
-    margin-right: 0px;
-    
-}
-
-#cp-sidenav ul li {
-    width: 100%;
-    margin: 0px;
-    padding: 0px;
-    
-}
-
-#cp-sidenav ul li a {
-    text-decoration: none;
-    color: white;
-}
-
-#cpcontent {
-    width: 100vw;
+#chart {
+    width: 20vh;
+    height: 20vh;
 }
