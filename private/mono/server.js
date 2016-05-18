@@ -218,7 +218,7 @@ io.on('connection', function(socket){
 											return reg_printError(err, Number('8.' + __line));
 										}
 										
-										printSuccess()
+										reg_printSuccess()
 									});
 								});
 							});
