@@ -3,6 +3,8 @@ var host = "N/A";
 var port = -1;
 
 $(document).ready(function() {
+	$('#login-failure').css('display', 'none');
+	
     $.get("../properities.txt", function(data) {
         values = data.split("\n");
 		return values;
@@ -36,10 +38,14 @@ socket.on('login-complete', function(data){
 	if(data.success){
 		console.log("Successfully logged in!");
 		addCookie("session", data.session, 1);
+		location.reload();
 	} else {
 		console.log("Failed to login.");
 		console.log("Reason: ", data.reason);
 		console.log("ID: ", data.id);
+		$('#login-failure').css('display', 'block');
+		$('#login-failure #reason').html('Reason:' + data.reason);
+		$('#login-failure #err-id').html('Error ID:' + data.id);
 	}
 });
 
