@@ -25,6 +25,11 @@
             var myChart = new Chart({...})
         </script>
 	</head>
+    
+    
+    
+    
+    
 <body id="cpbody">
 
     <div id="wrapper">
@@ -66,19 +71,69 @@
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <div class="container-fluid">
+            <div class="container-fluid" id="cpcontentcontainer">
                 <div class="row">
                     <div class="col-lg-12">
                         <h1>Dashboard</h1>
                         
+                        <br />
+                        <br />
+                        <h3>My server</h3>
+                        <br />
+                        <br />
+
+                        <div id="cpcontrols" class="text-center">
+                            <br />
+                            <button class="btn btn-success">Start</button>
+                            &nbsp;
+                            &nbsp;
+                            <button class="btn btn-danger">Stop</button>
+                            <br />
+                            <br />
+                        </div>
+                         <br />
+                        <br />   
+                        <br />
+                        
+                        
                         <div id="chartswrapper">
+                            
+                            
                             <div id="chart">
                                 <canvas id="myChart" width="30px" height="100px"></canvas>
                             </div>
-                        </div>    
+                            
+                        <div id="chart">
+                                <canvas id="myChart2" width="30px" height="100px"></canvas>
+                            </div>
+    
+                            
+                        <div id="chart">
+                                <canvas id="myChart3" width="30px" height="100px"></canvas>
+                                    </div>
                             
                             
-                            
+                                </div>
+                    
+                          
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                             
                         <script>
                         var ctx = document.getElementById("myChart");
@@ -88,7 +143,7 @@
                              labels: ["RAM usage", "Unused RAM"],
                               datasets: [{
                                    label: 'RAM usage',
-                                   data: [3, 2],
+                                   data: [7, 3],
                                    backgroundColor: [
                                        "#ff3333",
                                        "#fff"
@@ -100,14 +155,72 @@
                                 maintainAspectRatio: false,
                                 scales: {
                                     display: false
+                                    
                              }
                             }
                         });
                         </script>
                         
+                
+                
+                
+                        <script>
+                            
+                            
+                        var ctx = document.getElementById("myChart2");
+                        var myChart = new Chart(ctx, {
+                         type: 'doughnut',
+                         data: {
+                             labels: ["CPU Usage", "Unused CPU"],
+                              datasets: [{
+                                   label: 'RAM usage',
+                                   data: [6, 4],
+                                   backgroundColor: [
+                                       "#91ff33",
+                                       "#fff"
+                                   ]     
+                             }]
+                         },
+                         options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    display: false
+                                    
+                             }
+                            }
+                        });
+                            
+                        </script>
                         
                         
-                        
+                        <script>
+                        var ctx = document.getElementById("myChart3");
+                        var myChart = new Chart(ctx, {
+                         type: 'doughnut',
+                         data: {
+                             labels: ["Used disk space", "Unused disk space"],
+                              datasets: [{
+                                   label: 'RAM usage',
+                                   data: [7, 3],
+                                   backgroundColor: [
+                                       "#3372ff",
+                                       "#fff"
+                                   ]     
+                             }]
+                         },
+                         options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    display: false
+                                    
+                             }
+                            }
+                        });
+                        </script>
+                
+                
                         <br />
                         <br />
                         
