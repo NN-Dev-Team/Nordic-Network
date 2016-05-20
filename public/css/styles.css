@@ -197,4 +197,19 @@ body {
 #chart {
     width: 20vh;
     height: 20vh;
+    display: inline-block;
+    margin-left: 10vh;
+    margin-right: 10vh;
+    min-height: 10vh;
+    min-width: 10vh;
+}
+
+#chartswrapper {
+    height: 30vh;
+    text-align: center;
+}
+
+#cpcontrols {
+    margin-left: 5vh;
+    margin-right: 5vh;
 }
