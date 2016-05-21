@@ -43,10 +43,10 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">Dashboard</a>
+                    <a href="#" onclick="collapseAll(0)">Dashboard</a>
                 </li>
                 <li>
-                    <a href="#collapse1" data-toggle="collapse">Manage Server &nbsp;<span class="icon-cog-1"></span></a>
+                    <a href="#collapse1" data-toggle="collapse" onclick="collapseAll(1)">Manage Server &nbsp;<span class="icon-cog-1"></span></a>
                     <div id="collapse1" class="collapse">
                     <ul>
                         <li><a href="#">FTP &nbsp;<span class="icon-cloud-upload-1"></span></a></li>
@@ -57,7 +57,7 @@
                 </li>
                 <li>
                     
-                    <a href="#collapse2" data-toggle="collapse">Manage Website &nbsp;<span class="icon-globe"></span></a>
+                    <a href="#collapse2" data-toggle="collapse" onclick="collapseAll(2)">Manage Website &nbsp;<span class="icon-globe"></span></a>
                     <div id="collapse2" class="collapse">
                     <ul>
                     <li><a href="#">Editor &nbsp;<span class="icon-wrench-1"></span></a></li>
@@ -78,7 +78,7 @@
                         
                         <br />
                         <br />
-                        <h3>My server</h3>
+                        <h3 style="text-align: center;">My server</h3>
                         <br />
                         <br />
 
@@ -95,31 +95,37 @@
                         <br />   
                         <br />
                         
+                        <h3 style="text-align: center;">Statistics</h3>
+                        <br />
                         
-                        <div id="chartswrapper">
+                        <div id="donutchartswrapper">
                             
                             
-                            <div id="chart">
+                            <div id="dchart">
                                 <canvas id="myChart" width="30px" height="100px"></canvas>
                             </div>
                             
-                        <div id="chart">
+                        <div id="dchart">
                                 <canvas id="myChart2" width="30px" height="100px"></canvas>
                             </div>
     
                             
-                        <div id="chart">
+                        <div id="dchart">
                                 <canvas id="myChart3" width="30px" height="100px"></canvas>
-                                    </div>
+                        </div>
                             
+                        <h3></h3>
+                        <div id="lchart">
+                            <canvas id="myChart4" width="100vw" height="500px"></canvas>
                             
+                        </div>
                                 </div>
                     
                           
                 
                 
                 
-                
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                 
                 
                 
@@ -220,11 +226,34 @@
                         });
                         </script>
                 
+                <script>
+                        var ctx = document.getElementById("myChart4");
+                        var myChart = new Chart(ctx, {
+                         type: 'line',
+                         data: {
+                             labels: ["Online Players"],
+                              datasets: [{
+                                   label: 'Players',
+                                   data: [1, 9, 3, 5, 1, 6],
+                                    borderColor: "#27eda9",
+                                  backgroundColor: "#89e5c5"
+                             }]
+                         },
+                         options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    display: false
+                                    
+                             }
+                            }
+                        });
+                        </script>
                 
                         <br />
                         <br />
                         
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                        
                     </div>
                 </div>
             </div>
