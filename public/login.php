@@ -1,6 +1,5 @@
 <html>
 	<head>
-		<script src="/js/login.js"></script>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
@@ -14,33 +13,20 @@
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<!-- Load JQuery Waypoints from CDN -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
+		
+		<script src="/js/login.js"></script>
+		
+		<title>Nordic Network - Flexible server hosting, the Nordic way</title>
     </head>
 	
     <body>
-		<nav id="nav-nomargin" class="navbar navbar-default navbar-fixed-top">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span> 
-					</button>
-					<a class="navbar-brand" href="/index#top">Nordic Network</a>
-				</div>
-				<div class="collapse navbar-collapse" id="myNavbar">
-					<ul class="nav navbar-nav">
-						<li><a href="/index#top">Home</a></li>
-						<li><a href="/index#index-info">About</a></li>  
-						<li><a href="/index#pricing">Pricing</a></li> 
-						<li><a href="/knowledgebase">Support</a></li> 
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-						<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+		<?php
+			if(isset($_COOKIE['session'])) {
+				include 'nav-user.php';
+			} else {
+				include 'nav-guest.php';
+			}
+		?>
 		
 		<div id="login-form">
 			<br />

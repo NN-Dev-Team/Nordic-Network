@@ -145,6 +145,7 @@ body {
     margin-top: 30vh;
     background-color: #3b3b3b;
     text-align: center;
+    color: white;
 } 
 
 #pwd {
@@ -165,6 +166,8 @@ body {
 	margin-top: 30vh;
     background-color: #3b3b3b;
     text-align: center;
+    color: white;
+    
 }
 
 #passwrd {
@@ -179,4 +182,34 @@ body {
 
 #register-button {
 
+}
+
+#logregbody {
+    background-image: url(/Nordic-Network/public/pics/277H.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#cpbody {
+    height: 100vh;
+}
+
+#chart {
+    width: 20vh;
+    height: 20vh;
+    display: inline-block;
+    margin-left: 10vh;
+    margin-right: 10vh;
+    min-height: 10vh;
+    min-width: 10vh;
+}
+
+#chartswrapper {
+    height: 30vh;
+    text-align: center;
+}
+
+#cpcontrols {
+    margin-left: 5vh;
+    margin-right: 5vh;
 }

@@ -14,33 +14,18 @@
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<!-- Load JQuery Waypoints from CDN -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
+		<!-- Load Fontastic CSS from file -->
++        	<link rel="stylesheet" href="fontastic.css">
 	</head>
 	<body id="top">
 		<!-- Nav -->
-		<nav id="nav-nomargin" class="navbar navbar-default navbar-fixed-top">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span> 
-					</button>
-					<a class="navbar-brand" href="/index#top">Nordic Network</a>
-				</div>
-				<div class="collapse navbar-collapse" id="myNavbar">
-					<ul class="nav navbar-nav">
-						<li><a href="#top">Home</a></li>
-						<li><a href="#index-info">About</a></li>  
-						<li><a href="#pricing">Pricing</a></li> 
-						<li><a href="/knowledgebase">Support</a></li> 
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-						<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+		<?php
+			if(isset($_COOKIE['session'])) {
+				include 'nav-user.php';
+			} else {
+				include 'nav-guest.php';
+			}
+		?>
 		
 		<!-- Jumbotron/Image -->
     
@@ -56,7 +41,7 @@
 					<a type="button" id="getserver" class="btn btn-primary btn-lg" href="register.php">Get your free server now!</a>
 				</div>
 				
-				<a href="#index-info" class="glyphicon glyphicon-chevron-down white-glyphicon"></a>
+				<a href="/index/#index-info" class="glyphicon glyphicon-chevron-down white-glyphicon"></a>
 				
 			</div>
 		</div>
@@ -75,15 +60,15 @@
 			<br>
 			
 			<div class="row">
-				<div class="col-sm-4"><img id="feature-img" class="center-block" src="pics/icons/settings-sm.png" height="50px" width="50px"><h4 id="feature-text-title">Powerful dashboard</h4><p id="feature-text" class="center-block">All of our servers come with a custom dashboard. It has a file manager, version installer and many other great features.</p></div>
-				<div class="col-sm-4"><img id="feature-img" class="center-block" src="pics/icons/cloud-sm.png" height="50px" width="50px"><h4 id="feature-text-title">Free server page</h4><p id="feature-text" class="center-block">Each server comes with it's very own website hosted by us! Add pictures, videos and text, let players donate upgrades and vote to keep your server alive (Minecraft server websites support Votifier). You can also purchase extensions like forums and blogs!</p></div>
-				<div class="col-sm-4"><img id="feature-img" class="center-block" src="pics/icons/game-sm.png" height="50px" width="50px"><h4 id="feature-text-title">Game library</h4><p id="feature-text" class="center-block">We support various games ranging from Minecraft to CS:GO!</p></div>
+				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/settings-sm.png" height="50px" width="50px"><h4 id="feature-text-title">Powerful dashboard</h4><p id="feature-text" class="center-block">All of our servers come with a custom dashboard. It has a file manager, version installer and many other great features.</p></div>
+				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/cloud-sm.png" height="50px" width="50px"><h4 id="feature-text-title">Free server page</h4><p id="feature-text" class="center-block">Each server comes with it's very own website hosted by us! Add pictures, videos and text, let players donate upgrades and vote to keep your server alive (Minecraft server websites support Votifier). You can also purchase extensions like forums and blogs!</p></div>
+				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/game-sm.png" height="50px" width="50px"><h4 id="feature-text-title">Game library</h4><p id="feature-text" class="center-block">We support various games ranging from Minecraft to CS:GO!</p></div>
 			</div>
 			<br />
 			<div class="row">
-				<div class="col-sm-4"><img id="feature-img" class="center-block" src="pics/icons/shield-sm.png" height="50px" width="50px"><h4 id="feature-text-title">Secure</h4><p id="feature-text" class="center-block">Our servers are protected from DDOS attacks, and everything else that may hurt your server.</p></div>
-				<div class="col-sm-4"><img id="feature-img" class="center-block" src="pics/icons/heart-sm.png" height="50px" width="50px"><h4 id="feature-text-title">Made with <span class="glyphicon glyphicon-heart"></span></h4><p id="feature-text" class="center-block">Made by gamers, for gamers. </p></div>
-				<div class="col-sm-4"><a href="https://github.com/NN-Dev-Team/Nordic-Network"><img id="feature-img" class="center-block" src="pics/icons/github.png" height="50px" width="50px"><h4 id="feature-text-title"></a>Open Source</h4><p id="feature-text" class="center-block">Our code is open source on Github, so you can help us improve this service.</p></div>
+				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/shield-sm.png" height="50px" width="50px"><h4 id="feature-text-title">Secure</h4><p id="feature-text" class="center-block">Our servers are protected from DDOS attacks, and everything else that may hurt your server.</p></div>
+				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/heart-sm.png" height="50px" width="50px"><h4 id="feature-text-title">Made with <span class="glyphicon glyphicon-heart"></span></h4><p id="feature-text" class="center-block">Made by gamers, for gamers. </p></div>
+				<div class="col-sm-4"><a href="https://github.com/NN-Dev-Team/Nordic-Network"><img id="feature-img" class="center-block" src="/pics/icons/github.png" height="50px" width="50px"><h4 id="feature-text-title"></a>Open Source</h4><p id="feature-text" class="center-block">Our code is open source on Github, so you can help us improve this service.</p></div>
 			</div>
 			
       <!-- Who wants a cookie? :D     
@@ -114,13 +99,13 @@
 			<br />
 			<br />
 			<div class="row">
-				<div class="col-sm-3"><img id="pricing-img" class="center-block img-circle" src="pics/icons/bulb_lg.png" height="100px" width="100px"><h4 id="pricing-text-title">Baldur</h4><p id="pricing-text" class="center-block"><b>Weekly cost:</b> £0,1 <b>OR</b> x votes</p><p id="pricing-text" class="center-block"><b>Features:</b> 256 MB RAM & 1 GB disk space</p></div>
+				<div class="col-sm-3"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/bulb_lg.png" height="100px" width="100px"><h4 id="pricing-text-title">Baldur</h4><p id="pricing-text" class="center-block"><b>Weekly cost:</b> £0,1 <b>OR</b> x votes</p><p id="pricing-text" class="center-block"><b>Features:</b> 256 MB RAM & 1 GB disk space</p></div>
 				
-				<div class="col-sm-3"><img id="pricing-img" class="center-block img-circle" src="pics/icons/fire.svg" alt="fire" align="middle" height="100px" width="100px"><h4 id="pricing-text-title">Loki</h4><p id="pricing-text" class="center-block"><b>Weekly cost:</b> £0,2 <b>OR</b> x votes</p><p id="pricing-text" class="center-block"><b>Features:</b> 512 MB RAM, 2 GB disk space & FTP access</p></div>
+				<div class="col-sm-3"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/fire.svg" alt="fire" align="middle" height="100px" width="100px"><h4 id="pricing-text-title">Loki</h4><p id="pricing-text" class="center-block"><b>Weekly cost:</b> £0,2 <b>OR</b> x votes</p><p id="pricing-text" class="center-block"><b>Features:</b> 512 MB RAM, 2 GB disk space & FTP access</p></div>
                 
-				<div class="col-sm-3"><img id="pricing-img" class="center-block img-circle" src="pics/icons/bolt.svg" height="100px" width="100px"><h4 id="pricing-text-title">Thor</h4><p id="pricing-text" class="center-block"><b>Weekly cost:</b> £0,4 <b>OR</b> x votes</p><p id="pricing-text" class="center-block"><b>Features:</b> 1 GB RAM, 4 GB disk space & FTP access</p><p id="pricing-text" class="center-block"><b>Monthly cost:</b> £2</p><p id="pricing-text" class="center-block"><b>Premium features:</b> No advertisements on this website</p></div>
+				<div class="col-sm-3"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/bolt.svg" height="100px" width="100px"><h4 id="pricing-text-title">Thor</h4><p id="pricing-text" class="center-block"><b>Weekly cost:</b> £0,4 <b>OR</b> x votes</p><p id="pricing-text" class="center-block"><b>Features:</b> 1 GB RAM, 4 GB disk space & FTP access</p><p id="pricing-text" class="center-block"><b>Monthly cost:</b> £2</p><p id="pricing-text" class="center-block"><b>Premium features:</b> No advertisements on this website</p></div>
                 
-				<div class="col-sm-3"><img id="pricing-img" class="center-block img-circle" src="pics/icons/face-lg.png" height="100px" width="100px"><h4 id="pricing-text-title">Odin</h4><p id="pricing-text" class="center-block"><b>Weekly cost:</b> £0,8 <b>OR</b> x votes</p><p id="pricing-text" class="center-block"><b>Features:</b> 2 GB RAM, 8 GB disk space & FTP access</p><p id="pricing-text" class="center-block"><b>Monthly cost:</b> £4</p><p id="pricing-text" class="center-block"><b>Premium features:</b> Tier #3 + Website extensions for free</p></div>                           
+				<div class="col-sm-3"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/face-lg.png" height="100px" width="100px"><h4 id="pricing-text-title">Odin</h4><p id="pricing-text" class="center-block"><b>Weekly cost:</b> £0,8 <b>OR</b> x votes</p><p id="pricing-text" class="center-block"><b>Features:</b> 2 GB RAM, 8 GB disk space & FTP access</p><p id="pricing-text" class="center-block"><b>Monthly cost:</b> £4</p><p id="pricing-text" class="center-block"><b>Premium features:</b> Tier #3 + Website extensions for free</p></div>                           
 			</div>
 			<br />
 			<br />
@@ -142,7 +127,7 @@
     <!-- Smooth scrolling and scrollspy -->
 	<script>
 		$('body').scrollspy({target: "#myNavbar"}); 
-		$("#top a[href^='#']").on('click', function(e) {
+		$("#top a[href^='/index/#']").on('click', function(e) {
 		
 			// prevent default anchor click behavior
 			e.preventDefault();
