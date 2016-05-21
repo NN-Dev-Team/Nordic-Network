@@ -27,3 +27,14 @@ $("#menu-toggle").click(function(e) {
         );
       }
     $(document).ready(function() {initMenu();});
+
+    function collapseAll(butThis) {
+	if(butThis == 0) {
+		$('#collapse2').removeClass('collapse in').addClass('collapse');
+		$('#collapse1').removeClass('collapse in').addClass('collapse');
+	} else if(butThis == 1) {
+		$('#collapse2').removeClass('collapse in').addClass('collapse');
+	} else {
+		$('#collapse1').removeClass('collapse in').addClass('collapse');
+	}
+}
