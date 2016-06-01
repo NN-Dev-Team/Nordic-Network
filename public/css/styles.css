@@ -192,6 +192,7 @@ body {
 
 #cpbody {
     height: 100vh;
+    overflow: hidden;
 }
 
 #dchart {
@@ -202,6 +203,7 @@ body {
     margin-right: 5vh;
     min-height: 15vh;
     min-width: 15vh;
+    
 }
 
 #donutchartswrapper {
@@ -212,9 +214,20 @@ body {
 #cpcontrols {
     margin-left: 5vh;
     margin-right: 5vh;
+    text-align: center;
+    
 }
 
 #cpcontrols button {
     font-size: 2vh;
     width: 4vw;
+}
+
+#ipcontainer {
+    display: inline-block;
+}
+
+#versioncontainer {
+    display: inline-block;
+    margin-left: 3vh;
 }
