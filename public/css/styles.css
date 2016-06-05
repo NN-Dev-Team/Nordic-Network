@@ -285,3 +285,81 @@ body {
     max-width: 3vh;
     min-width: 3vh;
 }
+
+#consolewrapper {
+    text-align: center;
+    align-items: center;
+}
+
+#console {
+    width: 50vw;
+    height: 50vh;
+    border-radius: 10px;
+    font-family: monospace;
+    font: Lucida Console;
+    border: 1px solid black;
+    text-align: center;
+}
+
+#console textarea {
+    border: none;
+    resize: none;
+    width: 48vw;
+    height: 47vh;
+    border-top-left-radius: 10px;
+    float: left;
+    border-right: 1px solid black;
+}
+
+#consoleinput {
+    width: 49.9vw;
+    color: black;
+    font-family: monospace;
+    font: Lucida Console;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom: hidden;
+    border-top: 1px solid black;
+    border-right: hidden;
+    border-left: hidden;
+}
+
+#consolebuttons {
+    text-align: center;
+}
+
+#cnslchangecolor {
+    margin-top: 5px;
+    border: none;
+    height: 3vh;
+    width: 3.51vh;
+    background-color: white;
+}
+
+#cnslautochat {
+    border: none;
+    height: 3vh;
+    width: 3.51vh;
+    background-color: white;
+}
+
+#cnslchangecolor span{
+    font-size: 1.5em;
+}
+
+#cnslautochat span{
+    font-size: 1.5em;
+}
+
+#cnslerror {
+    display: none;
+}
+@media screen and (max-width: 1500px) {
+    #consolewrapper {
+    display: none;    
+    }
+    
+    #cnslerror {
+    display: block;
+}
+}
