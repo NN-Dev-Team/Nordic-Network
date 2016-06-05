@@ -28,7 +28,9 @@
 				include 'nav-guest.php';
 			}
 		?>
-		
+		<div id="cookie-notice">
+            <?php include 'cookies.html'; ?>
+        </div>
 		<!-- Jumbotron/Image -->
     
 		<div id="jumbo-nomargin" class="jumbotron">
