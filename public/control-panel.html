@@ -37,6 +37,7 @@
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
+            
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
@@ -44,7 +45,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" onclick="collapseAll(0)">Dashboard</a>
+                    <a href="user.html" onclick="collapseAll(0)"><img src="pics/usrleaves.jpg" id="usrimg" class="img-circle"/>&nbsp; iSasFTW <span class="glyphicon glyphicon-user"></span></a>
+                </li>
+                <li>
+                <br>
+                </li>
+                <li>
+                    <a href="#" onclick="collapseAll(0)">Dashboard <span class="glyphicon glyphicon-tasks"></span></a>
                 </li>
                 <li>
                     <a href="#collapse1" data-toggle="collapse" onclick="collapseAll(1)">Manage Server &nbsp;<span class="icon-cog-1"></span></a>
@@ -70,8 +77,15 @@
         </div>
         <!-- /#sidebar-wrapper -->
 
+        
+        
+        
+        
         <!-- Page Content -->
         <div id="page-content-wrapper">
+            
+            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+            
             <div class="container-fluid" id="cpcontentcontainer">
                 <div class="row">
                     <div class="col-lg-12">
@@ -79,11 +93,13 @@
                         
                         <br />
                         <br />
-                        <h3 style="text-align: center;">My server</h3>
+                        <h2 style="text-align: center;">My server</h2>
                         <br />
                         <br />
 
                         <div id="cpcontrols" class="text-center">
+                            <h3 id="ipcontainer">IP: </h3> <span id="ip">192.180.873:2569</span>
+                            <h3 id="versioncontainer">Version: </h3> <span id="version">Bukkit 1.8.9</span>
                             <br />
                             <button class="btn btn-success">Start</button>
                             &nbsp;
@@ -92,6 +108,8 @@
                             <br />
                             <br />
                         </div>
+                        
+                        
                          <br />
                         <br />   
                         <br />
@@ -101,23 +119,26 @@
                         
                         <div id="donutchartswrapper">
                             
-                            
+                            <!-- Dougnut chart 1 -->
                             <div id="dchart">
                                 <canvas id="myChart" width="30px" height="100px"></canvas>
                             </div>
+                            
+                            <!-- Dougnut chart 2 -->
                             
                         <div id="dchart">
                                 <canvas id="myChart2" width="30px" height="100px"></canvas>
                             </div>
     
-                            
+                            <!-- Dougnut chart 3 -->
                         <div id="dchart">
                                 <canvas id="myChart3" width="30px" height="100px"></canvas>
                         </div>
                             
-                        <h3></h3>
+                        <h3>Online players</h3>
+                            <!-- Line chart -->
                         <div id="lchart">
-                            <canvas id="myChart4" width="100vw" height="500px"></canvas>
+                            <canvas id="myChart4" width="100vw" height="300px"></canvas>
                             
                         </div>
                                 </div>
@@ -126,8 +147,7 @@
                 
                 
                 
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-                
+                        
                 
                 
                 
@@ -142,6 +162,7 @@
                 
                 
                             
+                            <!-- Dougnut chart 1 -->
                         <script>
                         var ctx = document.getElementById("myChart");
                         var myChart = new Chart(ctx, {
@@ -170,7 +191,7 @@
                         
                 
                 
-                
+                            <!-- Dougnut chart 2 -->
                         <script>
                             
                             
@@ -200,7 +221,7 @@
                             
                         </script>
                         
-                        
+                            <!-- Dougnut chart 3 -->
                         <script>
                         var ctx = document.getElementById("myChart3");
                         var myChart = new Chart(ctx, {
@@ -226,7 +247,9 @@
                             }
                         });
                         </script>
-                
+                    
+                        
+                        <!-- Line chart -->
                 <script>
                         var ctx = document.getElementById("myChart4");
                         var myChart = new Chart(ctx, {
@@ -235,9 +258,11 @@
                              labels: ["Online Players"],
                               datasets: [{
                                    label: 'Players',
-                                   data: [1, 9, 3, 5, 1, 6],
+                                   data: [1, 10, 9, 50],
                                     borderColor: "#27eda9",
-                                  backgroundColor: "#89e5c5"
+                                  backgroundColor: "#89e5c5",
+                                  pointBorderColor: "#74c77d",
+                                  pointStyle: "star"
                              }]
                          },
                          options: {

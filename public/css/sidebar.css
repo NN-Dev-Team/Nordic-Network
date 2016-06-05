@@ -43,6 +43,7 @@
     padding: 15px;
     width: 100%;  
     overflow-x: hidden; 
+    height: 100vh;
 }
 .xyz{
     min-width: 360px;

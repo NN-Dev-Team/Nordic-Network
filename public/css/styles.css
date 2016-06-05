@@ -192,6 +192,7 @@ body {
 
 #cpbody {
     height: 100vh;
+    overflow: hidden;
 }
 
 #dchart {
@@ -202,6 +203,7 @@ body {
     margin-right: 5vh;
     min-height: 15vh;
     min-width: 15vh;
+    
 }
 
 #donutchartswrapper {
@@ -212,9 +214,74 @@ body {
 #cpcontrols {
     margin-left: 5vh;
     margin-right: 5vh;
+    text-align: center;
+    
 }
 
 #cpcontrols button {
     font-size: 2vh;
-    width: 4vw;
+    text-align: center;
+    white-space: normal;
+}
+
+#ipcontainer {
+    display: inline-block;
+    font-size: 3vh;
+    white-space: nowrap;
+}
+
+#versioncontainer {
+    display: inline-block;
+    margin-left: 3vh;
+    font-size: 3vh;
+    white-space: nowrap;
+}
+
+#cookies {
+    background-color: #76c9b9;
+    font-size: 2vh;
+    font: url("../fonts/Viking.ttf");  
+}
+
+#cookies p {
+    color: #fff; 
+}
+
+#cookies p a {
+    color: #fff;
+}
+
+#cookie-notice {
+    max-height: 5vh;
+    min-width: 100vw;
+    min-height: 5vh;
+}
+
+#cookie-notice-button {
+    
+}
+
+@media screen and (min-width: 770px) {
+    #menu-toggle {
+    display: none;    
+    }
+    
+}
+
+#menu-toggle {
+    width: 5vh;
+    height: 5vh;
+    text-align: center;
+}
+
+#menu-toggle span {
+    font-size: 2.5vh;
+}
+
+#usrimg {
+    border: 1px solid #999999;
+    max-height: 3vh;
+    min-height: 3vh;
+    max-width: 3vh;
+    min-width: 3vh;
 }
