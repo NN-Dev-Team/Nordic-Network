@@ -1,6 +1,8 @@
+"use strict";
+
 var toobusy = require('toobusy-js');
 var user = require('./user-extras.js');
-var mcLib = require('./auto-updater.js');
+// var mcLib = require('./auto-updater.js');
 var fs = require('fs');
 var express = require('express');
 var app = express();
@@ -11,6 +13,7 @@ var bcrypt = require('bcryptjs');
 var randomstring = require('randomstring');
 var mkdir = require('mkdirp');
 var exec = require('child_process').exec;
+var Rcon = require('rcon');
 
 var values = [];
 var props = [];
@@ -18,7 +21,7 @@ var escapeAll = false;
 var valid = false;
 var doneSearching = false;
 
-fs.readFile('../public/properities.txt', 'utf8', function (err, data) {
+fs.readFile('properities.txt', 'utf8', function (err, data) {
 	if (err) {
 		return console.log(err);
 	}
@@ -114,16 +117,24 @@ function create_printSuccess(id) {
 }
 
 // Control panel functions
-function cp_printError(reason, id) {
+function start_printError(reason, id) {
 	io.emit('server-checked', {"success": false, "reason": reason, "id": id});
 }
 
-function cp_printSuccess(id) {
+function start_printSuccess(id) {
 	if(typeof id == 'number') {
 		io.emit('server-checked', {"success": true, "id": id});
 	} else {
 		io.emit('server-checked', {"success": true});
 	}
+}
+
+function stop_printError(reason, id) {
+	io.emit('server-stopped', {"success": false, "reason": reason, "id": id});
+}
+
+function stop_printSuccess() {
+	io.emit('server-stopped', {"success": true});
 }
 
 function boolify(obj, ignoreCase) {
@@ -534,6 +545,88 @@ io.on('connection', function(socket){
 						}
 					} else {
 						return cp_printError("ACCESS DENIED. But seriously, start your own server instead of others :P", Number('11.' + __line));
+					}
+				});
+			});
+		});
+	});
+	
+	socket.on('stop-server', function(data) {
+		user.isBanned(IP, function(err, banned) {
+			if(err) {
+				return console.log(err);
+			}
+			
+			if(banned[0]) {
+				return stop_printError("Please don't overload our servers.", Number('0.' + __line));
+			} else if(banned[1]) {
+				user.addIP(IP, function(err) {
+					if(err) {
+						console.log(err);
+					}
+					
+					user.incrUsage(IP, 8);
+				});
+			} else {
+				user.incrUsage(IP, 8);
+			}
+			
+			if(typeof data.server != 'number' || typeof data.session != 'string') {
+				return stop_printError("Invalid server ID and/or session ID.", Number('1.' + __line));
+			}
+			
+			fs.readFile('servers/' + data.server + '/.properities', 'utf8', function(err, dat) {
+				if (err) {
+					return stop_printError(err, Number('2.' + __line));
+				}
+				
+				props = dat.split("\n");
+				var serv_isSleeping = boolify(props[0].trim());
+				var serv_type = props[1].trim();
+				var serv_typeCS = serv_type.substring(1, 2);
+				var serv_rank = props[2].trim();
+				var serv_timeOn = props[3].trim();
+				var serv_IP = "";
+				var rcon_port = 0;
+				var rcon_pass = "";
+				var serv_ram = [[256, 512, 1024, 2048, 4096], [512, 1024, 2048, 4096], [512, 1024, 2048, 4096]];
+				
+				fs.readFile('users/' + data.server + ".txt", 'utf8', function(err, dat) {
+					props = dat.split("\n");
+					var user_session = props[2].trim();
+					
+					// Check if session is matching
+					if(user_session == data.session) {
+						if(serv_type == 0) {
+							// Minecraft
+							
+							fs.readFile('servers/' + data.server + '/server.properities', 'utf8', function(err, data) {
+								if(err) {
+									return stop_printError(err, Number('3.' + __line));
+								}
+								
+								props = data.split("\n");
+								for(i = 0; i < props.length; i++) {
+									if(props[i].substring(0, 9) == 'server-ip') {
+										serv_IP = props[i].substring(10);
+									} else if(props[i].substring(0, 9) == 'rcon.port') {
+										rcon_port = props[i].substring(10);
+									} else if(props[i].substring(0, 13) == 'rcon.password') {
+										rcon_pass = props[i].substring(14);
+									}
+								}
+								
+								var conn = new Rcon(serv_IP, rcon_port, rcon_pass);
+								
+								conn.on('auth', function() {
+									conn.send('stop');
+								}).on('error', function(err) {
+									stop_printSuccess();
+								});
+								
+								conn.connect();
+							});
+						}
 					}
 				});
 			});
