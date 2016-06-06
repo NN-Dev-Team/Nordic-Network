@@ -334,7 +334,7 @@ io.on('connection', function(socket){
 											return create_printError(err, Number('7' + __line));
 										}
 										
-										printSuccess();
+										create_printSuccess();
 									});
 								}
 							});
@@ -364,7 +364,7 @@ io.on('connection', function(socket){
 								}
 								
 								if(data.type == 0) {
-									mcLib.addJar("servers/" + data.id, function(err) {
+									mcLib.addJar("servers/" + usr, function(err) {
 										if(err) {
 											return create_printError(err, Number('12.' + __line));
 										}

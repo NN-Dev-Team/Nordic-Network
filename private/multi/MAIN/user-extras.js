@@ -118,7 +118,7 @@ exports.find = function findEmailMatch(email, callback) {
 }
 
 exports.findSession = function findSessionMatch(session, callback) {
-	fs.readFile('users/user.txt', 'utf8', function(err, data) {
+	fs.readFile('users/users.txt', 'utf8', function(err, data) {
 		if(err) {
 			return callback(err);
 		}
