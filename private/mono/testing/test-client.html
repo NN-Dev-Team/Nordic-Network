@@ -5,6 +5,8 @@
 </head>
 <body>
 <script>
+"use strict";
+
 var host = "localhost";
 var port = 15015;
 
@@ -25,6 +27,13 @@ function getCookie(name) {
         if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
     }
     return "";
+}
+
+function addCookie(name, value, time) {
+    var day = new Date();
+    day.setTime(day.getTime() + (time*24*60*60*1000));
+    var expires = "expires="+day.toUTCString();
+    document.cookie = name + "=" + value + "; " + expires + "; path=/";
 }
 
 socket.on('server-checked', function(data){
@@ -57,6 +66,53 @@ function startServer(){
 function stopServer() {
 	socket.emit('stop-server', {"server": Number(getCookie("user_id")), "session": getCookie("session")});
 	console.log("Stopping server...");
+}
+
+socket.on('reg-complete', function(data){
+	if(data.success){
+		console.log("Successfully created account!");
+	} else {
+		console.log("Failed to create account.");
+		console.log("Reason: ", data.reason);
+		console.log("ID: ", data.id);
+	}
+});
+
+function register(email, passwrd) {
+	console.log("Registering...");
+	socket.emit('register', {email: email, pass: passwrd});
+}
+
+socket.on('creation-complete', function(data){
+	if(data.success){
+		console.log("Successfully created Minecraft server!");
+		addCookie("user_id", data.id, 0.1);
+	} else {
+		console.log("Failed to create server.");
+		console.log("Reason: ", data.reason);
+		console.log("ID: ", data.id);
+	}
+});
+
+function createServer(type){
+	socket.emit('create-serv', { "id": Number(getCookie("user_id")), "session": getCookie("session"), "type": type });
+	console.log("Starting server...");
+}
+
+socket.on('login-complete', function(data){
+	if(data.success){
+		console.log("Successfully logged in!");
+		addCookie("session", data.session, 1);
+	} else {
+		console.log("Failed to login.");
+		console.log("Reason: ", data.reason);
+		console.log("ID: ", data.id);
+	}
+});
+
+function login(email, passwrd) {
+	console.log("Logging in...");
+	socket.emit('login', {email: email, pass: passwrd});
 }
 </script>
 </body>

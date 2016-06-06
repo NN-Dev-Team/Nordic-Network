@@ -1,3 +1,5 @@
+"use strict";
+
 var httpsSync = require('http-sync');
 
 Date.prototype.getWeek = function() {
