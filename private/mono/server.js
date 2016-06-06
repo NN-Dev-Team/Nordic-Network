@@ -407,7 +407,7 @@ io.on('connection', function(socket){
 													return create_printError(err, Number('12.' + __line));
 												}
 												
-												printSuccess();
+												create_printSuccess();
 												return doneSearching = true;
 											});
 										}
@@ -445,7 +445,7 @@ io.on('connection', function(socket){
 			}
 			
 			if(banned[0]) {
-				return cp_printError("Please don't overload our servers.", Number('0.' + __line));
+				return start_printError("Please don't overload our servers.", Number('0.' + __line));
 			} else if(banned[1]) {
 				user.addIP(IP, function(err) {
 					if(err) {
@@ -459,12 +459,12 @@ io.on('connection', function(socket){
 			}
 			
 			if(typeof data.server != 'number' || typeof data.session != 'string') {
-				return cp_printError("Invalid server ID and/or session ID.", Number('1.' + __line));
+				return start_printError("Invalid server ID and/or session ID.", Number('1.' + __line));
 			}
 			
 			fs.readFile('servers/' + data.server + '/.properities', 'utf8', function(err, dat) {
 				if (err) {
-					return cp_printError(err, Number('2.' + __line));
+					return start_printError(err, Number('2.' + __line));
 				}
 				
 				props = dat.split("\n");
@@ -488,10 +488,10 @@ io.on('connection', function(socket){
 							
 							exec("java -Xmx" + serv_ram[serv_type][serv_rank] + "M -Xms" + serv_ram[serv_type][serv_rank] + "M -jar servers/" + data.server + "/minecraft_server.jar nogui", function(err2, out, stderr) {
 								if(err2) {
-									return cp_printError(stderr, Number('3.' + __line));
+									return start_printError(stderr, Number('3.' + __line));
 								}
 								
-								printSuccess(serv_type);
+								start_printSuccess(serv_type);
 							});
 						} else if(serv_type.substring(0, 1) == 1) {
 							// CS:GO
@@ -499,52 +499,52 @@ io.on('connection', function(socket){
 							if(serv_typeCS == 1) { // Classic Competive
 								exec("./srcds_run -game csgo -console -usercon +game_type 0 +game_mode 1 +mapgroup mg_active +map de_dust2", function(err, out, stderr) {
 									if(err) {
-										return cp_printError(stderr, Number('4.' + __line));
+										return start_printError(stderr, Number('4.' + __line));
 									}
 									
-									printSuccess(serv_type);
+									start_printSuccess(serv_type);
 								});
 							} else if(serv_typeCS == 2) { // Arms Race
 								exec("./srcds_run -game csgo -console -usercon +game_type 1 +game_mode 0 +mapgroup mg_armsrace +map ar_shoots", function(err, out, stderr) {
 									if(err) {
-										return cp_printError(stderr, Number('5.' + __line));
+										return start_printError(stderr, Number('5.' + __line));
 									}
 									
-									printSuccess(serv_type);
+									start_printSuccess(serv_type);
 								});
 							} else if(serv_typeCS == 3) { // Demolition
 								exec("./srcds_run -game csgo -console -usercon +game_type 1 +game_mode 1 +mapgroup mg_demolition +map de_lake", function(err, out, stderr) {
 									if(err) {
-										return cp_printError(stderr, Number('6.' + __line));
+										return start_printError(stderr, Number('6.' + __line));
 									}
 									
-									printSuccess(serv_type);
+									start_printSuccess(serv_type);
 								});
 							} else if(serv_typeCS == 4) { // Deathmatch
 								exec("./srcds_run -game csgo -console -usercon +game_type 1 +game_mode 2 +mapgroup mg_allclassic +map de_dust", function(err, out, stderr) {
 									if(err) {
-										return cp_printError(stderr, Number('7.' + __line));
+										return start_printError(stderr, Number('7.' + __line));
 									}
 									
-									printSuccess(serv_type);
+									start_printSuccess(serv_type);
 								});
 							} else { // Classic Casual
 								exec("./srcds_run -game csgo -console -usercon +game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2", function(err, out, stderr) {
 									if(err) {
-										return cp_printError(stderr, Number('8.' + __line));
+										return start_printError(stderr, Number('8.' + __line));
 									}
 									
-									printSuccess(serv_type);
+									start_printSuccess(serv_type);
 								});
 							}
 						} else if(serv_type == 2) {
 							// TF2
-							return cp_printError("WIP", Number('9.' + __line));
+							return start_printError("WIP", Number('9.' + __line));
 						} else {
-							return cp_printError("Unknown server type", Number('10.' + __line));
+							return start_printError("Unknown server type", Number('10.' + __line));
 						}
 					} else {
-						return cp_printError("ACCESS DENIED. But seriously, start your own server instead of others :P", Number('11.' + __line));
+						return start_printError("ACCESS DENIED. But seriously, start your own server instead of others :P", Number('11.' + __line));
 					}
 				});
 			});
