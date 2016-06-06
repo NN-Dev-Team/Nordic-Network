@@ -17,7 +17,6 @@ var exec = require('child_process').exec;
 var values = [];
 var props = [];
 var valid = false;
-var doneSearching = false;
 var c_io = require('socket.io-client');
 var client;
 
@@ -196,7 +195,7 @@ io.on('connection', function(socket){
 						}
 						
 						// Search the database to check if the user already exists
-						user.find(data.email, function(err, found, dat) {
+						user.find(data.email, function(err, found, dat, last, usr) {
 							if(err) {
 								return reg_printError(err, Number('4.' + __line));
 							}
@@ -212,29 +211,25 @@ io.on('connection', function(socket){
 								if(err) {
 									return reg_printError(err, Number('6.' + __line));
 								}
+								
+								if(found) {
+									return reg_printError("An account with this email has already been registered...", Number('7.' + __line));
+								}
 							
 								// User doesn't exist yet, register new user
-								fs.readFile("users/user.txt", 'utf8', function(error, dat) {
-									if(error) {
-										return reg_printError(error, Number('7.' + __line));
+								// Add email & hash to user file
+								fs.writeFile("users/" + usr + ".txt", data.email + "\n" + hash, function(err, data) {
+									if(err) {
+										return reg_printError(err, Number('8.' + __line));
 									}
 									
-									values = dat.split("\n");
-									
-									// Add email & password to user file
-									fs.writeFile("users/" + values[0].trim() + ".txt", data.email + "\n" + hash, function(err, data) {
+									// Make sure next user registered doesn't get the same user id
+									fs.writeFile("users/user.txt", Number(usr) + 1, function(err, data) {
 										if(err) {
-											return reg_printError(err, Number('8.' + __line));
+											return reg_printError(err, Number('9.' + __line));
 										}
 										
-										// Make sure next user registered doesn't get the same user id
-										fs.writeFile("users/user.txt", Number(values[0]) + 1, function(err, data) {
-											if(err) {
-												return reg_printError(err, Number('9.' + __line));
-											}
-											
-											reg_printSuccess()
-										});
+										reg_printSuccess();
 									});
 								});
 							});
