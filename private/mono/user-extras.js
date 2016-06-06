@@ -82,3 +82,35 @@ exports.isBanned = function checkBans(IP, callback) {
 		}
 	});
 }
+
+exports.get = function getUserData(id, callback) {
+	fs.readFile('users/' + id + '/user.txt', 'utf8', function(err, data) {
+		if(err) {
+			return callback(err);
+		}
+		
+		callback(err, data.split("\n"));
+	});
+}
+
+exports.find = function findEmailMatch(email, callback) {
+	fs.readFile('users/users.txt', 'utf8', function(err, data) {
+		if(err) {
+			return callback(err);
+		}
+		
+		for(i = 0; i < Number(data.trim()); i++) {
+			exports.get(i, function(err, data) {
+				if(err) {
+					return callback(err);
+				}
+				
+				if(data[0].trim() == email) {
+					callback(err, true, data);
+				}
+			});
+		}
+		
+		callback(err, false, data);
+	});
+}

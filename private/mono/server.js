@@ -17,7 +17,6 @@ var Rcon = require('rcon');
 
 var values = [];
 var props = [];
-var escapeAll = false;
 var valid = false;
 var doneSearching = false;
 
@@ -187,26 +186,14 @@ io.on('connection', function(socket){
 							return reg_printError(err, Number('3.' + __line));
 						}
 						
-						fs.readdir("users", function(err, li) {
+						// Search the database to check if the user already exists
+						user.find(data.email, function(err, found, dat) {
 							if(err) {
 								return reg_printError(err, Number('4.' + __line));
 							}
 							
-							// Search the database to check if the user already exists
-							li.forEach(function(file) {
-								if(file != 'user.txt') {
-									var dat = fs.readFileSync("users/" + file, 'utf8');
-									values = dat.split("\n");
-									if(values[0].trim() == data.email) {
-										reg_printError("An account with this email has already been registered...", Number('5.' + __line));
-										return escapeAll = true;
-									}
-								}
-							});
-							
-							if(escapeAll) {
-								escapeAll = false;
-								return;
+							if(found) {
+								return reg_printError("An account with this email has already been registered...", Number('5.' + __line));
 							}
 							
 							// User doesn't exist yet, register new user
