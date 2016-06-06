@@ -48,9 +48,25 @@ socket.on('server-checked', function(data){
 	}
 });
 
+socket.on('server-stopped', function(data){
+	if(data.success){
+		console.log("Successfully closed server.");
+	} else {
+		console.log("Failed to stop server.");
+		console.log("Reason: ", data.reason);
+		console.log("ID: ", data.id);
+	}
+});
+
 
 $('button #start-server').click(function(){
 	socket.emit('start-server', { "server": Number(getCookie("user_id")), "session": getCookie("session") });
 	console.log("Starting server...");
+	return false;
+});
+
+$('button #stop-server').click(function(){
+	socket.emit('stop-server', { "server": Number(getCookie("user_id")), "session": getCookie("session") });
+	console.log("Stopping server...");
 	return false;
 });
