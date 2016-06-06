@@ -1,3 +1,5 @@
+"use strict";
+
 var toobusy = require('toobusy-js');
 var user = require('./user-extras.js');
 // var mcLib = require('./auto-updater.js');
@@ -123,16 +125,24 @@ function create_printSuccess(id) {
 }
 
 // Control panel functions
-function cp_printError(reason, id) {
+function start_printError(reason, id) {
 	io.emit('server-checked', {"success": false, "reason": reason, "id": id});
 }
 
-function cp_printSuccess(id) {
+function start_printSuccess(id) {
 	if(typeof id == 'number') {
 		io.emit('server-checked', {"success": true, "id": id});
 	} else {
 		io.emit('server-checked', {"success": true});
 	}
+}
+
+function stop_printError(reason, id) {
+	io.emit('server-stopped', {"success": false, "reason": reason, "id": id});
+}
+
+function stop_printSuccess() {
+	io.emit('server-stopped', {"success": true});
 }
 
 function boolify(obj, ignoreCase) {
@@ -361,7 +371,7 @@ io.on('connection', function(socket){
 											return create_printError(err, Number('7' + __line));
 										}
 										
-										printSuccess();
+										create_printSuccess();
 									});
 								}
 							});
@@ -402,7 +412,7 @@ io.on('connection', function(socket){
 													return create_printError(err, Number('12.' + __line));
 												}
 												
-												printSuccess();
+												create_printSuccess();
 												return doneSearching = true;
 											});
 										}
@@ -440,7 +450,7 @@ io.on('connection', function(socket){
 			}
 			
 			if(banned[0]) {
-				return cp_printError("Please don't overload our servers.", Number('0.' + __line));
+				return start_printError("Please don't overload our servers.", Number('0.' + __line));
 			} else if(banned[1]) {
 				user.addIP(IP, function(err) {
 					if(err) {
@@ -454,12 +464,12 @@ io.on('connection', function(socket){
 			}
 			
 			if(typeof data.server != 'number' || typeof data.session != 'string') {
-				return cp_printError("Invalid server ID and/or session ID.", Number('1.' + __line));
+				return start_printError("Invalid server ID and/or session ID.", Number('1.' + __line));
 			}
 			
 			fs.readFile('servers/' + data.server + '/.properities', 'utf8', function(err, dat) {
 				if (err) {
-					return cp_printError(err, Number('2.' + __line));
+					return start_printError(err, Number('2.' + __line));
 				}
 				
 				props = dat.split("\n");
@@ -483,10 +493,10 @@ io.on('connection', function(socket){
 							
 							exec("java -Xmx" + serv_ram[serv_type][serv_rank] + "M -Xms" + serv_ram[serv_type][serv_rank] + "M -jar servers/" + data.server + "/minecraft_server.jar nogui", function(err2, out, stderr) {
 								if(err2) {
-									return cp_printError(stderr, Number('3.' + __line));
+									return start_printError(stderr, Number('3.' + __line));
 								}
 								
-								printSuccess(serv_type);
+								start_printSuccess(serv_type);
 							});
 						} else if(serv_type.substring(0, 1) == 1) {
 							// CS:GO
@@ -494,52 +504,134 @@ io.on('connection', function(socket){
 							if(serv_typeCS == 1) { // Classic Competive
 								exec("./srcds_run -game csgo -console -usercon +game_type 0 +game_mode 1 +mapgroup mg_active +map de_dust2", function(err, out, stderr) {
 									if(err) {
-										return cp_printError(stderr, Number('4.' + __line));
+										return start_printError(stderr, Number('4.' + __line));
 									}
 									
-									printSuccess(serv_type);
+									start_printSuccess(serv_type);
 								});
 							} else if(serv_typeCS == 2) { // Arms Race
 								exec("./srcds_run -game csgo -console -usercon +game_type 1 +game_mode 0 +mapgroup mg_armsrace +map ar_shoots", function(err, out, stderr) {
 									if(err) {
-										return cp_printError(stderr, Number('5.' + __line));
+										return start_printError(stderr, Number('5.' + __line));
 									}
 									
-									printSuccess(serv_type);
+									start_printSuccess(serv_type);
 								});
 							} else if(serv_typeCS == 3) { // Demolition
 								exec("./srcds_run -game csgo -console -usercon +game_type 1 +game_mode 1 +mapgroup mg_demolition +map de_lake", function(err, out, stderr) {
 									if(err) {
-										return cp_printError(stderr, Number('6.' + __line));
+										return start_printError(stderr, Number('6.' + __line));
 									}
 									
-									printSuccess(serv_type);
+									start_printSuccess(serv_type);
 								});
 							} else if(serv_typeCS == 4) { // Deathmatch
 								exec("./srcds_run -game csgo -console -usercon +game_type 1 +game_mode 2 +mapgroup mg_allclassic +map de_dust", function(err, out, stderr) {
 									if(err) {
-										return cp_printError(stderr, Number('7.' + __line));
+										return start_printError(stderr, Number('7.' + __line));
 									}
 									
-									printSuccess(serv_type);
+									start_printSuccess(serv_type);
 								});
 							} else { // Classic Casual
 								exec("./srcds_run -game csgo -console -usercon +game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2", function(err, out, stderr) {
 									if(err) {
-										return cp_printError(stderr, Number('8.' + __line));
+										return start_printError(stderr, Number('8.' + __line));
 									}
 									
-									printSuccess(serv_type);
+									start_printSuccess(serv_type);
 								});
 							}
 						} else if(serv_type == 2) {
 							// TF2
-							return cp_printError("WIP", Number('9.' + __line));
+							return start_printError("WIP", Number('9.' + __line));
 						} else {
-							return cp_printError("Unknown server type", Number('10.' + __line));
+							return start_printError("Unknown server type", Number('10.' + __line));
 						}
 					} else {
-						return cp_printError("ACCESS DENIED. But seriously, start your own server instead of others :P", Number('11.' + __line));
+						return start_printError("ACCESS DENIED. But seriously, start your own server instead of others :P", Number('11.' + __line));
+					}
+				});
+			});
+		});
+	});
+	
+	socket.on('stop-server', function(data) {
+		user.isBanned(IP, function(err, banned) {
+			if(err) {
+				return console.log(err);
+			}
+			
+			if(banned[0]) {
+				return stop_printError("Please don't overload our servers.", Number('0.' + __line));
+			} else if(banned[1]) {
+				user.addIP(IP, function(err) {
+					if(err) {
+						console.log(err);
+					}
+					
+					user.incrUsage(IP, 8);
+				});
+			} else {
+				user.incrUsage(IP, 8);
+			}
+			
+			if(typeof data.server != 'number' || typeof data.session != 'string') {
+				return stop_printError("Invalid server ID and/or session ID.", Number('1.' + __line));
+			}
+			
+			fs.readFile('servers/' + data.server + '/.properities', 'utf8', function(err, dat) {
+				if (err) {
+					return stop_printError(err, Number('2.' + __line));
+				}
+				
+				props = dat.split("\n");
+				var serv_isSleeping = boolify(props[0].trim());
+				var serv_type = props[1].trim();
+				var serv_typeCS = serv_type.substring(1, 2);
+				var serv_rank = props[2].trim();
+				var serv_timeOn = props[3].trim();
+				var serv_IP = "";
+				var rcon_port = 0;
+				var rcon_pass = "";
+				var serv_ram = [[256, 512, 1024, 2048, 4096], [512, 1024, 2048, 4096], [512, 1024, 2048, 4096]];
+				
+				fs.readFile('users/' + data.server + ".txt", 'utf8', function(err, dat) {
+					props = dat.split("\n");
+					var user_session = props[2].trim();
+					
+					// Check if session is matching
+					if(user_session == data.session) {
+						if(serv_type == 0) {
+							// Minecraft
+							
+							fs.readFile('servers/' + data.server + '/server.properities', 'utf8', function(err, data) {
+								if(err) {
+									return stop_printError(err, Number('3.' + __line));
+								}
+								
+								props = data.split("\n");
+								for(i = 0; i < props.length; i++) {
+									if(props[i].substring(0, 9) == 'server-ip') {
+										serv_IP = props[i].substring(10);
+									} else if(props[i].substring(0, 9) == 'rcon.port') {
+										rcon_port = props[i].substring(10);
+									} else if(props[i].substring(0, 13) == 'rcon.password') {
+										rcon_pass = props[i].substring(14);
+									}
+								}
+								
+								var conn = new Rcon(serv_IP, rcon_port, rcon_pass);
+								
+								conn.on('auth', function() {
+									conn.send('stop');
+								}).on('error', function(err) {
+									stop_printSuccess();
+								});
+								
+								conn.connect();
+							});
+						}
 					}
 				});
 			});
