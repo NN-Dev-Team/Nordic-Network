@@ -17,9 +17,7 @@ var Rcon = require('rcon');
 
 var values = [];
 var props = [];
-var escapeAll = false;
 var valid = false;
-var doneSearching = false;
 
 fs.readFile('properities.txt', 'utf8', function (err, data) {
 	if (err) {
@@ -187,57 +185,37 @@ io.on('connection', function(socket){
 							return reg_printError(err, Number('3.' + __line));
 						}
 						
-						fs.readdir("users", function(err, li) {
+						// Search the database to check if the user already exists
+						user.find(data.email, function(err, found, dat, last, usr) {
 							if(err) {
 								return reg_printError(err, Number('4.' + __line));
 							}
 							
-							// Search the database to check if the user already exists
-							li.forEach(function(file) {
-								if(file != 'user.txt') {
-									var dat = fs.readFileSync("users/" + file, 'utf8');
-									values = dat.split("\n");
-									if(values[0].trim() == data.email) {
-										reg_printError("An account with this email has already been registered...", Number('5.' + __line));
-										return escapeAll = true;
-									}
-								}
-							});
-							
-							if(escapeAll) {
-								escapeAll = false;
-								return;
+							if(found) {
+								return reg_printError("An account with this email has already been registered...", Number('5.' + __line));
 							}
 							
 							// User doesn't exist yet, register new user
-							fs.readFile("users/user.txt", 'utf8', function(error, dat) {
-								if(error) {
-									return reg_printError(error, Number('6.' + __line));
+							// Add email & hash to user file
+							fs.writeFile("users/" + usr + ".txt", data.email + "\n" + hash, function(err, data) {
+								if(err) {
+									return reg_printError(err, Number('6.' + __line));
 								}
 								
-								values = dat.split("\n");
-								
-								// Add email & password to user file
-								fs.writeFile("users/" + values[0].trim() + ".txt", data.email + "\n" + hash, function(err, data) {
+								// Make sure next user registered doesn't get the same user id
+								fs.writeFile("users/user.txt", Number(usr) + 1, function(err, data) {
 									if(err) {
 										return reg_printError(err, Number('7.' + __line));
 									}
 									
-									// Make sure next user registered doesn't get the same user id
-									fs.writeFile("users/user.txt", Number(values[0]) + 1, function(err, data) {
-										if(err) {
-											return reg_printError(err, Number('8.' + __line));
-										}
-										
-										reg_printSuccess()
-									});
+									reg_printSuccess();
 								});
 							});
 						});
 					});
 				});
 			} else {
-				reg_printError("This is impossible unless you hacked :/", Number('9.' + __line));
+				reg_printError("This is impossible unless you hacked :/", Number('8.' + __line));
 			}
 		});
 	});
@@ -266,45 +244,37 @@ io.on('connection', function(socket){
 			if(typeof data.email != 'string' || typeof data.pass != 'string') {
 				return login_printError("Invalid email and/or password.", Number('1.' + __line));
 			} else if(((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
-				fs.readdir("users", function(err, li) {
+				user.find(data.email, function(err, found, dat, usr) {
 					if(err) {
 						return login_printError(err, Number('2.' + __line));
 					}
 					
-					li.forEach(function(file) {
-						if(file != 'user.txt') {
-							var dat = fs.readFileSync("users/" + file, 'utf8');
-							var currentFile = file.substring(0, file.length - 4);
-							var esc = false;
-							values = dat.split("\n");
-							if(values[0].trim() == data.email) {
-								dat = bcrypt.compareSync(data.pass, values[1].trim());
-								if(dat) {
-									var userSession = randomstring.generate(16);
-									userSession += Math.round(((new Date()).getTime() / 60000) + 60*24);
-									values[2] = userSession;
-										
-									fs.writeFileSync("users/" + currentFile + ".txt", values.join("\n"));
-									io.emit('login-complete', {"success": true, "session": userSession});
-									valid = true;
-								} else {
-									valid = false;
-								}
-								return esc = true;
+					if(found) {
+						bcrypt.compare(data.pass, dat[1].trim(), function(err, valid) {
+							if(err) {
+								return login_printError(err, Number('3.' + __line));
 							}
-						}
 							
-						if(esc) {
-							return;
-						}
-					});
-				
-					if(!valid) {
-						return login_printError("Incorrect email and/or password", Number('3.' + __line));
+							if(valid) {
+								var userSession = randomstring.generate(16);
+								userSession += Math.round(((new Date()).getTime() / 60000) + 60*24);
+								dat[2] = userSession;
+								
+								fs.writeFile("users/" + usr + ".txt", dat.join("\n"), function(err, data) {
+									if(err) {
+										return login_printError(err, Number('4.' + __line));
+									}
+									
+									io.emit('login-complete', {"success": true, "session": userSession});
+								});
+							}
+						});
+					} else {
+						return login_printError("Incorrect email and/or password", Number('5.' + __line));
 					}
 				});
 			} else {
-				login_printError("Invalid email.", Number('4.' + __line));
+				login_printError("Invalid email.", Number('6.' + __line));
 			}
 		});
 	});
@@ -339,15 +309,13 @@ io.on('connection', function(socket){
 			} else if(typeof data.id == 'number') {
 				
 				// User id specified, get user session
-				fs.readFile("users/" + data.id + ".txt", 'utf8', function(err, dat) {
+				user.get(data.id, function(err, dat) {
 					if(err) {
 						return create_printError(err, Number('4.' + __line));
 					}
 					
-					var values = dat.split("\n");
-					
 					// Check if session is valid
-					if(values[2].trim() == data.session) {
+					if(dat[2].trim() == data.session) {
 						
 						// Session valid, create server
 						mkdir("servers/" + data.id, function(err) {
@@ -366,7 +334,7 @@ io.on('connection', function(socket){
 											return create_printError(err, Number('7' + __line));
 										}
 										
-										printSuccess();
+										create_printSuccess();
 									});
 								}
 							});
@@ -378,61 +346,38 @@ io.on('connection', function(socket){
 			} else {
 				
 				// User id not specified, look through every user file for a matching session
-				fs.readdir("users", function(err, li) {
+				user.findSession(data.session, function(err, found, usr) {
 					if(err) {
 						return create_printError(err, Number('9.' + __line));
 					}
 					
-					li.forEach(function(file) {
-						if(file != 'user.txt') {
-							var dat = fs.readFileSync("users/" + file, 'utf8');
-							var currentFile = file.substring(0, file.length - 5);
-							var values = dat.split("\n");
-							if(values[2].trim() == data.session) {
+					if(found) {
+						// Session valid, create server
+						mkdir("servers/" + usr, function(err) {
+							if(err) {
+								return create_printError(err, Number('10.' + __line));
+							}
+							
+							fs.writeFile("servers/" + usr + "/.properities", "0\n" + data.type + "\n0\n0", function(err, dat) {
+								if(err) {
+									return create_printError(err, Number('11.' + __line));
+								}
 								
-								// Session valid, create server
-								mkdir("servers/" + currentFile, function(err) {
-									if(err) {
-										return create_printError(err, Number('10.' + __line));
-									}
-									
-									fs.writeFile("servers/" + currentFile + "/.properities", "0\n" + data.type + "\n0\n0", function(err, dat) {
+								if(data.type == 0) {
+									mcLib.addJar("servers/" + usr, function(err) {
 										if(err) {
-											return create_printError(err, Number('11.' + __line));
+											return create_printError(err, Number('12.' + __line));
 										}
 										
-										if(data.type == 0) {
-											mcLib.addJar("servers/" + data.id, function(err) {
-												if(err) {
-													return create_printError(err, Number('12.' + __line));
-												}
-												
-												create_printSuccess();
-												return doneSearching = true;
-											});
-										}
+										create_printSuccess();
 									});
-								});
-							} else {
-								create_printError("Unknown session.", Number('13.' + __line));
-							}
-						}
-				
-						if(doneSearching) {
-							return;
-						}
-					});
-					
-					if(doneSearching) {
-						return;
+								}
+							});
+						});
+					} else {
+						create_printError("Unknown session.", Number('13.' + __line));
 					}
 				});
-				
-				if(doneSearching) {
-					doneSearching = false;
-				} else {
-					create_printError("Unknown session.", Number('14.' + __line));
-				}
 			}
 		});
 	});

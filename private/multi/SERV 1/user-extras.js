@@ -1,3 +1,5 @@
+"use strict";
+
 var fs = require('fs');
 
 function getUsage(data, IP) {
@@ -106,11 +108,33 @@ exports.find = function findEmailMatch(email, callback) {
 				}
 				
 				if(data[0].trim() == email) {
-					callback(err, true, data);
+					callback(err, true, data, i, Number(data.trim()));
 				}
 			});
 		}
 		
 		callback(err, false, data);
+	});
+}
+
+exports.findSession = function findSessionMatch(session, callback) {
+	fs.readFile('users/user.txt', 'utf8', function(err, data) {
+		if(err) {
+			return callback(err);
+		}
+		
+		for(i = 0; i < Number(data.trim()); i++) {
+			exports.get(i, function(err, data) {
+				if(err) {
+					return callback(err);
+				}
+				
+				if(data[2].trim() == session) {
+					callback(err, true, i);
+				}
+			});
+		}
+		
+		callback(err, false);
 	});
 }
