@@ -4,10 +4,10 @@
   "description": "Free Hosting Service",
   "dependencies": {
     "bcryptjs": "^2.3.0",
-    "braintree": "^1.37.1",
+    "braintree": "^1.39.0",
     "express": "^4.10.2",
     "mkdirp": "^0.5.1",
-    "randomstring": "^1.1.4",
+    "randomstring": "^1.1.5",
     "rcon": "^1.0.2",
     "socket.io": "^1.4.6",
     "socket.io-client": "^1.4.6",
