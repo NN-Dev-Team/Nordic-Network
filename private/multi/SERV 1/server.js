@@ -1,3 +1,5 @@
+"use strict";
+
 var toobusy = require('toobusy-js');
 var user = require('./user-extras.js');
 // var mcLib = require('./auto-updater.js');
@@ -46,7 +48,7 @@ io.on('connection', function(socket){
 		
 		// REGISTRATION
 		socket.on('find-user', function(data){
-			user.find(data.email, function(err, found, dat) {
+			user.find(data.email, function(err, found, dat, usr) {
 				if(err) {
 					return io.emit('done-looking', {"err": err});
 				}

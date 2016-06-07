@@ -1,3 +1,5 @@
+"use strict";
+
 $(document).ready(function(){
 	var cookiesAccepted = getCookie('displayCookieConsent');
 	if(cookiesAccepted != 'y') {
