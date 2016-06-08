@@ -1,5 +1,3 @@
-"use strict";
-
 var toobusy = require('toobusy-js');
 var user = require('./user-extras.js');
 // var mcLib = require('./auto-updater.js');
