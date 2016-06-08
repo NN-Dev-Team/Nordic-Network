@@ -1,4 +1,3 @@
-nordic-network.tk
 15015
 localhost
 16016
