@@ -1,2 +1,2 @@
-nordic-network.tk
+MAIN SERVER IP HERE
 15015
