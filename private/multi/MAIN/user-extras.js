@@ -1,5 +1,3 @@
-"use strict";
-
 var fs = require('fs');
 
 function getUsage(data, IP) {
@@ -102,13 +100,13 @@ exports.find = function findEmailMatch(email, callback) {
 		}
 		
 		for(i = 0; i < Number(data.trim()); i++) {
-			exports.get(i, function(err, data) {
+			exports.get(i, function(err, dat) {
 				if(err) {
 					return callback(err);
 				}
 				
-				if(data[0].trim() == email) {
-					callback(err, true, data, i, Number(data.trim()));
+				if(dat[0].trim() == email) {
+					callback(err, true, dat, i, Number(data.trim()));
 				}
 			});
 		}

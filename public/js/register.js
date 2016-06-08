@@ -1,5 +1,3 @@
-"use strict";
-
 var values = [];
 var host = "N/A";
 var port = -1;

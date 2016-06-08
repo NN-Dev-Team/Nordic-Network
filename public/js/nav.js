@@ -1,5 +1,3 @@
-"use strict";
-
 $(window).bind("load", function() {
 	function prepare() {
 		var nav_height = $("#banner").height() + 10;

@@ -1,5 +1,3 @@
-"use strict";
-
 var toobusy = require('toobusy-js');
 var user = require('./user-extras.js');
 // var mcLib = require('./auto-updater.js');
@@ -26,12 +24,12 @@ fs.readFile('properities.txt', 'utf8', function (err, data) {
 	}
 	
 	values = data.split("\n");
-	var c_port = values[1];
+	var c_port = values[0];
 	
 	// List of dedicated servers
 	// SERV 1
-	var host = values[2];
-	var port = values[3];
+	var host = values[1];
+	var port = values[2];
 	client = c_io('http://' + host + ":" + port);
 	
 	// Listen to clients
@@ -207,12 +205,12 @@ io.on('connection', function(socket){
 							// Check other databases
 							client.emit('find-user', {"email": data.email});
 							
-							client.on('done-looking', function(err, found) {
-								if(err) {
-									return reg_printError(err, Number('6.' + __line));
+							client.on('done-looking', function(data) {
+								if(data.err) {
+									return reg_printError(data.err, Number('6.' + __line));
 								}
 								
-								if(found) {
+								if(data.found) {
 									return reg_printError("An account with this email has already been registered...", Number('7.' + __line));
 								}
 							
