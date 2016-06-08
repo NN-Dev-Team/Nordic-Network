@@ -287,8 +287,6 @@ body {
 }
 
 #consolewrapper {
-    text-align: center;
-    align-items: center;
 }
 
 #console {
@@ -351,15 +349,22 @@ body {
     font-size: 1.5em;
 }
 
-#cnslerror {
-    display: none;
+#btnsdelreset {
+    margin-top: 5vh;
 }
-@media screen and (max-width: 1500px) {
-    #consolewrapper {
-    display: none;    
-    }
-    
-    #cnslerror {
-    display: block;
+
+#btnsdelreset button {
+    font-size: 2vh;
 }
+
+#pswrddel {
+    width: 40%;
+    float: left;
+    text-align: center;
+}
+
+#pswrdreset {
+    width: 40%;
+    float: right;
+    text-align: center;
 }

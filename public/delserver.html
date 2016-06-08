@@ -35,7 +35,7 @@
 
     <div id="wrapper">
 
-<!-- Sidebar -->
+        <!-- Sidebar -->
         <div id="sidebar-wrapper">
             
             <ul class="sidebar-nav">
@@ -78,41 +78,38 @@
         </div>
         <!-- /#sidebar-wrapper -->
 
-
         
         
         
         
         <!-- Page Content -->
         <div id="page-content-wrapper">
+            
             <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
             
-        <h1>Console</h1>
+            <h1>Delete and reset</h1>
+            <div id="btnsdelreset" style="text-align: center;">
+                <button class="btn btn-danger" data-toggle="collapse" href="#pswrddel">Delete Server</button>
+                &nbsp; &nbsp; &nbsp; &nbsp;
+                <button class="btn btn-danger" data-toggle="collapse" href="#pswrdreset">Reset Server</button>
+            </div>
+            <br />
+            <br />
             
-        <!-- Console -->
-          
-            <div id="consolewrapper">
-                <div id="console">
-                    <textarea readonly></textarea>
-                    
-                    <div id="consolebuttons">
-                    <button id="cnslchangecolor"><span class="glyphicon glyphicon-adjust"></span></button>
-                    <button id="cnslautochat"><span class="glyphicon glyphicon-envelope"></span></button>
-                    </div>
-                    
-                    
-                    <br />
-                    <input id="consoleinput" type="text">
-                
-                </div>
+            <div id="pswrddel" class="collapse">
+                <label for="del">Are you sure? Confirm password:</label>
+                <input type="password" id="del" class="form-control">
+                <input type="submit" class="btn btn-danger" for="reset">
             </div>
             
-            
-        
-            
-            
+            <div id="pswrdreset" class="collapse">
+                <label for="reset">Are you sure? Confirm password:</label>
+                <input type="password" id="reset" class="form-control">
+                <input type="submit" class="btn btn-danger" for="reset">
+            </div>
             
         </div>
+
     </div>
 
     <!-- Menu Toggle Script -->
