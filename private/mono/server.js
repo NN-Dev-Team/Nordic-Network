@@ -24,8 +24,7 @@ fs.readFile('properities.txt', 'utf8', function (err, data) {
 		return console.log(err);
 	}
 	
-	values = data.split("\n");
-	var port = values[1];
+	var port = data.trim();
 	http.listen(port, function(){
 		console.log('listening on *:' + port);
 	});

@@ -26,12 +26,12 @@ fs.readFile('properities.txt', 'utf8', function (err, data) {
 	}
 	
 	values = data.split("\n");
-	var c_port = values[1];
+	var c_port = values[0];
 	
 	// List of dedicated servers
 	// SERV 1
-	var host = values[2];
-	var port = values[3];
+	var host = values[1];
+	var port = values[2];
 	client = c_io('http://' + host + ":" + port);
 	
 	// Listen to clients
