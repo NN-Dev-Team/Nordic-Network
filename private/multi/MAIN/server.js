@@ -207,12 +207,12 @@ io.on('connection', function(socket){
 							// Check other databases
 							client.emit('find-user', {"email": data.email});
 							
-							client.on('done-looking', function(err, found) {
-								if(err) {
-									return reg_printError(err, Number('6.' + __line));
+							client.on('done-looking', function(data) {
+								if(data.err) {
+									return reg_printError(data.err, Number('6.' + __line));
 								}
 								
-								if(found) {
+								if(data.found) {
 									return reg_printError("An account with this email has already been registered...", Number('7.' + __line));
 								}
 							
