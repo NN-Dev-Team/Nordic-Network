@@ -82,19 +82,7 @@
 
     </div>
     <!-- File Picker Script -->
-	<script>
-    document.getElementById('UploadFile').addEventListener('change', readFile, false);
-
-    function readFile (evt) {
-        var files = evt.target.files;
-        var file = files[0];           
-        var reader = new FileReader();
-        reader.onload = function() {
-            console.log(this.result);            
-        }
-        reader.readAsText(file)
-    }
-	</script>
+	<script src="Js/ftp.js> </script>
 
     <!-- Menu Toggle Script -->
     <script>
