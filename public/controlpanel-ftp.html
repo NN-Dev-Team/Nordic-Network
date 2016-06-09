@@ -26,3 +26,84 @@
             var myChart = new Chart({...})
         </script>
 	</head>
+
+	<body id="cpbody">
+
+    <div id="wrapper">
+
+<!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Nordic Network
+                    </a>
+                </li>
+                <li>
+                    <a href="user.html" onclick="collapseAll(0)"><img src="pics/usrleaves.jpg" id="usrimg" class="img-circle"/>&nbsp; iSasFTW <span class="glyphicon glyphicon-user"></span></a>
+                </li>
+                <li>
+                <br>
+                </li>
+                <li>
+                    <a href="control-panel.html" onclick="collapseAll(0)">Dashboard <span class="glyphicon glyphicon-tasks"></span></a>
+                </li>
+                <li>
+                    <a href="#collapse1" data-toggle="collapse" onclick="collapseAll(1)">Manage Server &nbsp;<span class="icon-cog-1"></span></a>
+                    <div id="collapse1" class="collapse">
+                    <ul>
+                        <li><a href="controlpanel-ftp.html">FTP &nbsp;<span class="icon-cloud-upload-1"></span></a></li>
+                        <li><a href="cp-console.html">Console &nbsp;<span class="icon-terminal"></span></a></li>
+                        <li><a href="#">Version / Game &nbsp;<span class="icon-gamepad"></span></a></li>
+                        <li><a href="delserver.html">Delete / Reset &nbsp;<span class="glyphicon glyphicon-remove"></span></a></li>
+                    </ul>
+                    </div>
+                </li>
+                <li>
+                    
+                    <a href="#collapse2" data-toggle="collapse" onclick="collapseAll(2)">Manage Website &nbsp;<span class="icon-globe"></span></a>
+                    <div id="collapse2" class="collapse">
+                    <ul>
+                    <li><a href="#">Editor &nbsp;<span class="icon-wrench-1"></span></a></li>
+                    <li><a href="#">Guide &nbsp;<span class="icon-book-2"></span></a></li>
+                    </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+		<a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+		<h1>FTP</h1>
+		<input type="file" id="UploadFile" name="UploadFile" enctype="multipart/form-data" />
+		</div>
+
+    </div>
+    <!-- File Picker Script -->
+	<script>
+    document.getElementById('UploadFile').addEventListener('change', readFile, false);
+
+    function readFile (evt) {
+        var files = evt.target.files;
+        var file = files[0];           
+        var reader = new FileReader();
+        reader.onload = function() {
+            console.log(this.result);            
+        }
+        reader.readAsText(file)
+    }
+	</script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+</body>
+
+</html>

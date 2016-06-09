@@ -1,0 +1,1090 @@
+
+NET2FTP CHANGELOG
+
+April 2013: version 1.0
+=======================
+
+----------
+net2ftp version 1.0 contains:
+- HTML editor         CKEditor version 4.0.1        *updated*
+- HTML editor         TinyMCE version 3.5.8         *updated*
+- Code editor         Ace build 17.12.2012          *new*
+- Zip library         pclzip version 2.8.2          *updated*
+- Zip library         pcltar version 1.3
+- Zip library         zip.lib.php from PMA 3.5.2.0  *updated*
+- Calendar            Jscalendar version 1.0
+- Upload applet       JUpload version 5.0.8         *new*
+- Syntax highlighter  Luminous 0.7                  *new*
+- Encryption wrapper  Stone PHP SafeCrypt
+----------
+net2ftp uses icons from the icon sets:
+- nuvola
+----------
+net2ftp is translated into:
+- Arabic
+- Simplified Chinese
+- Traditonal Chinese
+- Czech 
+- Danish
+- Finnish
+- French
+- German     *updated*
+- Hebrew
+- Hungarian  *new*
+- Italian
+- Japanese
+- Dutch
+- Polish
+- Portugese
+- Russian
+- Spanish
+- Swedish
+- Turkish     *updated*
+- Ukrainian
+- Vietnamese
+----------
+
+Changes:
+- Improvement: new default skin "Shinra".
+- Improvement: moving directories and files on the same FTP server is now much faster.
+- Improvement: logging tables updated to InnoDB engine; automatic log rotation.
+- Improvement: all plugins have been updated to the latest stable version.
+- Improvement: the syntax editor CodePress has been replaced by Ace
+- Improvement: the syntax highlighter Geshi has been replaced by Luminous
+- Improvement: package list (with web software which can be installed via net2ftp) is updated.
+- Improvement: Google Chrome browser is now detected.
+- Bugfix: fixed filename when downloading a file
+- Bugfix: fixed XSS bug on the error page
+- Bugfix: fixed the glueDirectories function for shared Windows directories
+- Bugfix: fixed popup to select directories on the Unzip page
+- Bugfix: translation of some messages on the Java upload page
+
+
+June 2009: version 0.98
+=======================
+
+----------
+net2ftp version 0.98 contains:
+- HTML editor         FCKEditor version 2.6.4     *updated*
+- HTML editor         TinyMCE version 3.2.1.1     *updated*
+- Code editor         CodePress version 0.9.6
+- Zip library         pclzip version 2.6
+- Zip library         pcltar version 1.3
+- Zip library         zip.lib.php version 2.5
+- Calendar            Jscalendar version 1.0
+- Upload applet       JUpload version 0.86
+- SWFUpload           SWFUpload 1.0.2
+- Syntax highlighter  GeSHi 1.0.8.2               *updated*
+- Encryption wrapper  Stone PHP SafeCrypt
+----------
+net2ftp uses icons from the icon sets:
+- nuvola
+----------
+net2ftp is translated into:
+- Arabic
+- Simplified Chinese
+- Traditonal Chinese
+- Czech 
+- Danish     *new*
+- Finnish
+- French     *updated*
+- German     *updated*
+- Hebrew
+- Italian
+- Japanese
+- Dutch      *updated*
+- Polish
+- Portugese
+- Russian
+- Spanish
+- Swedish
+- Turkish
+- Ukrainian  *new*
+- Vietnamese
+----------
+
+New in this release:
+- New skin for the Apple iPhone and iPod Touch.
+
+
+June 2008: version 0.97
+=======================
+
+----------
+net2ftp version 0.97 contains:
+- HTML editor         FCKEditor version 2.6       *updated*
+- HTML editor         TinyMCE version 3.0.8       *updated*
+- Code editor         CodePress version 0.9.6
+- Zip library         pclzip version 2.6          *updated*
+- Zip library         pcltar version 1.3
+- Zip library         zip.lib.php version 2.5
+- Calendar            Jscalendar version 1.0
+- Upload applet       JUpload version 0.86
+- SWFUpload           SWFUpload 1.0.2
+- Syntax highlighter  GeSHi 1.0.7.21              *updated*
+- Encryption wrapper  Stone PHP SafeCrypt         *new*
+----------
+net2ftp uses icons from the icon sets:
+- nuvola
+----------
+net2ftp is translated into:
+- Arabic
+- Simplified Chinese
+- Traditonal Chinese
+- Czech 
+- German
+- Spanish
+- French
+- Italian
+- Japanese
+- Dutch      *updated*
+- Polish
+- Portugese
+- Russian    *updated*
+- Swedish
+- Turkish
+- Vietnamese
+----------
+
+This release includes a fix for a serious vulnerability in the Unzip functionality.
+- Critical bugfix: archives containing malicious filenames are not extracted.
+- Improvement: allow/ban IP address ranges.
+- Improvement: accesses and errors can now also be logged to the system logger.
+- Improvement: the list of web software which can be installed by net2ftp is updated.
+- Bugfix: the banned FTP servers were not taken into account.
+
+
+July 2007: version 0.96
+=======================
+
+----------
+net2ftp version 0.96 contains:
+- HTML editor         FCKEditor version 2.4.2     *updated*
+- HTML editor         TinyMCE version 2.1.1       *updated*
+- Code editor         CodePress version 0.9.5     *updated*
+- Zip library         pclzip version 2.5
+- Zip library         pcltar version 1.3
+- Zip library         zip.lib.php version 2.5
+- Calendar            Jscalendar version 1.0
+- Upload applet       JUpload version 0.86
+- SWFUpload           SWFUpload 1.0.2             *new*
+- Syntax highlighter  GeSHi 1.0.7.19              *updated*
+----------
+net2ftp uses icons from the icon sets:
+- nuvola
+----------
+net2ftp is translated into:
+- Arabic
+- Simplified Chinese
+- Traditonal Chinese
+- Czech 
+- German
+- Spanish
+- French
+- Italian
+- Japanese
+- Dutch
+- Polish
+- Portugese
+- Russian
+- Swedish
+- Turkish    *new*
+- Vietnamese
+----------
+
+Minor upgrade release. 
+
+- Improvement: it is now possible to upload files from the Browse screen using
+  the SWFUpload Flash applet.
+- Improvement: a list of allowed IP addresses from which users may connect
+  can be specified in settings_authorizations.inc.php.
+- Improvement: added data transfer statistics (blue skin).
+- Improvement: updated the Mambo skin and added code to integrate net2ftp with
+  Joomla 1.0.12.
+- Bugfix: the character encoding added in version 0.94 didn't work well for 
+  German (umlaut) and French special characters. Character encoding is now
+  only applied for Japanese, Simplified and Traditional Chinese, and also
+  for the UTF-8 languages (Arabic, English, Vietnamese).
+- Bugfix: PNG images with transparent regions are now fixed in PHP, which works
+  better than the Javascript fix (pngfix.js). For people who want to integrate
+  net2ftp in another PHP application which fixes PNG images in another way, it 
+  is still possible to turn off the correction in settings.inc.php.
+- Bugfix: the JUpload applet didn't work any more because cookie information
+  wasn't passed through. (Still doesn't work with Opera though.)
+- Bugfix: recursive chmodding first chmods the subdirectories and files when
+  chmodding to for example 444, before chmodding the parent directory.
+- Bugfix: some XHTML validation fixes.
+- Bugfix: files which have filenames containing special characters are now
+  displayed correctly. When downloading, the filename is preserved on IE (not
+  yet on Firefox - if anyone knows a fix send an email to david at net2ftp dot 
+  com).
+- Bugfix: fixed the Edit and View links on the Browse screen (blue skin).
+- Bugfix: removed the check on IP address changes, as this may be the cause for
+  some people to have to re-enter the login information too often.
+- Information: the JUpload applet was not updated to the 0.90 version because 
+  the new applet is too large (441 kB) - this would cause unacceptable download 
+  times for people which are not on broadband.
+
+
+
+February 2007: version 0.95
+===========================
+
+Bugfix release. Thanks to everyone who has posted new code and bug reports!
+
+- Improvement: when using net2ftp in Japanese and editing files, it is now
+  possible to choose the character encoding (UTF-8, EUC-JP or SJIS). 
+- Bugfix: the unzipping has been fixed; the temporary subdirectories were not
+  created with the required permissions.
+- Bugfix: following symlinks did not work properly due to a mistake in the skin
+  files; this is now fixed.
+- Bugfix: this version now includes the new Blue skin.
+
+
+
+November 2006: version 0.94
+===========================
+
+----------
+net2ftp version 0.94 contains:
+- HTML editor         FCKEditor version 2.3.2     *updated*
+- HTML editor         TinyMCE version 2.0.8       *updated*
+- Code editor         CodePress version 0.8.10    *new*
+- Zip library         pclzip version 2.5
+- Zip library         pcltar version 1.3
+- Zip library         zip.lib.php version 2.5
+- Calendar            Jscalendar version 1.0
+- Upload applet       JUpload version 0.86
+- Syntax highlighter  GeSHi 1.0.7.15              *updated*
+----------
+net2ftp uses icons from the icon sets:
+- nuvola
+----------
+net2ftp is translated into:
+- Arabic
+- Simplified Chinese
+- Traditonal Chinese
+- Czech 
+- German
+- Spanish
+- French
+- Italian
+- Japanese
+- Dutch
+- Polish
+- Portugese
+- Russian
+- Swedish    *new*
+- Vietnamese
+----------
+
+Release with new (mainly security-related) features
+
+- Improvement: a list of banned keywords can be entered in 
+  settings_authorizations.inc.php. Directories and files containing these 
+  keywords can't be processed. Files can't be renamed if the new filename
+  contains a banned keyword. This is to avoid net2ftp being used to upload
+  Paypal and Ebay scams.
+- Improvement: 2 new fields have been added in the net2ftp_log_access table: 
+  the data transfer volume and the script execution time. 
+- Improvement: the (encrypted) FTP password is not passed from page to page 
+  any more as hidden input field, but using sessions. When the session times
+  out, when cookies are deleted or if the user's IP address changes the 
+  password has to be entered again.  
+- Improvement: the "Helene" code editor is replaced by CodePress.
+- Improvement: the number of settings have been reduced in settings.inc.php.
+- Improvement: the code to integrate net2ftp within Joomla has been updated to
+  work with Joomla 1.0.11 (previously: 1.0.8).
+- Bugfix: a cross-site scripting bug has been fixed.
+- Bugfix: files bigger than the "max_filesize" setting were not always skipped.
+- Bugfix: fixed some Notice messages in the Mambo and Joomla integration files.
+- Bugfix: replaced style="white-space: nowrap;" by wrap="nowrap" on the Edit
+  screen, as IE stripped the carriage-return and linefeed characters.
+- Bugfix: cookie value for skin and language preference was not taken into account.
+- Bugfix: clear cookies functionality was broken.
+- Bugfix: fixed HTML errors (bookmark and error screens).
+- Bugfix: consumption figures were increased even when the daily limit was reached
+  and the file was not transferred.
+
+net2ftp v0.94 is also available in a light version with less plugins, skins and languages.
+The normal version takes 8.9 MB, the light version 4.9 MB.
+
+
+
+September 2006: version 0.93
+============================
+
+New release
+
+- Improvement: a new module has been written to install packages. A user can
+select a package from a list of popupar Open Source applications (e.g. Mambo, 
+PHPBB, ...), this package is then fetched from its website (Sourceforge), 
+unzipped and the directories and files are uploaded to the FTP server. Packages
+in the zip, tar, tgz and gz format are supported. 
+Note: the net2ftp install script is copied by net2ftp to the FTP server, and 
+runs there. In order to use it, the target directory must be accessible via the
+web and the web server must be able to run PHP.
+
+- Improvement: the unzip function has been rewritten to improve the speed.
+
+- Improvement: translation into Swedish
+
+net2ftp v0.93 is also available in a light version with less plugins, skins and languages.
+The normal version takes 8.6 MB, the light version 3.5 MB.
+
+
+
+July 2006: version 0.92
+=======================
+
+----------
+net2ftp version 0.92 contains:
+- HTML editor         FCKEditor version 2.3       *updated*
+- HTML editor         TinyMCE version 2.0.6.1     *updated*
+- Code editor         Helene version 0.5 REV 194
+- Zip library         pclzip version 2.5
+- Zip library         pcltar version 1.3
+- Zip library         zip.lib.php version 2.5
+- Calendar            Jscalendar version 1.0
+- Upload applet       JUpload version 0.86
+- Syntax highlighter  GeSHi 1.0.7.11              *updated*
+----------
+net2ftp uses icons from the icon sets:
+- nuvola
+----------
+net2ftp is translated into:
+- Arabic *new*
+- Simplified Chinese
+- Traditonal Chinese
+- Czech 
+- German
+- Spanish
+- French
+- Italian
+- Japanese
+- Dutch
+- Polish
+- Portugese
+- Russian
+- Vietnamese
+----------
+
+New release with improvements, bugfixes and a new language file
+- Improvement: The "max_filesize" setting prevents big files from being 
+  processed by net2ftp. Files bigger than this limit can't be uploaded, 
+  downloaded, copied, moved, searched, edited or viewed. They can still be 
+  deleted, chmodded or renamed.
+- Improvement: Archives can be unzipped on the FTP server
+- Improvement: Symlinks are now handled much better; first net2ftp checks if
+  it points to a directory or a file; if it's a directory, you're redirected
+  to that directory; if it's a file, the file is downloaded.
+- Improvement: The mapping between the FTP directory and the HTTP directory
+  now checks if the FTP directory contains special names, like "htdocs" or
+  "public_html". If it does, the HTTP root directory is set accordingly.
+- Improvement: If a file can't be moved, the processing of that subdirectory
+  is aborted (remaining files are not moved and subdirectory is not deleted)
+- Improvement: New language files for Arabic
+- Improvement: CSS styles and images are mirrored for right-to-left languages
+- Bugfix: Content of the <body> tag is now handled correctly in the HTML editors
+
+net2ftp v0.92 is also available in a light version with less plugins, skins and languages.
+The normal version takes 7.6 MB, the light version 3.0 MB.
+
+
+May 2006: version 0.91a
+===========================
+
+Mainly a bugfix release
+- Bugfix: The updated PCLZip libraries that were included in 0.91 were not 
+  modified to work with net2ftp, this is now fixed
+- Bugfix: Upload confirmation screen in the India skin didn't show a new upload form
+- Improvement: Integration with Drupal's new 4.7.0 release
+- Improvement: Integration with Joomla 1.0.8
+
+net2ftp v0.91a is also available in a light version with less plugins, skins and languages.
+The normal version takes 7.6 MB, the light version 3.0 MB.
+
+
+May 2006: version 0.91
+===========================
+
+----------
+net2ftp version 0.91 contains:
+- HTML editor         FCKEditor version 2.2       *updated*
+- HTML editor         TinyMCE version 2.0.5.1     *updated*
+- Code editor         Helene version 0.5 REV 194
+- Zip library         pclzip version 2.5          *updated*
+- Zip library         pcltar version 1.3
+- Zip library         zip.lib.php version 2.5     *updated*
+- Calendar            Jscalendar version 1.0
+- Upload applet       JUpload version 0.86        *updated*
+- Syntax highlighter  GeSHi 1.0.7.8               *updated*
+----------
+net2ftp uses icons from the icon sets:
+- nuvola
+----------
+net2ftp is translated into:
+- Simplified Chinese
+- Traditonal Chinese
+- Czech 
+- German
+- Spanish
+- French      *updated*
+- Italian
+- Japanese
+- Dutch
+- Polish
+- Portugese
+- Russian
+- Vietnamese
+----------
+
+A new release with a new skin and some bugfixes.
+
+- Improvement: New skin "india"
+- Bugfix: FCKEditor and TinyMCE language synchronised with net2ftp language also for Japanese and Vietnamese
+- Bugfix: Improved the encoding of special HTML characters
+- Bugfix: Better error handling
+- Bugfix: Use of $_SERVER["SCRIPT_NAME"] instead of $_SERVER["PHP_SELF"]
+
+
+November 2005: version 0.90
+===========================
+
+----------
+net2ftp version 0.90 contains:
+- HTML editor         FCKEditor version 2.1.1     *updated*
+- HTML editor         TinyMCE version 2.0 RC4     *new*
+- Code editor         Helene version 0.5 REV 194  *updated*
+- Zip library         pclzip version 2.4          *updated*
+- Zip library         pcltar version 1.3
+- Zip library         zip.lib.php version 2.4     *updated*
+- Calendar            Jscalendar version 1.0      *updated*
+- Upload applet       JUpload version 0.86        *updated*
+- Syntax highlighter  GeSHi 1.0.7.4               *updated*
+----------
+net2ftp uses icons from the icon sets:
+- nuvola
+----------
+net2ftp is translated into:
+- Simplified Chinese
+- Traditonal Chinese
+- Czech 
+- German
+- Spanish
+- French
+- Italian
+- Japanese    *new*
+- Dutch
+- Polish
+- Portugese
+- Russian
+- Vietnamese  *new*
+----------
+
+A new release with enhancements and bugfixes.
+
+Enhancements:
+
+- Big change in the overall architecture of net2ftp, for 2 reasons:
+    - to allow easy integration of net2ftp within other web-based applications;
+    - to separate the programming logic from the presentation logic; net2ftp
+      now uses templates.
+- In the /integration directory you'll find instructions and code on how to 
+  integrate net2ftp in 3 popular content management systems: Mambo, Drupal and
+  Xoops.
+- Tested on PHP 5.0.3.
+- Improved script speed through analysis of the slower parts.
+- New functionality: send arbitrary FTP commands to the FTP server (on PHP 5 only).
+- New skin for mobile users (PDA, phone)
+- Removed the HTML editor HTMLArea, as the development of it has stopped.
+- Added the HTML editor TinyMCE.
+- Added title icons.
+- Replaced fpassthru() by fread() to save memory when downloading large files.
+- Support for right-to-left languages.
+- Reduced the nr of settings in settings.inc.php.
+- Support for IE 7.0 (user agent).
+- Improved sorting according to the modification time and file type.
+- Status indicator code is now on skin level (status bar for Blue skin, status 
+  circle for Pastel skin).
+- The home directory of users can now be set in a new table "net2ftp_users".
+- Improved input validation.
+
+Bug fixes:
+
+- When changing the language on the login screen, the screen is refreshed. The values 
+  of the other fields (FTP server, username, etc) were erased during the refresh. 
+  This is now fixed.
+- Sticky bit permission with capital T was not recognized in ftp_scanline. Also added:
+  s and S.
+- Bug when downloading a file: error message got appended to the content.
+- Bug in the copy/move/delete process, when the directory listing could not be retrieved,
+  and when the directory contained double slashes.
+
+
+Februari 2005: version 0.82
+===========================
+
+----------
+net2ftp version 0.82 contains:
+- HTMLArea version 2.0.3
+- HTMLArea version 3rc1
+- FCKEditor version 2.0 RC2     *updated*
+- Helene version 0.5 REV 190    *updated*
+- pclzip version 2.2            *updated*
+- pcltar version 1.3
+- zip.lib.php version 2.2       *updated*
+- jscalendar version 0.96
+- JUpload version 0.79          *new*
+- GeSHi 1.0.4                   *new*
+----------
+net2ftp uses icons from the icon sets:
+- noia                          *new*
+- nuvola                        *new*
+----------
+net2ftp version 0.82 is translated into:
+- Simplified Chinese            *new*
+- Traditonal Chinese
+- Czech 
+- German                        *updated*
+- Spanish
+- French                        *updated*
+- Italian
+- Dutch                         *updated*
+- Polish
+- Portugese                     *new*
+- Russian
+----------
+
+A new release with enhancements and bugfixes.
+
+Enhancements:
+- It is now finally possible to upload directories and files using a Java 
+  Applet (JUpload). Thanks to Mike Haller for making this great applet!
+- A new feature lets you install HTML templates on your website. This is great
+  for non-technical users who want to set up a website quickly. Look for the
+  new "HTML templates" button on the Browse screen.
+- A new plugin has been added to view code with syntax highlighting: GeSHI. This
+  plugin supports many more programming languages.
+- net2ftp now uses 2 new iconsets which are released under the LGPL license, 
+  which make them free for all use (the Crystal icons were "free for non-commercial 
+  use").
+- The new settings file settings_screens.inc.php lets you choose which fields have
+  to be displayed or hidden on the login screen, and which functions have to be 
+  enabled or disabled (eg. copy, chmod, upload,...).
+- FTP rawlist scanning rules should be faster now, as ereg() is replaced by preg_match().
+  In other areas of the code ereg() has also been replaced by preg_match(), or even
+  by strpos() when regular expression matching was not really needed.
+- Help pages have been updated.
+- Plugin versions and language files have been updated.
+- Unnecessary plugin files have been removed (smaller size and increased 
+  security).
+- Plugin language is derived from net2ftp language (for plugins: HTMLArea 3.0 RC1,
+  jscalendar 0.9.6 and FCKEditor 2.0 RC2).
+- Logs are deleted automatically after 14 days; this can be configured in 
+  settings.inc.php.
+- Skins have been sorted; pastel moved up; grey and yellow moved down.
+- The total nr of directories/files and the total size of the files is printed
+  on the Browse screen.
+- An index has been added for all MySQL tables. A DROP TABLE IF EXISTS 
+  statement has been added to make upgrades easier. This will delete existing 
+  logs.
+- registerglobals.inc.php has been cleaned up.
+- shutdown() fixed for PHP configurations where max_execution_time is -1.
+
+Bug fixes:
+- The net2ftp code was reviewed for security, following the recent release of 
+  different worms which target PHP web applications (Santy).
+  The mistakes which were checked are those explained in the article "PHP 
+  Security Mistakes" by Dave Clark.
+  http://www.devshed.com/c/a/PHP/PHP-Security-Mistakes/
+      1. Never include, require, or otherwise open a file with a filename based 
+      on user input, without thoroughly checking it first.
+      ==> Done.
+      2. Be careful with eval().
+      ==> net2ftp translation files must be checked for malicious code.
+      3. Be careful when using register_globals = ON.
+      ==> All auto-registered variables are now unset(), and after that
+      only those variables which are needed are declared.
+      This works on all servers, whereas a .htaccess file only works on Apache.
+      4. Never run unescaped queries.
+      ==> All variables are passed through addslashes() when executing a SQL 
+      query.
+      5. For protected areas, use sessions or validate the login every time.
+      ==> Login is checked on each pageload, also for the Admin section.
+      6. If you don't want the file contents to be seen, give the file a .php 
+      extension.
+      ==> Done.
+- The HTTP authentication code (used when logging in via a Bookmark and
+  when using the Admin panel) has been improved to work with different
+  kinds of PHP setups (external authentication, PHP as CGI, IIS ISAPI). 
+  Due to external restrictions however, there are no workarounds when 
+  PHP is running as CGI module AND mod_rewrite is not available.
+- Zip files created by net2ftp can now be viewed using Windows XP's file
+  manager. They looked empty before. The reason is that there may not 
+  be a leading / in the filename.
+- Upload-and-untar is fixed.
+- The Copy/move check if the target directory is "same as or subdirectory of" 
+  the subdirectory was not correct.
+- The cookie for remembering the last FTP mode was not working. This is fixed.
+  The default is still BINARY.
+
+By the way: recursive chmod was already present in version 0.81, but not 
+mentioned below.
+
+
+
+October 2004: version 0.81
+==========================
+
+----------
+net2ftp version 0.81 contains:
+- HTMLArea version 2.0.3
+- HTMLArea version 3rc1
+- FCKEditor version 1.5
+- Helene version 0.5
+- pclzip version 2.1
+- pcltar version 1.3
+- jscalendar version 0.96
+- Everaldo's Crystal icons
+----------
+net2ftp version 0.81 is translated into:
+- Czech
+- German
+- Spanish
+- French
+- Italian
+- Dutch
+- Polish
+- Russian
+- Traditonal Chinese
+----------
+
+This release is the first to contain code contributed by Jakub: 
+- view an image on the FTP server (Slynderdale added the same for SWF movies)
+- better handling of symlinks
+- better password encryption
+- upload an unlimited nr of files (still restricted by the script timeout though!)
+- many bugfixes both in PHP and HTML
+
+The application has also been reworked to be translated.
+
+Based on requests of some users in the forum, net2ftp now also contains 3 "WYSIWYG" 
+HTML editors and one syntax highlighting editor. (The syntax highlighter editor is 
+turned off by default, as it is not very stable.)
+
+A kind of plugin system has been developed; it is used by the editors, and by the
+version checking tool made by Slynderdale. It provides a standard procedure to:
+- include PHP and Javascript files
+- run Javascript code in the HTML header
+- run Javascript code at the body onload event
+However, because each external application has its own requirements, manual
+intervention deep in the code is still needed besides this -- have a look at 
+the printEditForm() function in the file edit.inc.php to see how the editors 
+are plugged in.
+
+Actions like save, bookmark, etc can now be executed using the keyboard.
+Which letter can be used is displayed in the tooltip.
+
+Google Ads have been added, but they are turned off by default if you install net2ftp
+on your own server.
+
+There is new code to prevent abuse (people transferring huge amounts of data).
+This functionality requires a MySQL database.
+A daily limit on data transfer volume and on script execution time can be set. 
+Once this limit is reached, the user can still browse the FTP server but not
+transfer data any more.
+The data transfer volume and script execution time are logged per IP address and
+per FTP server. 
+
+The admin panel has been improved:
+- It can now be accessed from the main page.
+- The username and password can be set in settings.inc.php (this is easier than using
+  the .htaccess and .htpasswd files)
+- The code to retrieve the SQL logs is faster
+
+Bugfixes:
+
+* When a file was moved to the same directory, it was deleted. Thanks to Enigma for 
+  pointing that out.
+
+* Some HTML errors were corrected (Jakub)
+
+* The HTTP headers have been improved
+
+* Minor error handling improvement
+
+
+March 2004: version 0.80
+========================
+
+----------
+net2ftp version 0.80 contains:
+- htmlarea version 2.0.3
+- pclzip version 2.1
+- pcltar version 1.3
+- Everaldo's Crystal icons
+----------
+
+A new version with lots of additional features:
+
+* Directories, files and symlinks are shown together and can be manipulated
+  together
+
+* The size taken by directories and files can be calculated; the directories
+  are processed recursively.
+
+* Directories and files can be searched for a word; the directories
+  are processed recursively.
+
+* The upload-and-unzip function works now even if the Zip module of PHP is not 
+  installed, thanks to the pclzip library (see /includes/pclzip.lib.php). 
+
+* The upload-and-unzip function works now also for Tar archives, thanks to the
+  pcltar library (see /includes/pcltar.lib.php).
+
+* When uploading files, a popup message appears to tell: 1- to be patient and
+  2- that if the upload takes more than x seconds, it will be halted and he'll
+  have to try again with less/smaller files.
+
+* Functions which are not yet totally implemented can be turned on or off in
+  settings.inc.php.
+
+* If you don't know which function generates a particular output, you can turn a 
+  setting on in settings.inc.php, then extra hidden HTML tags will be added 
+  by each function.
+
+* There are 2 troubleshooting functions: one to troubleshoot net2ftp on a
+  webserver, and another one to troubleshoot an FTP server.
+
+* While the script is executed, the status is displayed on top of the page.
+
+* Selected rows have another background color
+
+* The number of settings in settings.inc.php have been reduced
+  to make net2ftp easier to configure. Some were not really used.
+
+* When logging in the passive mode can be set
+
+* The cookies set by net2ftp can be cleared from the login page
+
+* The list of directories and files can be sorted based on the filename, size,
+  modification time, etc
+
+* Version checking script can automatically check if a new version of net2ftp
+  exists
+
+* Added support for Lycos Tripod and Earthlink, so that the Open link would work
+  on the Browse page (printURL() function in browse.inc.php).
+
+* New 16x16 icons which take less space and look nicer
+
+* All icons are .png; workaround applied for IE which does not display 
+  transparent png images nicely by default
+
+* New onMouseOver effect for the action icons
+
+* Bugfix: when the login directory was "" the user was directed to the root
+  directory instead of his home directory
+
+* Bugfix: when a file was downloaded, the filename was appended by ".txt" 
+  and a line was added at the end of the file (reported by Jean-Pierre and
+  corrected by Slynderdale)
+
+* Bugfix: files with a filename which starts with a dot are transferred 
+  using the FTP_ASCII mode
+
+
+September 2003: version 0.73
+============================
+
+* Two of Slynderdale's add-ons are now integrated in the main release: 
+  - the directory can be set on the login page
+  - there is an anonymous login checkbox on the login page. (Last minute note:
+    this one is included but put in comment, because there is a small bug that
+    I couldn't solve.)
+
+* A default directory can be specified in the settings.inc.php file.
+
+* Bugfix: . and .. entries are removed now
+
+* Bugfix: ftp_zipdirectory bug is fixed
+
+
+September 2003: version 0.72
+============================
+
+* Added flush() in functions that can take some time (copy/move/delete and 
+  upload) so that the intermediate results would be shown on screen 
+  immediately.
+
+* Help guide in HTML
+
+* Added a shutdown function to display a warning and delete temporary files
+  when the script reaches the maximum execution time and is stopped
+
+* Small cosmetic changes to the layout
+
+* Bugfix: when doing an upload-and-unzip of 1 or more archives, it was 
+  necessary to also provide a normal file to upload.
+
+* Bugfix: the link to the icons of video and wav files were broken.
+
+* Bugfix: when the email could not be sent, the temporary file was not deleted.
+
+August 2003: version 0.71
+=========================
+
+* Bugfix: the /temp directory was getting full of temporary files that were
+  not deleted in case of error.
+
+* The /icons directory is renamed to /images.
+
+
+July 2003: version 0.7
+=======================
+
+* New layout and new icons
+
+* Email directories and files using a zip file attachment
+
+* If a subdirectory does not exist, the user is redirected to the root directory
+
+* Small bugfixes
+
+
+June 25, 2003: build 0030
+=========================
+
+Developers release.
+
+* Better scanning of the ftp_rawlist output generated by the FTP server 
+  See file browse.inc.php, function ftp_scanline().
+  Two major changes here: 
+    1- instead of listing the allowed characters in the regular expression, 
+       it works the other way around: the unwanted characters are listed.
+    2- if the scanning does not work, net2ftp tries again with a less
+       strict scanning method, and in the end, if a line is still not work,
+       the original raw list string is shown on the browse page.
+
+* When ftp_chdir returns false, no error message is printed.
+  See browse.inc.php, function ftp_getlist.
+  Some FTP servers seem to return FALSE even if the directory exists...(right?)
+
+* Some small changes in cleanDirectory(), glueDirectories() etc
+  See filesystem.inc.php.
+  All directories should be in the format /dir/subdir (leading / and no trailing /).
+  The root directory is /. Only in ftp_getlist, a directory "" can be used.
+
+* A small text is added on the Upload screen, to explain to webmasters where the
+  upload-unzip feature should be, once the zip module of PHP is installed.
+  (Note: Slynderdale is working on a version which would not need this module.)
+
+* A .htaccess file is added, to handle HTTP errors.
+  The drawback of this file is that the path should be edited. I am still
+  looking for a better solution.
+
+
+June 7, 2003: version 0.61
+==========================
+
+Minor bugfix release:
+
+* Some FTP servers (Windows) do not accept ftp_chmod commands when there is a 
+  leading slash in the directory name.
+
+
+May 2003: version 0.6
+=====================
+
+This release is the first to contain code contributed by Slynderdale: the zip 
+download of files, the WYSIWYG edit form (only for Internet Explorer 5.5 or 
+higher), the listing of directories.
+
+New features:
+
+* Zip download of directories and files. 
+
+* Zip upload; the files are decompressed on the web server, and transferred to 
+  the FTP server.
+
+* WYSIWYG form can be used to edit text files, when the browser is IE 5.5 or 6.0.
+
+* Most pages can be bookmarked. When a bookmark is used to access a net2ftp page,
+  a popup window asks for the username/password to be used on that FTP server. The
+  password is not saved in the bookmark.
+
+* On most pages where a directory can be entered, a "List" link opens a popup
+  window which allows to browse through the directory structure and choose a
+  directory.
+
+* Authorization check on FTP server port. The admin can set authorized ports to ALL
+  or to a certain port nr. In this last case, the port nr textbox is suppressed from
+  the login page.
+
+* Upload page: it is possible to enter another directory on the first page, and 
+  to to upload another 5 files from the upload result page.
+
+* The nr of files that can be uploaded at once can be set in settings.inc.php.
+
+* The location of net2ftp on the server is determined automatically; there
+  is no need to enter it in settings.inc.php any more.
+
+* A check is made to see if the FTP module of PHP is installed.
+  The modules needed for zip upload (Zip and Zlib) are optional. If they are
+  not installed, the extra buttons and textboxes are suppressed.
+
+* New functionality on the administrator page
+
+Bugfixes:
+
+* Some FTP servers do not show hidden files by default.
+  By using the -a option those files are now shown. 
+
+* Some FTP servers return fake directory entries "." and ".." which caused
+  infinite loops in the copy/move/delete functions. These entries are now
+  filtered out.
+
+* There was a problem with javascript on the Browse page, if a directory or 
+  filename contained a single quote. This is solved now.
+
+* The directories and files are shown when connecting to the AS400 FTP server.
+
+
+March 2003: version 0.5
+=======================
+
+New features:
+
+* The directory that was last used, is saved in the cookie; when logging in
+  later on, that directory is used. If the directory has been deleted in the 
+  meanwhile, an error message is shown, and the cookie information is reset.
+
+* Some of the layout settings which were coded on server side in 
+  settings.inc.php and in the browse/edit/... functions have been replaced by 
+  styles in the css files
+
+* The HTML that is generated is now valid HTML 4.01 Transitional, or almost.
+  (There are some features that most browsers can handle, but which are not
+  foreseen in the standard, such as the wrap attribute of a textarea, used
+  when editing text files.)
+
+
+Bugfixes:
+
+* When logging in for the first time, the directory is "/" instead of "".
+  On certain FTP servers, entering "" would bring a user to its home directory 
+  (for example /home/user) instead of the document root. Then, when clicking 
+  on a subdirectory link (for example /subdir), net2ftp would assume this 
+  subdirectory to be /subdir, whereas in fact it would be /home/user/subdir
+
+* In browse(), ftp_chdir is now always executed; before, it was not executed if 
+  the directory was ""
+
+* When sending feedback via the form, single quotes were escaped (' became /'). 
+  This is corrected.
+
+* The layout has been adapted a little in most action (rename, chmod,...) screens: 
+  the text is now aligned 50 px from the left border, instead of in the middle.
+
+
+February 2003: version 0.4
+==========================
+
+Following the feedback of some users, here are the bugfixes:
+
+* Function fopen is now used with the "b" option, which is (only) useful on Windows 
+  servers
+
+* The deletion of directories is now done with ftp_rmdir instead of ftp_delete
+
+* The file layout_server.inc.php is merged in settings.inc.php
+
+* All the arrays are now used with ['string'] instead of [string], as 
+  recommended in the manual
+
+* In the INSTALL file is now pointed out how to change the appearance of the
+  login screen
+
+* The database use is now by default set to no, to make the install easier.
+
+February 2003: version 0.3
+==========================
+
+This version contains new features, and bug fixes.
+
+New features:
+
+* Copy and move files to a SECOND FTP server! This is handy for developers, 
+who develop and test on a different environment than the production environment.
+
+* If you change $myname and $mydomain in the settings.inc.php file, the layout 
+of the login page is different from what is on net2ftp.com.
+
+* If the security settings (in settings.inc.php) are set to restrict the access 
+to some FTP servers only, this is reflected on the login page.
+
+
+Bug fixes:
+
+* Check the authorization only if $check_authorization is set to yes in 
+settings.inc.php.
+
+* The nr of lines in the edit form is reduced from 37 to 35 in 
+layout_server.inc.php, because in Mozilla based browsers each line is a little 
+taller than in IE.
+
+* After doing some tests on different public FTP servers, it appears that they
+reply differently to the ftp_rawlist request -- thanks to Ondrej for reporting 
+this.
+     - some FTP servers, like ftp.belnet.be, start with a line summarizing how 
+       many subdirectories and files there are in the current directory. The 
+       real list of subdirectories and files starts on the second line. This 
+       worked well in net2ftp.
+
+              [0] => total 15
+              [1] => drwxr-xr-x 11 BELNET Archive 512 Feb 6 2000 BELNET
+              [2] => drwxr-xr-x 2 BELNET Archive 512 Oct 29 2001 FVD-SFI
+
+     - some other FTP servers, like ftp.redhat.com/pub, start directly with the 
+       list of subdirectories and files. The first entry is omitted in net2ftp, 
+       because it was assumed the first line would be used for the summary.
+
+              [0] => drwxr-xr-x 9 ftp ftp 4096 Jan 11 06:34 contrib
+              [1] => drwxr-xr-x 13 ftp ftp 4096 Jan 29 21:59 redhat
+              [2] => drwxrwsr-x 6 ftp ftp 4096 Jun 05 2002 up2date
+
+
+February 2003: version 0.2
+==========================
+
+This version is mainly released to make the application work with PHP > 4.0.6 
+and with register_globals set to off.
+
+* There is a new file: registerglobals.inc.php; this is to make the application 
+work, even if register_globals is set to off.
+
+* The ftp_close function has been renamed to ftp_closeconnection, so that the 
+application would work with PHP > 4.0.6. Note that now, ftp_quit does not 
+return TRUE or FALSE any more
+
+* The ftp_get and ftp_put functions must now take FTP_ASCII and FTP_BINARY 
+without the double quotes. In PHP 4.0.6 it was assumed that with the double 
+quotes, FTP_ASCII was meant.
+
+* The HTML layout has been modified a little, there are 2 different CSS 
+templates.
+
+* The file upload function has been modified (better error handling, if the 
+temp directory has not been chmodded during the installation, or if no files 
+are supplied).
+
+* It is possible to use net2ftp without a database. The use_database setting 
+is now taken into account. 
+
+
+
+January 2003: version 0.1 - first release for developers
+========================================================
+
+* Since this is the first version, everything is new !
