@@ -40,6 +40,25 @@ app.use(function(req, res, next) {
 	}
 });
 
+// Get line number; for debugging
+Object.defineProperty(global, '__stack', {
+  get: function(){
+    var orig = Error.prepareStackTrace;
+    Error.prepareStackTrace = function(_, stack){ return stack; };
+    var err = new Error;
+    Error.captureStackTrace(err, arguments.callee);
+    var stack = err.stack;
+    Error.prepareStackTrace = orig;
+    return stack;
+  }
+});
+
+Object.defineProperty(global, '__line', {
+  get: function(){
+    return __stack[1].getLineNumber();
+  }
+});
+
 io.on('connection', function(socket){
 /*	var _IP = socket.request.connection.remoteAddress;
 	if(_IP == IP) { */
@@ -48,10 +67,45 @@ io.on('connection', function(socket){
 		socket.on('find-user', function(data){
 			user.find(data.email, function(err, found, dat, usr) {
 				if(err) {
-					return io.emit('done-looking', {"err": err});
+					return io.emit('done-looking', {"err": err, "id": '0.' + __line});
 				}
 				
 				io.emit('done-looking', {"err": false, "found": found});
+			});
+		});
+		
+		// LOGIN
+		socket.on('login-user', function(data) {
+			user.find(data.email, function(err, found, dat, usr) {
+				if(err) {
+					return io.emit('login-done', {"err": err, "id": '1.' + __line});
+				}
+				
+				if(found) {
+					bcrypt.compare(data.pass, dat[1].trim(), function(err, valid) {
+						if(err) {
+							return io.emit('login-done', {"err": err, "id": '2.' + __line});
+						}
+						
+						if(valid) {
+							var userSession = randomstring.generate(16);
+							userSession += Math.round(((new Date()).getTime() / 60000) + 60*24);
+							dat[2] = userSession;
+							
+							fs.writeFile("users/" + usr + "/user.txt", dat.join("\n"), function(err, data) {
+								if(err) {
+									return io.emit('login-done', {"err": err, "id": '3.' + __line});
+								}
+								
+								io.emit('login-done', {"err": false, "matching": true, "session": userSession});
+							});
+						} else {
+							return io.emit('login-done', {"matching": false});
+						}
+					});
+				} else {
+					return io.emit('login-done', {"matching": false});
+				}
 			});
 		});
 //	}
