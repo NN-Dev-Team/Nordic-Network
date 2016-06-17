@@ -32,7 +32,7 @@ $net2ftp_settings["check_authorization"] = "yes";
 //    - if more than 1 entry is entered, then the FTP server will have to be chosen from a drop-down list
 // ----------------------------------------------------------------------------------
 
-$net2ftp_settings["allowed_ftpservers"][1] = "ALL";
+$net2ftp_settings["allowed_ftpservers"][1] = "localhost";
 //$net2ftp_settings["allowed_ftpservers"][1] = "localhost";
 //$net2ftp_settings["allowed_ftpservers"][2] = "192.168.1.1";
 //$net2ftp_settings["allowed_ftpservers"][3] = "ftp.mydomain2.org";
@@ -85,14 +85,14 @@ $net2ftp_settings["banned_addresses"][1] = "NONE";
 // Set the first entry to NONE, or enter a list of banned keywords
 // ----------------------------------------------------------------------------------
 
-//$net2ftp_settings["banned_keywords"][1] = "NONE";
-$net2ftp_settings["banned_keywords"][1] = "paypal";
-$net2ftp_settings["banned_keywords"][2] = "ebay";
-$net2ftp_settings["banned_keywords"][3] = "wachoviabank";
-$net2ftp_settings["banned_keywords"][4] = "wellsfargo";
-$net2ftp_settings["banned_keywords"][5] = "bankwest";
-$net2ftp_settings["banned_keywords"][6] = "hsbc";
-$net2ftp_settings["banned_keywords"][7] = "halifax-online";
-$net2ftp_settings["banned_keywords"][8] = "lloydstsb";
-$net2ftp_settings["banned_keywords"][9] = "egg.com";
+$net2ftp_settings["banned_keywords"][1] = "NONE";
+//$net2ftp_settings["banned_keywords"][1] = "paypal";
+//$net2ftp_settings["banned_keywords"][2] = "ebay";
+//$net2ftp_settings["banned_keywords"][3] = "wachoviabank";
+//$net2ftp_settings["banned_keywords"][4] = "wellsfargo";
+//$net2ftp_settings["banned_keywords"][5] = "bankwest";
+//$net2ftp_settings["banned_keywords"][6] = "hsbc";
+//$net2ftp_settings["banned_keywords"][7] = "halifax-online";
+//$net2ftp_settings["banned_keywords"][8] = "lloydstsb";
+//$net2ftp_settings["banned_keywords"][9] = "egg.com";
 ?>
