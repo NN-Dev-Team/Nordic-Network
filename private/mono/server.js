@@ -89,13 +89,9 @@ function reg_printSuccess() {
 	io.emit('reg-complete', {"success": true});
 }
 
-// Login & logout functions
+// Login functions
 function login_printError(reason, id) {
 	io.emit('login-complete', {"success": false, "reason": reason, "id": id});
-}
-
-function logout_printError(reason, id) {
-	io.emit('logout-complete', {"success": false, "reason": reason, "id": id});
 }
 
 // Server creation functions
@@ -217,7 +213,7 @@ io.on('connection', function(socket){
 		});
 	});
 	
-	// LOGIN & LOGOUT
+	// LOGIN
 	socket.on('login', function(data){
 		user.isBanned(IP, function(err, banned) {
 			if(err) {
