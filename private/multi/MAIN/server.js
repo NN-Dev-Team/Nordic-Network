@@ -445,7 +445,8 @@ io.on('connection', function(socket){
 				var serv_type = props[1].trim();
 				var serv_typeCS = serv_type.substring(1, 2);
 				var serv_rank = props[2].trim();
-				var serv_timeOn = props[3].trim();
+				var serv_timeOn = props[3].trim(); // Will not be used in this case, it's just here so we can remember it
+				var serv_lastOn = props[4].trim(); // Will not be used in this case, it's just here so we can remember it
 				var serv_ram = [[256, 512, 1024, 2048, 4096], [512, 1024, 2048, 4096], [512, 1024, 2048, 4096]];
 				
 				fs.readFile('users/' + data.server + ".txt", 'utf8', function(err, dat) {
