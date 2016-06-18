@@ -252,9 +252,8 @@ body {
 }
 
 #cookie-notice {
-    max-height: 5vh;
-    min-width: 100vw;
-    min-height: 5vh;
+    height: 5vh;
+    width: 100%;
 }
 
 #cookie-notice-button {
