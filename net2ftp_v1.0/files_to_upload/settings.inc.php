@@ -50,14 +50,14 @@ $net2ftp_settings["encryption_string"] = "462E16CB7C3F369BD9F4DBEE0A926F8F14FFB3
 // ----------------------------------------------------------------------------------
 
 $net2ftp_settings["admin_username"] = "admin";
-$net2ftp_settings["admin_password"] = "";
+$net2ftp_settings["admin_password"] = "admin";
 
 
 // ----------------------------------------------------------------------------------
 // Message on Browse screen
 // ----------------------------------------------------------------------------------
 
-$net2ftp_settings["message_browse"] = "";
+$net2ftp_settings["message_browse"] = "Welcome! You are browsing a Nordic Network server!";
 
 
 // ----------------------------------------------------------------------------------
