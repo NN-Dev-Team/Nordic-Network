@@ -8,13 +8,16 @@ body {
 }
 
 .jumbotron {
-    
     background-image: url('../pics/277H.jpg');
     background-size: 100% 100%;
     min-height: 100vh;
     text-align: center;
     padding-top: 0px;
     -webkit-overflow-scrolling: touch;
+}
+
+#jumbo-nomargin {
+	margin-top: -5vh;
 }
 
 #title {
