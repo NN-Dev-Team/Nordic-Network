@@ -302,8 +302,8 @@ body {
 #console textarea {
     border: none;
     resize: none;
-    width: 47vw;
-    height: 46vh;
+    width: calc(50vw - 35px);
+    height: calc(50vh - 25px);
     border-top-left-radius: 10px;
     float: left;
     border-right: 1px solid black;
@@ -328,22 +328,23 @@ body {
 }
 
 #cnslchangecolor {
-    margin-top: 6px;
+    margin-top: 2vh;
     border: none;
     background-color: white;
 }
 
 #cnslautochat {
+	margin-top: 1vh;
     border: none;
     background-color: white;
 }
 
 #cnslchangecolor::before {
-    font-size: 1.75vw;
+    font-size: 125%;
 }
 
 #cnslautochat::before {
-    font-size: 1.75vw;
+    font-size: 125%;
 }
 
 #btnsdelreset {
