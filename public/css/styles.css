@@ -290,8 +290,8 @@ body {
 }
 
 #console {
-    width: 50vw;
-    height: 50vh;
+    width: 60vw;
+    height: 60vh;
     border-radius: 10px;
     font-family: monospace;
     font: Lucida Console;
@@ -302,15 +302,15 @@ body {
 #console textarea {
     border: none;
     resize: none;
-    width: calc(50vw - 35px);
-    height: calc(50vh - 25px);
+    width: calc(60vw - 40px);
+    height: calc(60vh - 30px);
     border-top-left-radius: 10px;
     float: left;
     border-right: 1px solid black;
 }
 
 #consoleinput {
-    width: 49.9vw;
+    width: 59.9vw;
     color: black;
     font-family: monospace;
     font: Lucida Console;
@@ -342,11 +342,11 @@ body {
 }
 
 #cnslchangecolor::before {
-    font-size: 20px;
+    font-size: 25px;
 }
 
 #cnslautochat::before {
-    font-size: 20px;
+    font-size: 25px;
 }
 
 @media screen and (max-width: 767px) {
@@ -367,8 +367,8 @@ body {
 
 @media screen and (min-width: 1920px) {
 	#console textarea {
-		width: calc(50vw - 50px);
-		height: calc(50vh - 40px);
+		width: calc(65vw - 50px);
+		height: calc(65vh - 40px);
 	}
 	
 	#cnslchangecolor::before {
@@ -377,6 +377,10 @@ body {
 
 	#cnslautochat::before {
 		font-size: 35px;
+	}
+	
+	#consoleinput {
+		width: 64.9vw;
 	}
 }
 
