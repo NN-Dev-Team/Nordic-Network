@@ -260,9 +260,9 @@ body {
     
 }
 
-@media screen and (min-width: 770px) {
+@media screen and (min-width: 768px) {
     #menu-toggle {
-    display: none;    
+		display: none;
     }
     
 }
@@ -347,6 +347,53 @@ body {
 
 #cnslautochat::before {
     font-size: 20px;
+}
+
+@media screen and (max-width: 767px) {
+	#console {
+		width: inherit;
+		height: calc(100vh - 126px);
+	}
+	
+	#console textarea {
+		width: calc(100vw - 70px);
+		height: calc(100vh - 151px);
+	}
+	
+	#consoleinput {
+		width: calc(100vw - 31px);
+	}
+}
+
+@media screen and (min-width: 1920px) {
+	#console textarea {
+		width: calc(50vw - 50px);
+		height: calc(50vh - 40px);
+	}
+	
+	#cnslchangecolor::before {
+		font-size: 35px;
+	}
+
+	#cnslautochat::before {
+		font-size: 35px;
+	}
+}
+
+#wrapper.toggled #consolewrapper {
+	width: 100vw;
+}
+
+#wrapper.toggled textarea {
+	width: 100vw;
+}
+
+#wrapper.toggled #consolebuttons {
+	display: none;
+}
+
+#wrapper.toggled #consoleinput {
+	width: 100vw;
 }
 
 #btnsdelreset {
