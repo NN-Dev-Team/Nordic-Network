@@ -365,6 +365,21 @@ body {
 	}
 }
 
+@media screen and (min-width: 1920px) {
+	#console textarea {
+		width: calc(50vw - 50px);
+		height: calc(50vh - 40px);
+	}
+	
+	#cnslchangecolor::before {
+		font-size: 35px;
+	}
+
+	#cnslautochat::before {
+		font-size: 35px;
+	}
+}
+
 #wrapper.toggled #consolewrapper {
 	width: 100vw;
 }
