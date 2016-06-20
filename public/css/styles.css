@@ -260,11 +260,26 @@ body {
     
 }
 
-@media screen and (min-width: 770px) {
+@media screen and (min-width: 768px) {
     #menu-toggle {
-    display: none;    
+		display: none;
     }
     
+}
+
+@media screen and (max-width: 769px) {
+	#console {
+		height: calc(100vh - 106px);
+	}
+	
+	#console textarea {
+		width: calc(100vw - 80px);
+		height: calc(100vh - 131px);
+	}
+	
+	#consoleinput {
+		width: calc(100vw - 41px);
+	}
 }
 
 #menu-toggle {
