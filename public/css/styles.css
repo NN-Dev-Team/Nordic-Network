@@ -331,20 +331,22 @@ body {
     margin-top: 2vh;
     border: none;
     background-color: white;
+	padding: 0;
 }
 
 #cnslautochat {
 	margin-top: 1vh;
     border: none;
     background-color: white;
+	padding: 0;
 }
 
 #cnslchangecolor::before {
-    font-size: 125%;
+    font-size: 20px;
 }
 
 #cnslautochat::before {
-    font-size: 125%;
+    font-size: 20px;
 }
 
 #btnsdelreset {
