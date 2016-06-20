@@ -267,7 +267,7 @@ body {
     
 }
 
-@media screen and (max-width: 769px) {
+@media screen and (max-width: 767px) {
 	#console {
 		height: calc(100vh - 106px);
 	}
