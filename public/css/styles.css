@@ -286,6 +286,7 @@ body {
 }
 
 #consolewrapper {
+	
 }
 
 #console {
@@ -301,8 +302,8 @@ body {
 #console textarea {
     border: none;
     resize: none;
-    width: 48vw;
-    height: 47vh;
+    width: calc(50vw - 35px);
+    height: calc(50vh - 25px);
     border-top-left-radius: 10px;
     float: left;
     border-right: 1px solid black;
@@ -319,6 +320,7 @@ body {
     border-top: 1px solid black;
     border-right: hidden;
     border-left: hidden;
+	background-color: transparent;
 }
 
 #consolebuttons {
@@ -326,26 +328,25 @@ body {
 }
 
 #cnslchangecolor {
-    margin-top: 5px;
+    margin-top: 2vh;
     border: none;
-    height: 3vh;
-    width: 3.51vh;
     background-color: white;
+	padding: 0;
 }
 
 #cnslautochat {
+	margin-top: 1vh;
     border: none;
-    height: 3vh;
-    width: 3.51vh;
     background-color: white;
+	padding: 0;
 }
 
-#cnslchangecolor span{
-    font-size: 1.5em;
+#cnslchangecolor::before {
+    font-size: 20px;
 }
 
-#cnslautochat span{
-    font-size: 1.5em;
+#cnslautochat::before {
+    font-size: 20px;
 }
 
 #btnsdelreset {
