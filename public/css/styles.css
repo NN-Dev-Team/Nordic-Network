@@ -8,13 +8,16 @@ body {
 }
 
 .jumbotron {
-    
     background-image: url('../pics/277H.jpg');
     background-size: 100% 100%;
     min-height: 100vh;
     text-align: center;
     padding-top: 0px;
     -webkit-overflow-scrolling: touch;
+}
+
+#jumbo-nomargin {
+	margin-top: -5vh;
 }
 
 #title {
@@ -297,6 +300,7 @@ body {
     font: Lucida Console;
     border: 1px solid black;
     text-align: center;
+	transition: border-radius 2s, background-color 2s, height 2s, border 2s;
 }
 
 #console textarea {
@@ -307,6 +311,7 @@ body {
     border-top-left-radius: 10px;
     float: left;
     border-right: 1px solid black;
+	transition: border-top-left-radius 2s, background-color 2s, border-right 2s, color 2s, height 2s;
 }
 
 #consoleinput {
@@ -321,6 +326,7 @@ body {
     border-right: hidden;
     border-left: hidden;
 	background-color: transparent;
+	transition: display 2s;
 }
 
 #consolebuttons {
@@ -332,6 +338,7 @@ body {
     border: none;
     background-color: white;
 	padding: 0;
+	transition: background-color 2s, color 2s;
 }
 
 #cnslautochat {
@@ -339,6 +346,7 @@ body {
     border: none;
     background-color: white;
 	padding: 0;
+	transition: background-color 2s, color 2s;
 }
 
 #cnslchangecolor::before {
@@ -366,6 +374,11 @@ body {
 }
 
 @media screen and (min-width: 1920px) {
+	#console {
+		width: 65vw;
+		height: 65vh;
+	}
+	
 	#console textarea {
 		width: calc(65vw - 50px);
 		height: calc(65vh - 40px);
