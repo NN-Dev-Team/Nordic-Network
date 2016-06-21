@@ -300,6 +300,7 @@ body {
     font: Lucida Console;
     border: 1px solid black;
     text-align: center;
+	transition: border-radius 2s;
 }
 
 #console textarea {
@@ -369,6 +370,11 @@ body {
 }
 
 @media screen and (min-width: 1920px) {
+	#console {
+		width: 65vw;
+		height: 65vh;
+	}
+	
 	#console textarea {
 		width: calc(65vw - 50px);
 		height: calc(65vh - 40px);
