@@ -25,6 +25,22 @@ $(document).ready(function() {
 		}
 	}
 	
+	if(getCookie('console-theme') == "terminal") {
+		$('#console').css('transition', "none");
+		$('#cnslchangecolor').css('transition', "none");
+		$('#cnslautochat').css('transition', "none");
+		$('#consoleinput').css('transition', "none");
+		$('#console textarea').css('transition', "none");
+		changeTheme(0);
+		setTimeout(function(){
+			$('#console').css('transition', "border-radius 2s, background-color 2s, height 2s, border 2s");
+			$('#cnslchangecolor').css('transition', "background-color 2s, color 2s");
+			$('#cnslautochat').css('transition', "background-color 2s, color 2s");
+			$('#consoleinput').css('transition', "display 2s");
+			$('#console textarea').css('transition', "border-top-left-radius 2s, background-color 2s, border-right 2s, color 2s, height 2s");
+		}, 100);
+	}
+	
 	socket.on('console-query', function(data){
 		$('#console textarea').text(data);
 	});
@@ -43,6 +59,28 @@ $(document).ready(function() {
 		}
 	});
 });
+
+function addCookie(name, value, time) {
+    var day = new Date();
+    day.setTime(day.getTime() + (time*24*60*60*1000));
+    var expires = "expires="+day.toUTCString();
+    document.cookie = name + "=" + value + "; " + expires + "; path=/";
+}
+
+function getCookie(name) {
+    name += "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
+}
+
+function delCookie(name) {
+  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
 
 function changeTheme(state) {
 	var device_width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
@@ -85,7 +123,7 @@ function changeTheme(state) {
 		$('#cnslchangecolor').attr('onclick', "changeTheme(1)");
 		
 		// Add theme cookie
-		
+		addCookie('console-theme', "terminal", 1024);
 	} else {
 		// Console
 		$('#console').css('border-radius', "10px");
@@ -124,6 +162,6 @@ function changeTheme(state) {
 		$('#cnslchangecolor').attr('onclick', "changeTheme(0)");
 		
 		// Remove theme cookie
-		
+		delCookie('console-theme');
 	}
 }
