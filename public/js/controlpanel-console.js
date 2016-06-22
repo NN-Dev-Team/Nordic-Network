@@ -55,7 +55,7 @@ $(document).ready(function() {
 	$("#console textarea").on("keydown", function sendCMD(e) {
 		if(e.keyCode == 13) {
 			socket.emit('console-cmd', $(this).val());
-			$(this).val("");
+			$(this).val("$ ");
 		}
 	});
 });
