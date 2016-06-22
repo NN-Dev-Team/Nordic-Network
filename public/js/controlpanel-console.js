@@ -118,6 +118,7 @@ function changeTheme(state) {
 		} else {
 			$('#console textarea').css('height', "calc(60vh - 32px)");
 		}
+		$('#console textarea').text("$ cd themes/terminal\n$ themes/terminal> ");
 		
 		// Console theme changer button
 		$('#cnslchangecolor').attr('onclick', "changeTheme(1)");
