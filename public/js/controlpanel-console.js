@@ -54,8 +54,12 @@ $(document).ready(function() {
 	
 	$("#console textarea").on("keydown", function sendCMD(e) {
 		if(e.keyCode == 13) {
-			socket.emit('console-cmd', $(this).val());
-			$(this).val("");
+			var $txt = $(this);
+			socket.emit('console-cmd', $txt.val());
+			$txt.val($txt.val() + "\n$ ");
+			setTimeout(function(){
+				$txt.val($txt.val().substring(0, $txt.val().length - 1));
+			}, 10);
 		}
 	});
 });
@@ -118,6 +122,7 @@ function changeTheme(state) {
 		} else {
 			$('#console textarea').css('height', "calc(60vh - 32px)");
 		}
+		$('#console textarea').text("$ cd themes/terminal\n$ themes/terminal> ");
 		
 		// Console theme changer button
 		$('#cnslchangecolor').attr('onclick', "changeTheme(1)");
