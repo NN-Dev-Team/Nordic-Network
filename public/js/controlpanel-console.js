@@ -68,6 +68,10 @@ $(document).ready(function() {
 			} else if(dir == 1 && $txt.val().substring($txt.val().length - 11, $txt.val().length) == 'cd terminal') {
 				$txt.val($txt.val() + "\n$ themes/terminal> ");
 				dir = 0;
+			} else if(dir == 1 && $txt.val().substring($txt.val().length - 10, $txt.val().length) == 'cd default') {
+				$txt.val($txt.val() + "\n$ themes/default> ");
+				dir = 0;
+				changeTheme(1);
 			} else if(dir == 1) {
 				$txt.val($txt.val() + "\n$ themes> ");
 			} else if(dir == 2) {
@@ -76,9 +80,18 @@ $(document).ready(function() {
 				socket.emit('console-cmd', $txt.val());
 				$txt.val($txt.val() + "\n$ ");
 			}
-			setTimeout(function(){
-				$txt.val($txt.val().substring(0, $txt.val().length - 1));
-			}, 10);
+			
+			var device_width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+			
+			if(device_width >= 1200) {
+				setTimeout(function(){
+					$txt.val($txt.val().substring(0, $txt.val().length - 1));
+				}, 10);
+			} else {
+				setTimeout(function(){
+					$txt.val($txt.val().substring(0, $txt.val().length - 1));
+				}, 100);
+			}
 		}
 	});
 });
@@ -103,6 +116,10 @@ function getCookie(name) {
 
 function delCookie(name) {
   document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
+String.prototype.replaceAt=function(index, character) {
+    return this.substr(0, index) + character + this.substr(index+character.length);
 }
 
 function changeTheme(state) {
@@ -180,6 +197,14 @@ function changeTheme(state) {
 		} else {
 			$('#console textarea').css('height', "calc(60vh - 30px)");
 		}
+		var $txt = $('#console textarea').val().split("\n");
+		for(i = 0; i < $txt.length; i++) {
+			if($txt[i].substring(0, 1) == '$') {
+				$txt.splice(i, 1);
+				i--;
+			}
+		}
+		$('#console textarea').text($txt.join("\n"));
 		$('#consoleinput').css('display', 'inline');
 		
 		// Console theme changer button
