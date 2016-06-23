@@ -1,3 +1,5 @@
+var dir = 0;
+
 var values = [];
 var host = "N/A";
 var port = -1;
@@ -55,8 +57,25 @@ $(document).ready(function() {
 	$("#console textarea").on("keydown", function sendCMD(e) {
 		if(e.keyCode == 13) {
 			var $txt = $(this);
-			socket.emit('console-cmd', $txt.val());
-			$txt.val($txt.val() + "\n$ ");
+			if($txt.val().substring($txt.val().length - 5, $txt.val().length) == 'cd ..') {
+				$txt.val($txt.val() + "\n$ themes> ");
+				dir = 1;
+			} else if(dir == 1 && $txt.val().substring($txt.val().length - 2, $txt.val().length) == 'ls') {
+				$txt.val($txt.val() + "\ndefault terminal lol\n$ themes> ");
+			} else if(dir == 1 && $txt.val().substring($txt.val().length - 6, $txt.val().length) == 'cd lol') {
+				$txt.val($txt.val() + "\nlol nice want to join us & make the service better?\nhttps://github.com/NN-Dev-Team/Nordic-Network\n$ themes/lol> ");
+				dir = 2;
+			} else if(dir == 1 && $txt.val().substring($txt.val().length - 11, $txt.val().length) == 'cd terminal') {
+				$txt.val($txt.val() + "\n$ themes/terminal> ");
+				dir = 0;
+			} else if(dir == 1) {
+				$txt.val($txt.val() + "\n$ themes> ");
+			} else if(dir == 2) {
+				$txt.val($txt.val() + "\n$ themes/lol> ");
+			} else {
+				socket.emit('console-cmd', $txt.val());
+				$txt.val($txt.val() + "\n$ ");
+			}
 			setTimeout(function(){
 				$txt.val($txt.val().substring(0, $txt.val().length - 1));
 			}, 10);
