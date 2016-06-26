@@ -43,3 +43,16 @@ Minecraft Ranks
 **Note:** Monthly payment is only available to premium users; that is you pay with your own money. Rank 1 & 2 don't have premium.
 
 --------
+
+**Update:** The "special system" may not be allowed if using Google AdSense, so we'll therefore have to rely more on donations & revenue from premium servers. To increase ad gain, free servers will also have access to their own server page, forums will still be only-premium though :)
+
+Due to the lack of donations on smaller servers, this means that revenue from premium servers may be used to pay for them. According to several sources though, rich content pages generate more ad gain, so we might still get a lot from ads if we make sure the server pages look good and have much content like a blog for example :)
+
+(Each Rank 3 premium server can pay *completely* for 4 Rank 1 free servers)
+
+--------
+
+#### [Statistics about donations per GB RAM](http://www.planetminecraft.com/forums/how-many-donations-your-minecraft-server-you-get-t551696.html)
+Donated money per GB RAM is now about 4$ per month, getting a bit more accurate now with more results :)
+
+--------
