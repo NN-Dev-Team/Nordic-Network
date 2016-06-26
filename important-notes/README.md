@@ -70,8 +70,16 @@ Accepted applications will now grant some of these things depending on how the a
 
 **Requirements for more RAM:**
 - You already have players (moving from another host)
+
 **or**
+
 - You help us somehow
+
+--------
+
+We'll be using RCON to send cmds to the server :)
+[GitHub Node.js RCON](RCON GitHub: https://github.com/pushrax/node-rcon)
+[NPM Node.js RCON](https://www.npmjs.com/package/rcon)
 
 --------
 
