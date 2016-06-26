@@ -86,7 +86,7 @@ We'll be using RCON to send cmds to the server :)
 --------
 
 #### AutoChat mode in console
-- Suggested by @isasftw
+- Suggested by [@isasftw](https://github.com/isasftw)
 
 "We should have an AutoChat mode and a Commands Only mode for the console. So that if you don't have a command, just text, it will automatically add /say. And in commands only it won't"
 
