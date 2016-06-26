@@ -78,7 +78,9 @@ Accepted applications will now grant some of these things depending on how the a
 --------
 
 We'll be using RCON to send cmds to the server :)
-[GitHub Node.js RCON](RCON GitHub: https://github.com/pushrax/node-rcon)
+
+[GitHub Node.js RCON](https://github.com/pushrax/node-rcon)
+
 [NPM Node.js RCON](https://www.npmjs.com/package/rcon)
 
 --------
