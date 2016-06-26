@@ -56,3 +56,22 @@ Due to the lack of donations on smaller servers, this means that revenue from pr
 Donated money per GB RAM is now about 4$ per month, getting a bit more accurate now with more results :)
 
 --------
+
+Applications
+-------------
+Accepted applications will now grant some of these things depending on how the application looks:
+- Higher position in queue for servers; that is less waiting time for getting a server
+- More RAM for your server
+
+--------
+
+**Requirements for higher position:**
+- Just a good application; a good & unique idea of a server and application looks good overall :)
+
+**Requirements for more RAM:**
+- You already have players (moving from another host)
+**or**
+- You help us somehow
+
+--------
+
