@@ -1,7 +1,7 @@
 # Important Notes
 Minecraft Ranks
 ----------------
-**Rank 1:**
+## Rank 1:
 *Weekly Cost:* From ~£0.06 to ~£0.1
 *Features:* 256 MB RAM & 1 GB disk space
 
@@ -20,6 +20,5 @@ Minecraft Ranks
 *Monthly Cost:* £4
 *Features:* 2 GB RAM, 8 GB disk space & FTP access
 *Premium Features:* Your own server website/forum & no ads
-——————————————————————————————————
+
 *Note:* Monthly payment is only available to premium users; that is you pay with your own money. Rank 1 & 2 don't have premium.
-——————————————————————————————————
