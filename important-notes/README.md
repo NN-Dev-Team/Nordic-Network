@@ -1,7 +1,7 @@
 # Important Notes
 Minecraft Ranks
 ----------------
-## Rank 1:
+### Rank 1:
 *Weekly Cost:* From ~£0.06 to ~£0.1
 *Features:* 256 MB RAM & 1 GB disk space
 
