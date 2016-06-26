@@ -85,3 +85,15 @@ We'll be using RCON to send cmds to the server :)
 
 --------
 
+#### AutoChat mode in console
+- Suggested by @isasftw
+
+"We should have an AutoChat mode and a Commands Only mode for the console. So that if you don't have a command, just text, it will automatically add /say. And in commands only it won't"
+
+--------
+
+We'll use statistics about when servers usually are online to determine if another free server will work :)
+
+--------
+
+**Feature:** Enable/Disable FTP password changing as well as changing the password to whatever you want. Default length will be same as session id; 16 chars.
