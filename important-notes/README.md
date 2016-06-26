@@ -29,4 +29,8 @@ Minecraft Ranks
 
 **Premium Features:** Your own server website/forum & no ads
 
+----------------------------------------------------------------
+
 **Note:** Monthly payment is only available to premium users; that is you pay with your own money. Rank 1 & 2 don't have premium.
+
+----------------------------------------------------------------
