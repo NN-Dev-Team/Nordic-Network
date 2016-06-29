@@ -49,7 +49,7 @@ $(document).ready(function() {
 	
 	$("#consoleinput").on("keydown", function sendCMD(e) {
 		if(e.keyCode == 13) {
-			socket.emit('console-cmd', $(this).val());
+			socket.emit('console-cmd', {"cmd": $(this).val(), "id": Number(getCookie("user_id")), "session": getCookie("session")});
 			$(this).val("");
 		}
 	});
@@ -77,7 +77,7 @@ $(document).ready(function() {
 			} else if(dir == 2) {
 				$txt.val($txt.val() + "\n$ themes/lol> ");
 			} else {
-				socket.emit('console-cmd', $txt.val());
+				socket.emit('console-cmd', {"cmd": $(this).val(), "id": Number(getCookie("user_id")), "session": getCookie("session")});
 				$txt.val($txt.val() + "\n$ ");
 			}
 			
