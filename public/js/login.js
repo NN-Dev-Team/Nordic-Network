@@ -37,6 +37,7 @@ function addCookie(name, value, time) {
 socket.on('login-complete', function(data){
 	if(data.success){
 		console.log("Successfully logged in!");
+		addCookie("user_id", data.user, 1);
 		addCookie("session", data.session, 1);
 		location.reload();
 	} else {
