@@ -38,7 +38,7 @@ $(document).ready(function() {
 	
 	socket.on('server-checked', function(data){
 		if(data.success){
-			if(data.type == "Minecraft") {
+			if(data.info == "Minecraft") {
 				console.log("Successfully started Minecraft server!");
 			}
 		} else {
@@ -61,8 +61,8 @@ $(document).ready(function() {
 	socket.on('server-stats', function(data) {
 		if(data.success){
 			console.log("Successfully received server status.");
-			$('ip').text(data.IP);
-			$('version').text(data.version);
+			$('ip').text(data.info.IP);
+			$('version').text(data.info.version);
 		} else {
 			console.log("Failed to get status.");
 			console.log("Reason: ", data.reason);

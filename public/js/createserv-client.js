@@ -46,7 +46,7 @@ function addCookie(name, value, time) {
 socket.on('creation-complete', function(data){
 	if(data.success){
 		console.log("Successfully created Minecraft server!");
-		addCookie("user_id", data.id, 0.1);
+		addCookie("user_id", data.info.id, 0.1);
 	} else {
 		console.log("Failed to create server.");
 		console.log("Reason: ", data.reason);
