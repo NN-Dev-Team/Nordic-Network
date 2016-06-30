@@ -643,6 +643,8 @@ io.on('connection', function(socket){
 									
 									conn.on('auth', function() {
 										conn.send(data.cmd);
+									}).on('response', function(data) {
+										io.emit('console-query', data);
 									}).on('error', function(err) {
 										return cp_printError(err, '6.' + __line);
 									});

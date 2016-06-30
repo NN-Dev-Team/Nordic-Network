@@ -44,7 +44,11 @@ $(document).ready(function() {
 	}
 	
 	socket.on('console-query', function(data){
-		$('#console textarea').text(data);
+		if($('#console textarea').val().substring($('#console textarea').val().length - 1, $('#console textarea').val().length) == "\n") {
+			$('#console textarea').text($('#console textarea').val() + data + "\n");
+		} else {
+			$('#console textarea').text($('#console textarea').val() + "\n" + data + "\n");
+		}
 	});
 	
 	$("#consoleinput").on("keydown", function sendCMD(e) {
@@ -120,6 +124,12 @@ function delCookie(name) {
 
 String.prototype.replaceAt=function(index, character) {
     return this.substr(0, index) + character + this.substr(index+character.length);
+}
+
+function Focus() {
+	if(getCookie('console-theme') == "terminal" && $('#console textarea').val().substring($('#console textarea').val().length - 1, $('#console textarea').val().length) == "\n") {
+		$('#console textarea').text($('#console textarea').val() + "$ ");
+	}
 }
 
 function changeTheme(state) {
