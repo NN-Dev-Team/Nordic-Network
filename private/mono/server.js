@@ -258,7 +258,7 @@ io.on('connection', function(socket){
 										return login_printError(err, '4.' + __line);
 									}
 									
-									io.emit('login-complete', {"success": true, "session": userSession});
+									io.emit('login-complete', {"success": true, "user": usr, "session": userSession});
 								});
 							}
 						});
@@ -339,6 +339,7 @@ io.on('connection', function(socket){
 			} else {
 				
 				// User id not specified, look through every user file for a matching session
+				// !! OUTDATED REMOVE IF NOT NEEDED LATER !!
 				user.findSession(data.session, function(err, found, usr) {
 					if(err) {
 						return create_printError(err, '9.' + __line);
@@ -569,6 +570,95 @@ io.on('connection', function(socket){
 					}
 				});
 			});
+		});
+	});
+	
+	socket.on('console-cmd', function(data) {
+		user.isBanned(IP, function(err, banned) {
+			if(err) {
+				return console.log(err);
+			}
+			
+			if(banned[0]) {
+				return cp_printError("Please don't overload our servers.", '0.' + __line);
+			} else if(banned[1]) {
+				user.addIP(IP, function(err) {
+					if(err) {
+						console.log(err);
+					}
+					
+					user.incrUsage(IP, 16);
+				});
+			} else {
+				user.incrUsage(IP, 16);
+			}
+			
+			if(typeof data.session != 'string' || (data.session).length < 24) {
+				return cp_printError("Invalid session ID.", '1.' + __line);
+			} else if(Math.round((new Date).getTime() / 60000 > (data.session).substring(16))) {
+				return cp_printError("Session has expired.", '2.' + __line);
+			} else if(typeof data.id == 'number') {
+				
+				// Get user data
+				user.get(data.id, function(err, dat) {
+					if(err) {
+						return cp_printError(err, '3.' + __line);
+					}
+					
+					// Check if session is valid
+					if(dat[2].trim() == data.session) {
+						
+						// Session valid, get server data
+						fs.readFile('servers/' + data.server + '/.properities', 'utf8', function(err, dat) {
+							if (err) {
+								return cp_printError(err, '4.' + __line);
+							}
+							
+							props = data.split("\n");
+							var serv_type = props[1].trim();
+							var serv_IP = "";
+							var rcon_port = 0;
+							var rcon_pass = "";
+							
+							if(serv_type == 0) {
+								
+								// Minecraft
+								fs.readFile('servers/' + data.id + '/server.properities', 'utf8', function(err, dat) {
+									if(err) {
+										return cp_printError(err, '5.' + __line);
+									}
+									
+									props = dat.split("\n");
+									for(i = 0; i < props.length; i++) {
+										if(props[i].substring(0, 9) == 'server-ip') {
+											serv_IP = props[i].substring(10);
+										} else if(props[i].substring(0, 9) == 'rcon.port') {
+											rcon_port = props[i].substring(10);
+										} else if(props[i].substring(0, 13) == 'rcon.password') {
+											rcon_pass = props[i].substring(14);
+										}
+									}
+									
+									var conn = new Rcon(serv_IP, rcon_port, rcon_pass);
+									
+									conn.on('auth', function() {
+										conn.send(data.cmd);
+									}).on('response', function(data) {
+										io.emit('console-query', data);
+									}).on('error', function(err) {
+										return cp_printError(err, '6.' + __line);
+									});
+									
+									conn.connect();
+								});
+							} else {
+								return cp_printError("This game does not support RCON :(", '7.' + __line);
+							}
+						});
+					}
+			} else {
+				return cp_printError("Invalid user id.", '8.' + __line);
+			}
 		});
 	});
 });

@@ -1,3 +1,5 @@
+var dir = 0;
+
 var values = [];
 var host = "N/A";
 var port = -1;
@@ -42,20 +44,58 @@ $(document).ready(function() {
 	}
 	
 	socket.on('console-query', function(data){
-		$('#console textarea').text(data);
+		if($('#console textarea').val().substring($('#console textarea').val().length - 1, $('#console textarea').val().length) == "\n") {
+			$('#console textarea').text($('#console textarea').val() + data + "\n");
+		} else {
+			$('#console textarea').text($('#console textarea').val() + "\n" + data + "\n");
+		}
 	});
 	
 	$("#consoleinput").on("keydown", function sendCMD(e) {
 		if(e.keyCode == 13) {
-			socket.emit('console-cmd', $(this).val());
+			socket.emit('console-cmd', {"cmd": $(this).val(), "id": Number(getCookie("user_id")), "session": getCookie("session")});
 			$(this).val("");
 		}
 	});
 	
 	$("#console textarea").on("keydown", function sendCMD(e) {
 		if(e.keyCode == 13) {
-			socket.emit('console-cmd', $(this).val());
-			$(this).val("");
+			var $txt = $(this);
+			if($txt.val().substring($txt.val().length - 5, $txt.val().length) == 'cd ..') {
+				$txt.val($txt.val() + "\n$ themes> ");
+				dir = 1;
+			} else if(dir == 1 && $txt.val().substring($txt.val().length - 2, $txt.val().length) == 'ls') {
+				$txt.val($txt.val() + "\ndefault terminal lol\n$ themes> ");
+			} else if(dir == 1 && $txt.val().substring($txt.val().length - 6, $txt.val().length) == 'cd lol') {
+				$txt.val($txt.val() + "\nlol nice want to join us & make the service better?\nhttps://github.com/NN-Dev-Team/Nordic-Network\n$ themes/lol> ");
+				dir = 2;
+			} else if(dir == 1 && $txt.val().substring($txt.val().length - 11, $txt.val().length) == 'cd terminal') {
+				$txt.val($txt.val() + "\n$ themes/terminal> ");
+				dir = 0;
+			} else if(dir == 1 && $txt.val().substring($txt.val().length - 10, $txt.val().length) == 'cd default') {
+				$txt.val($txt.val() + "\n$ themes/default> ");
+				dir = 0;
+				changeTheme(1);
+			} else if(dir == 1) {
+				$txt.val($txt.val() + "\n$ themes> ");
+			} else if(dir == 2) {
+				$txt.val($txt.val() + "\n$ themes/lol> ");
+			} else {
+				socket.emit('console-cmd', {"cmd": $(this).val(), "id": Number(getCookie("user_id")), "session": getCookie("session")});
+				$txt.val($txt.val() + "\n$ ");
+			}
+			
+			var device_width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+			
+			if(device_width >= 1200) {
+				setTimeout(function(){
+					$txt.val($txt.val().substring(0, $txt.val().length - 1));
+				}, 10);
+			} else {
+				setTimeout(function(){
+					$txt.val($txt.val().substring(0, $txt.val().length - 1));
+				}, 100);
+			}
 		}
 	});
 });
@@ -80,6 +120,16 @@ function getCookie(name) {
 
 function delCookie(name) {
   document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
+String.prototype.replaceAt=function(index, character) {
+    return this.substr(0, index) + character + this.substr(index+character.length);
+}
+
+function Focus() {
+	if(getCookie('console-theme') == "terminal" && $('#console textarea').val().substring($('#console textarea').val().length - 1, $('#console textarea').val().length) == "\n") {
+		$('#console textarea').text($('#console textarea').val() + "$ ");
+	}
 }
 
 function changeTheme(state) {
@@ -118,6 +168,7 @@ function changeTheme(state) {
 		} else {
 			$('#console textarea').css('height', "calc(60vh - 32px)");
 		}
+		$('#console textarea').text("$ cd themes/terminal\n$ themes/terminal> ");
 		
 		// Console theme changer button
 		$('#cnslchangecolor').attr('onclick', "changeTheme(1)");
@@ -156,6 +207,14 @@ function changeTheme(state) {
 		} else {
 			$('#console textarea').css('height', "calc(60vh - 30px)");
 		}
+		var $txt = $('#console textarea').val().split("\n");
+		for(i = 0; i < $txt.length; i++) {
+			if($txt[i].substring(0, 1) == '$') {
+				$txt.splice(i, 1);
+				i--;
+			}
+		}
+		$('#console textarea').text($txt.join("\n"));
 		$('#consoleinput').css('display', 'inline');
 		
 		// Console theme changer button
