@@ -142,9 +142,9 @@ io.on('connection', function(socket){
 						}
 						
 						// Search the database to check if the user already exists
-						user.find(data.email, function(err, found, dat, last, usr) {
+						user.find(data.email, function(err, line, found, dat, last, usr) {
 							if(err) {
-								return sendToClient('reg-complete', err, '4.' + __line);
+								return sendToClient('reg-complete', err, '4.' + __line + '.' + line);
 							}
 							
 							if(found) {
@@ -152,26 +152,18 @@ io.on('connection', function(socket){
 							}
 							
 							// User doesn't exist yet, register new user
-							// Add email & hash to user file
-							fs.writeFile("users/" + usr + ".txt", data.email + "\n" + hash, function(err, data) {
+							user.add(usr, data.email, hash, function(err, line) {
 								if(err) {
-									return sendToClient('reg-complete', err, '6.' + __line);
+									return sendToClient('reg-complete', err, '6.' + __line + '.' + line);
 								}
-								
-								// Make sure next user registered doesn't get the same user id
-								fs.writeFile("users/user.txt", Number(usr) + 1, function(err, data) {
-									if(err) {
-										return sendToClient('reg-complete', err, '7.' + __line);
-									}
 									
-									sendToClient('reg-complete');
-								});
+								sendToClient('reg-complete');
 							});
 						});
 					});
 				});
 			} else {
-				sendToClient('reg-complete', "This is impossible unless you hacked :/", '8.' + __line);
+				sendToClient('reg-complete', "This is impossible unless you hacked :/", '7.' + __line);
 			}
 		});
 	});
@@ -200,9 +192,9 @@ io.on('connection', function(socket){
 			if(typeof data.email != 'string' || typeof data.pass != 'string') {
 				return sendToClient('login-complete', "Invalid email and/or password.", '1.' + __line);
 			} else if(((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
-				user.find(data.email, function(err, found, dat, usr) {
+				user.find(data.email, function(err, line, found, dat, usr) {
 					if(err) {
-						return sendToClient('login-complete', err, '2.' + __line);
+						return sendToClient('login-complete', err, '2.' + __line + '.' + line);
 					}
 					
 					if(found) {
@@ -265,9 +257,9 @@ io.on('connection', function(socket){
 			} else if(typeof data.id == 'number') {
 				
 				// User id specified, get user session
-				user.get(data.id, function(err, dat) {
+				user.get(data.id, function(err, line, dat) {
 					if(err) {
-						return sendToClient('creation-complete', err, '4.' + __line);
+						return sendToClient('creation-complete', err, '4.' + __line + '.' + line);
 					}
 					
 					// Check if session is valid
@@ -303,9 +295,9 @@ io.on('connection', function(socket){
 				
 				// User id not specified, look through every user file for a matching session
 				// !! OUTDATED REMOVE IF NOT NEEDED LATER !!
-				user.findSession(data.session, function(err, found, usr) {
+				user.findSession(data.session, function(err, line, found, usr) {
 					if(err) {
-						return sendToClient('creation-complete', err, '9.' + __line);
+						return sendToClient('creation-complete', err, '9.' + __line + '.' + line);
 					}
 					
 					if(found) {
@@ -563,9 +555,9 @@ io.on('connection', function(socket){
 			} else if(typeof data.id == 'number') {
 				
 				// Get user data
-				user.get(data.id, function(err, dat) {
+				user.get(data.id, function(err, line, dat) {
 					if(err) {
-						return sendToClient('console-query', err, '3.' + __line);
+						return sendToClient('console-query', err, '3.' + __line + '.' + line);
 					}
 					
 					// Check if session is valid
