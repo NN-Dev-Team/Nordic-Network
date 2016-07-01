@@ -134,7 +134,7 @@ exports.find = function findEmailMatch(email, callback) {
 	});
 }
 
-exports.findSession = function findSessionMatch(session, callback) {
+exports.findSession = function findSessionMatch(session, callback) { // Currently unused; should it be removed?
 	fs.readdir('users', function(err, files) {
 		if(err) {
 			return callback(err, __line);
@@ -156,7 +156,7 @@ exports.findSession = function findSessionMatch(session, callback) {
 	});
 }
 
-exports.getTotal = function getUserCount(callback) { // Currently has no usage in mono; should it be removed?
+exports.getTotal = function getUserCount(callback) { // Currently unused in mono; should it be removed?
 	fs.readFile("users/user.txt", 'utf8', function(err, data) {
 		if(err) {
 			callback(err, __line);

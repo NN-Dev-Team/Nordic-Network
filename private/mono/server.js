@@ -292,10 +292,11 @@ io.on('connection', function(socket){
 					}
 				});
 			} else {
+				return sendToClient('creation-complete', "User id not specified.", '9.' + __line);
 				
 				// User id not specified, look through every user file for a matching session
-				// !! OUTDATED REMOVE IF NOT NEEDED LATER !!
-				user.findSession(data.session, function(err, line, found, usr) {
+				// !! OUTDATED !!
+/*				user.findSession(data.session, function(err, line, found, usr) {
 					if(err) {
 						return sendToClient('creation-complete', err, '9.' + __line + '.' + line);
 					}
@@ -326,7 +327,7 @@ io.on('connection', function(socket){
 					} else {
 						sendToClient('creation-complete', "Unknown session.", '13.' + __line);
 					}
-				});
+				}); */
 			}
 		});
 	});

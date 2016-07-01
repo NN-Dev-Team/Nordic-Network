@@ -134,7 +134,7 @@ exports.find = function findEmailMatch(email, callback) {
 	});
 }
 
-exports.findSession = function findSessionMatch(session, callback) {
+exports.findSession = function findSessionMatch(session, callback) { // Currently unused; should it be removed?
 	fs.readdir('users', function(err, files) {
 		if(err) {
 			return callback(err, __line);
