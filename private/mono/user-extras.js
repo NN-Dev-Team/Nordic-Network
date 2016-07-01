@@ -113,50 +113,50 @@ exports.get = function getUserData(id, callback) {
 }
 
 exports.find = function findEmailMatch(email, callback) {
-	fs.readFile('users/user.txt', 'utf8', function(err, data) {
+	fs.readdir('users', function(err, files) {
 		if(err) {
 			return callback(err, __line);
 		}
 		
-		for(i = 0; i < Number(data.trim()); i++) {
-			exports.get(i, function(err, line, dat) {
+		files.forEach(function(file) {
+			fs.readFile(file + '/user.txt', 'utf8', function(err, data) {
 				if(err) {
-					return callback(err, __line + '.' + line);
+					return callback(err, __line);
 				}
 				
-				if(dat[0].trim() == email) {
-					callback(err, __line, true, dat, i, Number(data.trim()));
+				if(data[0].trim() == email) {
+					callback(err, __line, true, data, i, Number(data.trim()));
 				}
 			});
-		}
+		});
 		
 		callback(err, __line, false, data);
 	});
 }
 
 exports.findSession = function findSessionMatch(session, callback) {
-	fs.readFile('users/user.txt', 'utf8', function(err, data) {
+	fs.readdir('users', function(err, files) {
 		if(err) {
 			return callback(err, __line);
 		}
 		
-		for(i = 0; i < Number(data.trim()); i++) {
-			exports.get(i, function(err, line, data) {
+		files.forEach(function(file) {
+			fs.readFile(file + '/user.txt', 'utf8', function(err, data) {
 				if(err) {
-					return callback(err, __line + '.' + line);
+					return callback(err, __line);
 				}
 				
 				if(data[2].trim() == session) {
 					callback(err, __line, true, i);
 				}
 			});
-		}
+		});
 		
 		callback(err, __line, false);
 	});
 }
 
-exports.getTotal = function getUserCount(callback) {
+exports.getTotal = function getUserCount(callback) { // Currently has no usage in mono; should it be removed?
 	fs.readFile("users/user.txt", 'utf8', function(err, data) {
 		if(err) {
 			callback(err, __line);
@@ -184,19 +184,7 @@ exports.add = function addUser(usr, email, hash, callback) {
 					return callback(err, __line);
 				}
 				
-				exports.getTotal(function(err, line, count) {
-					if(err) {
-						return callback(err, __line + '.' + line);
-					}
-					
-					fs.writeFile("users/users.txt", count + 1, function(err) {
-						if(err) {
-							return callback(err, __line);
-						}
-						
-						callback();
-					});
-				});
+				callback();
 			});
 		});
 	});

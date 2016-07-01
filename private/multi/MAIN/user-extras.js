@@ -1,5 +1,24 @@
 var fs = require('fs');
 
+// Get line number; for debugging
+Object.defineProperty(global, '__stack', {
+  get: function(){
+    var orig = Error.prepareStackTrace;
+    Error.prepareStackTrace = function(_, stack){ return stack; };
+    var err = new Error;
+    Error.captureStackTrace(err, arguments.callee);
+    var stack = err.stack;
+    Error.prepareStackTrace = orig;
+    return stack;
+  }
+});
+
+Object.defineProperty(global, '__line', {
+  get: function(){
+    return __stack[1].getLineNumber();
+  }
+});
+
 function getUsage(data, IP) {
 	var values = data.split("\n");
 	var pos = [0, -1];
@@ -86,53 +105,99 @@ exports.isBanned = function checkBans(IP, callback) {
 exports.get = function getUserData(id, callback) {
 	fs.readFile('users/' + id + '/user.txt', 'utf8', function(err, data) {
 		if(err) {
-			return callback(err);
+			return callback(err, __line);
 		}
 		
-		callback(err, data.split("\n"));
+		callback(err, __line, data.split("\n"));
 	});
 }
 
 exports.find = function findEmailMatch(email, callback) {
-	fs.readFile('users/users.txt', 'utf8', function(err, data) {
+	fs.readdir('users', function(err, files) {
 		if(err) {
-			return callback(err);
+			return callback(err, __line);
 		}
 		
-		for(i = 0; i < Number(data.trim()); i++) {
-			exports.get(i, function(err, dat) {
+		files.forEach(function(file) {
+			fs.readFile(file + '/user.txt', 'utf8', function(err, data) {
 				if(err) {
-					return callback(err);
+					return callback(err, __line);
 				}
 				
-				if(dat[0].trim() == email) {
-					callback(err, true, dat, i, Number(data.trim()));
+				if(data[0].trim() == email) {
+					callback(err, __line, true, data, i, Number(data.trim()));
 				}
 			});
-		}
+		});
 		
-		callback(err, false, data);
+		callback(err, __line, false, data);
 	});
 }
 
 exports.findSession = function findSessionMatch(session, callback) {
-	fs.readFile('users/users.txt', 'utf8', function(err, data) {
+	fs.readdir('users', function(err, files) {
 		if(err) {
-			return callback(err);
+			return callback(err, __line);
 		}
 		
-		for(i = 0; i < Number(data.trim()); i++) {
-			exports.get(i, function(err, data) {
+		files.forEach(function(file) {
+			fs.readFile(file + '/user.txt', 'utf8', function(err, data) {
 				if(err) {
-					return callback(err);
+					return callback(err, __line);
 				}
 				
 				if(data[2].trim() == session) {
-					callback(err, true, i);
+					callback(err, __line, true, i);
 				}
 			});
+		});
+		
+		callback(err, __line, false);
+	});
+}
+
+exports.getTotal = function getUserCount(callback) {
+	fs.readFile("users/users.txt", 'utf8', function(err, data) {
+		if(err) {
+			callback(err, __line);
 		}
 		
-		callback(err, false);
+		callback(Number(data.trim()));
+	});
+}
+
+exports.add = function addUser(usr, email, hash, callback) {
+	mkdir('users/' + usr, function(err) {
+		if(err) {
+			return callback(err, __line);
+		}
+		
+		// Add email & hash to user file
+		fs.writeFile("users/" + usr + "/user.txt", data.email + "\n" + hash, function(err, data) {
+			if(err) {
+				return callback(err, __line);
+			}
+			
+			// Make sure next user registered doesn't get the same user id
+			fs.writeFile("users/user.txt", Number(usr) + 1, function(err, data) {
+				if(err) {
+					return callback(err, __line);
+				}
+				
+				exports.getTotal(function(err, line, count) {
+					if(err) {
+						return callback(err, __line + '.' + line);
+					}
+					
+					fs.writeFile("users/users.txt", count + 1, function(err) {
+						if(err) {
+							return callback(err, __line);
+						}
+						
+						callback();
+					});
+				});
+			});
+		});
 	});
 }
