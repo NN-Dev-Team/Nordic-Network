@@ -1,5 +1,5 @@
 var toobusy = require('toobusy-js');
-var user = require('./user-extras.js');
+var user = require('./user-lib.js');
 // var mcLib = require('./auto-updater.js');
 var fs = require('fs');
 var express = require('express');
@@ -65,13 +65,23 @@ io.on('connection', function(socket){
 		
 		// REGISTRATION
 		socket.on('find-user', function(data){
+			
+			// Look for existing user
 			user.find(data.email, function(err, found, dat, usr) {
 				if(err) {
 					return io.emit('done-looking', {"err": err, "id": '0.' + __line});
 				}
+				// Look for available space
+				// WIP
 				
+				// No existing user found, back to main server
 				io.emit('done-looking', {"err": false, "found": found});
 			});
+		});
+		
+		// This is only sent if this server has more space left than the other server(s)
+		socket.on('reg-user', function(data) {
+			io.emit('done-registering', "WIP");
 		});
 		
 		// LOGIN
@@ -82,11 +92,14 @@ io.on('connection', function(socket){
 				}
 				
 				if(found) {
+					
+					// Check if password is correct
 					bcrypt.compare(data.pass, dat[1].trim(), function(err, valid) {
 						if(err) {
 							return io.emit('login-done', {"err": err, "id": '2.' + __line});
 						}
 						
+						// Password is correct, generate new session
 						if(valid) {
 							var userSession = randomstring.generate(16);
 							userSession += Math.round(((new Date()).getTime() / 60000) + 60*24);

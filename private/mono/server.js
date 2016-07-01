@@ -1,5 +1,5 @@
 var toobusy = require('toobusy-js');
-var user = require('./user-extras.js');
+var user = require('./user-lib.js');
 // var mcLib = require('./auto-updater.js');
 var fs = require('fs');
 var express = require('express');
