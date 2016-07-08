@@ -543,10 +543,10 @@ io.on('connection', function(socket){
 						console.log(err);
 					}
 					
-					user.incrUsage(IP, 16);
+					user.incrUsage(IP, 4);
 				});
 			} else {
-				user.incrUsage(IP, 16);
+				user.incrUsage(IP, 4);
 			}
 			
 			if(typeof data.session != 'string' || (data.session).length < 24) {
