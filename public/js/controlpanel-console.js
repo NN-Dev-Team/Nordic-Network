@@ -45,9 +45,9 @@ $(document).ready(function() {
 	
 	socket.on('console-query', function(data){
 		if($('#console textarea').val().substring($('#console textarea').val().length - 1, $('#console textarea').val().length) == "\n") {
-			$('#console textarea').text($('#console textarea').val() + data + "\n");
+			$('#console textarea').text($('#console textarea').val() + data.info + "\n");
 		} else {
-			$('#console textarea').text($('#console textarea').val() + "\n" + data + "\n");
+			$('#console textarea').text($('#console textarea').val() + "\n" + data.info + "\n");
 		}
 	});
 	
