@@ -1,9 +1,41 @@
+var values = [];
+var host = "N/A";
+var port = -1;
+
 $(document).ready(function(){
 	var cookiesAccepted = getCookie('displayCookieConsent');
 	if(cookiesAccepted != 'y') {
 		$('#cookie-notice').css('display', 'block');
 		$('#cookie-notice-button').css('display', 'block');
 	}
+	
+	$.get("../properities.txt", function(data) {
+        values = data.split("\n");
+		return values;
+    }, 'text');
+	
+	host = values[0];
+	port = Number(values[1]);
+	
+	if(host == "N/A" || port == -1) {
+		console.log("ERROR: Couldn't find host/port");
+	} else {
+		console.log("Creating socket...");
+		var socket = io('http://' + host + ":" + port);
+		if(typeof socket === 'undefined') {
+			console.log("Failed to create socket");
+		} else {
+			console.log("Successfully created socket");
+		}
+	}
+	
+	socket.on('main-stats', function(data) {
+		if(data.success) {
+			console.log("Successfully received stats");
+		} else {
+			console.log("Failed to get stats");
+		}
+	});
 });
 
 function acceptCookies() {
