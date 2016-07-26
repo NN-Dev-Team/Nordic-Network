@@ -661,4 +661,13 @@ io.on('connection', function(socket){
 			}
 		});
 	});
+	
+	// INDEX
+	
+	socket.on('get-main-stats', function(data) {
+		user.getTotal(function(err, data) {
+			sendToClient('main-stats', {"servers": data});
+			// WIP: Get RAM usage & other stats
+		});
+	});
 });

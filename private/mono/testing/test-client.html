@@ -136,6 +136,14 @@
 			socket.on('console-query', function(data){
 				console.log(data.info);
 			});
+			
+			socket.on('main-stats', function(data) {
+				if(data.success) {
+					console.log("Successfully received stats");
+				} else {
+					console.log("Failed to get stats");
+				}
+			});
 		</script>
 	</body>
 </html>
