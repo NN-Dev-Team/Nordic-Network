@@ -156,7 +156,7 @@ exports.findSession = function findSessionMatch(session, callback) { // Currentl
 	});
 }
 
-exports.getTotal = function getUserCount(callback) { // Currently unused in mono; should it be removed?
+exports.getTotal = function getUserCount(callback) {
 	fs.readFile("users/user.txt", 'utf8', function(err, data) {
 		if(err) {
 			callback(err, __line);
@@ -188,4 +188,26 @@ exports.add = function addUser(usr, email, hash, callback) {
 			});
 		});
 	});
+}
+
+exports.changeProp = function editLine(usr, prop, val, callback) {
+    var usrpath = "users/" + usr + "/user.txt";
+    
+    fs.readFile(usrpath, 'utf8', function(err, data) {
+        if(err) {
+            return callback(err, __line);
+        }
+        
+        var propValues = data.split("\n");
+        propValues[prop] = val;
+        var newContent = propValues.join("\n");
+        
+        fs.writeFile(usrpath, newContent, function(err, data) {
+            if(err) {
+                return callback(err, __line);
+            }
+            
+            callback();
+        });
+    });
 }

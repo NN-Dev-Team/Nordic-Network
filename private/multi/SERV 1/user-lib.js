@@ -79,3 +79,25 @@ exports.add = function addUser(usr, email, hash, callback) {
 		});
 	});
 }
+
+exports.changeProp = function editLine(usr, prop, val, callback) {
+    var usrpath = "users/" + usr + "/user.txt";
+    
+    fs.readFile(usrpath, 'utf8', function(err, data) {
+        if(err) {
+            return callback(err, __line);
+        }
+        
+        var propValues = data.split("\n");
+        propValues[prop] = val;
+        var newContent = propValues.join("\n");
+        
+        fs.writeFile(usrpath, newContent, function(err, data) {
+            if(err) {
+                return callback(err, __line);
+            }
+            
+            callback();
+        });
+    });
+}

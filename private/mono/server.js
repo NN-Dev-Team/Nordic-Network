@@ -168,7 +168,7 @@ io.on('connection', function(socket){
 		});
 	});
 	
-	// LOGIN
+	// LOGIN & LOGOUT
 	socket.on('login', function(data){
 		user.isBanned(IP, function(err, banned) {
 			if(err) {
@@ -226,6 +226,43 @@ io.on('connection', function(socket){
 			}
 		});
 	});
+    
+    socket.on('logout', function(data) {
+        user.isBanned(IP, function(err, banned) {
+			if(err) {
+				return console.log(err);
+			}
+			
+			if(banned[0]) {
+				return sendToClient('logout-complete', "Please don't overload our servers.", '0.' + __line);
+			} else if(banned[1]) {
+				user.addIP(IP, function(err) {
+					if(err) {
+						console.log(err);
+					}
+					
+					user.incrUsage(IP, 16);
+				});
+			} else {
+				user.incrUsage(IP, 16);
+			}
+            
+            user.get(data.id, function(err, line, dat) {
+				if(err) {
+				    return sendToClient('logout-complete', err, '1.' + __line + '.' + line);
+				}
+                
+                if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
+                    user.changeProp(data.id, 2, "SESSION EXPIRED", function(err, line) {
+                        if(err) {
+                            return sendToClient('logout-complete', err, '2.' + __line + '.' + line);
+                        }
+                        
+                        sendToClient('logout-complete');
+                    });
+                }
+            });
+    });
 	
 	// SERVER CREATION
 	socket.on('create-serv', function(data){
@@ -263,7 +300,7 @@ io.on('connection', function(socket){
 					}
 					
 					// Check if session is valid
-					if(dat[2].trim() == data.session) {
+					if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
 						
 						// Session valid, create server
 						mkdir("servers/" + data.id, function(err) {
@@ -376,7 +413,7 @@ io.on('connection', function(socket){
 					var user_session = props[2].trim();
 					
 					// Check if session is matching
-					if(user_session == data.session) {
+					if(user_session == data.session && user_session != "SESSION EXPIRED") {
 						
 						// Run server
 						if(serv_type == 0) {
@@ -492,7 +529,7 @@ io.on('connection', function(socket){
 					var user_session = props[2].trim();
 					
 					// Check if session is matching
-					if(user_session == data.session) {
+					if(user_session == data.session && user_session != "SESSION EXPIRED") {
 						if(serv_type == 0) {
 							// Minecraft
 							
@@ -562,7 +599,7 @@ io.on('connection', function(socket){
 					}
 					
 					// Check if session is valid
-					if(dat[2].trim() == data.session) {
+					if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
 						
 						// Session valid, get server data
 						fs.readFile('servers/' + data.server + '/.properities', 'utf8', function(err, dat) {
