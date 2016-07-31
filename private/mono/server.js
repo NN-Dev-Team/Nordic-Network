@@ -36,8 +36,9 @@ app.use(function(req, res, next) {
 	}
 });
 
-// Get line number; for debugging
-Object.defineProperty(global, '__stack', {
+// Not necessary anymore in Node v.6? Supposed to define __line
+
+/* Object.defineProperty(global, '__stack', {
   get: function(){
     var orig = Error.prepareStackTrace;
     Error.prepareStackTrace = function(_, stack){ return stack; };
@@ -53,7 +54,7 @@ Object.defineProperty(global, '__line', {
   get: function(){
     return __stack[1].getLineNumber();
   }
-});
+}); */
 
 // MAIN
 
@@ -262,6 +263,7 @@ io.on('connection', function(socket){
                     });
                 }
             });
+        });
     });
 	
 	// SERVER CREATION
@@ -648,12 +650,15 @@ io.on('connection', function(socket){
 								return sendToClient('console-query', "This game does not support RCON :(", '7.' + __line);
 							}
 						});
-					}
-			} else {
-				return sendToClient('console-query', "Invalid user id.", '8.' + __line);
-			}
-		});
-	});
+                    } else {
+                        return sendToClient('console-query', "Invalid session.", '8.' + __line);
+                    }
+                });
+            } else {
+				return sendToClient('console-query', "Invalid user id.", '9.' + __line);
+            }
+        });
+    });
 	
 	// INDEX
 	

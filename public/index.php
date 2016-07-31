@@ -15,8 +15,8 @@
 		<!-- Load JQuery Waypoints from CDN -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
 		<!-- Load Fontastic CSS from file -->
-        	<link rel="stylesheet" href="fontastic.css">
-        	<!-- Load custom JS from file -->
+        <link rel="stylesheet" href="fontastic.css">
+        <!-- Load custom JS from file -->
 		<script src="/js/index.js"></script>
 	</head>
 	<body id="top">
