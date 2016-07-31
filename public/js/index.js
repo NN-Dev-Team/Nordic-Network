@@ -31,9 +31,15 @@ $(document).ready(function(){
 	
 	socket.on('main-stats', function(data) {
 		if(data.success) {
-			console.log("Successfully received stats");
+			console.log("Successfully received stats!");
+            console.log("Amount of servers: " + data.servers);
+            console.log("Total Memory: " + data.max);
+            console.log("Used Memory: " + data.used);
+            console.log("Available Memory: " + data.free);
 		} else {
 			console.log("Failed to get stats");
+            console.log("Reason: " + data.reason);
+            console.log("ID: " + data.id);
 		}
 	});
 });
