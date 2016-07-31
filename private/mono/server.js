@@ -262,6 +262,7 @@ io.on('connection', function(socket){
                     });
                 }
             });
+        });
     });
 	
 	// SERVER CREATION
@@ -648,12 +649,15 @@ io.on('connection', function(socket){
 								return sendToClient('console-query', "This game does not support RCON :(", '7.' + __line);
 							}
 						});
-					}
-			} else {
-				return sendToClient('console-query', "Invalid user id.", '8.' + __line);
-			}
-		});
-	});
+                    } else {
+                        return sendToClient('console-query', "Invalid session.", '8.' + __line);
+                    }
+                });
+            } else {
+				return sendToClient('console-query', "Invalid user id.", '9.' + __line);
+            }
+        });
+    });
 	
 	// INDEX
 	
