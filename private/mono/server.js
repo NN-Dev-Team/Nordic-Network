@@ -36,8 +36,9 @@ app.use(function(req, res, next) {
 	}
 });
 
-// Get line number; for debugging
-Object.defineProperty(global, '__stack', {
+// Not necessary anymore in Node v.6? Supposed to define __line
+
+/* Object.defineProperty(global, '__stack', {
   get: function(){
     var orig = Error.prepareStackTrace;
     Error.prepareStackTrace = function(_, stack){ return stack; };
@@ -53,7 +54,7 @@ Object.defineProperty(global, '__line', {
   get: function(){
     return __stack[1].getLineNumber();
   }
-});
+}); */
 
 // MAIN
 
