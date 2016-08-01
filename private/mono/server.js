@@ -663,9 +663,69 @@ io.on('connection', function(socket){
 	// INDEX
 	
 	socket.on('get-main-stats', function(data) {
-		user.getTotal(function(err, data) {
-			sendToClient('main-stats', {"servers": data});
-			// WIP: Get RAM usage & other stats
-		});
+        user.isBanned(IP, function(err, banned) {
+			if(err) {
+				return console.log(err);
+			}
+			
+			if(banned[0]) {
+				return sendToClient('main-stats', "Please don't overload our servers.", '0.' + __line);
+			} else if(banned[1]) {
+				user.addIP(IP, function(err) {
+					if(err) {
+						console.log(err);
+					}
+					
+					user.incrUsage(IP, 4);
+				});
+			} else {
+				user.incrUsage(IP, 4);
+			}
+            
+            user.getTotal(function(err, serverCount) {
+                exec("free -m", function(err, out, stderr) {
+                    if(err) {
+                        return sendToClient('main-stats', stderr, '1.' + __line);
+                    }
+                    
+                    var c = out.indexOf("Mem");
+                    
+                    while(!(Number(out[c]))) {
+                        c++;
+                    }
+                    
+                    var mem_max = "";
+                    
+                    while(Number(out[c])) {
+                        mem_max += out[c];
+                        c++;
+                    }
+                    
+                    while(!(Number(out[c]))) {
+                        c++;
+                    }
+                    
+                    var mem_used = "";
+                    
+                    while(Number(out[c])) {
+                        mem_used += out[c];
+                        c++;
+                    }
+                    
+                    while(!(Number(out[c]))) {
+                        c++;
+                    }
+                    
+                    var mem_left = "";
+                    
+                    while(Number(out[c])) {
+                        mem_left += out[c];
+                        c++;
+                    }
+                    
+                    sendToClient('main-stats', {"servers": serverCount, "max": mem_max, "used": mem_used, "free": mem_left});
+                });
+            });
+        });
 	});
 });
