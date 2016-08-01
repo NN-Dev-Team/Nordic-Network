@@ -685,7 +685,7 @@ io.on('connection', function(socket){
             user.getTotal(function(err, serverCount) {
                 exec("free -m", function(err, out, stderr) {
                     if(err) {
-                        return sendToClient('main-stats', stderr, '1.' + __line)
+                        return sendToClient('main-stats', stderr, '1.' + __line);
                     }
                     
                     var c = out.indexOf("Mem");
@@ -694,7 +694,7 @@ io.on('connection', function(socket){
                         c++;
                     }
                     
-                    var mem_max;
+                    var mem_max = "";
                     
                     while(Number(out[c])) {
                         mem_max += out[c];
@@ -705,7 +705,7 @@ io.on('connection', function(socket){
                         c++;
                     }
                     
-                    var mem_used;
+                    var mem_used = "";
                     
                     while(Number(out[c])) {
                         mem_used += out[c];
@@ -716,10 +716,11 @@ io.on('connection', function(socket){
                         c++;
                     }
                     
-                    var mem_left;
+                    var mem_left = "";
                     
                     while(Number(out[c])) {
                         mem_left += out[c];
+                        c++;
                     }
                     
                     sendToClient('main-stats', {"servers": serverCount, "max": mem_max, "used": mem_used, "free": mem_left});
