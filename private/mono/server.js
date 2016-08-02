@@ -12,6 +12,7 @@ var randomstring = require('randomstring');
 var mkdir = require('mkdirp');
 var exec = require('child_process').exec;
 var Rcon = require('rcon');
+var diskspace = require('diskspace');
 
 var values = [];
 var props = [];
@@ -152,19 +153,26 @@ io.on('connection', function(socket){
 								return sendToClient('reg-complete', "An account with this email has already been registered...", '5.' + __line);
 							}
 							
-							// User doesn't exist yet, register new user
-							user.add(usr, data.email, hash, function(err, line) {
-								if(err) {
-									return sendToClient('reg-complete', err, '6.' + __line + '.' + line);
-								}
+							// User doesn't exist yet, check if enough disk space is available
+							diskspace.check('/', function (err, total, free) {
+								if(free < 2147483648) {
+									return sendToClient('reg-complete', "Not enough diskspace.", '6.' + __line);
+								} else {
 									
-								sendToClient('reg-complete');
+									// Enough disk space available, register user
+									user.add(usr, data.email, hash, function(err, line) {
+										if(err) {
+											return sendToClient('reg-complete', err, '7.' + __line + '.' + line);
+										}
+										
+										sendToClient('reg-complete');
+									});
 							});
 						});
 					});
 				});
 			} else {
-				sendToClient('reg-complete', "This is impossible unless you hacked :/", '7.' + __line);
+				sendToClient('reg-complete', "This is impossible unless you hacked :/", '8.' + __line);
 			}
 		});
 	});
@@ -209,7 +217,7 @@ io.on('connection', function(socket){
 								userSession += Math.round(((new Date()).getTime() / 60000) + 60*24);
 								dat[2] = userSession;
 								
-								fs.writeFile("users/" + usr + ".txt", dat.join("\n"), function(err, data) {
+								fs.writeFile("users/" + usr + "/user.txt", dat.join("\n"), function(err, data) {
 									if(err) {
 										return sendToClient('login-complete', err, '4.' + __line);
 									}
@@ -305,12 +313,12 @@ io.on('connection', function(socket){
 					if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
 						
 						// Session valid, create server
-						mkdir("servers/" + data.id, function(err) {
+						mkdir("users/" + data.id + "/server", function(err) {
 							if(err) {
 								return sendToClient('creation-complete', err, '5.' + __line);
 							}
 							
-							fs.writeFile("servers/" + data.id + "/.properities", "0\n" + data.type + "\n0\n0", function(err, dat) {
+							fs.writeFile("users/" + data.id + "/server/.properities", "0\n" + data.type + "\n0\n0", function(err, dat) {
 								if(err) {
 									return sendToClient('creation-complete', err, '6.' + __line);
 								}
@@ -396,7 +404,7 @@ io.on('connection', function(socket){
 				return sendToClient('server-checked', "Invalid server ID and/or session ID.", '1.' + __line);
 			}
 			
-			fs.readFile('servers/' + data.server + '/.properities', 'utf8', function(err, dat) {
+			fs.readFile('users/' + data.server + '/server/.properities', 'utf8', function(err, dat) {
 				if (err) {
 					return sendToClient('server-checked', err, '2.' + __line);
 				}
@@ -410,7 +418,7 @@ io.on('connection', function(socket){
 				var serv_lastOn = props[4].trim(); // Will not be used in this case, it's just here so we can remember it
 				var serv_ram = [[256, 512, 1024, 2048, 4096], [512, 1024, 2048, 4096], [512, 1024, 2048, 4096]];
 				
-				fs.readFile('users/' + data.server + ".txt", 'utf8', function(err, dat) {
+				fs.readFile('users/' + data.server + "/user.txt", 'utf8', function(err, dat) {
 					props = dat.split("\n");
 					var user_session = props[2].trim();
 					
@@ -510,7 +518,7 @@ io.on('connection', function(socket){
 				return sendToClient('server-stopped', "Invalid server ID and/or session ID.", '1.' + __line);
 			}
 			
-			fs.readFile('servers/' + data.server + '/.properities', 'utf8', function(err, dat) {
+			fs.readFile('users/' + data.server + '/server/.properities', 'utf8', function(err, dat) {
 				if (err) {
 					return sendToClient('server-stopped', err, '2.' + __line);
 				}
@@ -526,7 +534,7 @@ io.on('connection', function(socket){
 				var rcon_pass = "";
 				var serv_ram = [[256, 512, 1024, 2048, 4096], [512, 1024, 2048, 4096], [512, 1024, 2048, 4096]];
 				
-				fs.readFile('users/' + data.server + ".txt", 'utf8', function(err, dat) {
+				fs.readFile('users/' + data.server + "/user.txt", 'utf8', function(err, dat) {
 					props = dat.split("\n");
 					var user_session = props[2].trim();
 					
@@ -535,7 +543,7 @@ io.on('connection', function(socket){
 						if(serv_type == 0) {
 							// Minecraft
 							
-							fs.readFile('servers/' + data.server + '/server.properities', 'utf8', function(err, data) {
+							fs.readFile('users/' + data.server + '/server/server.properities', 'utf8', function(err, data) {
 								if(err) {
 									return sendToClient('server-stopped', err, '3.' + __line);
 								}
@@ -604,7 +612,7 @@ io.on('connection', function(socket){
 					if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
 						
 						// Session valid, get server data
-						fs.readFile('servers/' + data.server + '/.properities', 'utf8', function(err, dat) {
+						fs.readFile('users/' + data.server + '/server/server.properities', 'utf8', function(err, dat) {
 							if (err) {
 								return sendToClient('console-query', err, '4.' + __line);
 							}
@@ -618,7 +626,7 @@ io.on('connection', function(socket){
 							if(serv_type == 0) {
 								
 								// Minecraft
-								fs.readFile('servers/' + data.id + '/server.properities', 'utf8', function(err, dat) {
+								fs.readFile('users/' + data.id + '/server/server.properities', 'utf8', function(err, dat) {
 									if(err) {
 										return sendToClient('console-query', err, '5.' + __line);
 									}
