@@ -5,6 +5,7 @@
   "dependencies": {
     "bcryptjs": "^2.3.0",
     "braintree": "^1.39.0",
+    "diskspace": "^1.0.3",
     "express": "^4.10.2",
     "mkdirp": "^0.5.1",
     "randomstring": "^1.1.5",
