@@ -5,8 +5,8 @@
 
 ##### AUTHENTICATION SYSTEMS (Signup/Signin/2 Factor/Password reset) 
 - [ ] Use HTTPS everywhere.
-- [v] Store password hashes using `Bcrypt` (no salt necessary - `Bcrypt` does it for you).
-- [v] Destroy the session identifier after `logout`.  
+- [x] Store password hashes using `Bcrypt` (no salt necessary - `Bcrypt` does it for you).
+- [x] Destroy the session identifier after `logout`.  
 - [ ] Destroy all active sessions on reset password (or offer to).  
 - [ ] Must have the `state` parameter in OAuth2.
 - [ ] No open redirects after successful login or in any other intermediate redirects.
@@ -20,7 +20,7 @@
 
 
 ##### USER DATA & AUTHORIZATION
-- [v] Any resource access like, `my cart`, `my history` should check the logged in user's ownership of the resource using session id.
+- [x] Any resource access like, `my cart`, `my history` should check the logged in user's ownership of the resource using session id.
 - [ ] Serially iterable resource id should be avoided. Use `/me/orders` instead of `/user/37153/orders`. This acts as a sanity check in case you forgot to check for authorization token. 
 - [ ] `Edit email/phone number` feature should be accompanied by a verification email to the owner of the account. 
 - [ ] Any upload feature should sanitize the filename provided by the user. Also, for generally reasons apart from security, upload to something like S3 (and post-process using lambda) and not your own server capable of executing code.  
