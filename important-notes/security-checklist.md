@@ -1,6 +1,3 @@
-[Back to Contents](README.md)
-
-
 ### The Security Checklist 
 
 ##### AUTHENTICATION SYSTEMS (Signup/Signin/2 Factor/Password reset) 
