@@ -1,4 +1,5 @@
-### The Security Checklist 
+### The Security Checklist
+If something is ~~strikethroughed~~ it means it's not necessary for this project.
 
 ##### AUTHENTICATION SYSTEMS (Signup/Signin/2 Factor/Password reset) 
 - [ ] Use HTTPS everywhere.
