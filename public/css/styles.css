@@ -238,6 +238,7 @@ body {
 }
 
 #cookies {
+    background-color: #76c9b9;
     font-size: 2vh;
     font: url("../fonts/Viking.ttf");  
 }
@@ -254,8 +255,6 @@ body {
     max-height: 5vh;
     min-width: 100vw;
     min-height: 5vh;
-    z-index: 2;
-    background-color: #76c9b9;
 }
 
 #cookie-notice-button {
