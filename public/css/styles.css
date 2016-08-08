@@ -8,13 +8,16 @@ body {
 }
 
 .jumbotron {
-    
     background-image: url('../pics/277H.jpg');
     background-size: 100% 100%;
     min-height: 100vh;
     text-align: center;
     padding-top: 0px;
     -webkit-overflow-scrolling: touch;
+}
+
+#jumbo-nomargin {
+	margin-top: -5vh;
 }
 
 #title {
@@ -252,18 +255,17 @@ body {
 }
 
 #cookie-notice {
-    max-height: 5vh;
-    min-width: 100vw;
-    min-height: 5vh;
+    height: 5vh;
+    width: 100%;
 }
 
 #cookie-notice-button {
     
 }
 
-@media screen and (min-width: 770px) {
+@media screen and (min-width: 768px) {
     #menu-toggle {
-    display: none;    
+		display: none;
     }
     
 }
@@ -287,30 +289,33 @@ body {
 }
 
 #consolewrapper {
+	
 }
 
 #console {
-    width: 50vw;
-    height: 50vh;
+    width: 60vw;
+    height: 60vh;
     border-radius: 10px;
     font-family: monospace;
     font: Lucida Console;
     border: 1px solid black;
     text-align: center;
+	transition: border-radius 2s, background-color 2s, height 2s, border 2s;
 }
 
 #console textarea {
     border: none;
     resize: none;
-    width: 48vw;
-    height: 47vh;
+    width: calc(60vw - 40px);
+    height: calc(60vh - 30px);
     border-top-left-radius: 10px;
     float: left;
     border-right: 1px solid black;
+	transition: border-top-left-radius 2s, background-color 2s, border-right 2s, color 2s, height 2s;
 }
 
 #consoleinput {
-    width: 49.9vw;
+    width: 59.9vw;
     color: black;
     font-family: monospace;
     font: Lucida Console;
@@ -320,6 +325,8 @@ body {
     border-top: 1px solid black;
     border-right: hidden;
     border-left: hidden;
+	background-color: transparent;
+	transition: display 2s;
 }
 
 #consolebuttons {
@@ -327,26 +334,83 @@ body {
 }
 
 #cnslchangecolor {
-    margin-top: 5px;
+    margin-top: 2vh;
     border: none;
-    height: 3vh;
-    width: 3.51vh;
     background-color: white;
+	padding: 0;
+	transition: background-color 2s, color 2s;
 }
 
 #cnslautochat {
+	margin-top: 1vh;
     border: none;
-    height: 3vh;
-    width: 3.51vh;
     background-color: white;
+	padding: 0;
+	transition: background-color 2s, color 2s;
 }
 
-#cnslchangecolor span{
-    font-size: 1.5em;
+#cnslchangecolor::before {
+    font-size: 25px;
 }
 
-#cnslautochat span{
-    font-size: 1.5em;
+#cnslautochat::before {
+    font-size: 25px;
+}
+
+@media screen and (max-width: 767px) {
+	#console {
+		width: inherit;
+		height: calc(100vh - 126px);
+	}
+	
+	#console textarea {
+		width: calc(100vw - 70px);
+		height: calc(100vh - 151px);
+	}
+	
+	#consoleinput {
+		width: calc(100vw - 31px);
+	}
+}
+
+@media screen and (min-width: 1920px) {
+	#console {
+		width: 65vw;
+		height: 65vh;
+	}
+	
+	#console textarea {
+		width: calc(65vw - 50px);
+		height: calc(65vh - 40px);
+	}
+	
+	#cnslchangecolor::before {
+		font-size: 35px;
+	}
+
+	#cnslautochat::before {
+		font-size: 35px;
+	}
+	
+	#consoleinput {
+		width: 64.9vw;
+	}
+}
+
+#wrapper.toggled #consolewrapper {
+	width: 100vw;
+}
+
+#wrapper.toggled textarea {
+	width: 100vw;
+}
+
+#wrapper.toggled #consolebuttons {
+	display: none;
+}
+
+#wrapper.toggled #consoleinput {
+	width: 100vw;
 }
 
 #btnsdelreset {

@@ -1,5 +1,5 @@
 var toobusy = require('toobusy-js');
-var user = require('./user-extras.js');
+var user = require('./user-lib.js');
 // var mcLib = require('./auto-updater.js');
 var fs = require('fs');
 var express = require('express');
@@ -40,18 +40,85 @@ app.use(function(req, res, next) {
 	}
 });
 
+// Get line number; for debugging
+Object.defineProperty(global, '__stack', {
+  get: function(){
+    var orig = Error.prepareStackTrace;
+    Error.prepareStackTrace = function(_, stack){ return stack; };
+    var err = new Error;
+    Error.captureStackTrace(err, arguments.callee);
+    var stack = err.stack;
+    Error.prepareStackTrace = orig;
+    return stack;
+  }
+});
+
+Object.defineProperty(global, '__line', {
+  get: function(){
+    return __stack[1].getLineNumber();
+  }
+});
+
 io.on('connection', function(socket){
 /*	var _IP = socket.request.connection.remoteAddress;
 	if(_IP == IP) { */
 		
 		// REGISTRATION
 		socket.on('find-user', function(data){
+			
+			// Look for existing user
 			user.find(data.email, function(err, found, dat, usr) {
 				if(err) {
-					return io.emit('done-looking', {"err": err});
+					return io.emit('done-looking', {"err": err, "id": '0.' + __line});
+				}
+				// Look for available space
+				// WIP
+				
+				// No existing user found, back to main server
+				io.emit('done-looking', {"err": false, "found": found});
+			});
+		});
+		
+		// This is only sent if this server has more space left than the other server(s)
+		socket.on('reg-user', function(data) {
+			io.emit('done-registering', "WIP");
+		});
+		
+		// LOGIN
+		socket.on('login-user', function(data) {
+			user.find(data.email, function(err, found, dat, usr) {
+				if(err) {
+					return io.emit('login-done', {"err": err, "id": '1.' + __line});
 				}
 				
-				io.emit('done-looking', {"err": false, "found": found});
+				if(found) {
+					
+					// Check if password is correct
+					bcrypt.compare(data.pass, dat[1].trim(), function(err, valid) {
+						if(err) {
+							return io.emit('login-done', {"err": err, "id": '2.' + __line});
+						}
+						
+						// Password is correct, generate new session
+						if(valid) {
+							var userSession = randomstring.generate(16);
+							userSession += Math.round(((new Date()).getTime() / 60000) + 60*24);
+							dat[2] = userSession;
+							
+							fs.writeFile("users/" + usr + "/user.txt", dat.join("\n"), function(err, data) {
+								if(err) {
+									return io.emit('login-done', {"err": err, "id": '3.' + __line});
+								}
+								
+								io.emit('login-done', {"err": false, "matching": true, "session": userSession});
+							});
+						} else {
+							return io.emit('login-done', {"matching": false});
+						}
+					});
+				} else {
+					return io.emit('login-done', {"matching": false});
+				}
 			});
 		});
 //	}

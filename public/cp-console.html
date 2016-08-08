@@ -15,13 +15,16 @@
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<!-- Load JQuery Waypoints from CDN -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
+		<!-- Load Socket.io from CDN -->
+		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
         <!-- Load Sidebar CSS from file -->    
 		<link rel="stylesheet" href="css/sidebar.css">
         <!-- Load Fontastic CSS from file -->
         <link rel="stylesheet" href="css/fontastic.css">
         <!-- Load Chart.JS from CDN -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.js"></script>
-		<script src="js/sidebar.js"></script>
+		<script type="text/javascript" src="/js/sidebar.js"></script>
+		<script type="text/javascript" src="/js/controlpanel-console.js"></script>
         <script>
             var myChart = new Chart({...})
         </script>
@@ -93,11 +96,11 @@
           
             <div id="consolewrapper">
                 <div id="console">
-                    <textarea readonly></textarea>
+                    <textarea readonly="" onclick="Focus()"></textarea>
                     
                     <div id="consolebuttons">
-                    <button id="cnslchangecolor"><span class="glyphicon glyphicon-adjust"></span></button>
-                    <button id="cnslautochat"><span class="glyphicon glyphicon-envelope"></span></button>
+                    <button class="glyphicon glyphicon-adjust" id="cnslchangecolor" onclick="changeTheme(0)"></button>
+                    <button id="cnslautochat" class="glyphicon glyphicon-envelope"></button>
                     </div>
                     
                     
