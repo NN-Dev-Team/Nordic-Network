@@ -32,10 +32,17 @@ $(document).ready(function(){
 	socket.on('main-stats', function(data) {
 		if(data.success) {
 			console.log("Successfully received stats!");
-            console.log("Amount of servers: " + data.servers);
-            console.log("Total Memory: " + data.max);
-            console.log("Used Memory: " + data.used);
-            console.log("Available Memory: " + data.free);
+			if(data.info.servers) {
+				console.log("Amount of servers: " + data.info.servers);
+			}
+			
+			if(data.info.max) {
+				console.log("Total Memory: " + data.info.max);
+			}
+			
+			if(data.info.used) {
+				console.log("Used Memory: " + data.info.used);
+			}
 		} else {
 			console.log("Failed to get stats");
             console.log("Reason: " + data.reason);
