@@ -37,26 +37,6 @@ app.use(function(req, res, next) {
 	}
 });
 
-// Not necessary anymore in Node v.6? Supposed to define __line
-
-/* Object.defineProperty(global, '__stack', {
-  get: function(){
-    var orig = Error.prepareStackTrace;
-    Error.prepareStackTrace = function(_, stack){ return stack; };
-    var err = new Error;
-    Error.captureStackTrace(err, arguments.callee);
-    var stack = err.stack;
-    Error.prepareStackTrace = orig;
-    return stack;
-  }
-});
-
-Object.defineProperty(global, '__line', {
-  get: function(){
-    return __stack[1].getLineNumber();
-  }
-}); */
-
 // MAIN
 
 function Reset() {
@@ -90,6 +70,17 @@ function sendToClient(name, data, id) {
 		io.emit(name, {"success": true, "info": data});
 	} else {
 		io.emit(name, {"success": true});
+	}
+}
+
+// Send data to all clients
+function broadcast(name, data, id) {
+	if(id) {
+		io.broadcast.emit(name, {"success": false, "reason": data, "id": id});
+	} else if(data) {
+		io.broadcast.emit(name, {"success": true, "info": data});
+	} else {
+		io.broadcast.emit(name, {"success": true});
 	}
 }
 
@@ -166,6 +157,7 @@ io.on('connection', function(socket){
 										}
 										
 										sendToClient('reg-complete');
+										broadcast('main-stats', {"servers": usr});
 									});
 							});
 						});
@@ -438,6 +430,9 @@ io.on('connection', function(socket){
 							});
 						} else if(serv_type.substring(0, 1) == 1) {
 							// CS:GO
+							/* Should we really have this game? Seems to take up too much RAM to be free,
+							 * thinking of replacing it with other editions of MC instead, same with TF2.
+							 */
 							
 							if(serv_typeCS == 1) { // Classic Competive
 								exec("./srcds_run -game csgo -console -usercon +game_type 0 +game_mode 1 +mapgroup mg_active +map de_dust2", function(err, out, stderr) {
@@ -684,10 +679,10 @@ io.on('connection', function(socket){
 						console.log(err);
 					}
 					
-					user.incrUsage(IP, 4);
+					user.incrUsage(IP, 16);
 				});
 			} else {
-				user.incrUsage(IP, 4);
+				user.incrUsage(IP, 16);
 			}
             
             user.getTotal(function(err, serverCount) {
@@ -720,18 +715,7 @@ io.on('connection', function(socket){
                         c++;
                     }
                     
-                    while(!(Number(out[c]))) {
-                        c++;
-                    }
-                    
-                    var mem_left = "";
-                    
-                    while(Number(out[c])) {
-                        mem_left += out[c];
-                        c++;
-                    }
-                    
-                    sendToClient('main-stats', {"servers": serverCount, "max": mem_max, "used": mem_used, "free": mem_left});
+                    sendToClient('main-stats', {"servers": serverCount, "max": mem_max, "used": mem_used});
                 });
             });
         });
