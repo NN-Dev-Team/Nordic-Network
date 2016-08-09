@@ -12,6 +12,7 @@ var randomstring = require('randomstring');
 var mkdir = require('mkdirp');
 var exec = require('child_process').exec;
 var Rcon = require('rcon');
+var diskspace = require('diskspace');
 
 var values = [];
 var props = [];
@@ -34,25 +35,6 @@ app.use(function(req, res, next) {
 	} else {
 		next();
 	}
-});
-
-// Get line number; for debugging
-Object.defineProperty(global, '__stack', {
-  get: function(){
-    var orig = Error.prepareStackTrace;
-    Error.prepareStackTrace = function(_, stack){ return stack; };
-    var err = new Error;
-    Error.captureStackTrace(err, arguments.callee);
-    var stack = err.stack;
-    Error.prepareStackTrace = orig;
-    return stack;
-  }
-});
-
-Object.defineProperty(global, '__line', {
-  get: function(){
-    return __stack[1].getLineNumber();
-  }
 });
 
 // MAIN
@@ -88,6 +70,17 @@ function sendToClient(name, data, id) {
 		io.emit(name, {"success": true, "info": data});
 	} else {
 		io.emit(name, {"success": true});
+	}
+}
+
+// Send data to all clients
+function broadcast(name, data, id) {
+	if(id) {
+		io.broadcast.emit(name, {"success": false, "reason": data, "id": id});
+	} else if(data) {
+		io.broadcast.emit(name, {"success": true, "info": data});
+	} else {
+		io.broadcast.emit(name, {"success": true});
 	}
 }
 
@@ -151,24 +144,32 @@ io.on('connection', function(socket){
 								return sendToClient('reg-complete', "An account with this email has already been registered...", '5.' + __line);
 							}
 							
-							// User doesn't exist yet, register new user
-							user.add(usr, data.email, hash, function(err, line) {
-								if(err) {
-									return sendToClient('reg-complete', err, '6.' + __line + '.' + line);
-								}
+							// User doesn't exist yet, check if enough disk space is available
+							diskspace.check('/', function (err, total, free) {
+								if(free < 2147483648) {
+									return sendToClient('reg-complete', "Not enough diskspace.", '6.' + __line);
+								} else {
 									
-								sendToClient('reg-complete');
+									// Enough disk space available, register user
+									user.add(usr, data.email, hash, function(err, line) {
+										if(err) {
+											return sendToClient('reg-complete', err, '7.' + __line + '.' + line);
+										}
+										
+										sendToClient('reg-complete');
+										broadcast('main-stats', {"servers": usr});
+									});
 							});
 						});
 					});
 				});
 			} else {
-				sendToClient('reg-complete', "This is impossible unless you hacked :/", '7.' + __line);
+				sendToClient('reg-complete', "This is impossible unless you hacked :/", '8.' + __line);
 			}
 		});
 	});
 	
-	// LOGIN
+	// LOGIN & LOGOUT
 	socket.on('login', function(data){
 		user.isBanned(IP, function(err, banned) {
 			if(err) {
@@ -208,7 +209,7 @@ io.on('connection', function(socket){
 								userSession += Math.round(((new Date()).getTime() / 60000) + 60*24);
 								dat[2] = userSession;
 								
-								fs.writeFile("users/" + usr + ".txt", dat.join("\n"), function(err, data) {
+								fs.writeFile("users/" + usr + "/user.txt", dat.join("\n"), function(err, data) {
 									if(err) {
 										return sendToClient('login-complete', err, '4.' + __line);
 									}
@@ -226,6 +227,44 @@ io.on('connection', function(socket){
 			}
 		});
 	});
+    
+    socket.on('logout', function(data) {
+        user.isBanned(IP, function(err, banned) {
+			if(err) {
+				return console.log(err);
+			}
+			
+			if(banned[0]) {
+				return sendToClient('logout-complete', "Please don't overload our servers.", '0.' + __line);
+			} else if(banned[1]) {
+				user.addIP(IP, function(err) {
+					if(err) {
+						console.log(err);
+					}
+					
+					user.incrUsage(IP, 16);
+				});
+			} else {
+				user.incrUsage(IP, 16);
+			}
+            
+            user.get(data.id, function(err, line, dat) {
+				if(err) {
+				    return sendToClient('logout-complete', err, '1.' + __line + '.' + line);
+				}
+                
+                if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
+                    user.changeProp(data.id, 2, "SESSION EXPIRED", function(err, line) {
+                        if(err) {
+                            return sendToClient('logout-complete', err, '2.' + __line + '.' + line);
+                        }
+                        
+                        sendToClient('logout-complete');
+                    });
+                }
+            });
+        });
+    });
 	
 	// SERVER CREATION
 	socket.on('create-serv', function(data){
@@ -263,15 +302,15 @@ io.on('connection', function(socket){
 					}
 					
 					// Check if session is valid
-					if(dat[2].trim() == data.session) {
+					if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
 						
 						// Session valid, create server
-						mkdir("servers/" + data.id, function(err) {
+						mkdir("users/" + data.id + "/server", function(err) {
 							if(err) {
 								return sendToClient('creation-complete', err, '5.' + __line);
 							}
 							
-							fs.writeFile("servers/" + data.id + "/.properities", "0\n" + data.type + "\n0\n0", function(err, dat) {
+							fs.writeFile("users/" + data.id + "/server/.properities", "0\n" + data.type + "\n0\n0", function(err, dat) {
 								if(err) {
 									return sendToClient('creation-complete', err, '6.' + __line);
 								}
@@ -357,7 +396,7 @@ io.on('connection', function(socket){
 				return sendToClient('server-checked', "Invalid server ID and/or session ID.", '1.' + __line);
 			}
 			
-			fs.readFile('servers/' + data.server + '/.properities', 'utf8', function(err, dat) {
+			fs.readFile('users/' + data.server + '/server/.properities', 'utf8', function(err, dat) {
 				if (err) {
 					return sendToClient('server-checked', err, '2.' + __line);
 				}
@@ -371,12 +410,12 @@ io.on('connection', function(socket){
 				var serv_lastOn = props[4].trim(); // Will not be used in this case, it's just here so we can remember it
 				var serv_ram = [[256, 512, 1024, 2048, 4096], [512, 1024, 2048, 4096], [512, 1024, 2048, 4096]];
 				
-				fs.readFile('users/' + data.server + ".txt", 'utf8', function(err, dat) {
+				fs.readFile('users/' + data.server + "/user.txt", 'utf8', function(err, dat) {
 					props = dat.split("\n");
 					var user_session = props[2].trim();
 					
 					// Check if session is matching
-					if(user_session == data.session) {
+					if(user_session == data.session && user_session != "SESSION EXPIRED") {
 						
 						// Run server
 						if(serv_type == 0) {
@@ -391,6 +430,9 @@ io.on('connection', function(socket){
 							});
 						} else if(serv_type.substring(0, 1) == 1) {
 							// CS:GO
+							/* Should we really have this game? Seems to take up too much RAM to be free,
+							 * thinking of replacing it with other editions of MC instead, same with TF2.
+							 */
 							
 							if(serv_typeCS == 1) { // Classic Competive
 								exec("./srcds_run -game csgo -console -usercon +game_type 0 +game_mode 1 +mapgroup mg_active +map de_dust2", function(err, out, stderr) {
@@ -471,7 +513,7 @@ io.on('connection', function(socket){
 				return sendToClient('server-stopped', "Invalid server ID and/or session ID.", '1.' + __line);
 			}
 			
-			fs.readFile('servers/' + data.server + '/.properities', 'utf8', function(err, dat) {
+			fs.readFile('users/' + data.server + '/server/.properities', 'utf8', function(err, dat) {
 				if (err) {
 					return sendToClient('server-stopped', err, '2.' + __line);
 				}
@@ -487,16 +529,16 @@ io.on('connection', function(socket){
 				var rcon_pass = "";
 				var serv_ram = [[256, 512, 1024, 2048, 4096], [512, 1024, 2048, 4096], [512, 1024, 2048, 4096]];
 				
-				fs.readFile('users/' + data.server + ".txt", 'utf8', function(err, dat) {
+				fs.readFile('users/' + data.server + "/user.txt", 'utf8', function(err, dat) {
 					props = dat.split("\n");
 					var user_session = props[2].trim();
 					
 					// Check if session is matching
-					if(user_session == data.session) {
+					if(user_session == data.session && user_session != "SESSION EXPIRED") {
 						if(serv_type == 0) {
 							// Minecraft
 							
-							fs.readFile('servers/' + data.server + '/server.properities', 'utf8', function(err, data) {
+							fs.readFile('users/' + data.server + '/server/server.properities', 'utf8', function(err, data) {
 								if(err) {
 									return sendToClient('server-stopped', err, '3.' + __line);
 								}
@@ -543,10 +585,10 @@ io.on('connection', function(socket){
 						console.log(err);
 					}
 					
-					user.incrUsage(IP, 16);
+					user.incrUsage(IP, 4);
 				});
 			} else {
-				user.incrUsage(IP, 16);
+				user.incrUsage(IP, 4);
 			}
 			
 			if(typeof data.session != 'string' || (data.session).length < 24) {
@@ -562,10 +604,10 @@ io.on('connection', function(socket){
 					}
 					
 					// Check if session is valid
-					if(dat[2].trim() == data.session) {
+					if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
 						
 						// Session valid, get server data
-						fs.readFile('servers/' + data.server + '/.properities', 'utf8', function(err, dat) {
+						fs.readFile('users/' + data.server + '/server/server.properities', 'utf8', function(err, dat) {
 							if (err) {
 								return sendToClient('console-query', err, '4.' + __line);
 							}
@@ -579,7 +621,7 @@ io.on('connection', function(socket){
 							if(serv_type == 0) {
 								
 								// Minecraft
-								fs.readFile('servers/' + data.id + '/server.properities', 'utf8', function(err, dat) {
+								fs.readFile('users/' + data.id + '/server/server.properities', 'utf8', function(err, dat) {
 									if(err) {
 										return sendToClient('console-query', err, '5.' + __line);
 									}
@@ -611,10 +653,71 @@ io.on('connection', function(socket){
 								return sendToClient('console-query', "This game does not support RCON :(", '7.' + __line);
 							}
 						});
-					}
-			} else {
-				return sendToClient('console-query', "Invalid user id.", '8.' + __line);
+                    } else {
+                        return sendToClient('console-query', "Invalid session.", '8.' + __line);
+                    }
+                });
+            } else {
+				return sendToClient('console-query', "Invalid user id.", '9.' + __line);
+            }
+        });
+    });
+	
+	// INDEX
+	
+	socket.on('get-main-stats', function(data) {
+        user.isBanned(IP, function(err, banned) {
+			if(err) {
+				return console.log(err);
 			}
-		});
+			
+			if(banned[0]) {
+				return sendToClient('main-stats', "Please don't overload our servers.", '0.' + __line);
+			} else if(banned[1]) {
+				user.addIP(IP, function(err) {
+					if(err) {
+						console.log(err);
+					}
+					
+					user.incrUsage(IP, 16);
+				});
+			} else {
+				user.incrUsage(IP, 16);
+			}
+            
+            user.getTotal(function(err, serverCount) {
+                exec("free -m", function(err, out, stderr) {
+                    if(err) {
+                        return sendToClient('main-stats', stderr, '1.' + __line);
+                    }
+                    
+                    var c = out.indexOf("Mem");
+                    
+                    while(!(Number(out[c]))) {
+                        c++;
+                    }
+                    
+                    var mem_max = "";
+                    
+                    while(Number(out[c])) {
+                        mem_max += out[c];
+                        c++;
+                    }
+                    
+                    while(!(Number(out[c]))) {
+                        c++;
+                    }
+                    
+                    var mem_used = "";
+                    
+                    while(Number(out[c])) {
+                        mem_used += out[c];
+                        c++;
+                    }
+                    
+                    sendToClient('main-stats', {"servers": serverCount, "max": mem_max, "used": mem_used});
+                });
+            });
+        });
 	});
 });

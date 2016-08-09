@@ -584,10 +584,10 @@ io.on('connection', function(socket){
 						console.log(err);
 					}
 					
-					user.incrUsage(IP, 16);
+					user.incrUsage(IP, 4);
 				});
 			} else {
-				user.incrUsage(IP, 16);
+				user.incrUsage(IP, 4);
 			}
 			
 			if(typeof data.session != 'string' || (data.session).length < 24) {
@@ -659,6 +659,15 @@ io.on('connection', function(socket){
 			} else {
 				return sendToClient('console-query', "Invalid user id.", '8.' + __line);
 			}
+		});
+	});
+	
+	// INDEX
+	
+	socket.on('get-main-stats', function(data) {
+		user.getTotal(function(err, data) {
+			sendToClient('main-stats', {"servers": data});
+			// WIP: Get RAM usage & other stats
 		});
 	});
 });
