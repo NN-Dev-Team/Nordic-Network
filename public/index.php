@@ -100,7 +100,7 @@
             <div>
                 
                 <h2 id="about-text-title">Statistics</h2>                
-                <h5 class="odometer center-block">123</h5>
+                <h5 id="odometer" class="odometer center-block">123</h5>
             </div>
 		</div>
 		
