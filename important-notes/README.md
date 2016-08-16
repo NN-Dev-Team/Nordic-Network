@@ -29,7 +29,9 @@ Minecraft Ranks
 #### Rank 3:
 **Weekly Cost:** From ~£0.24 to ~£0.43
 
-**Monthly Cost:** £2
+**Donation Plan:** $1.5 every 2 weeks
+
+**Premium Plan:** $3/month
 
 **Features:** 1 GB RAM, 4 GB disk space & FTP access
 
@@ -40,7 +42,9 @@ Minecraft Ranks
 #### Rank 4:
 **Weekly Cost:** From ~£0.49 to ~£0.86
 
-**Monthly Cost:** £4
+**Donation Plan:** $4/month
+
+**Premium Plan:** $5/month
 
 **Features:** 2 GB RAM, 8 GB disk space & FTP access
 
