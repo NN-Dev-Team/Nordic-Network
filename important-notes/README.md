@@ -5,21 +5,21 @@ Minecraft Ranks
 --------
 
 #### Rank 1:
-**Weekly Cost:** From ~£0.06 to ~£0.1
+**Weekly Cost:** From ~£0.06 to ~£0.11
 
 **Features:** 256 MB RAM & 1 GB disk space
 
 --------
 
 #### Rank 2:
-**Weekly Cost:** From ~£0.12 to ~£0.2
+**Weekly Cost:** From ~£0.12 to ~£0.21
 
 **Features:** 512 MB RAM, 2 GB disk space & FTP access
 
 --------
 
 #### Rank 3:
-**Weekly Cost:** From ~£0.24 to ~£0.4
+**Weekly Cost:** From ~£0.24 to ~£0.43
 
 **Monthly Cost:** £2
 
@@ -30,7 +30,7 @@ Minecraft Ranks
 --------
 
 #### Rank 4:
-**Weekly Cost:** From ~£0.5 to ~£0.8
+**Weekly Cost:** From ~£0.49 to ~£0.86
 
 **Monthly Cost:** £4
 
