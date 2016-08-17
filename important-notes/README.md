@@ -5,23 +5,33 @@ Minecraft Ranks
 --------
 
 #### Rank 1:
-**Weekly Cost:** From ~£0.06 to ~£0.1
+**Weekly Cost:** From ~£0.06 to ~£0.11
+
+**Weekly Votes:** 20
+
+**Weekly Ad Earnings:** From ~£0.004 to ~£0.15, average ~£0.015
 
 **Features:** 256 MB RAM & 1 GB disk space
 
 --------
 
 #### Rank 2:
-**Weekly Cost:** From ~£0.12 to ~£0.2
+**Weekly Cost:** From ~£0.12 to ~£0.21
+
+**Weekly Votes:** 50
+
+**Weekly Ad Earnings:** From ~£0.01 to ~£0.39, average ~£0.039
 
 **Features:** 512 MB RAM, 2 GB disk space & FTP access
 
 --------
 
 #### Rank 3:
-**Weekly Cost:** From ~£0.24 to ~£0.4
+**Weekly Cost:** From ~£0.24 to ~£0.43
 
-**Monthly Cost:** £2
+**Donation Plan:** $1.5 every 2 weeks
+
+**Premium Plan:** $3/month
 
 **Features:** 1 GB RAM, 4 GB disk space & FTP access
 
@@ -30,9 +40,11 @@ Minecraft Ranks
 --------
 
 #### Rank 4:
-**Weekly Cost:** From ~£0.5 to ~£0.8
+**Weekly Cost:** From ~£0.49 to ~£0.86
 
-**Monthly Cost:** £4
+**Donation Plan:** $4/month
+
+**Premium Plan:** $5/month
 
 **Features:** 2 GB RAM, 8 GB disk space & FTP access
 
