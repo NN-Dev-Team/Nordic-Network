@@ -18,18 +18,24 @@ $(document).ready(function(){
 	var cookiesAccepted = getCookie('displayCookieConsent');
 	if(cookiesAccepted != 'y') {
 		$('#cookie-notice').css('display', 'block');
-		$('#cookie-notice-button').css('display', 'block');
-		$('#jumbo-nomargin').css('margin-top', '-5vh');
+		$('#cookie-notice-button').css('display', 'inline-block');
+		$('#jumbo-container').css('margin-bottom', '30vh');
 	}
 	
 	setInterval(function() {
+		var border_opacity = (window.scrollY / 2) / window.innerHeight;
 		var colour = Math.round(255 - ((window.scrollY / window.innerHeight) * (255 - 122)));
+		
+		if(border_opacity > 0.5) {
+			border_opacity = 0.5;
+		}
+		
 		if(colour < 122) {
 			colour = 122;
 		}
 		
 		$('.navbar-default').css('background-color', 'rgba(248, 248, 248, ' + window.scrollY / window.innerHeight + ')');
-		$('.navbar-default').css('border-bottom', '1px solid rgba(127, 127, 127, ' + (window.scrollY / 2) / window.innerHeight + ')');
+		$('.navbar-default').css('border-bottom', '1px solid rgba(127, 127, 127, ' + border_opacity + ')');
 		$('#navbar-logo').css('color', 'rgb({0}, {1}, {2})'.format(colour, colour, colour));
 		$('#myNavbar > ul > li > a').css('color', "rgb({0}, {1}, {2})".format(colour, colour, colour));
 		$('#myNavbar > ul > li > a:hover').css('color', "rgb({0}, {1}, {2})".format(colour - 64, colour - 64, colour - 64));
@@ -81,7 +87,7 @@ function acceptCookies() {
 	addCookie('displayCookieConsent', 'y', 256);
 	$('#cookie-notice').css('display', 'none');
 	$('#cookie-notice-button').css('display', 'none');
-	$('#jumbo-nomargin').css('margin-top', 0);
+	$('#jumbo-container').css('margin-bottom', '40vh');
 }
 
 function addCookie(name, value, time) {
