@@ -72,7 +72,6 @@ body {
 #jumbo-container {
     margin-top: 10px;
     margin-bottom: 40vh;
-    
 }
 
 #feature-text {
@@ -257,12 +256,19 @@ body {
 }
 
 #cookie-notice {
-    height: 5vh;
     width: 100%;
+	padding-top: 10px;
+	position: fixed;
+	bottom: 0;
+	background-color: #f8f8f8;
+	border-top: 1px solid rgba(127, 127, 127, 0.5);
+	z-index: 1;
+	text-align: center;
 	display: none;
 }
 
 #cookie-notice-button {
+	margin-left: 20px;
     display: none;
 }
 
