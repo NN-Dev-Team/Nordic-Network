@@ -16,17 +16,12 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
-#jumbo-nomargin {
-	margin-top: -5vh;
-}
-
 #title {
     margin-top: 20px;
     color: #ffffff;
 }
 
 #getserver {
-    
     font-size: 3.5vh;
 }
 
@@ -39,8 +34,19 @@ body {
 	font-family: Viking;
 }
 
+#navbar-logo {
+	color: white;
+}
+
+#myNavbar > ul > li > a {
+	color: white;
+}
+
+#myNavbar > ul > li > a:hover {
+	color: #333;
+}
+
 #features-title {
-    
     text-align: center;
 }
 
@@ -60,14 +66,12 @@ body {
 }
 
 #feature-img-container {
-    
     align-content: center;
 }
 
 #jumbo-container {
     margin-top: 10px;
     margin-bottom: 40vh;
-    
 }
 
 #feature-text {
@@ -107,7 +111,6 @@ body {
 }
 
 #pricing-title {
-    
     text-align: center;
 }
 
@@ -121,6 +124,7 @@ body {
 #pricing-text-title {
     text-align: center;
 }
+
 #about-text-title {
     color: white;
     text-align: center;
@@ -170,7 +174,6 @@ body {
     background-color: #3b3b3b;
     text-align: center;
     color: white;
-    
 }
 
 #passwrd {
@@ -206,7 +209,6 @@ body {
     margin-right: 5vh;
     min-height: 15vh;
     min-width: 15vh;
-    
 }
 
 #donutchartswrapper {
@@ -218,7 +220,6 @@ body {
     margin-left: 5vh;
     margin-right: 5vh;
     text-align: center;
-    
 }
 
 #cpcontrols button {
@@ -255,19 +256,26 @@ body {
 }
 
 #cookie-notice {
-    height: 5vh;
     width: 100%;
+	padding-top: 10px;
+	position: fixed;
+	bottom: 0;
+	background-color: #f8f8f8;
+	border-top: 1px solid rgba(127, 127, 127, 0.5);
+	z-index: 1;
+	text-align: center;
+	display: none;
 }
 
 #cookie-notice-button {
-    
+	margin-left: 20px;
+    display: none;
 }
 
 @media screen and (min-width: 768px) {
     #menu-toggle {
 		display: none;
     }
-    
 }
 
 #menu-toggle {
