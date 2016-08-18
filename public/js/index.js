@@ -38,7 +38,7 @@ $(document).ready(function(){
 		$('.navbar-default').css('border-bottom', '1px solid rgba(127, 127, 127, ' + border_opacity + ')');
 		$('#navbar-logo').css('color', 'rgb({0}, {1}, {2})'.format(colour, colour, colour));
 		$('#myNavbar > ul > li > a').css('color', "rgb({0}, {1}, {2})".format(colour, colour, colour));
-		$('#myNavbar > ul > li > a:hover').css('color', "rgb({0}, {1}, {2})".format(colour - 64, colour - 64, colour - 64));
+		$('#myNavbar > ul > li > a:hover').css('color', "#333");
 	}, 40);
 	
 	$.get("../properities.txt", function(data) {
