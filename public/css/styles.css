@@ -34,14 +34,6 @@ body {
 	font-family: Viking;
 }
 
-#navbar-logo {
-	color: white;
-}
-
-#myNavbar > ul > li > a {
-	color: white;
-}
-
 #myNavbar > ul > li > a:hover {
 	color: #333;
 }
