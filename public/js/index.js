@@ -23,8 +23,13 @@ $(document).ready(function(){
 	}
 	
 	setInterval(function() {
+		var bg_colour = window.scrollY / window.innerHeight;
 		var border_opacity = (window.scrollY / 2) / window.innerHeight;
 		var colour = Math.round(255 - ((window.scrollY / window.innerHeight) * (255 - 122)));
+		
+		if(bg_colour > 0.95) {
+			bg_colour = 0.95;
+		}
 		
 		if(border_opacity > 0.5) {
 			border_opacity = 0.5;
@@ -34,7 +39,7 @@ $(document).ready(function(){
 			colour = 122;
 		}
 		
-		$('.navbar-default').css('background-color', 'rgba(248, 248, 248, ' + window.scrollY / window.innerHeight + ')');
+		$('.navbar-default').css('background-color', 'rgba(248, 248, 248, ' + bg_colour + ')');
 		$('.navbar-default').css('border-bottom', '1px solid rgba(127, 127, 127, ' + border_opacity + ')');
 		$('#navbar-logo').css('color', 'rgb({0}, {1}, {2})'.format(colour, colour, colour));
 		$('#myNavbar > ul > li > a').css('color', "rgb({0}, {1}, {2})".format(colour, colour, colour));
