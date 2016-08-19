@@ -4,8 +4,10 @@
 		<title>Nordic Network - Flexible server hosting, the Nordic way</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Load universal CSS from file -->
+		<link rel="stylesheet" href="/css/universal.css">
 		<!-- Load custom CSS from file -->    
-		<link rel="stylesheet" href="/css/styles.css">
+		<link rel="stylesheet" href="/css/index.css">
         <!-- Load Odometer Theme CSS from file -->
         <link rel="stylesheet" href="/css/odometer-theme-minimal.css" />
 		<!-- Load bootstrap CSS from CDN -->
@@ -46,7 +48,7 @@
 					<br />
 					<br />
 					<br />
-					<a type="button" id="getserver" class="btn btn-primary btn-lg" href="register.php">Get your free server now!</a>
+					<a type="button" id="getserver" class="btn btn-primary btn-lg" href="/register.php">Get your free server now!</a>
 				</div>
 				
 				<a href="/index/#index-info" class="glyphicon glyphicon-chevron-down white-glyphicon"></a>

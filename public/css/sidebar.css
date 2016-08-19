@@ -4,9 +4,9 @@
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
  */
 
- /* Toggle Styles */
+/* Toggle Styles */
 
- #wrapper {
+#wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
