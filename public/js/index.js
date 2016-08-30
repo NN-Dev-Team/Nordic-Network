@@ -14,6 +14,28 @@ if (!String.prototype.format) {
 	};
 }
 
+var transparent = true;
+
+function changeOpacity() {
+	if(window.scrollY && transparent) {
+		$('#nav-nomargin').css('background-color', 'rgba(248, 248, 248, 0.95)');
+		$('#nav-nomargin').css('box-shadow', '0 1px 1px rgba(127, 127, 127, 0.4)');
+		$('.navbar-default').css('border-bottom', '1px solid rgba(127, 127, 127, 0.4)');
+		$('#navbar-logo').css('color', '#888');
+		$('#myNavbar > ul > li > a').css('color', "#888");
+		
+		transparent = false;
+	} else if(!window.scrollY) {
+		$('#nav-nomargin').css('background-color', 'transparent');
+		$('#nav-nomargin').css('box-shadow', '0 1px 1px rgba(127, 127, 127, 0)');
+		$('.navbar-default').css('border-bottom', '1px solid rgba(127, 127, 127, 0)');
+		$('#navbar-logo').css('color', '#fff');
+		$('#myNavbar > ul > li > a').css('color', "#fff");
+		
+		transparent = true;
+	}
+}
+
 $(document).ready(function(){
 	var cookiesAccepted = getCookie('displayCookieConsent');
 	if(cookiesAccepted != 'y') {
@@ -21,31 +43,6 @@ $(document).ready(function(){
 		$('#cookie-notice-button').css('display', 'inline-block');
 		$('#jumbo-container').css('margin-bottom', '30vh');
 	}
-	
-	setInterval(function() {
-		var bg_colour = (window.scrollY * 0.95) / window.innerHeight;
-		var border_opacity = (window.scrollY * 0.4) / window.innerHeight;
-		var colour = Math.round(255 - ((window.scrollY / window.innerHeight) * (255 - 122)));
-		
-		if(bg_colour > 0.95) {
-			bg_colour = 0.95;
-		}
-		
-		if(border_opacity > 0.4) {
-			border_opacity = 0.4;
-		}
-		
-		if(colour < 122) {
-			colour = 122;
-		}
-		
-		$('#nav-nomargin').css('background-color', 'rgba(248, 248, 248, ' + bg_colour + ')');
-		$('#nav-nomargin').css('box-shadow', '0 1px 1px rgba(127, 127, 127, ' + (border_opacity / 2) + ')');
-		$('.navbar-default').css('border-bottom', '1px solid rgba(127, 127, 127, ' + border_opacity + ')');
-		$('#navbar-logo').css('color', 'rgb({0}, {1}, {2})'.format(colour, colour, colour));
-		$('#myNavbar > ul > li > a').css('color', "rgb({0}, {1}, {2})".format(colour, colour, colour));
-		$('#myNavbar > ul > li > a:hover').css('color', "#333");
-	}, 40);
 	
 	$.get("../properities.txt", function(data) {
         values = data.split("\n");
