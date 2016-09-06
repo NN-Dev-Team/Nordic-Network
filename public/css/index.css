@@ -142,3 +142,16 @@
 	margin-left: 20px;
     display: none;
 }
+
+#servers-created {
+	text-align: right;
+	color: white;
+	display: inline-block;
+	margin-left: 25%;
+}
+
+#servers-created-txt {
+	color: white;
+	margin-left: 15px;
+	display: inline-block;
+}

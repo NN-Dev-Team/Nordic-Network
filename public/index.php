@@ -43,12 +43,12 @@
 			<div class="container-fluid">    
 				<div id="jumbo-container">
 					<br />
-					<h1 id=title>High quality game servers.</h1>
+					<h1 id=title>Start small, grow big!</h1>
 					<br />
 					<br />
 					<br />
 					<br />
-					<a type="button" id="getserver" class="btn btn-primary btn-lg" href="/register.php">Get your free server now!</a>
+					<a type="button" id="getserver" class="btn btn-primary btn-lg" href="/register.php">Get your free server</a>
 				</div>
 				
 				<a href="/index/#index-info" class="glyphicon glyphicon-chevron-down white-glyphicon"></a>
@@ -102,7 +102,8 @@
             <div>
                 
                 <h2 id="about-text-title">Statistics</h2>                
-                <h5 id="odometer" class="odometer center-block">123</h5>
+                <h3 id="servers-created" class="odometer center-block">123</h3>
+				<h4 id="servers-created-txt">servers created</h4>
             </div>
 		</div>
 		
