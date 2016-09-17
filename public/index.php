@@ -25,7 +25,7 @@
         <!-- Load Odometer JS from file -->
         <script src="/js/odometer.js"></script>
 	</head>
-	<body id="top">
+	<body id="top" onscroll="changeOpacity()">
 		<!-- Nav -->
 		<?php
 			if(isset($_COOKIE['session'])) {
@@ -101,9 +101,27 @@
             <br />
             <div>
                 
-                <h2 id="about-text-title">Statistics</h2>                
-                <h3 id="servers-created" class="odometer center-block">123</h3>
-				<h4 id="servers-created-txt">servers created</h4>
+                <h2 id="about-text-title">Statistics</h2>
+				<table id="stats-table">
+					<tbody>
+						<tr>
+							<td class="stats-val">
+								<h3 id="stats-servers" class="odometer center-block">123</h3>
+							</td>
+							<td>
+								<h4 class="stats-txt">servers created</h4>
+							</td>
+						</tr>
+						<tr>
+							<td class="stats-val">
+								<h3 id="stats-mem-usage" class="odometer center-block">12.3%</h3>
+							</td>
+							<td>
+								<h4 class="stats-txt">RAM used</h4>
+							</td>
+						</tr>
+					</tbody>
+				</table>
             </div>
 		</div>
 		

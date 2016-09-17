@@ -23,6 +23,10 @@ body {
     background-color: #3b3b3b;
 }
 
+#footer p {
+	margin-top: 10px;
+}
+
 #center-text-footer {
     display: inline-block;
 }
