@@ -64,7 +64,7 @@
 		<span id="index-info"></span>
 		<br />
 		<br>
-		<div class="container-fluid">   
+		<div class="container-fluid" id="feature-container">   
 			
 			<br>
 			
@@ -97,34 +97,8 @@
 		</div>
 		
 		<div id="about-text-container">
-			<br />
-			<h2 id="about-text-title">About us</h2>
-			<p id="about-text" class="center-block">Our small group of programmers and designers work hard to give you your own personal server. We make updates all the time, making it better almost everyday, we keep your servers at safe keeping.<br> We will help with whatever you need with our fantastic support and friendly staff.</p><br>
-            <br />
-            <div>
-                
-                <h2 id="about-text-title">Statistics</h2>
-				<table id="stats-table">
-					<tbody>
-						<tr>
-							<td class="stats-val">
-								<h3 id="stats-servers" class="odometer center-block">123</h3>
-							</td>
-							<td>
-								<h4 class="stats-txt">servers created</h4>
-							</td>
-						</tr>
-						<tr>
-							<td class="stats-val">
-								<h3 id="stats-mem-usage" class="odometer center-block">12.3%</h3>
-							</td>
-							<td>
-								<h4 class="stats-txt">RAM used</h4>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-            </div>
+			<h1 id="stats-servers" class="odometer center-block">123,456</h1>
+			<h4 id="stats-txt">servers created so far</h4>
 		</div>
 		
 		<div id="pricing" class="container-fluid">

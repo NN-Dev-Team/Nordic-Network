@@ -33,10 +33,6 @@
 	font-family: 'David Libre', serif;
 }
 
-#feature-img {
- 
-}
-
 #feature-img-container {
     align-content: center;
 }
@@ -44,6 +40,10 @@
 #jumbo-container {
     margin-top: 10px;
     margin-bottom: 35vh;
+}
+
+#feature-container {
+	padding-bottom: 54px;
 }
 
 #feature-text {
@@ -100,27 +100,16 @@
 	font-family: 'David Libre', serif;
 }
 
-#about-text-title {
-    color: white;
-    text-align: center;
-}
-
 #pricing-img {
     border: 1px solid;
     border-color: #3b3b3b;
 }
 
-#about-text {
-    color: white;
-    text-align: center;
-    margin-left: 2vw;
-    margin-right: 2vw;
-    margin-top: 0.3vh;
-}
-
 #about-text-container {
-    background-color: #3b3b3b;
-    margin: 0px;
+    background-color: #f5f5f5;
+	text-align: center;
+    padding-top: 54px;
+	padding-bottom: 74px;
 }
 
 #cookies {
@@ -154,20 +143,8 @@
     display: none;
 }
 
-#stats-table {
-	width: 100%;
-}
-
-td.stats-val {
-	color: white;
-	padding-left: 25%;
-	width: 32%;
-}
-
-.stats-txt {
-	color: white;
-	margin-left: 15px;
-	margin-bottom: 0;
+#stats-txt {
+	margin: 0;
 }
 
 #nav-nomargin {
