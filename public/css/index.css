@@ -42,6 +42,13 @@
     margin-bottom: 35vh;
 }
 
+.glyphicon-chevron-down {
+	position: absolute !important;
+	top: 85vh !important;
+	left: 25%;
+	right: 25%;
+}
+
 #feature-container {
 	padding-bottom: 54px;
 }
