@@ -113,7 +113,10 @@
 }
 
 #about-text-container {
-    background-color: #f5f5f5;
+    background-image: url(http://wallpapercave.com/wp/rlyvfvI.jpg);
+	background-size: cover;
+	background-position: 0 -16px;
+	box-shadow: 0 0 8px 16px white inset;
 	text-align: center;
     padding-top: 54px;
 	padding-bottom: 74px;
