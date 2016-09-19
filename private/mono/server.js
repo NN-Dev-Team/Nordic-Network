@@ -1,5 +1,6 @@
 var toobusy = require('toobusy-js');
 var user = require('./user-lib.js');
+var app_sorter = require('../app-sorter');
 // var mcLib = require('./auto-updater.js');
 var fs = require('fs');
 var express = require('express');
@@ -662,6 +663,47 @@ io.on('connection', function(socket){
             }
         });
     });
+	
+	// APPLICATIONS
+	socket.on('check-app', function(data) {
+        user.isBanned(IP, function(err, banned) {
+			if(err) {
+				return console.log(err);
+			}
+			
+			if(banned[0]) {
+				return sendToClient('app-status', "Please don't overload our servers.", '0.' + __line);
+			} else if(banned[1]) {
+				user.addIP(IP, function(err) {
+					if(err) {
+						console.log(err);
+					}
+					
+					user.incrUsage(IP, 16);
+				});
+			} else {
+				user.incrUsage(IP, 16);
+			}
+			
+			fs.writeFile('../apps/new/' + data.id + '.txt', data.app, function(err, dat) {
+				if(err) {
+					return sendToClient('app-status', err, '1.' + __line);
+				}
+				
+				app_sorter.checkApp(data.id, function(err, approved) {
+					if(err) {
+						return sendToClient('app-status', err, '2.' + __line);
+					}
+					
+					if(approved) {
+						sendToClient('app-status');
+					} else {
+						sendToClient('app-status', "Trying to bypass app rules", '3.' + __line);
+					}
+				});
+			});
+		});
+	});
 	
 	// INDEX
 	

@@ -143,15 +143,38 @@
     display: none;
 }
 
-#servers-created {
-	text-align: right;
-	color: white;
-	display: inline-block;
-	margin-left: 25%;
+#stats-table {
+	width: 100%;
 }
 
-#servers-created-txt {
+td.stats-val {
+	color: white;
+	padding-left: 25%;
+	width: 32%;
+}
+
+.stats-txt {
 	color: white;
 	margin-left: 15px;
-	display: inline-block;
+	margin-bottom: 0;
+}
+
+#nav-nomargin {
+   margin-bottom: 0px;
+   background-color: rgba(248, 248, 248, 0);
+   border-bottom: 1px solid rgba(127, 127, 127, 0);
+   box-shadow: 0 1px 1px rgba(127, 127, 127, 0);
+   transition: all 0.5s;
+}
+
+#navbar-logo {
+	color: #fff;
+}
+
+#myNavbar > ul > li > a {
+	color: #fff;
+}
+
+#myNavbar > ul > li > a:hover {
+	color: #333;
 }
