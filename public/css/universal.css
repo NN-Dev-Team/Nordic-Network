@@ -1,3 +1,8 @@
+@font-face {
+    font-family: Viking;
+    src: url(../fonts/Viking.ttf);
+}
+
 body {
     position: relative;
 }
@@ -20,7 +25,9 @@ body {
     color: white;
     text-align: center;
     font-size 2vh;
-    background-color: #3b3b3b;
+    background-image: url(https://bukkit.org/smilies/obsidian.png);
+	background-size: cover;
+	background-position: center;
 }
 
 #footer p {
