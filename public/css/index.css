@@ -1,8 +1,3 @@
-@font-face {
-    font-family: Viking;
-    src: url(../fonts/Viking.ttf);
-}
-
 .jumbotron {
     background-image: url('../pics/277H.jpg');
     background-size: 100% 100%;
