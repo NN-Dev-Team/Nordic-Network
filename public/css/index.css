@@ -92,19 +92,12 @@
 
 #pricing-text {
     color: black;
-    text-align: left;
-    margin-left: 50px;
-    margin-right: 50px;
+    text-align: center;
 }
 
 #pricing-text-title {
     text-align: center;
 	font-family: 'David Libre', serif;
-}
-
-#pricing-img {
-    border: 1px solid;
-    border-color: #3b3b3b;
 }
 
 #about-text-container {
@@ -170,4 +163,26 @@
 
 #myNavbar > ul > li > a:hover {
 	color: #333;
+}
+
+#pricing-row {
+	padding-left: 12%;
+}
+
+.col-sm-2 {
+	width: 20% !important;
+	padding: 1% !important;
+	margin-right: 2%;
+}
+
+.pricing-box-free {
+	border: 1px solid #9c7;
+	border-bottom: 50px solid #9c7;
+	box-shadow: 1px 1px 1px #8b6;
+}
+
+.pricing-box-premium {
+	border: 1px solid #97c;
+	border-bottom: 50px solid #97c;
+	box-shadow: 1px 1px 1px #86b;
 }

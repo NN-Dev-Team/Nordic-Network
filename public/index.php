@@ -109,14 +109,14 @@
 			<br />
 			<br />
 			<br />
-			<div class="row">
-				<div class="col-sm-3"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/bulb_lg.png" height="100px" width="100px"><h3 id="pricing-text-title">Baldur</h3><p id="pricing-text" class="center-block"><b>Features:</b> 256 MB RAM & 1 GB disk space</p></div>
+			<div class="row" id="pricing-row">
+				<div class="col-sm-2 pricing-box-free"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/bulb_lg.png" height="100px" width="100px"><h3 id="pricing-text-title">Baldur</h3><p id="pricing-text" class="center-block">256 MB RAM</p><p id="pricing-text" class="center-block">1 GB SSD</p></div>
 				
-				<div class="col-sm-3"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/fire.svg" alt="fire" align="middle" height="100px" width="100px"><h3 id="pricing-text-title">Loki</h3><p id="pricing-text" class="center-block"><b>Features:</b> 512 MB RAM, 2 GB disk space & FTP access</p></div>
+				<div class="col-sm-2 pricing-box-free"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/fire.svg" alt="fire" align="middle" height="100px" width="100px"><h3 id="pricing-text-title">Loki</h3><p id="pricing-text" class="center-block">512 MB RAM</p><p id="pricing-text" class="center-block">2 GB SSD</p><p id="pricing-text" class="center-block">FTP</p></div>
                 
-				<div class="col-sm-3"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/bolt.svg" height="100px" width="100px"><h3 id="pricing-text-title">Thor</h3><p id="pricing-text" class="center-block"><b>Features:</b> 1 GB RAM, 4 GB disk space & FTP access</p><p id="pricing-text" class="center-block"><b>Monthly cost:</b> £2</p><p id="pricing-text" class="center-block"><b>Premium features:</b> No advertisements on this website</p></div>
+				<div class="col-sm-2 pricing-box-premium"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/bolt.svg" height="100px" width="100px"><h3 id="pricing-text-title">Thor</h3><p id="pricing-text" class="center-block">1 GB RAM</p><p id="pricing-text" class="center-block">4 GB SSD</p><p id="pricing-text" class="center-block">FTP</p><p id="pricing-text" class="center-block"><b>Monthly cost:</b> £2</p><p id="pricing-text" class="center-block"><b>Premium features:</b> No advertisements on this website</p></div>
                 
-				<div class="col-sm-3"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/face-lg.png" height="100px" width="100px"><h3 id="pricing-text-title">Odin</h3><p id="pricing-text" class="center-block"><b>Features:</b> 2 GB RAM, 8 GB disk space & FTP access</p><p id="pricing-text" class="center-block"><b>Monthly cost:</b> £4</p><p id="pricing-text" class="center-block"><b>Premium features:</b> Tier #3 + Website extensions for free</p></div>                           
+				<div class="col-sm-2 pricing-box-premium"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/face-lg.png" height="100px" width="100px"><h3 id="pricing-text-title">Odin</h3><p id="pricing-text" class="center-block">2 GB RAM</p><p id="pricing-text" class="center-block">8 GB SSD</p><p id="pricing-text" class="center-block">FTP</p><p id="pricing-text" class="center-block"><b>Monthly cost:</b> £4</p><p id="pricing-text" class="center-block"><b>Premium features:</b> Tier #3 + Website extensions for free</p></div>                           
 			</div>
 			<br />
 			<br />
