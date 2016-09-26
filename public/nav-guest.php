@@ -12,7 +12,7 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li><a href="/index/#top">Home</a></li>
-        <li><a href="/index/#index-info">About</a></li>  
+        <li><a href="/index/#index-info">Features</a></li>  
         <li><a href="/index/#pricing">Pricing</a></li> 
         <li><a href="/knowledgebase">Support</a></li> 
       </ul>
