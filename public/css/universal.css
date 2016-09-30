@@ -37,3 +37,12 @@ body {
 #center-text-footer {
     display: inline-block;
 }
+
+#changeCurrency {
+	padding-bottom: 0px;
+	padding-top: 10px;
+}
+
+#changeCurrency img {
+	width: 30px;
+}

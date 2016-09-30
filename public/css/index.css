@@ -169,9 +169,10 @@
 	padding-left: 12%;
 }
 
-.col-sm-2 {
-	width: 20% !important;
-	padding: 1% !important;
+.pricing-box {
+	min-width: 20%;
+	float: left;
+	padding: 1%;
 	margin-right: 2%;
 }
 
