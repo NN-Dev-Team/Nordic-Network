@@ -118,19 +118,21 @@ exports.find = function findEmailMatch(email, callback) {
 			return callback(err, __line);
 		}
 		
-		files.forEach(function(file) {
-			fs.readFile(file + '/user.txt', 'utf8', function(err, data) {
-				if(err) {
-					return callback(err, __line);
-				}
-				
-				if(data[0].trim() == email) {
-					callback(err, __line, true, data, i, Number(data.trim()));
-				}
-			});
+		files.forEach(function(file, index, arr) {
+			if(file != "user.txt") {
+				fs.readFile('users/' + file + '/user.txt', 'utf8', function(err, data) {
+					if(err) {
+						return callback(err, __line);
+					}
+					
+					if(data[0].trim() == email) {
+						callback(err, __line, true, data, i, Number(data.trim()));
+					} else if(index + 1 == arr.length) {
+						callback(err, __line, false, data);
+					}
+				});
+			}
 		});
-		
-		callback(err, __line, false, data);
 	});
 }
 
@@ -140,19 +142,21 @@ exports.findSession = function findSessionMatch(session, callback) { // Currentl
 			return callback(err, __line);
 		}
 		
-		files.forEach(function(file) {
-			fs.readFile(file + '/user.txt', 'utf8', function(err, data) {
-				if(err) {
-					return callback(err, __line);
-				}
-				
-				if(data[2].trim() == session) {
-					callback(err, __line, true, i);
-				}
-			});
+		files.forEach(function(file, index, arr) {
+			if(file != "user.txt") {
+				fs.readFile('users/' + file + '/user.txt', 'utf8', function(err, data) {
+					if(err) {
+						return callback(err, __line);
+					}
+					
+					if(data[2].trim() == session) {
+						callback(err, __line, true, i);
+					} else if(index + 1 == arr.length) {
+						callback(err, __line, false);
+					}
+				});
+			}
 		});
-		
-		callback(err, __line, false);
 	});
 }
 
