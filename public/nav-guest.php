@@ -19,6 +19,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+		<li><a id="changeCurrency" href="javascript:void(0)"><img src="/pics/icons/uk-icon.png" /></a></li>
       </ul>
     </div>
   </div>

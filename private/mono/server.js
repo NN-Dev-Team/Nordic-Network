@@ -160,6 +160,7 @@ io.on('connection', function(socket){
 										sendToClient('reg-complete');
 										broadcast('main-stats', {"servers": usr});
 									});
+								}
 							});
 						});
 					});
