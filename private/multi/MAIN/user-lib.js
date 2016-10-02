@@ -118,21 +118,34 @@ exports.find = function findEmailMatch(email, callback) {
 			return callback(err, __line);
 		}
 		
-		files.forEach(function(file, index, arr) {
-			if(file != "users.txt") {
-				fs.readFile('users/' + file + '/user.txt', 'utf8', function(err, data) {
+		var done = false;
+		
+		for(i = 0; i < files.length; i++) {
+			if(files[i] != "users.txt") {
+				fs.readFile('users/' + files[i] + '/user.txt', 'utf8', function(err, data) {
 					if(err) {
 						return callback(err, __line);
 					}
 					
-					if(data[0].trim() == email) {
-						callback(err, __line, true, data, i, Number(data.trim()));
-					} else if(index + 1 == arr.length) {
-						callback(err, __line, false, data);
+					var content = data.split("\n");
+					
+					if(content[0].trim() == email) {
+						callback(err, __line, true, content, files[i]);
+						done = true;
 					}
 				});
 			}
-		});
+			
+			if(done) {
+				break;
+			}
+		}
+		
+		setTimeout(function() {
+			if(!done) {
+				callback(err, __line, false);
+			}
+		}, 100);
 	});
 }
 
@@ -142,21 +155,34 @@ exports.findSession = function findSessionMatch(session, callback) { // Currentl
 			return callback(err, __line);
 		}
 		
-		files.forEach(function(file) {
-			if(file != "users.txt") {
-				fs.readFile(file + '/user.txt', 'utf8', function(err, data) {
+		var done = false;
+		
+		for(i = 0; i < files.length; i++) {
+			if(files[i] != "users.txt") {
+				fs.readFile('users/' + files[i] + '/user.txt', 'utf8', function(err, data) {
 					if(err) {
 						return callback(err, __line);
 					}
 					
-					if(data[2].trim() == session) {
-						callback(err, __line, true, i);
-					} else if(index + 1 == arr.length) {
-						callback(err, __line, false);
+					var content = data.split("\n");
+					
+					if(content[2].trim() == session) {
+						callback(err, __line, true, files[i]);
+						done = true;
 					}
 				});
 			}
-		});
+			
+			if(done) {
+				break;
+			}
+		}
+		
+		setTimeout(function() {
+			if(!done) {
+				callback(err, __line, false);
+			}
+		}, 100);
 	});
 }
 

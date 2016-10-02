@@ -218,14 +218,16 @@ io.on('connection', function(socket){
 									
 									sendToClient('login-complete', {"user": usr, "session": userSession});
 								});
+							} else {
+								return sendToClient('login-complete', "Incorrect email and/or password.", '5.' + __line);
 							}
 						});
 					} else {
-						return sendToClient('login-complete', "Incorrect email and/or password", '5.' + __line);
+						return sendToClient('login-complete', "Incorrect email and/or password.", '6.' + __line);
 					}
 				});
 			} else {
-				sendToClient('login-complete', "Invalid email.", '6.' + __line);
+				sendToClient('login-complete', "Invalid email.", '7.' + __line);
 			}
 		});
 	});
