@@ -118,10 +118,13 @@ exports.find = function findEmailMatch(email, callback) {
 			return callback(err, __line);
 		}
 		
-		var done = false;
+		var email_found = false;
+		var files_processed = 0;
 		
 		for(i = 0; i < files.length; i++) {
-			if(files[i] != "users.txt") {
+			if(files[i] == "users.txt") {
+				files_processed++;
+			} else {
 				fs.readFile('users/' + files[i] + '/user.txt', 'utf8', function(err, data) {
 					if(err) {
 						return callback(err, __line);
@@ -131,21 +134,28 @@ exports.find = function findEmailMatch(email, callback) {
 					
 					if(content[0].trim() == email) {
 						callback(err, __line, true, content, files[i]);
-						done = true;
+						email_found = true;
 					}
+					
+					files_processed++;
 				});
 			}
 			
-			if(done) {
+			if(email_found) {
+				files_processed = files.length;
 				break;
 			}
 		}
 		
-		setTimeout(function() {
-			if(!done) {
-				callback(err, __line, false);
+		var i_id = setInterval(function() {
+			if(files_processed == files.length) {
+				if(!email_found) {
+					callback(err, __line, false);
+				}
+				
+				clearInterval(i_id);
 			}
-		}, 100);
+		}, 0);
 	});
 }
 
@@ -155,10 +165,13 @@ exports.findSession = function findSessionMatch(session, callback) { // Currentl
 			return callback(err, __line);
 		}
 		
-		var done = false;
+		var session_found = false;
+		var files_processed = 0;
 		
 		for(i = 0; i < files.length; i++) {
-			if(files[i] != "users.txt") {
+			if(files[i] == "users.txt") {
+				files_processed++;
+			} else {
 				fs.readFile('users/' + files[i] + '/user.txt', 'utf8', function(err, data) {
 					if(err) {
 						return callback(err, __line);
@@ -166,23 +179,32 @@ exports.findSession = function findSessionMatch(session, callback) { // Currentl
 					
 					var content = data.split("\n");
 					
-					if(content[2].trim() == session) {
+					if(content[2].trim() == email) {
 						callback(err, __line, true, files[i]);
-						done = true;
+						session_found = true;
 					}
+					
+					files_processed++;
 				});
 			}
 			
-			if(done) {
+			if(session_found) {
+				files_processed = files.length;
 				break;
 			}
 		}
 		
-		setTimeout(function() {
-			if(!done) {
-				callback(err, __line, false);
+		while(files_processed < files.length);
+		
+		var i_id = setInterval(function() {
+			if(files_processed == files.length) {
+				if(!email_found) {
+					callback(err, __line, false);
+				}
+				
+				clearInterval(i_id);
 			}
-		}, 100);
+		}, 0);
 	});
 }
 
