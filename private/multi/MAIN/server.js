@@ -246,6 +246,8 @@ io.on('connection', function(socket){
 									
 									sendToClient('login-complete', {"user": usr, "session": userSession});
 								});
+							} else {
+								return sendToClient('login-complete', "Invalid email and/or password", '4.' + __line);
 							}
 						});
 					} else {
@@ -253,19 +255,19 @@ io.on('connection', function(socket){
 						
 						client.on('login-done', function(data) {
 							if(data.err) {
-								return sendToClient('login-complete', data.err, '6.' + __line + " " + data.id);
+								return sendToClient('login-complete', data.err, '5.' + __line + " " + data.id);
 							}
 								
 							if(data.matching) {
 								io.emit('login-complete', {"success": true, "session": data.session});
 							} else {
-								return sendToClient('login-complete', "Incorrect email and/or password", '5.' + __line);
+								return sendToClient('login-complete', "Incorrect email and/or password", '6.' + __line);
 							}
 						});
 					}
 				});
 			} else {
-				sendToClient('login-complete', "Invalid email.", '6.' + __line);
+				sendToClient('login-complete', "Invalid email.", '7.' + __line);
 			}
 		});
 	});
