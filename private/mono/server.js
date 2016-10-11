@@ -148,13 +148,30 @@ io.on('connection', function(socket){
 							// User doesn't exist yet, check if enough disk space is available
 							diskspace.check('/', function (err, total, free) {
 								if(free < 2147483648) {
-									return sendToClient('reg-complete', "Not enough diskspace.", '5.' + __line);
+									user.delOld(function(err, line, success) {
+										if(err) {
+											return sendToClient('reg-complete', err, '5.' + __line);
+										}
+										
+										if(success) {
+											user.add(usr, data.email, hash, function(err, line) {
+												if(err) {
+													return sendToClient('reg-complete', err, '6.' + __line + '.' + line);
+												}
+												
+												sendToClient('reg-complete');
+												broadcast('main-stats', {"servers": usr});
+											});
+										} else {
+											return sendToClient('reg-complete', "Not enough diskspace.", '7.' + __line);
+										}
+									});
 								} else {
 									
 									// Enough disk space available, register user
 									user.add(usr, data.email, hash, function(err, line) {
 										if(err) {
-											return sendToClient('reg-complete', err, '6.' + __line + '.' + line);
+											return sendToClient('reg-complete', err, '8.' + __line + '.' + line);
 										}
 										
 										sendToClient('reg-complete');
@@ -179,7 +196,7 @@ io.on('connection', function(socket){
 			}
 			
 			if(banned[0]) {
-				return sendToClient('login-complete', "Please don't overload our servers.", '7.' + __line);
+				return sendToClient('login-complete', "Please don't overload our servers.", '0.' + __line);
 			} else if(banned[1]) {
 				user.addIP(IP, function(err) {
 					if(err) {
@@ -197,13 +214,13 @@ io.on('connection', function(socket){
 			} else if(((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
 				user.find(data.email, function(err, line, found, dat, usr) {
 					if(err) {
-						return sendToClient('login-complete', err, '8.' + __line + '.' + line);
+						return sendToClient('login-complete', err, '9.' + __line + '.' + line);
 					}
 					
 					if(found) {
 						bcrypt.compare(data.pass, dat[1].trim(), function(err, valid) {
 							if(err) {
-								return sendToClient('login-complete', err, '9.' + __line);
+								return sendToClient('login-complete', err, '10.' + __line);
 							}
 							
 							if(valid) {
@@ -213,13 +230,13 @@ io.on('connection', function(socket){
 								
 								fs.writeFile("users/" + usr + "/user.txt", dat.join("\n"), function(err, data) {
 									if(err) {
-										return sendToClient('login-complete', err, '10.' + __line);
+										return sendToClient('login-complete', err, '11.' + __line);
 									}
 									
 									sendToClient('login-complete', {"user": usr, "session": userSession});
 								});
 							} else {
-								return sendToClient('login-complete', "Incorrect email and/or password.", '11.' + __line);
+								return sendToClient('login-complete', "Incorrect email and/or password.", '12.' + __line);
 							}
 						});
 					} else {
@@ -239,7 +256,7 @@ io.on('connection', function(socket){
 			}
 			
 			if(banned[0]) {
-				return sendToClient('logout-complete', "Please don't overload our servers.", '13.' + __line);
+				return sendToClient('logout-complete', "Please don't overload our servers.", '0.' + __line);
 			} else if(banned[1]) {
 				user.addIP(IP, function(err) {
 					if(err) {
@@ -254,13 +271,13 @@ io.on('connection', function(socket){
             
             user.get(data.id, function(err, line, dat) {
 				if(err) {
-				    return sendToClient('logout-complete', err, '14.' + __line + '.' + line);
+				    return sendToClient('logout-complete', err, '13.' + __line + '.' + line);
 				}
                 
                 if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
                     user.changeProp(data.id, 2, "SESSION EXPIRED", function(err, line) {
                         if(err) {
-                            return sendToClient('logout-complete', err, '15.' + __line + '.' + line);
+                            return sendToClient('logout-complete', err, '14.' + __line + '.' + line);
                         }
                         
                         sendToClient('logout-complete');
@@ -278,7 +295,7 @@ io.on('connection', function(socket){
 			}
 			
 			if(banned[0]) {
-				return sendToClient('creation-complete', "Please don't overload our servers.", '16.' + __line);
+				return sendToClient('creation-complete', "Please don't overload our servers.", '0.' + __line);
 			} else if(banned[1]) {
 				user.addIP(IP, function(err) {
 					if(err) {
@@ -294,15 +311,15 @@ io.on('connection', function(socket){
 			if(typeof data.session != 'string' || (data.session).length < 24) {
 				return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 			} else if(Math.round((new Date).getTime() / 60000 > (data.session).substring(16))) {
-				return sendToClient('creation-complete', "Session has expired.", '17.' + __line);
+				return sendToClient('creation-complete', "Session has expired.", '15.' + __line);
 			} else if(data.type < 0 || data.type > 2) {
-				return sendToClient('creation-complete', "Invalid server type.", '18.' + __line);
+				return sendToClient('creation-complete', "Invalid server type.", '16.' + __line);
 			} else if(typeof data.id == 'number') {
 				
 				// User id specified, get user session
 				user.get(data.id, function(err, line, dat) {
 					if(err) {
-						return sendToClient('creation-complete', err, '19.' + __line + '.' + line);
+						return sendToClient('creation-complete', err, '17.' + __line + '.' + line);
 					}
 					
 					// Check if session is valid
@@ -311,18 +328,18 @@ io.on('connection', function(socket){
 						// Session valid, create server
 						mkdir("users/" + data.id + "/server", function(err) {
 							if(err) {
-								return sendToClient('creation-complete', err, '20.' + __line);
+								return sendToClient('creation-complete', err, '18.' + __line);
 							}
 							
 							fs.writeFile("users/" + data.id + "/server/.properities", "0\n" + data.type + "\n0\n0", function(err, dat) {
 								if(err) {
-									return sendToClient('creation-complete', err, '21.' + __line);
+									return sendToClient('creation-complete', err, '19.' + __line);
 								}
 								
 								if(data.type == 0) {
 									mcLib.addJar("servers/" + data.id, function(err) {
 										if(err) {
-											return sendToClient('creation-complete', err, '22' + __line);
+											return sendToClient('creation-complete', err, '20.' + __line);
 										}
 										
 										sendToClient('creation-complete');
@@ -331,46 +348,11 @@ io.on('connection', function(socket){
 							});
 						});
 					} else {
-						sendToClient('creation-complete', "Unknown session.", '23.' + __line);
+						sendToClient('creation-complete', "Invalid session.", '21.' + __line);
 					}
 				});
 			} else {
-				return sendToClient('creation-complete', "User id not specified.", '24.' + __line);
-				
-				// User id not specified, look through every user file for a matching session
-				// !! OUTDATED !!
-/*				user.findSession(data.session, function(err, line, found, usr) {
-					if(err) {
-						return sendToClient('creation-complete', err, '9.' + __line + '.' + line);
-					}
-					
-					if(found) {
-						// Session valid, create server
-						mkdir("servers/" + usr, function(err) {
-							if(err) {
-								return sendToClient('creation-complete', err, '10.' + __line);
-							}
-							
-							fs.writeFile("servers/" + usr + "/.properities", "0\n" + data.type + "\n0\n0", function(err, dat) {
-								if(err) {
-									return sendToClient('creation-complete', err, '11.' + __line);
-								}
-								
-								if(data.type == 0) {
-									mcLib.addJar("servers/" + usr, function(err) {
-										if(err) {
-											return sendToClient('creation-complete', err, '12.' + __line);
-										}
-										
-										sendToClient('creation-complete');
-									});
-								}
-							});
-						});
-					} else {
-						sendToClient('creation-complete', "Unknown session.", '13.' + __line);
-					}
-				}); */
+				return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 			}
 		});
 	});
@@ -383,7 +365,7 @@ io.on('connection', function(socket){
 			}
 			
 			if(banned[0]) {
-				return sendToClient('server-checked', "Please don't overload our servers.", '25.' + __line);
+				return sendToClient('server-checked', "Please don't overload our servers.", '0.' + __line);
 			} else if(banned[1]) {
 				user.addIP(IP, function(err) {
 					if(err) {
@@ -402,15 +384,14 @@ io.on('connection', function(socket){
 			
 			fs.readFile('users/' + data.server + '/server/.properities', 'utf8', function(err, dat) {
 				if (err) {
-					return sendToClient('server-checked', err, '26.' + __line);
+					return sendToClient('server-checked', err, '22.' + __line);
 				}
 				
 				props = dat.split("\n");
 				var serv_isSleeping = boolify(props[0].trim());
 				var serv_type = props[1].trim();
 				var serv_rank = props[2].trim();
-				var serv_timeOn = props[3].trim(); // Will not be used in this case, it's just here so we can remember it
-				var serv_lastOn = props[4].trim(); // Will not be used in this case, it's just here so we can remember it
+				var serv_lastOn = props[3].trim(); // Will not be used in this case, it's just here so we can remember it
 				var serv_ram = [[256, 512, 1024, 2048, 4096], [512, 1024, 2048, 4096], [512, 1024, 2048, 4096]];
 				
 				fs.readFile('users/' + data.server + "/user.txt", 'utf8', function(err, dat) {
@@ -426,7 +407,7 @@ io.on('connection', function(socket){
 							
 							exec("java -Xmx" + serv_ram[serv_type][serv_rank] + "M -Xms" + serv_ram[serv_type][serv_rank] + "M -jar servers/" + data.server + "/minecraft_server.jar nogui", function(err2, out, stderr) {
 								if(err2) {
-									return sendToClient('server-checked', stderr, '27.' + __line);
+									return sendToClient('server-checked', stderr, '23.' + __line);
 								}
 								
 								sendToClient('server-checked', serv_type);
@@ -437,7 +418,7 @@ io.on('connection', function(socket){
 							// Minecraft Win 10
 						}
 					} else {
-						return sendToClient('server-checked', "Invalid session.", '28.' + __line);
+						return sendToClient('server-checked', "Invalid session.", '21.' + __line);
 					}
 				});
 			});
@@ -451,7 +432,7 @@ io.on('connection', function(socket){
 			}
 			
 			if(banned[0]) {
-				return sendToClient('server-stopped', "Please don't overload our servers.", '29.' + __line);
+				return sendToClient('server-stopped', "Please don't overload our servers.", '0.' + __line);
 			} else if(banned[1]) {
 				user.addIP(IP, function(err) {
 					if(err) {
@@ -470,7 +451,7 @@ io.on('connection', function(socket){
 			
 			fs.readFile('users/' + data.server + '/server/.properities', 'utf8', function(err, dat) {
 				if (err) {
-					return sendToClient('server-stopped', err, '30.' + __line);
+					return sendToClient('server-stopped', err, '24.' + __line);
 				}
 				
 				props = dat.split("\n");
@@ -494,7 +475,7 @@ io.on('connection', function(socket){
 							
 							fs.readFile('users/' + data.server + '/server/server.properities', 'utf8', function(err, data) {
 								if(err) {
-									return sendToClient('server-stopped', err, '31.' + __line);
+									return sendToClient('server-stopped', err, '25.' + __line);
 								}
 								
 								props = data.split("\n");
@@ -524,7 +505,7 @@ io.on('connection', function(socket){
 							// Minecraft Win 10
 						}
 					} else {
-						return sendToClient('server-stopped', "Invalid session.", '32.' + __line);
+						return sendToClient('server-stopped', "Invalid session.", '21.' + __line);
 					}
 				});
 			});
@@ -538,7 +519,7 @@ io.on('connection', function(socket){
 			}
 			
 			if(banned[0]) {
-				return sendToClient('console-query', "Please don't overload our servers.", '33.' + __line);
+				return sendToClient('console-query', "Please don't overload our servers.", '0.' + __line);
 			} else if(banned[1]) {
 				user.addIP(IP, function(err) {
 					if(err) {
@@ -554,13 +535,13 @@ io.on('connection', function(socket){
 			if(typeof data.session != 'string' || (data.session).length < 24) {
 				return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 			} else if(Math.round((new Date).getTime() / 60000 > (data.session).substring(16))) {
-				return sendToClient('console-query', "Session has expired.", '34.' + __line);
+				return sendToClient('console-query', "Session has expired.", '15.' + __line);
 			} else if(typeof data.id == 'number') {
 				
 				// Get user data
 				user.get(data.id, function(err, line, dat) {
 					if(err) {
-						return sendToClient('console-query', err, '35.' + __line + '.' + line);
+						return sendToClient('console-query', err, '26.' + __line + '.' + line);
 					}
 					
 					// Check if session is valid
@@ -569,7 +550,7 @@ io.on('connection', function(socket){
 						// Session valid, get server data
 						fs.readFile('users/' + data.server + '/server/server.properities', 'utf8', function(err, dat) {
 							if (err) {
-								return sendToClient('console-query', err, '36.' + __line);
+								return sendToClient('console-query', err, '27.' + __line);
 							}
 							
 							props = data.split("\n");
@@ -583,7 +564,7 @@ io.on('connection', function(socket){
 								// Minecraft
 								fs.readFile('users/' + data.id + '/server/server.properities', 'utf8', function(err, dat) {
 									if(err) {
-										return sendToClient('console-query', err, '37.' + __line);
+										return sendToClient('console-query', err, '28.' + __line);
 									}
 									
 									props = dat.split("\n");
@@ -604,17 +585,17 @@ io.on('connection', function(socket){
 									}).on('response', function(data) {
 										sendToClient('console-query', data);
 									}).on('error', function(err) {
-										return sendToClient('console-query', err, '38.' + __line);
+										return sendToClient('console-query', err, '29.' + __line);
 									});
 									
 									conn.connect();
 								});
 							} else {
-								return sendToClient('console-query', "This game does not support RCON :(", '39.' + __line);
+								return sendToClient('console-query', "This game does not support RCON :(", '30.' + __line);
 							}
 						});
                     } else {
-                        return sendToClient('console-query', "Invalid session.", '40.' + __line);
+                        return sendToClient('console-query', "Invalid session.", '21.' + __line);
                     }
                 });
             } else {
@@ -631,7 +612,7 @@ io.on('connection', function(socket){
 			}
 			
 			if(banned[0]) {
-				return sendToClient('app-status', "Please don't overload our servers.", '41.' + __line);
+				return sendToClient('app-status', "Please don't overload our servers.", '0.' + __line);
 			} else if(banned[1]) {
 				user.addIP(IP, function(err) {
 					if(err) {
@@ -646,12 +627,12 @@ io.on('connection', function(socket){
 			
 			fs.writeFile('../apps/new/' + data.id + '.txt', data.app, function(err, dat) {
 				if(err) {
-					return sendToClient('app-status', err, '42.' + __line);
+					return sendToClient('app-status', err, '31.' + __line);
 				}
 				
 				app_sorter.checkApp(data.id, function(err, approved) {
 					if(err) {
-						return sendToClient('app-status', err, '43.' + __line);
+						return sendToClient('app-status', err, '32.' + __line);
 					}
 					
 					if(approved) {
@@ -673,7 +654,7 @@ io.on('connection', function(socket){
 			}
 			
 			if(banned[0]) {
-				return sendToClient('main-stats', "Please don't overload our servers.", '44.' + __line);
+				return sendToClient('main-stats', "Please don't overload our servers.", '0.' + __line);
 			} else if(banned[1]) {
 				user.addIP(IP, function(err) {
 					if(err) {
@@ -689,7 +670,7 @@ io.on('connection', function(socket){
             user.getTotal(function(err, serverCount) {
                 exec("free -m", function(err, out, stderr) {
                     if(err) {
-                        return sendToClient('main-stats', stderr, '45.' + __line);
+                        return console.log(err);
                     }
                     
                     var c = out.indexOf("Mem");
