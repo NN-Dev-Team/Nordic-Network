@@ -198,7 +198,7 @@ exports.findSession = function findSessionMatch(session, callback) { // Currentl
 		
 		var i_id = setInterval(function() {
 			if(files_processed == files.length) {
-				if(!email_found) {
+				if(!session_found) {
 					callback(err, __line, false);
 				}
 				
