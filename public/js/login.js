@@ -36,22 +36,15 @@ function addCookie(name, value, time) {
 
 socket.on('login-complete', function(data){
 	if(data.success){
-		console.log("Successfully logged in!");
 		addCookie("user_id", data.info.user, 1);
 		addCookie("session", data.info.session, 1);
 		location.reload();
 	} else {
-		console.log("Failed to login.");
-		console.log("Reason: ", data.reason);
-		console.log("ID: ", data.id);
-		$('#login-failure').css('display', 'block');
-		$('#login-failure #reason').html('Reason:' + data.reason);
-		$('#login-failure #err-id').html('Error ID:' + data.id);
+		sweetAlert("Failed to login", "Reason: " + data.reason + "\nID: " + data.id, "error");
 	}
 });
 
 $('form').submit(function(){
-	console.log("Logging in...");
     socket.emit('login', {email: $('#email').val(), pass: $('#passwrd'.val())});
     return false;
 });

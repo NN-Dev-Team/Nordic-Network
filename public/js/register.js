@@ -27,16 +27,13 @@ if(host == "N/A" || port == -1) {
 
 socket.on('reg-complete', function(data){
 	if(data.success){
-		console.log("Successfully created account!");
+		location.reload();
 	} else {
-		console.log("Failed to create account.");
-		console.log("Reason: ", data.reason);
-		console.log("ID: ", data.id);
+		sweetAlert("Failed to register", "Reason: " + data.reason + "\nID: " + data.id, "error");
 	}
 });
 
 $('form').submit(function(){
-	console.log("Registering...");
     socket.emit('register', {email: $('#email').val(), pass: $('#passwrd'.val())});
     return false;
 });
