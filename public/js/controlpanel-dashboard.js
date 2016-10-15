@@ -37,49 +37,34 @@ $(document).ready(function() {
 	socket.emit('get-status', {"server": Number(getCookie("user_id")), "session": getCookie("session")});
 	
 	socket.on('server-checked', function(data){
-		if(data.success){
-			if(data.info == "Minecraft") {
-				console.log("Successfully started Minecraft server!");
-			}
-		} else {
-			console.log("Failed to start server.");
-			console.log("Reason: ", data.reason);
-			console.log("ID: ", data.id);
+		if(!data.success) {
+			sweetAlert("Failed to start server", "Reason: " + data.reason + "\nID: " + data.id, "error");
 		}
 	});
 	
 	socket.on('server-stopped', function(data){
-		if(data.success){
-			console.log("Successfully closed server.");
-		} else {
-			console.log("Failed to stop server.");
-			console.log("Reason: ", data.reason);
-			console.log("ID: ", data.id);
+		if(!data.success) {
+			sweetAlert("Failed to stop server", "Reason: " + data.reason + "\nID: " + data.id, "error");
 		}
 	});
 	
 	socket.on('server-stats', function(data) {
 		if(data.success){
-			console.log("Successfully received server status.");
 			$('ip').text(data.info.IP);
 			$('version').text(data.info.version);
 		} else {
-			console.log("Failed to get status.");
-			console.log("Reason: ", data.reason);
-			console.log("ID: ", data.id);
+			sweetAlert("Failed to get server status", "Reason: " + data.reason + "\nID: " + data.id, "error");
 		}
 	});
 	
 	
 	$('button #start-server').click(function(){
 		socket.emit('start-server', { "server": Number(getCookie("user_id")), "session": getCookie("session") });
-		console.log("Starting server...");
 		return false;
 	});
 	
 	$('button #stop-server').click(function(){
 		socket.emit('stop-server', { "server": Number(getCookie("user_id")), "session": getCookie("session") });
-		console.log("Stopping server...");
 		return false;
 	});
 });
