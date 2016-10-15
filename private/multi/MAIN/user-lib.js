@@ -118,19 +118,44 @@ exports.find = function findEmailMatch(email, callback) {
 			return callback(err, __line);
 		}
 		
-		files.forEach(function(file) {
-			fs.readFile(file + '/user.txt', 'utf8', function(err, data) {
-				if(err) {
-					return callback(err, __line);
+		var email_found = false;
+		var files_processed = 0;
+		
+		for(i = 0; i < files.length; i++) {
+			if(files[i] == "users.txt") {
+				files_processed++;
+			} else {
+				fs.readFile('users/' + files[i] + '/user.txt', 'utf8', function(err, data) {
+					if(err) {
+						return callback(err, __line);
+					}
+					
+					var content = data.split("\n");
+					
+					if(content[0].trim() == email) {
+						callback(err, __line, true, content, files[i]);
+						email_found = true;
+					}
+					
+					files_processed++;
+				});
+			}
+			
+			if(email_found) {
+				files_processed = files.length;
+				break;
+			}
+		}
+		
+		var i_id = setInterval(function() {
+			if(files_processed == files.length) {
+				if(!email_found) {
+					callback(err, __line, false);
 				}
 				
-				if(data[0].trim() == email) {
-					callback(err, __line, true, data, i, Number(data.trim()));
-				}
-			});
-		});
-		
-		callback(err, __line, false, data);
+				clearInterval(i_id);
+			}
+		}, 0);
 	});
 }
 
@@ -140,19 +165,46 @@ exports.findSession = function findSessionMatch(session, callback) { // Currentl
 			return callback(err, __line);
 		}
 		
-		files.forEach(function(file) {
-			fs.readFile(file + '/user.txt', 'utf8', function(err, data) {
-				if(err) {
-					return callback(err, __line);
+		var session_found = false;
+		var files_processed = 0;
+		
+		for(i = 0; i < files.length; i++) {
+			if(files[i] == "users.txt") {
+				files_processed++;
+			} else {
+				fs.readFile('users/' + files[i] + '/user.txt', 'utf8', function(err, data) {
+					if(err) {
+						return callback(err, __line);
+					}
+					
+					var content = data.split("\n");
+					
+					if(content[2].trim() == email) {
+						callback(err, __line, true, files[i]);
+						session_found = true;
+					}
+					
+					files_processed++;
+				});
+			}
+			
+			if(session_found) {
+				files_processed = files.length;
+				break;
+			}
+		}
+		
+		while(files_processed < files.length);
+		
+		var i_id = setInterval(function() {
+			if(files_processed == files.length) {
+				if(!session_found) {
+					callback(err, __line, false);
 				}
 				
-				if(data[2].trim() == session) {
-					callback(err, __line, true, i);
-				}
-			});
-		});
-		
-		callback(err, __line, false);
+				clearInterval(i_id);
+			}
+		}, 0);
 	});
 }
 

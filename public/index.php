@@ -8,6 +8,8 @@
 		<link rel="stylesheet" href="/css/universal.css">
 		<!-- Load custom CSS from file -->    
 		<link rel="stylesheet" href="/css/index.css">
+		<!-- Load font families -->
+		<link href="https://fonts.googleapis.com/css?family=David+Libre|Yatra+One" rel="stylesheet"> 
         <!-- Load Odometer Theme CSS from file -->
         <link rel="stylesheet" href="/css/odometer-theme-minimal.css" />
 		<!-- Load bootstrap CSS from CDN -->
@@ -43,12 +45,12 @@
 			<div class="container-fluid">    
 				<div id="jumbo-container">
 					<br />
-					<h1 id=title>Start small, grow big!</h1>
+					<br />
+					<h1 id="title">Start small, grow big!</h1>
+					<p id="subtitle">Free minecraft server hosting, designed to help your server grow.</p>
 					<br />
 					<br />
-					<br />
-					<br />
-					<a type="button" id="getserver" class="btn btn-primary btn-lg" href="/register.php">Get your free server</a>
+					<a type="button" id="getserver" class="btn btn-primary btn-lg" href="/register.php">Get started</a>
 				</div>
 				
 				<a href="/index/#index-info" class="glyphicon glyphicon-chevron-down white-glyphicon"></a>
@@ -62,7 +64,7 @@
 		<span id="index-info"></span>
 		<br />
 		<br>
-		<div class="container-fluid">   
+		<div class="container-fluid" id="feature-container">   
 			
 			<br>
 			
@@ -70,15 +72,15 @@
 			<br>
 			
 			<div class="row">
-				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/settings-sm.png" height="50px" width="50px"><h4 id="feature-text-title">Powerful dashboard</h4><p id="feature-text" class="center-block">All of our servers come with a custom dashboard. It has a file manager, version installer and many other great features.</p></div>
-				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/cloud-sm.png" height="50px" width="50px"><h4 id="feature-text-title">Free server page</h4><p id="feature-text" class="center-block">Each server comes with it's very own website hosted by us! Add pictures, videos and text, let players donate upgrades and vote to keep your server alive (Minecraft server websites support Votifier). You can also purchase extensions like forums and blogs!</p></div>
-				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/game-sm.png" height="50px" width="50px"><h4 id="feature-text-title">Game library</h4><p id="feature-text" class="center-block">We support various games ranging from Minecraft to CS:GO!</p></div>
+				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/settings-sm.png" height="50px" width="50px"><h3 id="feature-text-title">Powerful dashboard</h3><p id="feature-text" class="center-block">All of our servers come with a custom dashboard. It has a file manager, version installer and many other great features.</p></div>
+				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/cloud-sm.png" height="50px" width="50px"><h3 id="feature-text-title">Free server page</h3><p id="feature-text" class="center-block">Each server comes with it's very own page hosted by us! Add pictures, videos and text, let players donate and vote to keep your server alive. You can also purchase extensions like forums and blogs!</p></div>
+				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/game-sm.png" height="50px" width="50px"><h3 id="feature-text-title">Game library</h3><p id="feature-text" class="center-block">We support various versions of Minecraft, such as PC, Win 10 & PE!</p></div>
 			</div>
 			<br />
 			<div class="row">
-				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/shield-sm.png" height="50px" width="50px"><h4 id="feature-text-title">Secure</h4><p id="feature-text" class="center-block">Our servers are protected from DDOS attacks, and everything else that may hurt your server.</p></div>
-				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/heart-sm.png" height="50px" width="50px"><h4 id="feature-text-title">Made with <span class="glyphicon glyphicon-heart"></span></h4><p id="feature-text" class="center-block">Made by gamers, for gamers. </p></div>
-				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/github.png" height="50px" width="50px"><h4 id="feature-text-title">Open Source</h4><p id="feature-text" class="center-block">Our code is open source on Github, so you can help us improve this service.</p></div>
+				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/shield-sm.png" height="50px" width="50px"><h3 id="feature-text-title">Secure</h3><p id="feature-text" class="center-block">Our servers are protected from DDOS attacks, and everything else that may hurt your server.</p></div>
+				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/bolt.svg" height="50px" width="50px"><h3 id="feature-text-title">Blazing fast</h3><p id="feature-text" class="center-block">We use Intel Core i7 Quad Core servers running on 4GHz, specifically designed for gaming! More information can be found <a href="https://www.ovh.co.uk/dedicated_servers/details-servers-range-GAME-id-MC-64.xml">here.</a></p></div>
+				<div class="col-sm-4"><svg id="feature-img" class="center-block" height="50px" width="50px"><g transform="scale(3)"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></g></svg><h3 id="feature-text-title">Open Source</h3><p id="feature-text" class="center-block">Our code is open source on Github, so you can help us improve this service.</p></div>
 			</div>
 			
       <!-- Who wants a cookie? :D     
@@ -95,34 +97,8 @@
 		</div>
 		
 		<div id="about-text-container">
-			<br />
-			<h2 id="about-text-title">About us</h2>
-			<p id="about-text" class="center-block">Our small group of programmers and designers work hard to give you your own personal server. We make updates all the time, making it better almost everyday, we keep your servers at safe keeping.<br> We will help with whatever you need with our fantastic support and friendly staff.</p><br>
-            <br />
-            <div>
-                
-                <h2 id="about-text-title">Statistics</h2>
-				<table id="stats-table">
-					<tbody>
-						<tr>
-							<td class="stats-val">
-								<h3 id="stats-servers" class="odometer center-block">123</h3>
-							</td>
-							<td>
-								<h4 class="stats-txt">servers created</h4>
-							</td>
-						</tr>
-						<tr>
-							<td class="stats-val">
-								<h3 id="stats-mem-usage" class="odometer center-block">12.3%</h3>
-							</td>
-							<td>
-								<h4 class="stats-txt">RAM used</h4>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-            </div>
+			<h1 id="stats-servers" class="odometer center-block">123,456</h1>
+			<h4 id="stats-txt">servers created so far</h4>
 		</div>
 		
 		<div id="pricing" class="container-fluid">
@@ -133,14 +109,14 @@
 			<br />
 			<br />
 			<br />
-			<div class="row">
-				<div class="col-sm-3"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/bulb_lg.png" height="100px" width="100px"><h4 id="pricing-text-title">Baldur</h4><p id="pricing-text" class="center-block"><b>Weekly cost:</b> £0,1 <b>OR</b> x votes</p><p id="pricing-text" class="center-block"><b>Features:</b> 256 MB RAM & 1 GB disk space</p></div>
+			<div class="row" id="pricing-row">
+				<div class="pricing-box pricing-box-free"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/bulb_lg.png" height="100px" width="100px"><h3 id="pricing-text-title">Baldur</h3><p class="pricing-text center-block">256 MB RAM</p><p class="pricing-text pricing-text-bottom center-block">1 GB SSD</p><h3 class="pricing-price">FREE</h3></div>
 				
-				<div class="col-sm-3"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/fire.svg" alt="fire" align="middle" height="100px" width="100px"><h4 id="pricing-text-title">Loki</h4><p id="pricing-text" class="center-block"><b>Weekly cost:</b> £0,2 <b>OR</b> x votes</p><p id="pricing-text" class="center-block"><b>Features:</b> 512 MB RAM, 2 GB disk space & FTP access</p></div>
+				<div class="pricing-box pricing-box-free"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/fire.svg" alt="fire" align="middle" height="100px" width="100px"><h3 id="pricing-text-title">Loki</h3><p class="pricing-text center-block">512 MB RAM</p><p class="pricing-text center-block">2 GB SSD</p><p class="pricing-text pricing-text-bottom center-block">FTP</p><h3 class="pricing-price">£1 / month</h3></div>
                 
-				<div class="col-sm-3"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/bolt.svg" height="100px" width="100px"><h4 id="pricing-text-title">Thor</h4><p id="pricing-text" class="center-block"><b>Weekly cost:</b> £0,4 <b>OR</b> x votes</p><p id="pricing-text" class="center-block"><b>Features:</b> 1 GB RAM, 4 GB disk space & FTP access</p><p id="pricing-text" class="center-block"><b>Monthly cost:</b> £2</p><p id="pricing-text" class="center-block"><b>Premium features:</b> No advertisements on this website</p></div>
+				<div class="pricing-box pricing-box-premium"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/bolt.svg" height="100px" width="100px"><h3 id="pricing-text-title">Thor</h3><p class="pricing-text center-block">1 GB RAM</p><p class="pricing-text center-block">4 GB SSD</p><p class="pricing-text center-block">FTP</p><p class="pricing-text pricing-text-bottom center-block"><b>No advertisements</b></p><h3 class="pricing-price">£3 / month</h3></div>
                 
-				<div class="col-sm-3"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/face-lg.png" height="100px" width="100px"><h4 id="pricing-text-title">Odin</h4><p id="pricing-text" class="center-block"><b>Weekly cost:</b> £0,8 <b>OR</b> x votes</p><p id="pricing-text" class="center-block"><b>Features:</b> 2 GB RAM, 8 GB disk space & FTP access</p><p id="pricing-text" class="center-block"><b>Monthly cost:</b> £4</p><p id="pricing-text" class="center-block"><b>Premium features:</b> Tier #3 + Website extensions for free</p></div>                           
+				<div class="pricing-box pricing-box-premium"><img id="pricing-img" class="center-block img-circle" src="/pics/icons/face-lg.png" height="100px" width="100px"><h3 id="pricing-text-title">Odin</h3><p class="pricing-text center-block">2 GB RAM</p><p class="pricing-text center-block">8 GB SSD</p><p class="pricing-text center-block">FTP</p><p class="pricing-text center-block"><b>No advertisements</b></p><p class="pricing-text pricing-text-bottom center-block"><b>Your own forum</b></p><h3 class="pricing-price">£5 / month</h3></div>                           
 			</div>
 			<br />
 			<br />
