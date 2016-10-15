@@ -15,6 +15,9 @@
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<!-- Load JQuery Waypoints from CDN -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
+		<!-- Load SweetAlert -->
+		<script src="/sweetalert/dist/sweetalert.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/sweetalert/dist/sweetalert.css">
 		
 		<script src="/js/register.js"></script>
 		
