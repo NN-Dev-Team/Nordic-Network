@@ -32,7 +32,7 @@
 		?>
 		
 		<div id="support-title-bg">
-			<h1 id="title-support">Support</h1>
+			<h1 id="support-title">Support</h1>
 		</div>
 	</body>
 </html>
