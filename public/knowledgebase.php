@@ -4,6 +4,8 @@
 		<title>Nordic Network - Flexible server hosting, the Nordic way</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Load font family -->
+		<link href="https://fonts.googleapis.com/css?family=David+Libre" rel="stylesheet"> 
 		<!-- Load universal CSS from file -->
 		<link rel="stylesheet" href="/css/universal.css">
 		<!-- Load custom CSS from file -->    
@@ -28,5 +30,9 @@
 				include 'nav-guest.php';
 			}
 		?>
+		
+		<div id="support-title-bg">
+			<h1 id="support-title">Support</h1>
+		</div>
 	</body>
 </html>
