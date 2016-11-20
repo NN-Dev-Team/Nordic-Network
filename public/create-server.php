@@ -6,6 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1"> 
 		<!-- Load universal CSS from file -->
 		<link rel="stylesheet" href="/css/universal.css">
+		<!-- Load custom CSS from file -->    
+		<link rel="stylesheet" href="/css/create-server.css">
 		<!-- Load bootstrap stylesheet from CDN -->
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<!-- Load JQuery from CDN -->
@@ -16,8 +18,10 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
 		<!-- Load Fontastic CSS from file -->
         <link rel="stylesheet" href="/css/fontastic.css">
+		<!-- Load custom JS from file -->
+		<script src="/js/createserv-client.js"></script>
 	</head>
-	<body>
+	<body onscroll="changeOpacity()">
 		<!-- Nav -->
 		<?php
 			if(isset($_COOKIE['session'])) {
