@@ -50,7 +50,7 @@
 					<p id="subtitle">Free minecraft server hosting, designed to help your server grow.</p>
 					<br />
 					<br />
-					<a type="button" id="getserver" class="btn btn-primary btn-lg" href="/register.php">Get started</a>
+					<a type="button" id="getserver" class="btn btn-primary btn-lg" href="/create-server">Get started</a>
 				</div>
 				
 				<a href="/index/#index-info" class="glyphicon glyphicon-chevron-down white-glyphicon"></a>
