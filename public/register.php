@@ -18,7 +18,7 @@
 		<!-- Load SweetAlert -->
 		<script src="/sweetalert/dist/sweetalert.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="/sweetalert/dist/sweetalert.css">
-		
+		<!-- Load custom JS -->
 		<script src="/js/register.js"></script>
 		
 		<title>Nordic Network - Flexible server hosting, the Nordic way</title>
