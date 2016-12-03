@@ -38,13 +38,13 @@ $(document).ready(function() {
 	
 	socket.on('server-checked', function(data){
 		if(!data.success) {
-			sweetAlert("Failed to start server", "Reason: " + data.reason + "\nID: " + data.id, "error");
+			swal("Failed to start server", "Reason: " + data.reason + "\nID: " + data.id, "error");
 		}
 	});
 	
 	socket.on('server-stopped', function(data){
 		if(!data.success) {
-			sweetAlert("Failed to stop server", "Reason: " + data.reason + "\nID: " + data.id, "error");
+			swal("Failed to stop server", "Reason: " + data.reason + "\nID: " + data.id, "error");
 		}
 	});
 	
@@ -53,7 +53,7 @@ $(document).ready(function() {
 			$('ip').text(data.info.IP);
 			$('version').text(data.info.version);
 		} else {
-			sweetAlert("Failed to get server status", "Reason: " + data.reason + "\nID: " + data.id, "error");
+			swal("Failed to get server status", "Reason: " + data.reason + "\nID: " + data.id, "error");
 		}
 	});
 	
