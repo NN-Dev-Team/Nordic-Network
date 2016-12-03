@@ -32,7 +32,7 @@ $(document).ready(function() {
 	return values;
 });
 
-host = values[0];
+host = values[0].trim();
 port = Number(values[1]);
 
 if(host == "N/A" || port == -1) {
