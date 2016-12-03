@@ -62,44 +62,38 @@ $(document).ready(function(){
 	
 	$.get("../properities.txt", function(data) {
         values = data.split("\n");
-		return values;
-    }, 'text');
-	
-	host = values[0];
-	port = Number(values[1]);
-	
-	if(host == "N/A" || port == -1) {
-		console.log("ERROR: Couldn't find host/port");
-	} else {
-		console.log("Creating socket...");
+		
+		host = values[0].trim();
+		port = Number(values[1]);
+	}).fail(function() {
+		swal("Failed to get server IP", "Please contact our admins about this error so we can fix it as soon as possible!", "error");
+	}).done(function() {
 		var socket = io('http://' + host + ":" + port);
-		if(typeof socket === 'undefined') {
-			console.log("Failed to create socket");
-		} else {
-			console.log("Successfully created socket");
+		if(socket.disconnected) {
+			swal("Unable to connect to server.", "It seems our game servers are down, please wait until we've fixed the problem :)", "error");
 		}
-	}
-	
-	socket.on('main-stats', function(data) {
-		if(data.success) {
-			console.log("Successfully received stats!");
-			if(data.info.servers) {
-				console.log("Amount of servers: " + data.info.servers);
+		
+		socket.on('main-stats', function(data) {
+			if(data.success) {
+				console.log("Successfully received stats!");
+				if(data.info.servers) {
+					console.log("Amount of servers: " + data.info.servers);
+				}
+				
+				if(data.info.max) {
+					console.log("Total Memory: " + data.info.max);
+				}
+				
+				if(data.info.used) {
+					console.log("Used Memory: " + data.info.used);
+				}
+			} else {
+				console.log("Failed to get stats");
+				console.log("Reason: " + data.reason);
+				console.log("ID: " + data.id);
 			}
-			
-			if(data.info.max) {
-				console.log("Total Memory: " + data.info.max);
-			}
-			
-			if(data.info.used) {
-				console.log("Used Memory: " + data.info.used);
-			}
-		} else {
-			console.log("Failed to get stats");
-            console.log("Reason: " + data.reason);
-            console.log("ID: " + data.id);
-		}
-	});
+		});
+    }, 'text');
 });
 
 function acceptCookies() {
