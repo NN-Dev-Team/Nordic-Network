@@ -18,6 +18,9 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
 		<!-- Load Fontastic CSS from file -->
         <link rel="stylesheet" href="/css/fontastic.css">
+		<!-- Load SweetAlert -->
+		<script src="/sweetalert/dist/sweetalert.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/sweetalert/dist/sweetalert.css">
 		<!-- Load custom JS from file -->
 		<script src="/js/createserv-client.js"></script>
 	</head>
