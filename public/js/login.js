@@ -8,19 +8,14 @@ $(document).ready(function() {
     $.get("../properities.txt", function(data) {
         values = data.split("\n");
 		
-		host = values[0].trim();;
+		host = values[0].trim();
 		port = Number(values[1]);
-		
-		if(host == "N/A" || port == -1) {
-			swal("Unable to connect to server.", "", "error");
-		} else {
-			console.log("Creating socket...");
-			var socket = io('http://' + host + ":" + port);
-			if(typeof socket === 'undefined') {
-				console.log("Failed to create socket");
-			} else {
-				console.log("Successfully created socket");
-			}
+	}).fail(function() {
+		swal("Failed to get server IP", "Please contact our admins about this error so we can fix it as soon as possible!", "error");
+	}).done(function() {
+		var socket = io('http://' + host + ":" + port);
+		if(typeof socket === 'undefined') {
+			swal("Unable to connect to server.", "It seems our game servers are down, please wait until we've fixed the problem :)", "error");
 		}
 		
 		socket.on('login-complete', function(data){
