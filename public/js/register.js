@@ -29,7 +29,7 @@ socket.on('reg-complete', function(data){
 	if(data.success){
 		location.reload();
 	} else {
-		sweetAlert("Failed to register", "Reason: " + data.reason + "\nID: " + data.id, "error");
+		swal("Failed to register", "Reason: " + data.reason + "\nID: " + data.id, "error");
 	}
 });
 

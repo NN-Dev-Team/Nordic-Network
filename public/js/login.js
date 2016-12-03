@@ -40,7 +40,7 @@ socket.on('login-complete', function(data){
 		addCookie("session", data.info.session, 1);
 		location.reload();
 	} else {
-		sweetAlert("Failed to login", "Reason: " + data.reason + "\nID: " + data.id, "error");
+		swal("Failed to login", "Reason: " + data.reason + "\nID: " + data.id, "error");
 	}
 });
 
