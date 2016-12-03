@@ -16,7 +16,7 @@ host = values[0];
 port = Number(values[1]);
 
 if(host == "N/A" || port == -1) {
-	console.log("ERROR: Couldn't find host/port");
+	swal("Unable to connect to server.", "", "error");
 } else {
 	console.log("Creating socket...");
 	var socket = io('http://' + host + ":" + port);
