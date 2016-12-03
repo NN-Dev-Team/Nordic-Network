@@ -29,23 +29,36 @@ $(document).ready(function() {
         values = data.split("\n");
 		return values;
     }, 'text');
-	return values;
-});
-
-host = values[0].trim();
-port = Number(values[1]);
-
-if(host == "N/A" || port == -1) {
-	swal("Unable to connect to server.", "", "error");
-} else {
-	console.log("Creating socket...");
-	var socket = io('http://' + host + ":" + port);
-	if(typeof socket === 'undefined') {
-		console.log("Failed to create socket");
+	
+	host = values[0].trim();
+	port = Number(values[1]);
+	
+	if(host == "N/A" || port == -1) {
+		swal("Unable to connect to server.", "", "error");
 	} else {
-		console.log("Successfully created socket");
+		console.log("Creating socket...");
+		var socket = io('http://' + host + ":" + port);
+		if(typeof socket === 'undefined') {
+			console.log("Failed to create socket");
+		} else {
+			console.log("Successfully created socket");
+		}
 	}
-}
+	
+	socket.on('creation-complete', function(data){
+		if(data.success){
+			console.log("Successfully created server!");
+			addCookie("user_id", data.info.id, 0.1);
+		} else {
+			swal("Failed to create server", "Reason: " + data.reason + "\nID: " + data.id, "error");
+		}
+	});
+	
+	$('button #create-server').click(function(){
+		socket.emit('create-serv', { "id": Number(getCookie("user_id")), "session": getCookie("session"), "type": type });
+		console.log("Starting server...");
+	});
+});
 
 function getCookie(name) {
     name += "=";
@@ -64,17 +77,3 @@ function addCookie(name, value, time) {
     var expires = "expires="+day.toUTCString();
     document.cookie = name + "=" + value + "; " + expires + "; path=/";
 }
-
-socket.on('creation-complete', function(data){
-	if(data.success){
-		console.log("Successfully created server!");
-		addCookie("user_id", data.info.id, 0.1);
-	} else {
-		swal("Failed to create server", "Reason: " + data.reason + "\nID: " + data.id, "error");
-	}
-});
-
-$('button #create-server').click(function(){
-	socket.emit('create-serv', { "id": Number(getCookie("user_id")), "session": getCookie("session"), "type": type });
-	console.log("Starting server...");
-});
