@@ -34,7 +34,7 @@ $(document).ready(function() {
 		swal("Failed to get server IP", "Please contact our admins about this error so we can fix it as soon as possible!", "error");
 	}).done(function() {
 		var socket = io('http://' + host + ":" + port);
-		if(typeof socket === 'undefined') {
+		if(socket.disconnected) {
 			swal("Unable to connect to server.", "It seems our game servers are down, please wait until we've fixed the problem :)", "error");
 		}
 		
