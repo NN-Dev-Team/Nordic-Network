@@ -62,44 +62,43 @@ $(document).ready(function(){
 	
 	$.get("../properities.txt", function(data) {
         values = data.split("\n");
-		return values;
+		
+		host = values[0].trim();
+		port = Number(values[1]);
+		
+		if(host == "N/A" || port == -1) {
+			console.log("ERROR: Couldn't find host/port");
+		} else {
+			console.log("Creating socket...");
+			var socket = io('http://' + host + ":" + port);
+			if(typeof socket === 'undefined') {
+				console.log("Failed to create socket");
+			} else {
+				console.log("Successfully created socket");
+			}
+		}
+		
+		socket.on('main-stats', function(data) {
+			if(data.success) {
+				console.log("Successfully received stats!");
+				if(data.info.servers) {
+					console.log("Amount of servers: " + data.info.servers);
+				}
+				
+				if(data.info.max) {
+					console.log("Total Memory: " + data.info.max);
+				}
+				
+				if(data.info.used) {
+					console.log("Used Memory: " + data.info.used);
+				}
+			} else {
+				console.log("Failed to get stats");
+				console.log("Reason: " + data.reason);
+				console.log("ID: " + data.id);
+			}
+		});
     }, 'text');
-	
-	host = values[0].trim();
-	port = Number(values[1]);
-	
-	if(host == "N/A" || port == -1) {
-		console.log("ERROR: Couldn't find host/port");
-	} else {
-		console.log("Creating socket...");
-		var socket = io('http://' + host + ":" + port);
-		if(typeof socket === 'undefined') {
-			console.log("Failed to create socket");
-		} else {
-			console.log("Successfully created socket");
-		}
-	}
-	
-	socket.on('main-stats', function(data) {
-		if(data.success) {
-			console.log("Successfully received stats!");
-			if(data.info.servers) {
-				console.log("Amount of servers: " + data.info.servers);
-			}
-			
-			if(data.info.max) {
-				console.log("Total Memory: " + data.info.max);
-			}
-			
-			if(data.info.used) {
-				console.log("Used Memory: " + data.info.used);
-			}
-		} else {
-			console.log("Failed to get stats");
-            console.log("Reason: " + data.reason);
-            console.log("ID: " + data.id);
-		}
-	});
 });
 
 function acceptCookies() {
