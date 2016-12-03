@@ -24,7 +24,7 @@ $(document).ready(function() {
 	}).done(function() {
 		var socket = io('http://' + host + ":" + port);
 		if(socket.disconnected) {
-			swal("Unable to connect to server.", "It seems our game servers are down, please wait until we've fixed the problem :)", "error");
+			swal("Unable to connect to server.", "It seems our game servers are down.\nPlease be patient while we work on a fix!", "error");
 		}
 		
 		socket.emit('get-status', {"server": Number(getCookie("user_id")), "session": getCookie("session")});
