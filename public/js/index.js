@@ -66,11 +66,12 @@ $(document).ready(function(){
 		host = values[0].trim();
 		port = Number(values[1]);
 	}).fail(function() {
-		swal("Failed to get server IP", "Please contact our admins about this error so we can fix it as soon as possible!", "error");
+		console.log("ERROR: Failed to get server IP");
+		console.log("Please contact our admins about this error so we can fix it as soon as possible!");
 	}).done(function() {
 		var socket = io('http://' + host + ":" + port);
 		if(socket.disconnected) {
-			swal("Unable to connect to server.", "It seems our game servers are down, please wait until we've fixed the problem :)", "error");
+			console.log("ERROR: Unable to connect to server.");
 		}
 		
 		socket.on('main-stats', function(data) {
