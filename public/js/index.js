@@ -17,7 +17,7 @@ if (!String.prototype.format) {
 var transparent = true;
 
 function changeOpacity() {
-	if(transparent && (window.scrollY || $('.navbar-toggle').attr("aria-expanded") == true)) {
+	if(transparent && (window.scrollY || $('.navbar-toggle').attr("aria-expanded") == "true")) {
 		$('#nav-nomargin').css('background-color', 'rgba(248, 248, 248, 0.95)');
 		$('#nav-nomargin').css('box-shadow', '0 1px 1px rgba(127, 127, 127, 0.4)');
 		$('.navbar-default').css('border-bottom', '1px solid rgba(127, 127, 127, 0.4)');
