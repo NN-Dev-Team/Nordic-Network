@@ -1,4 +1,6 @@
 ### The Security Checklist
+Current progress: ~20% done.
+
 If something is ~~strikethroughed~~ it means it's not (yet) necessary for this project.
 
 ##### AUTHENTICATION SYSTEMS (Signup/Signin/2 Factor/Password reset) 
