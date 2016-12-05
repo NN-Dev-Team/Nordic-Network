@@ -11,7 +11,7 @@ If something is ~~strikethroughed~~ it means it's not (yet) necessary for this p
 - [ ] When parsing Signup/Login input, sanitize for javascript://, data://, CRLF characters. 
 - [ ] Set secure, httpOnly cookies.
 - [ ] ~~In Mobile `OTP` based mobile verification, do not send the OTP back in the response when `generate OTP` or `Resend OTP`  API is called.~~
-- [ ] Limit attempts to `Login`, `Verify OTP`, `Resend OTP` and `generate OTP` APIs for a particular user. Have an exponential backoff set or/and something like a captcha based challenge.
+- [x] Limit attempts to `Login`, `Verify OTP`, `Resend OTP` and `generate OTP` APIs for a particular user. Have an exponential backoff set or/and something like a captcha based challenge. (Partly done only)
 - [ ] ~~Check for randomness of reset password token in the emailed link or SMS.~~
 - [ ] ~~Set an expiration on the reset password token for a reasonable period.~~
 - [ ] ~~Expire the reset token after it has been successfully used.~~
@@ -46,9 +46,9 @@ If something is ~~strikethroughed~~ it means it's not (yet) necessary for this p
 - [ ] Update DNS records to add [SPF](https://en.wikipedia.org/wiki/Sender_Policy_Framework) record to mitigate spam and phishing attacks.
 - [ ] Add [subresource integrity checks](https://en.wikipedia.org/wiki/Subresource_Integrity) if loading your JavaScript libraries from a third party CDN. For extra security, add the [require-sri-for](https://w3c.github.io/webappsec-subresource-integrity/#parse-require-sri-for) CSP-directive so you don't load resources that don't have an SRI sat.  
 - [ ] Use random CSRF tokens and expose business logic APIs as HTTP POST requests. Do not expose CSRF tokens over HTTP for example in an initial request upgrade phase.
-- [ ] Do not use critical data or tokens in GET request parameters. Exposure of server logs or a machine/stack processing them would expose user data in turn.  
-  
-  
+- [ ] ~~Do not use critical data or tokens in GET request parameters. Exposure of server logs or a machine/stack processing them would expose user data in turn.~~
+
+
 ##### SANITIZATION OF INPUT
 - [ ] `Sanitize` all user inputs or any input parameters exposed to user to prevent [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting).
 - [ ] ~~Always use parameterized queries to prevent [SQL Injection](https://en.wikipedia.org/wiki/SQL_injection).~~
@@ -66,7 +66,7 @@ If something is ~~strikethroughed~~ it means it's not (yet) necessary for this p
 - [ ] Use SSH to access your machines; do not setup a password, use SSH key-based authentication instead.
 - [ ] Install updates timely to act upon zero day vulnerabilities like Heartbleed, Shellshock.
 - [ ] Modify server config to use TLS 1.2 for HTTPS and disable all other schemes. (The tradeoff is good.)
-- [ ] Do not leave the DEBUG mode on. In some frameworks, DEBUG mode can give access full-fledged REPL or shells or expose critical data in error messages stacktraces.
+- [x] Do not leave the DEBUG mode on. In some frameworks, DEBUG mode can give access full-fledged REPL or shells or expose critical data in error messages stacktraces.
 - [x] Be prepared for bad actors & DDOS - use a hosting service that has DDOS mitigation.
 - [ ] Set up monitoring for your systems, and log stuff (use [New Relic](https://newrelic.com/) or something like that).
 - [ ] If developing for enterprise customers, adhere to compliance requirements. If AWS S3, consider using the feature to [encrypt data](http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html). If using AWS EC2, consider using the feature to use encrypted volumes (even boot volumes can be encrypted now).
@@ -74,7 +74,7 @@ If something is ~~strikethroughed~~ it means it's not (yet) necessary for this p
 ##### PEOPLE
 - [ ] Set up an email (e.g. security@coolcorp.io) and a page for security researchers to report vulnerabilities.
 - [ ] Depending on what you are making, limit access to your user databases.
-- [ ] Be polite to bug reporters.
+- [x] Be polite to bug reporters.
 - [ ] Have your code review done by a fellow developer from a secure coding perspective. (More eyes)
 - [ ] In case of a hack or data breach, check previous logs for data access, ask people to change passwords. You might require an audit by external agencies depending on where you are incorporated.  
 - [ ] Set up [Netflix's Scumblr](https://github.com/Netflix/Scumblr) to hear about talks about your organization on social platforms and Google search.
