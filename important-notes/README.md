@@ -74,6 +74,7 @@ Applications
 Accepted applications will now grant some of these things depending on how the application looks:
 - Higher position in queue for servers; that is less waiting time for getting a server
 - More RAM for your server
+- Server spotlight / server gets featured
 
 --------
 
