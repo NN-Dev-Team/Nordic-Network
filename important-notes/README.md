@@ -110,3 +110,5 @@ We'll use statistics about when servers usually are online to determine if anoth
 --------
 
 **Feature:** Enable/Disable FTP password changing as well as changing the password to whatever you want. Default length will be same as session id; 16 chars.
+
+**How to setup user pages**: `window.location.href.indexOf("user_id")`
