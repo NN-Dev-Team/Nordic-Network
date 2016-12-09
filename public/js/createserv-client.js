@@ -5,7 +5,7 @@ var port = -1;
 var transparent = true;
 
 function changeOpacity() {
-	if(window.scrollY && transparent) {
+	if(transparent && (window.scrollY || $('.navbar-toggle').attr("aria-expanded") == "true")) {
 		$('#nav-nomargin').css('background-color', 'rgba(248, 248, 248, 0.95)');
 		$('#nav-nomargin').css('box-shadow', '0 1px 1px rgba(127, 127, 127, 0.4)');
 		$('.navbar-default').css('border-bottom', '1px solid rgba(127, 127, 127, 0.4)');
@@ -27,25 +27,32 @@ function changeOpacity() {
 $(document).ready(function() {
     $.get("../properities.txt", function(data) {
         values = data.split("\n");
-		return values;
+		
+		host = values[0].trim();
+		port = Number(values[1]);
+	}).fail(function() {
+		swal("Failed to get server IP", "Please contact our admins about this error so we can fix it as soon as possible!", "error");
+	}).done(function() {
+		var socket = io('http://' + host + ":" + port);
+		if(socket.disconnected) {
+			swal("Unable to connect to server.", "It seems our game servers are down.\nPlease be patient while we work on a fix!", "error");
+		}
+		
+		socket.on('creation-complete', function(data){
+			if(data.success){
+				console.log("Successfully created server!");
+				addCookie("user_id", data.info.id, 0.1);
+			} else {
+				swal("Failed to create server", "Reason: " + data.reason + "\nID: " + data.id, "error");
+			}
+		});
+		
+		$('button #create-server').click(function(){
+			socket.emit('create-serv', { "id": Number(getCookie("user_id")), "session": getCookie("session"), "type": type });
+			console.log("Starting server...");
+		});
     }, 'text');
-	return values;
 });
-
-host = values[0];
-port = Number(values[1]);
-
-if(host == "N/A" || port == -1) {
-	console.log("ERROR: Couldn't find host/port");
-} else {
-	console.log("Creating socket...");
-	var socket = io('http://' + host + ":" + port);
-	if(typeof socket === 'undefined') {
-		console.log("Failed to create socket");
-	} else {
-		console.log("Successfully created socket");
-	}
-}
 
 function getCookie(name) {
     name += "=";
@@ -64,19 +71,3 @@ function addCookie(name, value, time) {
     var expires = "expires="+day.toUTCString();
     document.cookie = name + "=" + value + "; " + expires + "; path=/";
 }
-
-socket.on('creation-complete', function(data){
-	if(data.success){
-		console.log("Successfully created Minecraft server!");
-		addCookie("user_id", data.info.id, 0.1);
-	} else {
-		console.log("Failed to create server.");
-		console.log("Reason: ", data.reason);
-		console.log("ID: ", data.id);
-	}
-});
-
-$('button #create-server').click(function(){
-	socket.emit('create-serv', { "id": Number(getCookie("user_id")), "session": getCookie("session"), "type": type });
-	console.log("Starting server...");
-});

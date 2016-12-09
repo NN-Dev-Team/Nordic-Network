@@ -5,35 +5,28 @@ var port = -1;
 $(document).ready(function() {
     $.get("../properities.txt", function(data) {
         values = data.split("\n");
-		return values;
+		
+		host = values[0].trim();
+		port = Number(values[1]);
+	}).fail(function() {
+		swal("Failed to get server IP", "Please contact our admins about this error so we can fix it as soon as possible!", "error");
+	}).done(function() {
+		var socket = io('http://' + host + ":" + port);
+		if(socket.disconnected) {
+			swal("Unable to connect to server.", "It seems our game servers are down.\nPlease be patient while we work on a fix!", "error");
+		}
+		
+		socket.on('reg-complete', function(data){
+			if(data.success){
+				location.reload();
+			} else {
+				swal("Failed to register", "Reason: " + data.reason + "\nID: " + data.id, "error");
+			}
+		});
+		
+		$('form').submit(function(){
+			socket.emit('register', {email: $('#email').val(), pass: $('#passwrd'.val())});
+			return false;
+		});
     }, 'text');
-	return values;
-});
-
-host = values[0];
-port = Number(values[1]);
-
-if(host == "N/A" || port == -1) {
-	console.log("ERROR: Couldn't find host/port");
-} else {
-	console.log("Creating socket...");
-	var socket = io('http://' + host + ":" + port);
-	if(typeof socket === 'undefined') {
-		console.log("Failed to create socket");
-	} else {
-		console.log("Successfully created socket");
-	}
-}
-
-socket.on('reg-complete', function(data){
-	if(data.success){
-		location.reload();
-	} else {
-		sweetAlert("Failed to register", "Reason: " + data.reason + "\nID: " + data.id, "error");
-	}
-});
-
-$('form').submit(function(){
-    socket.emit('register', {email: $('#email').val(), pass: $('#passwrd'.val())});
-    return false;
 });
