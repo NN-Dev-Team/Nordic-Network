@@ -67,7 +67,6 @@ $(document).ready(function(){
 		port = Number(values[1]);
 	}).fail(function() {
 		console.log("ERROR: Failed to get server IP");
-		console.log("Please contact our admins about this error so we can fix it as soon as possible!");
 	}).done(function() {
 		var socket = io('http://' + host + ":" + port);
 		if(socket.disconnected) {
