@@ -702,4 +702,25 @@ io.on('connection', function(socket){
             });
         });
 	});
+	
+	// USER & SERVER PAGES
+	socket.on('get-user-page', function(data){
+		user.getTotal(function(err, userCount) {
+			if(data.id < user_count) {
+				app.get('/', function(req, res) {
+					if(data.pageType == 0) {
+						res.sendFile('/users/' + data.id + '/server-page.php', function(err) {
+							if(err) {
+								return io.emit('show-404');
+							}
+						});
+					} else if(data.pageType == 1) {
+						// Forum or something here maybe? Or user page?
+					}
+				});
+			} else {
+				return io.emit('show-404');
+			}
+		});
+	});
 });
