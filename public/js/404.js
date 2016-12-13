@@ -38,7 +38,7 @@ $(document).ready(function(){
 					show404();
 				} else {
 					c++;
-					if(url.substring(c, c + 7) == "server") {
+					if(url.substring(c, c + 6) == "server") {
 						socket.emit('get-user-page', {"type": 0, "id": Number(usr_id)});
 					} else { // Type 1 has not been decided what it is yet so no code for it yet
 						show404();
