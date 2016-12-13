@@ -20,7 +20,7 @@ $(document).ready(function(){
 			var serv_type;
 			var usr_id = "";
 			var url = window.location.href;
-			var c = 0;
+			var c = 8; // So that it ignores 'http://' and 'https://'
 			
 			while(url[c] != "/") {
 				c++;
