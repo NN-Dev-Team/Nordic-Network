@@ -75,7 +75,7 @@
 			
 			<div class="row">
 				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/settings-sm.png" height="50px" width="50px"><h3 id="feature-text-title">Powerful dashboard</h3><p id="feature-text" class="center-block">All of our servers come with a custom dashboard. It has a file manager, version installer and many other great features.</p></div>
-				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/cloud-sm.png" height="50px" width="50px"><h3 id="feature-text-title">Free server page</h3><p id="feature-text" class="center-block">Each server comes with it's very own page hosted by us! Add pictures, videos and text, let players donate and vote to keep your server alive. You can also purchase extensions like forums and blogs!</p></div>
+				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/cloud-sm.png" height="50px" width="50px"><h3 id="feature-text-title">Free server page</h3><p id="feature-text" class="center-block">Each server comes with it's very own page hosted by us! Add pictures, videos and text, let players donate and vote to keep your server alive. In the future you'll also be able to purchase extensions like forums and blogs!</p></div>
 				<div class="col-sm-4"><img id="feature-img" class="center-block" src="/pics/icons/game-sm.png" height="50px" width="50px"><h3 id="feature-text-title">Game library</h3><p id="feature-text" class="center-block">We support various versions of Minecraft, such as PC, Win 10 & PE!</p></div>
 			</div>
 			<br />

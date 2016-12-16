@@ -74,6 +74,7 @@ Applications
 Accepted applications will now grant some of these things depending on how the application looks:
 - Higher position in queue for servers; that is less waiting time for getting a server
 - More RAM for your server
+- Server spotlight / server gets featured
 
 --------
 
@@ -109,3 +110,5 @@ We'll use statistics about when servers usually are online to determine if anoth
 --------
 
 **Feature:** Enable/Disable FTP password changing as well as changing the password to whatever you want. Default length will be same as session id; 16 chars.
+
+**How to setup user pages**: Use `window.location.href.indexOf(user_id)` on 404 page (which is **sent** to the user, **do not overwrite the url!**) to check url, `history.pushState({}, "", "server-page.php");` to change url without reloading.
