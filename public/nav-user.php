@@ -7,7 +7,10 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span> 
       </button>
-      <a id="navbar-logo" class="navbar-brand" href="/index#top">Nordic Network</a>
+      <a id="navbar-logo" class="navbar-brand" href="/index#top">
+	    <img src="/favicon.ico" />
+	    Nordic Network
+	  </a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -17,8 +20,8 @@
         <li><a href="/knowledgebase">Support</a></li> 
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/controlpanel"><span class="glyphicon glyphicon-tasks"></span>Dashboard</a></li>
-        <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Log out</a></li>
+        <li><a href="/control-panel"><span class="glyphicon glyphicon-tasks"></span> Dashboard</a></li>
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
 		<li><a id="changeCurrency" href="javascript:void(0)"><img src="/pics/icons/uk-icon.png" /></a></li>
       </ul>
     </div>

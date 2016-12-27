@@ -18,8 +18,16 @@ body {
 	font-family: Viking;
 }
 
+#myNavbar {
+	margin: 6px;
+}
+
 #myNavbar > ul > li > a:hover {
 	color: #333;
+}
+
+#navbar-logo img {
+	display: inline-block;
 }
 
 #footer {
