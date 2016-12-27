@@ -77,16 +77,10 @@ $(document).ready(function(){
 			if(data.success) {
 				console.log("Successfully received stats!");
 				if(data.info.servers) {
-					console.log("Amount of servers: " + data.info.servers);
+					$('#stats-servers').html((data.info.servers).toLocaleString()); // Amount of servers created
 				}
 				
-				if(data.info.max) {
-					console.log("Total Memory: " + data.info.max);
-				}
-				
-				if(data.info.used) {
-					console.log("Used Memory: " + data.info.used);
-				}
+				// data.info.max = Total memory, data.info.used = Used memory.
 			} else {
 				console.log("Failed to get stats");
 				console.log("Reason: " + data.reason);
