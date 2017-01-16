@@ -31,7 +31,7 @@ node_modules
 jspm_packages
 
 # Dependency file
-packages.json
+package.json
 
 # Optional npm cache directory
 .npm
