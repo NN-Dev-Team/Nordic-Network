@@ -290,6 +290,7 @@ io.on('connection', function(socket){
     });
 	
 	////////////////////////////////    SERVER CREATION    ////////////////////////////////
+	
 	socket.on('create-serv', function(data){
 		user.isBanned(IP, function(err, banned) {
 			if(err) {
