@@ -100,7 +100,8 @@ function boolify(obj, ignoreCase) {
 io.on('connection', function(socket){
 	var IP = socket.request.connection.remoteAddress;
 	
-	// REGISTRATION
+	////////////////////////////////    REGISTRATION    ////////////////////////////////
+	
 	socket.on('register', function(data){
 		user.isBanned(IP, function(err, banned) {
 			if(err) {
@@ -188,7 +189,8 @@ io.on('connection', function(socket){
 		});
 	});
 	
-	// LOGIN & LOGOUT
+	////////////////////////////////    LOGIN & LOGOUT    ////////////////////////////////
+	
 	socket.on('login', function(data){
 		user.isBanned(IP, function(err, banned) {
 			if(err) {
@@ -287,7 +289,8 @@ io.on('connection', function(socket){
         });
     });
 	
-	// SERVER CREATION
+	////////////////////////////////    SERVER CREATION    ////////////////////////////////
+	
 	socket.on('create-serv', function(data){
 		user.isBanned(IP, function(err, banned) {
 			if(err) {
@@ -357,7 +360,8 @@ io.on('connection', function(socket){
 		});
 	});
 	
-	// CONTROL PANEL
+	////////////////////////////////    CONTROL PANEL    ////////////////////////////////
+	
 	socket.on('start-server', function(data){
 		user.isBanned(IP, function(err, banned) {
 			if(err) {
@@ -604,7 +608,8 @@ io.on('connection', function(socket){
         });
     });
 	
-	// APPLICATIONS
+	////////////////////////////////    APPLICATIONS    ////////////////////////////////
+	
 	socket.on('check-app', function(data) {
         user.isBanned(IP, function(err, banned) {
 			if(err) {
@@ -645,7 +650,7 @@ io.on('connection', function(socket){
 		});
 	});
 	
-	// INDEX
+	////////////////////////////////    INDEX    ////////////////////////////////
 	
 	socket.on('get-main-stats', function(data) {
         user.isBanned(IP, function(err, banned) {
@@ -703,7 +708,8 @@ io.on('connection', function(socket){
         });
 	});
 	
-	// USER & SERVER PAGES
+	////////////////////////////////    USER & SERVER PAGES    ////////////////////////////////
+	
 	socket.on('get-user-page', function(data){
 		user.getTotal(function(err, userCount) {
 			if(data.id < user_count) {
