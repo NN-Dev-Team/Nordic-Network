@@ -1,47 +1,28 @@
 #cpbody {
     height: 100vh;
     overflow: hidden;
+    background-color: #e3e3e3;
 }
 
-#dchart {
-    width: 20vh;
-    height: 20vh;
-    display: inline-block;
-    margin-left: 5vh;
-    margin-right: 5vh;
-    min-height: 15vh;
-    min-width: 15vh;
+
+.cpbox {
+    background-color: #ffffff;
+    -webkit-box-shadow: 5px 5px 32px -15px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 32px -15px rgba(0,0,0,0.75);
+    box-shadow: 5px 5px 32px -15px rgba(0,0,0,0.75);
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    width: 19em !important;
+    height: 19em;
+    margin: 5em;
 }
 
-#donutchartswrapper {
-    height: 30vh;
-    text-align: center;
-}
-
-#cpcontrols {
-    margin-left: 5vh;
-    margin-right: 5vh;
-    text-align: center;
-}
-
-#cpcontrols button {
+.cpbox button {
     font-size: 2vh;
     text-align: center;
     white-space: normal;
 }
 
-#ipcontainer {
-    display: inline-block;
-    font-size: 3vh;
-    white-space: nowrap;
-}
-
-#versioncontainer {
-    display: inline-block;
-    margin-left: 3vh;
-    font-size: 3vh;
-    white-space: nowrap;
-}
 
 @media screen and (min-width: 768px) {
     #menu-toggle {
@@ -210,4 +191,9 @@
     width: 40%;
     float: right;
     text-align: center;
+}
+
+#userChartID {
+    margin-top: 2.5em;
+    margin-right: 4em;
 }
