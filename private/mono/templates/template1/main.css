@@ -1,0 +1,13 @@
+.myHeaderImage {
+    height: 90vh;
+    background-image: url('https://static.pexels.com/photos/932/road-street-desert-industry.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.headerText {
+    color: black;
+    padding-left: 100px;
+}
