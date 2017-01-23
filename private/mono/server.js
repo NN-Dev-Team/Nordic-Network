@@ -1,5 +1,6 @@
 var toobusy = require('toobusy-js');
 var user = require('./user-lib.js');
+var traffic_handler = require('./traffic-handler.js');
 var app_sorter = require('../app-sorter');
 // var mcLib = require('./auto-updater.js');
 var fs = require('fs');
@@ -38,30 +39,8 @@ app.use(function(req, res, next) {
 	}
 });
 
-// MAIN
-
-function Reset() {
-	fs.readFile('bans.txt', 'utf8', function(err, data) {
-		if(data != '') {
-			var items = data.split("\n");
-			for(i = 0; i < items.length; i++) {
-				items[i] = items[i].split(" ");
-			}
-			
-			for(i = 0; i < items.length; i++) {
-				items[i][1] = 0;
-				items[i] = items[i].join(" ");
-			}
-			
-			data = items.join("\n");
-			fs.writeFile('bans.txt', data, function(err, data) {
-				return;
-			});
-		}
-	});
-}
-
-setInterval(Reset, 4096);
+// Reset traffic
+setInterval(traffic_handler.resetTraffic(), 4096);
 
 // Send data to client
 function sendToClient(name, data, id) {
@@ -99,27 +78,18 @@ function boolify(obj, ignoreCase) {
 
 io.on('connection', function(socket){
 	var IP = socket.request.connection.remoteAddress;
+	var socket_session = socket.io.engine.id;
 	
 	////////////////////////////////    REGISTRATION    ////////////////////////////////
 	
 	socket.on('register', function(data){
-		user.isBanned(IP, function(err, banned) {
-			if(err) {
-				return console.log(err);
-			}
-			
-			if(banned[0]) {
+		traffic_handler.isBlocked(socket_session, function(ss) {
+			if(ss.isBlocked) {
 				return sendToClient('reg-complete', "Please don't overload our servers.", '0.' + __line);
-			} else if(banned[1]) {
-				user.addIP(IP, function(err) {
-					if(err) {
-						console.log(err);
-					}
-					
-					user.incrUsage(IP, 16);
-				});
+			} else if(ss.isRegistered) {
+				traffic_handler.log(socket_session, 16);
 			} else {
-				user.incrUsage(IP, 16);
+				traffic_handler.register(socket_session, 16);
 			}
 			
 			if(typeof data.email != 'string' || typeof data.pass != 'string') {
@@ -192,23 +162,13 @@ io.on('connection', function(socket){
 	////////////////////////////////    LOGIN & LOGOUT    ////////////////////////////////
 	
 	socket.on('login', function(data){
-		user.isBanned(IP, function(err, banned) {
-			if(err) {
-				return console.log(err);
-			}
-			
-			if(banned[0]) {
+		traffic_handler.isBlocked(socket_session, function(ss) {
+			if(ss.isBlocked) {
 				return sendToClient('login-complete', "Please don't overload our servers.", '0.' + __line);
-			} else if(banned[1]) {
-				user.addIP(IP, function(err) {
-					if(err) {
-						console.log(err);
-					}
-					
-					user.incrUsage(IP, 8);
-				});
+			} else if(ss.isRegistered) {
+				traffic_handler.log(socket_session, 8);
 			} else {
-				user.incrUsage(IP, 8);
+				traffic_handler.register(socket_session, 8);
 			}
 			
 			if(typeof data.email != 'string' || typeof data.pass != 'string') {
@@ -252,23 +212,13 @@ io.on('connection', function(socket){
 	});
     
     socket.on('logout', function(data) {
-        user.isBanned(IP, function(err, banned) {
-			if(err) {
-				return console.log(err);
-			}
-			
-			if(banned[0]) {
+        traffic_handler.isBlocked(socket_session, function(ss) {
+			if(ss.isBlocked) {
 				return sendToClient('logout-complete', "Please don't overload our servers.", '0.' + __line);
-			} else if(banned[1]) {
-				user.addIP(IP, function(err) {
-					if(err) {
-						console.log(err);
-					}
-					
-					user.incrUsage(IP, 16);
-				});
+			} else if(ss.isRegistered) {
+				traffic_handler.log(socket_session, 16);
 			} else {
-				user.incrUsage(IP, 16);
+				traffic_handler.register(socket_session, 16);
 			}
             
             user.get(data.id, function(err, line, dat) {
@@ -292,23 +242,13 @@ io.on('connection', function(socket){
 	////////////////////////////////    SERVER CREATION    ////////////////////////////////
 	
 	socket.on('create-serv', function(data){
-		user.isBanned(IP, function(err, banned) {
-			if(err) {
-				return console.log(err);
-			}
-			
-			if(banned[0]) {
+		traffic_handler.isBlocked(socket_session, function(ss) {
+			if(ss.isBlocked) {
 				return sendToClient('creation-complete', "Please don't overload our servers.", '0.' + __line);
-			} else if(banned[1]) {
-				user.addIP(IP, function(err) {
-					if(err) {
-						console.log(err);
-					}
-					
-					user.incrUsage(IP, 16);
-				});
+			} else if(ss.isRegistered) {
+				traffic_handler.log(socket_session, 16);
 			} else {
-				user.incrUsage(IP, 16);
+				traffic_handler.register(socket_session, 16);
 			}
 			
 			if(typeof data.session != 'string' || (data.session).length < 24) {
@@ -363,23 +303,13 @@ io.on('connection', function(socket){
 	////////////////////////////////    CONTROL PANEL    ////////////////////////////////
 	
 	socket.on('start-server', function(data){
-		user.isBanned(IP, function(err, banned) {
-			if(err) {
-				return console.log(err);
-			}
-			
-			if(banned[0]) {
+		traffic_handler.isBlocked(socket_session, function(ss) {
+			if(ss.isBlocked) {
 				return sendToClient('server-checked', "Please don't overload our servers.", '0.' + __line);
-			} else if(banned[1]) {
-				user.addIP(IP, function(err) {
-					if(err) {
-						console.log(err);
-					}
-					
-					user.incrUsage(IP, 8);
-				});
+			} else if(ss.isRegistered) {
+				traffic_handler.log(socket_session, 8);
 			} else {
-				user.incrUsage(IP, 8);
+				traffic_handler.register(socket_session, 8);
 			}
 			
 			if(typeof data.server != 'number' || typeof data.session != 'string') {
@@ -430,23 +360,13 @@ io.on('connection', function(socket){
 	});
 	
 	socket.on('stop-server', function(data) {
-		user.isBanned(IP, function(err, banned) {
-			if(err) {
-				return console.log(err);
-			}
-			
-			if(banned[0]) {
+		traffic_handler.isBlocked(socket_session, function(ss) {
+			if(ss.isBlocked) {
 				return sendToClient('server-stopped', "Please don't overload our servers.", '0.' + __line);
-			} else if(banned[1]) {
-				user.addIP(IP, function(err) {
-					if(err) {
-						console.log(err);
-					}
-					
-					user.incrUsage(IP, 8);
-				});
+			} else if(ss.isRegistered) {
+				traffic_handler.log(socket_session, 8);
 			} else {
-				user.incrUsage(IP, 8);
+				traffic_handler.register(socket_session, 8);
 			}
 			
 			if(typeof data.server != 'number' || typeof data.session != 'string') {
@@ -517,23 +437,13 @@ io.on('connection', function(socket){
 	});
 	
 	socket.on('console-cmd', function(data) {
-		user.isBanned(IP, function(err, banned) {
-			if(err) {
-				return console.log(err);
-			}
-			
-			if(banned[0]) {
+		traffic_handler.isBlocked(socket_session, function(ss) {
+			if(ss.isBlocked) {
 				return sendToClient('console-query', "Please don't overload our servers.", '0.' + __line);
-			} else if(banned[1]) {
-				user.addIP(IP, function(err) {
-					if(err) {
-						console.log(err);
-					}
-					
-					user.incrUsage(IP, 4);
-				});
+			} else if(ss.isRegistered) {
+				traffic_handler.log(socket_session, 4);
 			} else {
-				user.incrUsage(IP, 4);
+				traffic_handler.register(socket_session, 4);
 			}
 			
 			if(typeof data.session != 'string' || (data.session).length < 24) {
@@ -611,23 +521,13 @@ io.on('connection', function(socket){
 	////////////////////////////////    APPLICATIONS    ////////////////////////////////
 	
 	socket.on('check-app', function(data) {
-        user.isBanned(IP, function(err, banned) {
-			if(err) {
-				return console.log(err);
-			}
-			
-			if(banned[0]) {
+        traffic_handler.isBlocked(socket_session, function(ss) {
+			if(ss.isBlocked) {
 				return sendToClient('app-status', "Please don't overload our servers.", '0.' + __line);
-			} else if(banned[1]) {
-				user.addIP(IP, function(err) {
-					if(err) {
-						console.log(err);
-					}
-					
-					user.incrUsage(IP, 16);
-				});
+			} else if(ss.isRegistered) {
+				traffic_handler.log(socket_session, 16);
 			} else {
-				user.incrUsage(IP, 16);
+				traffic_handler.register(socket_session, 16);
 			}
 			
 			fs.writeFile('../apps/new/' + data.id + '.txt', data.app, function(err, dat) {
@@ -653,23 +553,13 @@ io.on('connection', function(socket){
 	////////////////////////////////    INDEX    ////////////////////////////////
 	
 	socket.on('get-main-stats', function(data) {
-        user.isBanned(IP, function(err, banned) {
-			if(err) {
-				return console.log(err);
-			}
-			
-			if(banned[0]) {
+        traffic_handler.isBlocked(socket_session, function(ss) {
+			if(ss.isBlocked) {
 				return sendToClient('main-stats', "Please don't overload our servers.", '0.' + __line);
-			} else if(banned[1]) {
-				user.addIP(IP, function(err) {
-					if(err) {
-						console.log(err);
-					}
-					
-					user.incrUsage(IP, 16);
-				});
+			} else if(ss.isRegistered) {
+				traffic_handler.log(socket_session, 16);
 			} else {
-				user.incrUsage(IP, 16);
+				traffic_handler.register(socket_session, 16);
 			}
             
             user.getTotal(function(err, serverCount) {
@@ -728,5 +618,11 @@ io.on('connection', function(socket){
 				return io.emit('show-404');
 			}
 		});
+	});
+	
+	////////////////////////////////    DISCONNECTION HANDLING    ////////////////////////////////
+	
+	socket.on('disconnect', function() {
+		traffic_handler.removeSession(socket_session);
 	});
 });
