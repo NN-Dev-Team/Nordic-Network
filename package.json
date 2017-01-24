@@ -8,7 +8,7 @@
     "diskspace": "^1.0.3",
     "express": "^4.14.0",
     "mkdirp": "^0.5.1",
-    "pm2": "^2.2.3",
+    "pm2": "^2.3.0",
     "randomstring": "^1.1.5",
     "rcon": "^1.0.2",
     "socket.io": "^1.7.2",
