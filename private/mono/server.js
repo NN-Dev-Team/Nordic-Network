@@ -40,7 +40,7 @@ app.use(function(req, res, next) {
 });
 
 // Reset traffic
-setInterval(traffic_handler.resetTraffic(), 4096);
+setInterval(traffic_handler.resetTraffic, 4096);
 
 // Send data to client
 function sendToClient(name, data, id) {
@@ -78,7 +78,7 @@ function boolify(obj, ignoreCase) {
 
 io.on('connection', function(socket){
 	var IP = socket.request.connection.remoteAddress;
-	var socket_session = socket.io.engine.id;
+	var socket_session = socket.id;
 	
 	////////////////////////////////    REGISTRATION    ////////////////////////////////
 	
