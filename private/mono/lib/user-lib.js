@@ -1,5 +1,13 @@
 var fs = require('fs');
 
+//////////////// 'user-id/user.txt' file structure ////////////////
+////                                                           ////
+////  LINE 0: Email                                            ////
+////  LINE 1: Hashed password                                  ////
+////  LINE 2: Session                                          ////
+////                                                           ////
+///////////////////////////////////////////////////////////////////
+
 function rmdirAsync(path, callback) {
 	fs.readdir(path, function(err, files) {
 		if(err) {
