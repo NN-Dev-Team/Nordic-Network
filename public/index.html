@@ -26,6 +26,7 @@
         <link rel="stylesheet" href="/css/fontastic.css">
 		<!-- Load SweetAlert -->
 		<script src="/sweetalert/dist/sweetalert.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/sweetalert/dist/sweetalert.css">
 		<!-- Load navbar JS -->
 		<script src="/js/nav.js"></script>
         <!-- Load custom JS from file -->
@@ -122,6 +123,11 @@
 			
 		</div>
 		
+		<!-- Footer -->
+		<footer id="footer">
+			<p id="center-text-footer">© Copyright 2016 Nordic Network | Picture provided with <span class="glyphicon glyphicon-heart"></span> by <a href="http://www.gratisography.com">Gratisography</a> | icons by <a href="http://google.github.io/material-design-icons">Google</a> and <a href="http://www.useiconic.com/open">Iconic Open</a></p>  
+		</footer>
+		
 		<!-- Cookies -->
 		<script>
 			// NOTE: This must be put LAST in the <body>
@@ -144,40 +150,31 @@
 			}
 		</script>
 		
-	</body>
-	
-	<!-- Footer -->
-	<footer id="footer">
- 
-        <p id="center-text-footer">© Copyright 2016 Nordic Network | Picture provided with <span class="glyphicon glyphicon-heart"></span> by <a href="http://www.gratisography.com">Gratisography</a> | icons by <a href="http://google.github.io/material-design-icons">Google</a> and <a href="http://www.useiconic.com/open">Iconic Open</a></p>
-            
-
-    </footer>
-    
-    
-    <!-- Smooth scrolling and scrollspy -->
-	<script>
-		$('body').scrollspy({target: "#myNavbar"}); 
-		$("#top a[href^='/index/#']").on('click', function(e) {
-		
-			// prevent default anchor click behavior
-			e.preventDefault();
-			
-			// store hash
-			var hash = this.hash;
-			
-			// animate
-			$('html, body').animate({
-				scrollTop: $(hash).offset().top
-				}, 300, function(){
+		<!-- Smooth scrolling and scrollspy -->
+		<script>
+			$('body').scrollspy({target: "#myNavbar"}); 
+			$("#top a[href^='/index/#']").on('click', function(e) {
 				
-				// when done, add hash to url
-				// (default click behaviour)
-				window.location.hash = hash;
+				// prevent default anchor click behavior
+				e.preventDefault();
+				
+				// store hash
+				var hash = this.hash;
+				
+				// animate
+				$('html, body').animate({
+					scrollTop: $(hash).offset().top
+					}, 300, function(){
+					
+					// when done, add hash to url
+					// (default click behaviour)
+					window.location.hash = hash;
+				});
+				
 			});
-			
-		});
-	</script>
+		</script>
+		
+	</body>
 </html>
 
 <!-- __              _ _            __     _                      _    
