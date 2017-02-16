@@ -58,11 +58,11 @@
 			// NOTE: This must be put LAST in the <body>
 			
 			if(getCookie('session')) {
-				$.get("nav-user.html", function(nav) {
+				$.get("/nav-user.html", function(nav) {
 					$('body').prepend(nav);
 				});
 			} else {
-				$.get("nav-guest.html", function(nav) {
+				$.get("/nav-guest.html", function(nav) {
 					$('body').prepend(nav);
 				});
 			}
