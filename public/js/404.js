@@ -3,7 +3,7 @@ var host = "N/A";
 var port = -1;
 
 $(document).ready(function(){
-	$.get("../properities.txt", function(data) {
+	$.get("../properties.txt", function(data) {
         values = data.split("\n");
 		
 		host = values[0].trim();

@@ -24,22 +24,19 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
 		<!-- Load Fontastic CSS from file -->
         <link rel="stylesheet" href="/css/fontastic.css">
+		<!-- Load SweetAlert -->
+		<script src="/sweetalert/dist/sweetalert.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/sweetalert/dist/sweetalert.css">
+		<!-- Load navbar JS -->
+		<script src="/js/nav.js"></script>
         <!-- Load custom JS from file -->
 		<script src="/js/index.js"></script>
         <!-- Load Odometer JS from file -->
         <script src="/js/odometer.js"></script>
 	</head>
 	<body id="top" onscroll="changeOpacity()">
-		<!-- Nav -->
-		<?php
-			if(isset($_COOKIE['session'])) {
-				include 'nav-user.php';
-			} else {
-				include 'nav-guest.php';
-			}
-		?>
 		<div id="cookie-notice">
-            <?php include 'cookies.html'; ?>
+            <!-- Loaded with JS -->
         </div>
 		<!-- Jumbotron/Image -->
     
@@ -126,40 +123,62 @@
 			
 		</div>
 		
-	</body>
-	
-	<!-- Footer -->
-	<footer id="footer">
- 
-        <p id="center-text-footer">© Copyright 2016 Nordic Network | Picture provided with <span class="glyphicon glyphicon-heart"></span> by <a href="http://www.gratisography.com">Gratisography</a> | icons by <a href="http://google.github.io/material-design-icons">Google</a> and <a href="http://www.useiconic.com/open">Iconic Open</a></p>
-            
-
-    </footer>
-    
-    
-    <!-- Smooth scrolling and scrollspy -->
-	<script>
-		$('body').scrollspy({target: "#myNavbar"}); 
-		$("#top a[href^='/index/#']").on('click', function(e) {
+		<!-- Footer -->
+		<footer id="footer">
+			<p id="center-text-footer">© Copyright 2016 Nordic Network | Picture provided with <span class="glyphicon glyphicon-heart"></span> by <a href="http://www.gratisography.com">Gratisography</a> | icons by <a href="http://google.github.io/material-design-icons">Google</a> and <a href="http://www.useiconic.com/open">Iconic Open</a></p>  
+		</footer>
 		
-			// prevent default anchor click behavior
-			e.preventDefault();
+		<!-- Cookies -->
+		<script>
+			// NOTE: This must be put LAST in the <body>
 			
-			// store hash
-			var hash = this.hash;
+			$('#cookie-notice').load("/cookies.html");
+		</script>
+		
+		<!-- Nav -->
+		<script>
+			// NOTE: This must be put LAST in the <body>
 			
-			// animate
-			$('html, body').animate({
-				scrollTop: $(hash).offset().top
-				}, 300, function(){
-				
-				// when done, add hash to url
-				// (default click behaviour)
-				window.location.hash = hash;
-			});
-			
-		});
-	</script>
+			if(getCookie('session')) {
+				$.get("/nav-user.html", function(nav) {
+					$('body').prepend(nav);
+					addScrollSpy();
+				});
+			} else {
+				$.get("/nav-guest.html", function(nav) {
+					$('body').prepend(nav);
+					addScrollSpy();
+				});
+			}
+		</script>
+		
+		<!-- Smooth scrolling and scrollspy -->
+		<script>
+			function addScrollSpy() {
+				$('body').scrollspy({target: "#myNavbar"}); 
+				$("#top a[href^='/index/#']").on('click', function(e) {
+					
+					// prevent default anchor click behavior
+					e.preventDefault();
+					
+					// store hash
+					var hash = this.hash;
+					
+					// animate
+					$('html, body').animate({
+						scrollTop: $(hash).offset().top
+						}, 300, function(){
+						
+						// when done, add hash to url
+						// (default click behaviour)
+						window.location.hash = hash;
+					});
+					
+				});
+			}
+		</script>
+		
+	</body>
 </html>
 
 <!-- __              _ _            __     _                      _    
