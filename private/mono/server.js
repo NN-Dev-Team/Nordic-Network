@@ -1,5 +1,6 @@
 var toobusy = require('toobusy-js');
 var account = require('./lib/account-handler.js');
+var server = require('./lib/server-handler.js');
 var traffic_handler = require('./lib/traffic-handler.js');
 var app_sorter = require('../app-sorter');
 // var mcLib = require('./lib/auto-updater.js'); // ONLY RUNS ON LINUX
@@ -8,7 +9,6 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var mkdir = require('mkdirp');
 var exec = require('child_process').exec;
 var Rcon = require('rcon');
 var diskspace = require('diskspace');
@@ -106,7 +106,7 @@ io.on('connection', function(socket){
 		});
 	});
 	
-	// Login & logout
+	// Login
 	socket.on('login', function(data){
 		traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
@@ -127,6 +127,7 @@ io.on('connection', function(socket){
 		});
 	});
     
+	// Logout
     socket.on('logout', function(data) {
         traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
@@ -159,52 +160,13 @@ io.on('connection', function(socket){
 				traffic_handler.register(socket_session, 16);
 			}
 			
-			if(typeof data.session != 'string' || (data.session).length < 24) {
-				return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
-			} else if(Math.round((new Date).getTime() / 60000 > (data.session).substring(16))) {
-				return sendToClient('creation-complete', "Session has expired.", '15.' + __line);
-			} else if(data.type < 0 || data.type > 2) {
-				return sendToClient('creation-complete', "Invalid server type.", '16.' + __line);
-			} else if(typeof data.id == 'number') {
+			server.create(data, function(err) {
+				if(err) {
+					return sendToClient('creation-complete', err.error, formatErr(err, 4, __line));
+				}
 				
-				// User id specified, get user session
-				user.get(data.id, function(err, line, dat) {
-					if(err) {
-						return sendToClient('creation-complete', err, '17.' + __line + '.' + line);
-					}
-					
-					// Check if session is valid
-					if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
-						
-						// Session valid, create server
-						mkdir("users/" + data.id + "/server", function(err) {
-							if(err) {
-								return sendToClient('creation-complete', err, '18.' + __line);
-							}
-							
-							fs.writeFile("users/" + data.id + "/server/.properities", "0\n" + data.type + "\n0\n0", function(err, dat) {
-								if(err) {
-									return sendToClient('creation-complete', err, '19.' + __line);
-								}
-								
-								if(data.type == 0) {
-									mcLib.addJar("servers/" + data.id, function(err) {
-										if(err) {
-											return sendToClient('creation-complete', err, '20.' + __line);
-										}
-										
-										sendToClient('creation-complete');
-									});
-								}
-							});
-						});
-					} else {
-						sendToClient('creation-complete', "Invalid session.", '21.' + __line);
-					}
-				});
-			} else {
-				return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
-			}
+				sendToClient('creation-complete');
+			});
 		});
 	});
 	
