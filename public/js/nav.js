@@ -18,17 +18,31 @@ function delCookie(name) {
 }
 
 $(document).ready(function() {
-    $('button #logout').click(function(){
-		socket.emit('logout', {"id": getCookie("user_id"), "session": getCookie("session")});
-		delCookie('session');
-		return false;
-	});
-    
-    socket.on('logout-complete', function(data) {
-        if(data.success) {
-            delCookie('session');
-        } else {
-            swal("Failed to logout.", "Somehow?!", "error");
-        }
-    });
+	 $.get("../properties.txt", function(data) {
+        values = data.split("\n");
+		
+		host = values[0].trim();
+		port = Number(values[1]);
+	}).fail(function() {
+		swal("Failed to get server IP", "Please contact our admins about this error so we can fix it as soon as possible!", "error");
+	}).done(function() {
+		var socket = io('http://' + host + ":" + port);
+		if(socket.disconnected) {
+			swal("Unable to connect to server.", "It seems our game servers are down.\nPlease be patient while we work on a fix!", "error");
+		}
+		
+		$('button #logout').click(function(){
+			socket.emit('logout', {"id": getCookie("user_id"), "session": getCookie("session")});
+			delCookie('session');
+			return false;
+		});
+		
+		socket.on('logout-complete', function(data) {
+			if(data.success) {
+				delCookie('session');
+			} else {
+				swal("Failed to logout.", "Somehow?!", "error");
+			}
+		});
+    }, 'text');
 });

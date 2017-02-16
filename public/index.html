@@ -124,7 +124,7 @@
 		<script>
 			// NOTE: This must be put LAST in the <body>
 			
-			$('#cookie-notice').load("cookies.html");
+			$('#cookie-notice').load("/cookies.html");
 		</script>
 		
 		<!-- Nav -->
@@ -132,11 +132,11 @@
 			// NOTE: This must be put LAST in the <body>
 			
 			if(getCookie('session')) {
-				$.get("nav-user.html", function(nav) {
+				$.get("/nav-user.html", function(nav) {
 					$('body').prepend(nav);
 				});
 			} else {
-				$.get("nav-guest.html", function(nav) {
+				$.get("/nav-guest.html", function(nav) {
 					$('body').prepend(nav);
 				});
 			}
