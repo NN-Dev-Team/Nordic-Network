@@ -60,7 +60,7 @@ $(document).ready(function(){
 		$(this).css("border-bottom", "50px solid #97c");
 	});
 	
-	$.get("../properities.txt", function(data) {
+	$.get("../properties.txt", function(data) {
         values = data.split("\n");
 		
 		host = values[0].trim();

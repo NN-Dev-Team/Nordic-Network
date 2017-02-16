@@ -14,7 +14,7 @@ function getCookie(name) {
 }
 
 $(document).ready(function() {
-    $.get("../properities.txt", function(data) {
+    $.get("../properties.txt", function(data) {
         values = data.split("\n");
 		
 		host = values[0].trim();

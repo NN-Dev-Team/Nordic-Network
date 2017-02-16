@@ -1,11 +1,11 @@
 var fs = require('fs');
 
 //////////////// 'user-id/user.txt' file structure ////////////////
-////                                                           ////
-////  LINE 0: Email                                            ////
-////  LINE 1: Hashed password                                  ////
-////  LINE 2: Session                                          ////
-////                                                           ////
+//                                                               //
+//  LINE 0: Email                                                //
+//  LINE 1: Hashed password                                      //
+//  LINE 2: Session                                              //
+//                                                               //
 ///////////////////////////////////////////////////////////////////
 
 function rmdirAsync(path, callback) {
@@ -239,7 +239,7 @@ exports.delOld = function delOldUser(callback) {
 			if(files[i] == "user.txt") {
 				files_processed++;
 			} else {
-				fs.readFile('users/' + files[i] + '/server/.properities', 'utf8', function(err, data) {
+				fs.readFile('users/' + files[i] + '/server/.properties', 'utf8', function(err, data) {
 					if(err) {
 						return callback(err, __line);
 					}
@@ -247,7 +247,7 @@ exports.delOld = function delOldUser(callback) {
 					var content = data.split("\n");
 					var today = new Date();
 					
-					if(today.getTime() - content[3].trim() > 8589934591) {
+					if(today.getTime() - content[3].trim() > 8589934591) { // '.properties' structure is in 'server-handler.js'
 						rmdirAsync('users/' + files[i] + '/server', function(err) {
 							if(err) {
 								return callback(err, __line);

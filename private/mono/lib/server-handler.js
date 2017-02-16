@@ -25,7 +25,7 @@ exports.create = function createServer(data, IP, callback) {
 						return sendToClient('creation-complete', err, '18.' + __line);
 					}
 					
-					fs.writeFile("users/" + data.id + "/server/.properities", "0\n" + data.type + "\n0\n0", function(err, dat) {
+					fs.writeFile("users/" + data.id + "/server/.properties", "0\n" + data.type + "\n0\n0", function(err, dat) {
 						if(err) {
 							return sendToClient('creation-complete', err, '19.' + __line);
 						}

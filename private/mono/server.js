@@ -17,7 +17,7 @@ var values = [];
 var props = [];
 var valid = false;
 
-fs.readFile('properities.txt', 'utf8', function (err, data) {
+fs.readFile('properties.txt', 'utf8', function (err, data) {
 	if (err) {
 		return console.log(err);
 	}
@@ -186,7 +186,7 @@ io.on('connection', function(socket){
 				return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 			}
 			
-			fs.readFile('users/' + data.server + '/server/.properities', 'utf8', function(err, dat) {
+			fs.readFile('users/' + data.server + '/server/.properties', 'utf8', function(err, dat) {
 				if (err) {
 					return sendToClient('server-checked', err, '22.' + __line);
 				}
@@ -243,7 +243,7 @@ io.on('connection', function(socket){
 				return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 			}
 			
-			fs.readFile('users/' + data.server + '/server/.properities', 'utf8', function(err, dat) {
+			fs.readFile('users/' + data.server + '/server/.properties', 'utf8', function(err, dat) {
 				if (err) {
 					return sendToClient('server-stopped', err, '24.' + __line);
 				}
@@ -267,7 +267,7 @@ io.on('connection', function(socket){
 						if(serv_type == 0) {
 							// Minecraft PC
 							
-							fs.readFile('users/' + data.server + '/server/server.properities', 'utf8', function(err, data) {
+							fs.readFile('users/' + data.server + '/server/server.properties', 'utf8', function(err, data) {
 								if(err) {
 									return sendToClient('server-stopped', err, '25.' + __line);
 								}
@@ -332,7 +332,7 @@ io.on('connection', function(socket){
 					if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
 						
 						// Session valid, get server data
-						fs.readFile('users/' + data.server + '/server/server.properities', 'utf8', function(err, dat) {
+						fs.readFile('users/' + data.server + '/server/server.properties', 'utf8', function(err, dat) {
 							if (err) {
 								return sendToClient('console-query', err, '27.' + __line);
 							}
@@ -346,7 +346,7 @@ io.on('connection', function(socket){
 							if(serv_type == 0) {
 								
 								// Minecraft
-								fs.readFile('users/' + data.id + '/server/server.properities', 'utf8', function(err, dat) {
+								fs.readFile('users/' + data.id + '/server/server.properties', 'utf8', function(err, dat) {
 									if(err) {
 										return sendToClient('console-query', err, '28.' + __line);
 									}
