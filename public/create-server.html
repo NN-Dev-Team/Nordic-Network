@@ -23,17 +23,25 @@
 		<!-- Load SweetAlert -->
 		<script src="/sweetalert/dist/sweetalert.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="/sweetalert/dist/sweetalert.css">
+		<!-- Load navbar JS -->
+		<script src="/js/nav.js"></script>
 		<!-- Load custom JS from file -->
 		<script src="/js/createserv-client.js"></script>
 	</head>
 	<body onscroll="changeOpacity()">
 		<!-- Nav -->
-		<?php
-			if(isset($_COOKIE['session'])) {
-				include 'nav-user.php';
+		<script>
+			// NOTE: This must be put LAST in the <body>
+			
+			if(getCookie('session')) {
+				$.get("nav-user.html", function(nav) {
+					$('body').prepend(nav);
+				});
 			} else {
-				include 'nav-guest.php';
+				$.get("nav-guest.html", function(nav) {
+					$('body').prepend(nav);
+				});
 			}
-		?>
+		</script>
 	</body>
 </html>

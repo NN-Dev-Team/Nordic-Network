@@ -22,17 +22,25 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
 		<!-- Load Fontastic CSS from file -->
         <link rel="stylesheet" href="/css/fontastic.css">
+		<!-- Load navbar JS -->
+		<script src="/js/nav.js"></script>
 		<!-- Load custom JS from file -->
 		<script src="/js/404.js"></script>
 	</head>
 	<body>
 		<!-- Nav -->
-		<?php
-			if(isset($_COOKIE['session'])) {
-				include 'nav-user.php';
+		<script>
+			// NOTE: This must be put LAST in the <body>
+			
+			if(getCookie('session')) {
+				$.get("nav-user.html", function(nav) {
+					$('body').prepend(nav);
+				});
 			} else {
-				include 'nav-guest.php';
+				$.get("nav-guest.html", function(nav) {
+					$('body').prepend(nav);
+				});
 			}
-		?>
+		</script>
 	</body>
 </html>
