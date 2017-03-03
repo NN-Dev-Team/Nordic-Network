@@ -61,18 +61,6 @@ function broadcast(name, data, id) {
 	}
 }
 
-function boolify(obj, ignoreCase) {
-	if(ignoreCase) {
-		str = str.toLowerCase();
-	}
-	
-	if(obj == 'true' || obj == 1 || obj == '1') {
-		return true;
-	} else {
-		return false;
-	}
-}
-
 function formatErr(err, id, line) {
 	return id + '.' + err.id + ':' + line + '.' + err.line;
 }
@@ -182,49 +170,12 @@ io.on('connection', function(socket){
 				traffic_handler.register(socket_session, 8);
 			}
 			
-			if(typeof data.server != 'number' || typeof data.session != 'string') {
-				return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
-			}
-			
-			fs.readFile('users/' + data.server + '/server/.properties', 'utf8', function(err, dat) {
-				if (err) {
-					return sendToClient('server-checked', err, '22.' + __line);
+			server.start(data, function(err, serv_type) {
+				if(err) {
+					return sendToClient('server-checked', err.error, formatErr(err, 5, __line));
 				}
 				
-				props = dat.split("\n");
-				var serv_isSleeping = boolify(props[0].trim());
-				var serv_type = props[1].trim();
-				var serv_rank = props[2].trim();
-				var serv_lastOn = props[3].trim(); // Will not be used in this case, it's just here so we can remember it
-				var serv_ram = [[256, 512, 1024, 2048, 4096], [512, 1024, 2048, 4096], [512, 1024, 2048, 4096]];
-				
-				fs.readFile('users/' + data.server + "/user.txt", 'utf8', function(err, dat) {
-					props = dat.split("\n");
-					var user_session = props[2].trim();
-					
-					// Check if session is matching
-					if(user_session == data.session && user_session != "SESSION EXPIRED") {
-						
-						// Run server
-						if(serv_type == 0) {
-							// Minecraft PC
-							
-							exec("java -Xmx" + serv_ram[serv_type][serv_rank] + "M -Xms" + serv_ram[serv_type][serv_rank] + "M -jar servers/" + data.server + "/minecraft_server.jar nogui", function(err2, out, stderr) {
-								if(err2) {
-									return sendToClient('server-checked', stderr, '23.' + __line);
-								}
-								
-								sendToClient('server-checked', serv_type);
-							});
-						} else if(serv_type == 1) {
-							// Minecraft PE
-						} else {
-							// Minecraft Win 10
-						}
-					} else {
-						return sendToClient('server-checked', "Invalid session.", '21.' + __line);
-					}
-				});
+				sendToClient('server-checked', serv_type);
 			});
 		});
 	});
