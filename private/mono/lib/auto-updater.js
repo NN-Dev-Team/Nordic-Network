@@ -10,7 +10,7 @@ Date.prototype.getWeek = function() {
 
 exports.addJar = function copyLatestStableJar(dest, callback) {
 	var cbCalled = false;
-	var src = "versions/mc/minecraft_server.1.9.2.jar";
+	var src = "../versions/mc/minecraft_server.1.9.2.jar";
 	dest += "/minecraft_server.jar";
 	
 	var read = fs.createReadStream(src);
