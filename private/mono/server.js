@@ -426,7 +426,7 @@ io.on('connection', function(socket){
 			if(data.id < user_count) {
 				app.get('/', function(req, res) {
 					if(data.pageType == 0) {
-						res.sendFile('/users/' + data.id + '/server-page.php', function(err) {
+						res.sendFile('/users/' + data.id + '/server-page.html', function(err) {
 							if(err) {
 								return io.emit('show-404');
 							}
