@@ -97,7 +97,7 @@ exports.start = function startServer(data, IP, callback) {
 			
 			if(serv_isSleeping) {
 				// Stop sleeping process; stop sleep-mode jar
-				// WIP
+				// TODO
 			}
 			
 			// Check if session is matching
@@ -116,10 +116,12 @@ exports.start = function startServer(data, IP, callback) {
 					});
 				} else if(serv_type == 1) {
 					// Minecraft PE
+					// TODO
 					
 					callback({"error": "FEATURE_WIP_OR_DELETED", "id": 3, "line": __line});
 				} else {
 					// Minecraft Win 10
+					// TODO
 					
 					callback({"error": "FEATURE_WIP_OR_DELETED", "id": 4, "line": __line});
 				}
@@ -133,5 +135,80 @@ exports.start = function startServer(data, IP, callback) {
 ////////////////////////////////    STOPPING SERVER    ////////////////////////////////
 
 exports.stop = function stopServer(data, IP, callback) {
+	if(typeof data.server != 'number' || typeof data.session != 'string') {
+		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
+	}
 	
+	fs.readFile('users/' + data.server + '/server/.properties', 'utf8', function(err, dat) {
+		if (err) {
+			return callback({"error": err, "id": 1, "line": __line});
+		}
+		
+		props = dat.split("\n");
+		var serv_isSleeping = boolify(props[0].trim());
+		var serv_type = props[1].trim();
+		var serv_IP = "";
+		var rcon_port = 0;
+		var rcon_pass = "";
+		
+		if(serv_isSleeping) {
+			// Stop sleeping process; stop sleep-mode jar
+			// TODO
+			
+			return callback();
+		}
+		
+		fs.readFile('users/' + data.server + "/user.txt", 'utf8', function(err, dat) {
+			props = dat.split("\n");
+			var user_session = props[2].trim();
+			
+			// Check if session is matching
+			if(user_session == data.session && user_session != "SESSION EXPIRED") {
+				if(serv_type == 0) {
+					// Minecraft PC
+					
+					fs.readFile('users/' + data.server + '/server/server.properties', 'utf8', function(err, data) {
+						if(err) {
+							return callback({"error": err, "id": 2, "line": __line});
+						}
+						
+						props = data.split("\n");
+						for(i = 0; i < props.length; i++) {
+							if(props[i].substring(0, 9) == 'server-ip') {
+								serv_IP = props[i].substring(10);
+							} else if(props[i].substring(0, 9) == 'rcon.port') {
+								rcon_port = props[i].substring(10);
+							} else if(props[i].substring(0, 13) == 'rcon.password') {
+								rcon_pass = props[i].substring(14);
+							}
+						}
+						
+						var conn = new Rcon(serv_IP, rcon_port, rcon_pass);
+						
+						conn.on('auth', function() {
+							conn.send('stop');
+						}).on('error', function(err) {
+							callback(); // Just sending a normal callback since the error usually seems to be that the server has stopped
+						}).on('end', function() {
+							callback();
+						});
+						
+						conn.connect();
+					});
+				} else if(serv_type == 1) {
+					// Minecraft PE
+					// TODO
+					
+					callback({"error": "FEATURE_WIP_OR_DELETED", "id": 3, "line": __line});
+				} else {
+					// Minecraft Win 10
+					// TODO
+					
+					callback({"error": "FEATURE_WIP_OR_DELETED", "id": 4, "line": __line});
+				}
+			} else {
+				return callback({"error": "INVALID_SESSION", "id": 5, "line": __line});
+			}
+		});
+	});
 }
