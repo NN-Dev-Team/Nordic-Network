@@ -204,6 +204,7 @@ exports.add = function addUser(usr, email, hash, callback) {
 	});
 }
 
+// Not used anywhere atm; should we still keep it?
 exports.changeProp = function editLine(usr, prop, val, callback) {
     var usrpath = "users/" + usr + "/user.txt";
     
