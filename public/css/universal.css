@@ -48,10 +48,15 @@ body {
 }
 
 #changeCurrency {
-	padding-bottom: 0px;
-	padding-top: 10px;
+	outline: none;
 }
 
-#changeCurrency img {
-	width: 30px;
+#currency-dropdown {
+	padding: 12px 15px;
+}
+
+.currency-item {
+	margin-left: calc(50% - 38px);
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
