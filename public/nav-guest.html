@@ -22,7 +22,21 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-		<li><a id="changeCurrency" href="javascript:void(0)"><img src="/pics/icons/uk-icon.png" /></a></li>
+		<li>
+			<div class="dropdown" id="currency-dropdown">
+				<a href="#" class="dropdown-toggle" id="changeCurrency" data-toggle="dropdown" aria-expanded="false">
+					<img width="50px" src="/pics/icons/uk-icon.png">
+				</a>
+				<ul class="dropdown-menu">
+					<li class="currency-item">
+						<img width="75px" src="/pics/icons/uk-icon.png">
+					</li>
+					<li class="currency-item">
+						<img width="75px" src="/pics/icons/us-icon.png">
+					</li>
+				</ul>
+			</div>
+		</li>
       </ul>
     </div>
   </div>
