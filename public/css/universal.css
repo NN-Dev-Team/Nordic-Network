@@ -60,3 +60,9 @@ body {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+
+.currency-item a {
+	padding: 0 !important;
+	outline: none;
+	background-color: white !important;
+}
