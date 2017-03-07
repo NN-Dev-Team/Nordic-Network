@@ -3,8 +3,6 @@ var host = "N/A";
 var port = -1;
 
 $(document).ready(function() {
-	$('#login-failure').css('display', 'none');
-	
     $.get("../properties.txt", function(data) {
         values = data.split("\n");
 		
