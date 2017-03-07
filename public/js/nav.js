@@ -49,7 +49,7 @@ function getValFromStr(str, c) {
 function convertCurrency(obj) {
 	var str = $(obj).html();
 	
-	if(str != 'FREE') {
+	if(str != "FREE") {
 		var c = getCookie("currency");
 		
 		if(c == 0) {
