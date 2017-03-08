@@ -142,12 +142,22 @@
 			if(getCookie('session')) {
 				$.get("/nav-user.html", function(nav) {
 					$('body').prepend(nav);
+					changeOpacity();
+					$('#nav-nomargin').css('visibility', 'visible');
+					
 					addScrollSpy();
+					
+					addAnimations();
 				});
 			} else {
 				$.get("/nav-guest.html", function(nav) {
 					$('body').prepend(nav);
+					changeOpacity();
+					$('#nav-nomargin').css('visibility', 'visible');
+					
 					addScrollSpy();
+					
+					addAnimations();
 				});
 			}
 		</script>
