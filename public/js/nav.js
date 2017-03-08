@@ -56,7 +56,7 @@ function convertCurrency(obj) {
 			var old_val_str = getValFromStr(str, "$");
 			var old_val = old_val_str.substring(1);
 			
-			var new_val = old_val / 1.25;
+			var new_val = Math.round((old_val / 1.2) * 4) / 4;
 			var new_html = str.replace(old_val_str, "£" + new_val);
 			
 			$(obj).html(new_html);
@@ -64,7 +64,7 @@ function convertCurrency(obj) {
 			var old_val_str = getValFromStr(str, "£");
 			var old_val = old_val_str.substring(1);
 			
-			var new_val = old_val * 1.25;
+			var new_val = Math.round((old_val * 1.2) * 4) / 4;
 			var new_html = str.replace(old_val_str, "$" + new_val);
 			
 			$(obj).html(new_html);

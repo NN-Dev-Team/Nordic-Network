@@ -25,7 +25,7 @@
 		<li>
 			<div class="dropdown" id="currency-dropdown">
 				<a href="#" class="dropdown-toggle" id="changeCurrency" data-toggle="dropdown" aria-expanded="false">
-					<img width="50px" src="/pics/icons/uk-icon.png" onload="changeCurrency(getCookie('currency'))">
+					<img width="50px" src="/pics/icons/uk-icon.png" onload="changeCurrency(getCookie('currency'));$(this).removeAttr('onload')">
 				</a>
 				<ul class="dropdown-menu">
 					<li class="currency-item">
