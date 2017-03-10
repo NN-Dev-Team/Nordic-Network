@@ -33,4 +33,4 @@ To test the website:
 7. Add an account, give it a username and password, and set it's home directory (this setting is under `Shared Folders`) to your server directory. (`Nordic-Network\private\mono\servers\0`)
 8. Open your web browser and type in `localhost`, you can now go to `localhost/controlpanel.html` to see the panel in action, with working FTP!
 
-**Please note that the website running using this method doesn not support the Node.js program. No launching servers or creating accounts as of now.**
+**Please note that the website running using this method does not support the Node.js program. No launching servers or creating accounts as of now.**
