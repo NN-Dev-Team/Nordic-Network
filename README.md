@@ -1,9 +1,9 @@
 # Nordic Network
-### Free server hosting, the nordic way
+### Dynamic server hosting, the nordic way
 
 [![Join the chat at https://gitter.im/TropicSapling/Nordic-Network](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/TropicSapling/Nordic-Network?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-32 GB RAM will be available the first month, hosted in UK. (Note that 1 GB will be allocated for programs and other stuff needed)
+64 GB RAM will be available the first month, hosted in UK. (Note that 1-2 GB will be allocated for programs and other stuff needed)
 
 
 You can now *test* the program by following these instructions:
@@ -33,4 +33,4 @@ To test the website:
 7. Add an account, give it a username and password, and set it's home directory (this setting is under `Shared Folders`) to your server directory. (`Nordic-Network\private\mono\servers\0`)
 8. Open your web browser and type in `localhost`, you can now go to `localhost/controlpanel.html` to see the panel in action, with working FTP!
 
-PLEASE NOTE THAT THE WEBSITE RUNNING USING THIS METHOD DOES NOT SUPPORT THE NODE.JS PROGRAM! NO LAUNCHING SERVERS OR CREATING ACCOUNTS AS OF NOW!
+**Please note that the website running using this method does not support the Node.js program. No launching servers or creating accounts as of now.**
