@@ -61,17 +61,9 @@ function convertCurrency(obj) {
 }
 
 function changeCurrency(c) {
-	if(c == 0) {
-		addCookie("currency", 0, 1024);
+	addCookie("currency", c, 1024);
 		
-		for(var i = 0; i < $('.currency').length; i++) {
-			convertCurrency($('.currency')[i]);
-		}
-	} else if(c == 1) {
-		addCookie("currency", 1, 1024);
-		
-		for(var i = 0; i < $('.currency').length; i++) {
-			convertCurrency($('.currency')[i]);
-		}
+	for(var i = 0; i < $('.currency').length; i++) {
+		convertCurrency($('.currency')[i]);
 	}
 }
