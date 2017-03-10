@@ -46,3 +46,13 @@ $(document).ready(function() {
 		});
     }, 'text');
 });
+
+function changeFlag(c) {
+	if(c == 0) {
+		$('#changeCurrency img').attr("src", "/pics/icons/uk-icon.png");
+		$('#changeCurrency img').css("visibility", "visible");
+	} else if(c == 1) {
+		$('#changeCurrency img').attr("src", "/pics/icons/us-icon.png");
+		$('#changeCurrency img').css("visibility", "visible");
+	}
+}

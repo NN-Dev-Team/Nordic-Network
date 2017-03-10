@@ -51,6 +51,10 @@ body {
 	outline: none;
 }
 
+#changeCurrency img {
+	visibility: hidden;
+}
+
 #currency-dropdown {
 	padding: 12px 15px;
 }
@@ -59,4 +63,10 @@ body {
 	margin-left: calc(50% - 38px);
 	margin-top: 10px;
 	margin-bottom: 10px;
+}
+
+.currency-item a {
+	padding: 0 !important;
+	outline: none;
+	background-color: white !important;
 }

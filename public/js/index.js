@@ -36,6 +36,10 @@ function changeOpacity() {
 	}
 }
 
+function addAnimations() {
+	$('#nav-nomargin').css('transition', 'all 0.5s');
+}
+
 $(document).ready(function(){
 	var cookiesAccepted = getCookie('displayCookieConsent');
 	if(cookiesAccepted != 'y') {
