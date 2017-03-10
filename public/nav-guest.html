@@ -25,16 +25,16 @@
 		<li>
 			<div class="dropdown" id="currency-dropdown">
 				<a href="#" class="dropdown-toggle" id="changeCurrency" data-toggle="dropdown" aria-expanded="false">
-					<img width="50px" src="/pics/icons/uk-icon.png" onload="changeCurrency(getCookie('currency'));$(this).removeAttr('onload')">
+					<img width="50px" src="/pics/icons/uk-icon.png" onload="changeFlag(getCookie('currency'));$(this).removeAttr('onload')">
 				</a>
 				<ul class="dropdown-menu">
 					<li class="currency-item">
-						<a href="#" onclick="changeCurrency(0);event.preventDefault()">
+						<a href="#" onclick="changeFlag(0);changeCurrency(0);event.preventDefault()">
 							<img width="75px" src="/pics/icons/uk-icon.png">
 						</a>
 					</li>
 					<li class="currency-item">
-						<a href="#" onclick="changeCurrency(1);event.preventDefault()">
+						<a href="#" onclick="changeFlag(1);changeCurrency(1);event.preventDefault()">
 							<img width="75px" src="/pics/icons/us-icon.png">
 						</a>
 					</li>
