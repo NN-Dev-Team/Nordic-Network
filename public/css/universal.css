@@ -26,6 +26,14 @@ body {
 	color: #333;
 }
 
+.navbar-header button {
+	margin-top: 14px;
+}
+
+#navbar-logo {
+	height: 100%;
+}
+
 #navbar-logo img {
 	display: inline-block;
 }
