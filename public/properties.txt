@@ -1,2 +1,2 @@
-N/A
+nordicnetworkserver.herokuapp.com
 15015
