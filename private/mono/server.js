@@ -241,7 +241,7 @@ io.on('connection', function(socket){
 							if(serv_type == 0) {
 								
 								// Minecraft
-								fs.readFile('users/' + data.id + '/server/server.properties', 'utf8', function(err, dat) {
+								fs.readFile(../users/' + data.id + '/server/server.properties', 'utf8', function(err, dat) {
 									if(err) {
 										return sendToClient('console-query', err, '28.' + __line);
 									}
