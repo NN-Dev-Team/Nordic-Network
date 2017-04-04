@@ -32,7 +32,7 @@ $(document).ready(function() {
 		});
 		
 		$('form').submit(function(){
-			socket.emit('login', {email: $('#email').val(), pass: $('#passwrd'.val())});
+			socket.emit('login', {email: $('#email').val(), pass: $('#pwd'.val())});
 			return false;
 		});
     }, 'text');
