@@ -23,7 +23,7 @@ fs.readFile(__dirname + '/properties.txt', 'utf8', function (err, data) {
 		return console.log(err);
 	}
 	
-	var port = (process.env.PORT || 5000);
+	var port = (process.env.PORT || 15015);
 	http.listen(port, function(){
 		console.log('listening on *:' + port);
 	});
