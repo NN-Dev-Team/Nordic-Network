@@ -26,8 +26,22 @@ body {
 	color: #333;
 }
 
+.navbar-header button {
+	margin-top: 14px;
+}
+
+#navbar-logo {
+	height: 100%;
+}
+
 #navbar-logo img {
 	display: inline-block;
+}
+
+@media screen and (max-device-width: 360px) and (max-device-height: 640px) {
+	#navbar-logo {
+		font-size: medium;
+	}
 }
 
 #footer {

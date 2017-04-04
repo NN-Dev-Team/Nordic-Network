@@ -1,2 +1,2 @@
-N/A
-15015
+nordicnetworkserver.herokuapp.com
+PORT HERE, chosen automatically when using heroku
