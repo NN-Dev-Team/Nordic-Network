@@ -3,7 +3,7 @@ var user = require('./lib/user-lib.js');
 var account = require('./lib/account-handler.js');
 var server = require('./lib/server-handler.js');
 var traffic_handler = require('./lib/traffic-handler.js');
-var app_sorter = require('./app-sorter');
+var app_sorter = require('../app-sorter');
 // var mcLib = require('./lib/auto-updater.js'); // ONLY RUNS ON LINUX
 var fs = require('fs');
 var express = require('express');
@@ -241,7 +241,7 @@ io.on('connection', function(socket){
 							if(serv_type == 0) {
 								
 								// Minecraft
-								fs.readFile(../users/' + data.id + '/server/server.properties', 'utf8', function(err, dat) {
+								fs.readFile('./users/' + data.id + '/server/server.properties', 'utf8', function(err, dat) {
 									if(err) {
 										return sendToClient('console-query', err, '28.' + __line);
 									}
