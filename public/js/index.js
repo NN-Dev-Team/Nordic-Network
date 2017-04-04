@@ -73,9 +73,10 @@ $(document).ready(function(){
 		console.log("ERROR: Failed to get server IP");
 	}).done(function() {
 		var socket = io('http://' + host + ":" + port);
-		if(socket.disconnected) {
+		
+		socket.on('disconnect', function() {
 			console.log("ERROR: Unable to connect to server.");
-		}
+		});
 		
 		socket.on('main-stats', function(data) {
 			if(data.success) {

@@ -332,7 +332,7 @@ io.on('connection', function(socket){
                         return console.log(err);
                     }
                     
-                    var c = out.indexOf("Mem");
+                    var c = out.indexOf("-/+ buffers/cache");
                     
                     while(!(Number(out[c]))) {
                         c++;
