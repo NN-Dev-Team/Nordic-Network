@@ -22,10 +22,15 @@ $(document).ready(function() {
 	}).fail(function() {
 		swal("Failed to get server IP", "Please contact our admins about this error so we can fix it as soon as possible!", "error");
 	}).done(function() {
-		var socket = io('http://' + host + ":" + port);
-		if(socket.disconnected) {
-			swal("Unable to connect to server.", "It seems our game servers are down.\nPlease be patient while we work on a fix!", "error");
+		if(port) {
+			var socket = io('http://' + host + ":" + port);
+		} else {
+			var socket = io('http://' + host);
 		}
+		
+		socket.on('disconnect', function() {
+			swal("Unable to connect to server.", "It seems our game servers are down.\nPlease be patient while we work on a fix!", "error");
+		});
 		
 		socket.emit('get-status', {"server": Number(getCookie("user_id")), "session": getCookie("session")});
 		

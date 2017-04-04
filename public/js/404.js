@@ -12,11 +12,20 @@ $(document).ready(function(){
 		console.log("ERROR: Failed to get server IP");
 		show404();
 	}).done(function() {
-		var socket = io('http://' + host + ":" + port);
-		if(socket.disconnected) {
-			console.log("ERROR: Unable to connect to server.");
-			show404();
+		if(port) {
+			var socket = io('http://' + host + ":" + port);
 		} else {
+			var socket = io('http://' + host);
+		}
+		
+		var disconnected = false;
+		
+		socket.on('disconnect', function() {
+			disconnected = true;
+			swal("Unable to connect to server.", "It seems our game servers are down.\nPlease be patient while we work on a fix!", "error");
+		});
+		
+		if(!disconnected) {
 			var serv_type;
 			var usr_id = "";
 			var url = window.location.href;
