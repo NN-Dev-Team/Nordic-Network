@@ -31,11 +31,11 @@ function rmdirAsync(path, callback) {
 		files.forEach(function(file) {
 			var curPath = path + "/" + file;
 			fs.lstat(curPath, function(err, stats) {
-				if( err ) {
+				if(err) {
 					callback(err, []);
 					return;
 				}
-				if( stats.isDirectory() ) {
+				if(stats.isDirectory()) {
 					rmdirAsync(curPath, folderDone);
 				} else {
 					fs.unlink(curPath, folderDone);
@@ -173,7 +173,7 @@ exports.findSession = function findSessionMatch(session, callback) { // Currentl
 exports.getTotal = function getUserCount(callback) {
 	fs.readFile("users/user.txt", 'utf8', function(err, data) {
 		if(err) {
-			callback(err, __line);
+			return callback(err, __line);
 		}
 		
 		callback(Number(data.trim()));
