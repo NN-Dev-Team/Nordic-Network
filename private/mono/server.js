@@ -22,7 +22,7 @@ fs.readFile('properties.txt', 'utf8', function (err, data) {
 		return console.log(err);
 	}
 	
-	var port = data.trim();
+	var port = process.env.PORT || data.trim();
 	http.listen(port, function(){
 		console.log('listening on *:' + port);
 	});
