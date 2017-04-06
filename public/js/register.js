@@ -30,7 +30,7 @@ $(document).ready(function() {
 		});
 		
 		$('form').submit(function(){
-			if($('#passwrd')[0] == $('#passwrd')[1]) {
+			if($('#passwrd')[0].val() == $('#passwrd')[1].val()) {
 				socket.emit('register', {email: $('#email').val(), pass: $('#passwrd')[0].val()});
 			} else {
 				swal("Failed to register", "Passwords do not match.", "error");
