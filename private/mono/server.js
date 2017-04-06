@@ -1,8 +1,9 @@
 var toobusy = require('toobusy-js');
+var user = require('./lib/user-lib.js');
 var account = require('./lib/account-handler.js');
 var server = require('./lib/server-handler.js');
 var traffic_handler = require('./lib/traffic-handler.js');
-var app_sorter = require('../app-sorter');
+var app_sorter = require('./app-sorter');
 // var mcLib = require('./lib/auto-updater.js'); // ONLY RUNS ON LINUX
 var fs = require('fs');
 var express = require('express');
@@ -17,12 +18,12 @@ var values = [];
 var props = [];
 var valid = false;
 
-fs.readFile('properties.txt', 'utf8', function (err, data) {
+fs.readFile(__dirname + '/properties.txt', 'utf8', function (err, data) {
 	if (err) {
 		return console.log(err);
 	}
 	
-	var port = data.trim();
+	var port = (process.env.PORT || 15015);
 	http.listen(port, function(){
 		console.log('listening on *:' + port);
 	});
