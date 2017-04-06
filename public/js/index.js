@@ -78,8 +78,10 @@ $(document).ready(function(){
 			var socket = io('http://' + host);
 		}
 		
+		socket.emit("get-main-stats");
+		
 		socket.on('disconnect', function() {
-			console.log("ERROR: Unable to connect to server.");
+			console.log("ERROR: Lost connection to server.");
 		});
 		
 		socket.on('main-stats', function(data) {
