@@ -30,7 +30,12 @@ $(document).ready(function() {
 		});
 		
 		$('form').submit(function(){
-			socket.emit('register', {email: $('#email').val(), pass: $('#passwrd'.val())});
+			if($('#passwrd')[0] == $('#passwrd')[1]) {
+				socket.emit('register', {email: $('#email').val(), pass: $('#passwrd')[0].val()});
+			} else {
+				swal("Failed to register", "Passwords do not match.", "error");
+			}
+			
 			return false;
 		});
     }, 'text');
