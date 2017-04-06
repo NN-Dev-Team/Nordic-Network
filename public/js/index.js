@@ -94,7 +94,7 @@ $(document).ready(function(){
 				// data.info.max = Total memory, data.info.used = Used memory.
 			} else {
 				console.log("Failed to get stats");
-				console.log("Reason: " + data.reason);
+				console.log("Reason: " + data.error);
 				console.log("ID: " + data.id);
 			}
 		});

@@ -27,7 +27,7 @@ $(document).ready(function() {
 				addCookie("session", data.info.session, 1);
 				location.reload();
 			} else {
-				swal("Failed to login", "Reason: " + data.reason + "\nID: " + data.id, "error");
+				swal("Failed to login", "Reason: " + data.error + "\nID: " + data.id, "error");
 			}
 		});
 		
