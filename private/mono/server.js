@@ -17,7 +17,7 @@ var values = [];
 var props = [];
 var valid = false;
 
-fs.readFile('./properties.txt', 'utf8', function (err, data) {
+fs.readFile(__dirname + 'properties.txt', 'utf8', function (err, data) {
 	if (err) {
 		return console.log(err);
 	}
