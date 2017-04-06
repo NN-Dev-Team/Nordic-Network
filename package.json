@@ -2,6 +2,7 @@
   "name": "nordic-network",
   "version": "0.4.0",
   "description": "Free Hosting Service",
+  "main": "server.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "braintree": "^1.47.1",
@@ -18,5 +19,12 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/TropicSapling/Nordic-Network.git"
+  }
+  "engines": {
+        "node": "4.1.1"
+  },
+  "scripts": {
+        "preinstall": "npm install pm2",
+        "start": "pm2 start --attach server.js"
   }
 }
