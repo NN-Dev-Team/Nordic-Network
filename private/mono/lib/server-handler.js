@@ -43,18 +43,18 @@ exports.create = function createServer(data, IP, callback) {
 			if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
 				
 				// Session valid, create server
-				mkdir("users/" + data.id + "/server", function(err) {
+				mkdir(__dirname + "../users/" + data.id + "/server", function(err) {
 					if(err) {
 						return callback({"error": err, "id": 4, "line": __line});
 					}
 					
-					fs.writeFile("users/" + data.id + "/server/.properties", "0\n" + data.type + "\n0\n0", {mode: 0o600}, function(err, dat) {
+					fs.writeFile(__dirname + "../users/" + data.id + "/server/.properties", "0\n" + data.type + "\n0\n0", {mode: 0o600}, function(err, dat) {
 						if(err) {
 							return callback({"error": err, "id": 5, "line": __line});
 						}
 						
 						if(data.type == 0) {
-							mcLib.addJar("users/" + data.id + "/server", function(err) {
+							mcLib.addJar(__dirname + "../users/" + data.id + "/server", function(err) {
 								if(err) {
 									return callback({"error": err, "id": 6, "line": __line});
 								}
@@ -80,7 +80,7 @@ exports.start = function startServer(data, IP, callback) {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	}
 	
-	fs.readFile('users/' + data.server + '/server/.properties', 'utf8', function(err, dat) {
+	fs.readFile(__dirname + '../users/' + data.server + '/server/.properties', 'utf8', function(err, dat) {
 		if (err) {
 			return callback({"error": err, "id": 1, "line": __line});
 		}
@@ -91,7 +91,7 @@ exports.start = function startServer(data, IP, callback) {
 		var serv_rank = props[2].trim();
 		var serv_ram = [256, 512, 1024, 2048, 4096];
 		
-		fs.readFile('users/' + data.server + "/user.txt", 'utf8', function(err, dat) {
+		fs.readFile(__dirname + '../users/' + data.server + "/user.txt", 'utf8', function(err, dat) {
 			props = dat.split("\n");
 			var user_session = props[2].trim();
 			
@@ -107,7 +107,7 @@ exports.start = function startServer(data, IP, callback) {
 				if(serv_type == 0) {
 					// Minecraft PC
 					
-					exec("java -Xmx" + serv_ram[serv_rank] + "M -Xms" + serv_ram[serv_rank] + "M -jar users/" + data.server + "/server/minecraft_server.jar nogui", function(err2, out, stderr) {
+					exec("java -Xmx" + serv_ram[serv_rank] + "M -Xms" + serv_ram[serv_rank] + "M -jar " + __dirname + "../users/" + data.server + "/server/minecraft_server.jar nogui", function(err2, out, stderr) {
 						if(err2) {
 							return callback({"error": stderr, "id": 2, "line": __line});
 						}
@@ -139,7 +139,7 @@ exports.stop = function stopServer(data, IP, callback) {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	}
 	
-	fs.readFile('users/' + data.server + '/server/.properties', 'utf8', function(err, dat) {
+	fs.readFile(__dirname + '../users/' + data.server + '/server/.properties', 'utf8', function(err, dat) {
 		if (err) {
 			return callback({"error": err, "id": 1, "line": __line});
 		}
@@ -158,7 +158,7 @@ exports.stop = function stopServer(data, IP, callback) {
 			return callback();
 		}
 		
-		fs.readFile('users/' + data.server + "/user.txt", 'utf8', function(err, dat) {
+		fs.readFile(__dirname + '../users/' + data.server + "/user.txt", 'utf8', function(err, dat) {
 			props = dat.split("\n");
 			var user_session = props[2].trim();
 			
@@ -167,7 +167,7 @@ exports.stop = function stopServer(data, IP, callback) {
 				if(serv_type == 0) {
 					// Minecraft PC
 					
-					fs.readFile('users/' + data.server + '/server/server.properties', 'utf8', function(err, data) {
+					fs.readFile(__dirname + '../users/' + data.server + '/server/server.properties', 'utf8', function(err, data) {
 						if(err) {
 							return callback({"error": err, "id": 2, "line": __line});
 						}
