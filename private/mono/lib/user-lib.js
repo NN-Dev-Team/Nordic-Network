@@ -75,7 +75,7 @@ exports.get = function getUserData(id, callback) {
 }
 
 exports.find = function findEmailMatch(email, callback) {
-	fs.readdir(__dirname + '../users', function(err, files) {
+	fs.readdir(__dirname + '/../users', function(err, files) {
 		if(err) {
 			return callback(err, __line);
 		}
