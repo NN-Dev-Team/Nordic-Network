@@ -15,12 +15,12 @@
     "socket.io": "^1.7.3",
     "socket.io-client": "^1.7.3",
     "toobusy-js": "^0.4.3",
-    "http-sync": "^0.1.2";
+    "http-sync": "^0.1.2"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/NN-Dev-Team/Nordic-Network.git"
-  }
+  },
   "engines": {
         "node": "4.1.1"
   },
