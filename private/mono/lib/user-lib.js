@@ -65,7 +65,7 @@ Object.defineProperty(global, '__line', {
 });
 
 exports.get = function getUserData(id, callback) {
-	fs.readFile(__dirname + '../users/' + id + '/user.txt', 'utf8', function(err, data) {
+	fs.readFile('users/' + id + '/user.txt', 'utf8', function(err, data) {
 		if(err) {
 			return callback(err, __line);
 		}
@@ -75,7 +75,7 @@ exports.get = function getUserData(id, callback) {
 }
 
 exports.find = function findEmailMatch(email, callback) {
-	fs.readdir(__dirname + '../users', function(err, files) {
+	fs.readdir('users', function(err, files) {
 		if(err) {
 			return callback(err, __line);
 		}
@@ -87,7 +87,7 @@ exports.find = function findEmailMatch(email, callback) {
 			if(files[i] == "user.txt") {
 				files_processed++;
 			} else {
-				fs.readFile(__dirname + '../users/' + files[i] + '/user.txt', 'utf8', function(err, data) {
+				fs.readFile('users/' + files[i] + '/user.txt', 'utf8', function(err, data) {
 					if(err) {
 						return callback(err, __line);
 					}
@@ -122,7 +122,7 @@ exports.find = function findEmailMatch(email, callback) {
 }
 
 exports.findSession = function findSessionMatch(session, callback) { // Currently unused; should it be removed?
-	fs.readdir(__dirname + '../users', function(err, files) {
+	fs.readdir('users', function(err, files) {
 		if(err) {
 			return callback(err, __line);
 		}
@@ -134,7 +134,7 @@ exports.findSession = function findSessionMatch(session, callback) { // Currentl
 			if(files[i] == "user.txt") {
 				files_processed++;
 			} else {
-				fs.readFile(__dirname + '../users/' + files[i] + '/user.txt', 'utf8', function(err, data) {
+				fs.readFile('users/' + files[i] + '/user.txt', 'utf8', function(err, data) {
 					if(err) {
 						return callback(err, __line);
 					}
@@ -171,7 +171,7 @@ exports.findSession = function findSessionMatch(session, callback) { // Currentl
 }
 
 exports.getTotal = function getUserCount(callback) {
-	fs.readFile(__dirname + "../users/user.txt", 'utf8', function(err, data) {
+	fs.readFile("users/user.txt", 'utf8', function(err, data) {
 		if(err) {
 			return callback(err, __line);
 		}
@@ -181,19 +181,19 @@ exports.getTotal = function getUserCount(callback) {
 }
 
 exports.add = function addUser(usr, email, hash, callback) {
-	mkdir(__dirname + '../users/' + usr, function(err) {
+	mkdir('users/' + usr, function(err) {
 		if(err) {
 			return callback(err, __line);
 		}
 		
 		// Add email & hash to user file
-		fs.writeFile(__dirname + "../users/" + usr + "/user.txt", data.email + "\n" + hash, function(err, data) {
+		fs.writeFile("users/" + usr + "/user.txt", data.email + "\n" + hash, function(err, data) {
 			if(err) {
 				return callback(err, __line);
 			}
 			
 			// Make sure next user registered doesn't get the same user id
-			fs.writeFile(__dirname + "../users/user.txt", Number(usr) + 1, function(err, data) {
+			fs.writeFile("users/user.txt", Number(usr) + 1, function(err, data) {
 				if(err) {
 					return callback(err, __line);
 				}
@@ -206,7 +206,7 @@ exports.add = function addUser(usr, email, hash, callback) {
 
 // Not used anywhere atm; should we still keep it?
 exports.changeProp = function editLine(usr, prop, val, callback) {
-    var usrpath = __dirname + "../users/" + usr + "/user.txt";
+    var usrpath = "users/" + usr + "/user.txt";
     
     fs.readFile(usrpath, 'utf8', function(err, data) {
         if(err) {
@@ -228,7 +228,7 @@ exports.changeProp = function editLine(usr, prop, val, callback) {
 }
 
 exports.delOld = function delOldUser(callback) {
-	fs.readdir(__dirname + '../users', function(err, files) {
+	fs.readdir('users', function(err, files) {
 		if(err) {
 			return callback(err, __line);
 		}
@@ -240,7 +240,7 @@ exports.delOld = function delOldUser(callback) {
 			if(files[i] == "user.txt") {
 				files_processed++;
 			} else {
-				fs.readFile(__dirname + '../users/' + files[i] + '/server/.properties', 'utf8', function(err, data) {
+				fs.readFile('users/' + files[i] + '/server/.properties', 'utf8', function(err, data) {
 					if(err) {
 						return callback(err, __line);
 					}
@@ -249,7 +249,7 @@ exports.delOld = function delOldUser(callback) {
 					var today = new Date();
 					
 					if(today.getTime() - content[3].trim() > 8589934591) { // '.properties' structure is in 'server-handler.js'
-						rmdirAsync(__dirname + '../users/' + files[i] + '/server', function(err) {
+						rmdirAsync('users/' + files[i] + '/server', function(err) {
 							if(err) {
 								return callback(err, __line);
 							}

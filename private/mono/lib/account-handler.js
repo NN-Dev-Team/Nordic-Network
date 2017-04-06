@@ -9,35 +9,35 @@ exports.register = function regUsr(data, IP, callback) {
         return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
     } else if (((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
         bcrypt.genSalt(10, function(err, salt) {
-            if(err) {
+            if (err) {
                 return callback({"error": err, "id": 1, "line": __line});
             }
 
             // Hash password
             bcrypt.hash(data.pass, salt, function(err, hash) {
-                if(err) {
+                if (err) {
                     return callback({"error": err, "id": 2, "line": __line});
                 }
 
                 // Search the database to check if the user already exists
                 user.find(data.email, function(err, line, found, dat, last, usr) {
-                    if(err) {
+                    if (err) {
                         return callback({"error": err, "id": 3, "line": __line});
                     }
 
-                    if(found) {
+                    if (found) {
 						return callback({"error": "USER_ALREADY_EXISTS", "id": 4, "line": __line});
                     }
 
                     // User doesn't exist yet, check if enough disk space is available
                     diskspace.check('/', function(err, total, free) {
-                        if(free < 2147483648) {
+                        if (free < 2147483648) {
                             user.delOld(function(err, line, success) {
-                                if(err) {
+                                if (err) {
                                     return callback({"error": err, "id": 5, "line": __line});
                                 }
 
-                                if(success) {
+                                if (success) {
                                     user.add(usr, data.email, hash, function(err, line) {
                                         if (err) {
                                             return callback({"error": err, "id": 6, "line": __line});
@@ -53,7 +53,7 @@ exports.register = function regUsr(data, IP, callback) {
 
                             // Enough disk space available, register user
                             user.add(usr, data.email, hash, function(err, line) {
-                                if(err) {
+                                if (err) {
                                     return callback({"error": err, "id": 8, "line": __line + '.' + line});
                                 }
 
@@ -91,7 +91,7 @@ exports.login = function login(data, IP, callback) {
 						userSession += Math.round(((new Date()).getTime() / 60000) + 60*24);
 						dat[2] = userSession;
 						
-						fs.writeFile(__dirname + "../users/" + usr + "/user.txt", dat.join("\n"), function(err, data) {
+						fs.writeFile("users/" + usr + "/user.txt", dat.join("\n"), function(err, data) {
 							if(err) {
 								return callback({"error": err, "id": 3, "line": __line});
 							}
