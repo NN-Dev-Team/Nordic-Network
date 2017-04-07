@@ -226,7 +226,7 @@ io.on('connection', function(socket){
 					if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
 						
 						// Session valid, get server data
-						fs.readFile(__dirname + 'users/' + data.server + '/server/server.properties', 'utf8', function(err, dat) {
+						fs.readFile(path.join(__dirname, 'users/', data.server, '/server/server.properties'), 'utf8', function(err, dat) {
 							if (err) {
 								return sendToClient('console-query', err, '27.' + __line);
 							}
@@ -240,7 +240,7 @@ io.on('connection', function(socket){
 							if(serv_type == 0) {
 								
 								// Minecraft
-								fs.readFile(__dirname + 'users/' + data.id + '/server/server.properties', 'utf8', function(err, dat) {
+								fs.readFile(path.join(__dirname, 'users/', data.id, '/server/server.properties'), 'utf8', function(err, dat) {
 									if(err) {
 										return sendToClient('console-query', err, '28.' + __line);
 									}
@@ -294,7 +294,7 @@ io.on('connection', function(socket){
 				traffic_handler.register(socket_session, 16);
 			}
 			
-			fs.writeFile(__dirname + '../apps/new/' + data.id + '.txt', data.app, function(err, dat) {
+			fs.writeFile(path.join(__dirname, '../apps/new/', data.id, '.txt'), data.app, function(err, dat) {
 				if(err) {
 					return sendToClient('app-status', err, '31.' + __line);
 				}
@@ -369,7 +369,7 @@ io.on('connection', function(socket){
 			if(data.id < user_count) {
 				app.get('/', function(req, res) {
 					if(data.pageType == 0) {
-						res.sendFile(__dirname + '/users/' + data.id + '/server-page.html', function(err) {
+						res.sendFile(path.join(__dirname, '/users/', data.id, '/server-page.html'), function(err) {
 							if(err) {
 								return io.emit('show-404');
 							}
