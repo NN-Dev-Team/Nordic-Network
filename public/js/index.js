@@ -80,6 +80,10 @@ $(document).ready(function(){
 		
 		socket.emit("get-main-stats");
 		
+		socket.on('connect_failed', function() {
+			console.log("ERROR: Unable to connect to server.");
+		});
+		
 		socket.on('disconnect', function() {
 			console.log("ERROR: Lost connection to server.");
 		});

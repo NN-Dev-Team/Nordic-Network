@@ -20,9 +20,13 @@ $(document).ready(function(){
 		
 		var disconnected = false;
 		
+		socket.on('connect_failed', function() {
+			swal("Unable to connect to server.", "It seems our game servers are down.\nPlease be patient while we work on a fix!", "error");
+		});
+		
 		socket.on('disconnect', function() {
 			disconnected = true;
-			swal("Unable to connect to server.", "It seems our game servers are down.\nPlease be patient while we work on a fix!", "error");
+			swal("Disconnected from server", "Hmm, looks like something went wrong. Please report this to our development team at https://github.com/NN-Dev-Team/Nordic-Network/issues", "error");
 		});
 		
 		if(!disconnected) {
