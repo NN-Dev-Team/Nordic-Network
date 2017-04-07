@@ -2,6 +2,7 @@ var bcrypt = require('bcryptjs');
 var path = require('path');
 var randomstring = require('randomstring');
 var user = require('./user-lib.js');
+var diskspace = require('diskspace');
 
 ////////////////////////////////    REGISTRATION    ////////////////////////////////
 
