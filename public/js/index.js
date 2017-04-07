@@ -78,8 +78,10 @@ $(document).ready(function(){
 			var socket = io('http://' + host);
 		}
 		
+		socket.emit("get-main-stats");
+		
 		socket.on('disconnect', function() {
-			console.log("ERROR: Unable to connect to server.");
+			console.log("ERROR: Lost connection to server.");
 		});
 		
 		socket.on('main-stats', function(data) {
@@ -92,7 +94,7 @@ $(document).ready(function(){
 				// data.info.max = Total memory, data.info.used = Used memory.
 			} else {
 				console.log("Failed to get stats");
-				console.log("Reason: " + data.reason);
+				console.log("Reason: " + data.error);
 				console.log("ID: " + data.id);
 			}
 		});
