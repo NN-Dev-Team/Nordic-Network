@@ -32,8 +32,12 @@ $(document).ready(function() {
 			var socket = io('http://' + host);
 		}
 		
-		socket.on('disconnect', function() {
+		socket.on('connect_failed', function() {
 			swal("Unable to connect to server.", "It seems our game servers are down.\nPlease be patient while we work on a fix!", "error");
+		});
+		
+		socket.on('disconnect', function() {
+			swal("Disconnected from server", "Hmm, looks like something went wrong. Please report this to our development team at https://github.com/NN-Dev-Team/Nordic-Network/issues", "error");
 		});
 		
 		$('button #logout').click(function(){
