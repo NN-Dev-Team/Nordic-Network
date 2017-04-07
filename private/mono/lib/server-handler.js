@@ -1,4 +1,5 @@
 var mkdir = require('mkdirp');
+var path = require('path');
 var user = require('./user-lib.js');
 
 //////////////// 'server/.properties' file structure ////////////////
@@ -43,18 +44,18 @@ exports.create = function createServer(data, IP, callback) {
 			if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
 				
 				// Session valid, create server
-				mkdir(__dirname + "../users/" + data.id + "/server", function(err) {
+				mkdir(path.join(__dirname, "../users/", data.id, "/server"), function(err) {
 					if(err) {
 						return callback({"error": err, "id": 4, "line": __line});
 					}
 					
-					fs.writeFile(__dirname + "../users/" + data.id + "/server/.properties", "0\n" + data.type + "\n0\n0", {mode: 0o600}, function(err, dat) {
+					fs.writeFile(path.join(__dirname, "../users/", data.id, "/server/.properties"), "0\n" + data.type + "\n0\n0", {mode: 0o600}, function(err, dat) {
 						if(err) {
 							return callback({"error": err, "id": 5, "line": __line});
 						}
 						
 						if(data.type == 0) {
-							mcLib.addJar(__dirname + "../users/" + data.id + "/server", function(err) {
+							mcLib.addJar(path.join(__dirname, "../users/", data.id, "/server"), function(err) {
 								if(err) {
 									return callback({"error": err, "id": 6, "line": __line});
 								}
@@ -80,7 +81,7 @@ exports.start = function startServer(data, IP, callback) {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	}
 	
-	fs.readFile(__dirname + '../users/' + data.server + '/server/.properties', 'utf8', function(err, dat) {
+	fs.readFile(path.join(__dirname, '../users/', data.server, '/server/.properties'), 'utf8', function(err, dat) {
 		if (err) {
 			return callback({"error": err, "id": 1, "line": __line});
 		}
@@ -91,7 +92,7 @@ exports.start = function startServer(data, IP, callback) {
 		var serv_rank = props[2].trim();
 		var serv_ram = [256, 512, 1024, 2048, 4096];
 		
-		fs.readFile(__dirname + '../users/' + data.server + "/user.txt", 'utf8', function(err, dat) {
+		fs.readFile(path.join(__dirname, '../users/', data.server, "/user.txt"), 'utf8', function(err, dat) {
 			props = dat.split("\n");
 			var user_session = props[2].trim();
 			
@@ -107,7 +108,7 @@ exports.start = function startServer(data, IP, callback) {
 				if(serv_type == 0) {
 					// Minecraft PC
 					
-					exec("java -Xmx" + serv_ram[serv_rank] + "M -Xms" + serv_ram[serv_rank] + "M -jar " + __dirname + "../users/" + data.server + "/server/minecraft_server.jar nogui", function(err2, out, stderr) {
+					exec("java -Xmx" + serv_ram[serv_rank] + "M -Xms" + serv_ram[serv_rank] + "M -jar " + path.join(__dirname, "../users/", data.server) + "/server/minecraft_server.jar nogui", function(err2, out, stderr) {
 						if(err2) {
 							return callback({"error": stderr, "id": 2, "line": __line});
 						}
@@ -139,7 +140,7 @@ exports.stop = function stopServer(data, IP, callback) {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	}
 	
-	fs.readFile(__dirname + '../users/' + data.server + '/server/.properties', 'utf8', function(err, dat) {
+	fs.readFile(path.join(__dirname, '../users/', data.server, '/server/.properties'), 'utf8', function(err, dat) {
 		if (err) {
 			return callback({"error": err, "id": 1, "line": __line});
 		}
@@ -158,7 +159,7 @@ exports.stop = function stopServer(data, IP, callback) {
 			return callback();
 		}
 		
-		fs.readFile(__dirname + '../users/' + data.server + "/user.txt", 'utf8', function(err, dat) {
+		fs.readFile(path.join(__dirname, '../users/', data.server, "/user.txt"), 'utf8', function(err, dat) {
 			props = dat.split("\n");
 			var user_session = props[2].trim();
 			
@@ -167,7 +168,7 @@ exports.stop = function stopServer(data, IP, callback) {
 				if(serv_type == 0) {
 					// Minecraft PC
 					
-					fs.readFile(__dirname + '../users/' + data.server + '/server/server.properties', 'utf8', function(err, data) {
+					fs.readFile(path.join(__dirname, '../users/', data.server, '/server/server.properties'), 'utf8', function(err, data) {
 						if(err) {
 							return callback({"error": err, "id": 2, "line": __line});
 						}
@@ -211,4 +212,78 @@ exports.stop = function stopServer(data, IP, callback) {
 			}
 		});
 	});
+}
+
+////////////////////////////////    SEND COMMAND TO SERVER    ////////////////////////////////
+
+exports.sendCMD = function sendCommand(data, IP, callback) {
+	if(typeof data.session != 'string' || (data.session).length < 24) {
+		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
+	} else if(Math.round((new Date).getTime() / 60000 > (data.session).substring(16))) {
+		return callback({"error": "SESSION_EXPIRED", "id": 1, "line": __line});
+	} else if(typeof data.id == 'number') {
+		
+		// Get user data
+		user.get(data.id, function(err, line, dat) {
+			if(err) {
+				return callback({"error": err, "id": 2, "line": __line + '.' + line});
+			}
+			
+			// Check if session is valid
+			if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
+				
+				// Session valid, get server data
+				fs.readFile(path.join(__dirname, '../users/', data.server, '/server/server.properties'), 'utf8', function(err, dat) {
+					if (err) {
+						return callback({"error": err, "id": 3, "line": __line});
+					}
+					
+					props = data.split("\n");
+					var serv_type = props[1].trim();
+					var serv_IP = "";
+					var rcon_port = 0;
+					var rcon_pass = "";
+					
+					if(serv_type == 0) {
+						
+						// Minecraft
+						fs.readFile(path.join(__dirname, '../users/', data.id, '/server/server.properties'), 'utf8', function(err, dat) {
+							if(err) {
+								return callback({"error": err, "id": 4, "line": __line});
+							}
+							
+							props = dat.split("\n");
+							for(i = 0; i < props.length; i++) {
+								if(props[i].substring(0, 9) == 'server-ip') {
+									serv_IP = props[i].substring(10);
+								} else if(props[i].substring(0, 9) == 'rcon.port') {
+									rcon_port = props[i].substring(10);
+								} else if(props[i].substring(0, 13) == 'rcon.password') {
+									rcon_pass = props[i].substring(14);
+								}
+							}
+							
+							var conn = new Rcon(serv_IP, rcon_port, rcon_pass);
+							
+							conn.on('auth', function() {
+								conn.send(data.cmd);
+							}).on('response', function(data) {
+								callback(err, data);
+							}).on('error', function(err) {
+								return callback({"error": err, "id": 5, "line": __line});
+							});
+							
+							conn.connect();
+						});
+					} else {
+						return callback({"error": "NO_RCON_SUPPORT", "id": 6, "line": __line});
+					}
+				});
+			} else {
+				return callback({"error": "INVALID_SESSION", "id": 7, "line": __line});
+			}
+		});
+	} else {
+		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
+	}
 }

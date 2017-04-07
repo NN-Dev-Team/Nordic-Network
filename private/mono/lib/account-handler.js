@@ -1,4 +1,5 @@
 var bcrypt = require('bcryptjs');
+var path = require('path');
 var randomstring = require('randomstring');
 var user = require('./user-lib.js');
 
@@ -91,7 +92,7 @@ exports.login = function login(data, IP, callback) {
 						userSession += Math.round(((new Date()).getTime() / 60000) + 60*24);
 						dat[2] = userSession;
 						
-						fs.writeFile(__dirname + "../users/" + usr + "/user.txt", dat.join("\n"), function(err, data) {
+						fs.writeFile(path.join(__dirname, "../users/", usr, "/user.txt"), dat.join("\n"), function(err, data) {
 							if(err) {
 								return callback({"error": err, "id": 3, "line": __line});
 							}
