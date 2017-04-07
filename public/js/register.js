@@ -25,12 +25,17 @@ $(document).ready(function() {
 			if(data.success){
 				location.reload();
 			} else {
-				swal("Failed to register", "Reason: " + data.reason + "\nID: " + data.id, "error");
+				swal("Failed to register", "Reason: " + data.error + "\nID: " + data.id, "error");
 			}
 		});
 		
 		$('form').submit(function(){
-			socket.emit('register', {email: $('#email').val(), pass: $('#passwrd'.val())});
+			if($('.passwrd:eq(0)').val() == $('.passwrd:eq(1)').val()) {
+				socket.emit('register', {email: $('#email').val(), pass: $('.passwrd:eq(0)').val()});
+			} else {
+				swal("Failed to register", "Passwords do not match.", "error");
+			}
+			
 			return false;
 		});
     }, 'text');
