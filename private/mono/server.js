@@ -12,12 +12,13 @@ var io = require('socket.io')(http);
 var exec = require('child_process').exec;
 var Rcon = require('rcon');
 var diskspace = require('diskspace');
+var path = require('path');
 
 var values = [];
 var props = [];
 var valid = false;
 
-fs.readFile(__dirname + 'properties.txt', 'utf8', function (err, data) {
+fs.readFile(path.join(__dirname, 'properties.txt'), 'utf8', function (err, data) {
 	if (err) {
 		return console.log(err);
 	}
@@ -30,7 +31,7 @@ fs.readFile(__dirname + 'properties.txt', 'utf8', function (err, data) {
 
 app.use(function(req, res, next) {
 	if (toobusy()) {
-		res.send(503, "Sorry, either we're too popular or someone is DDoS:ing (Server is overloaded)");
+		res.send(503, "TOO_MUCH_TRAFFIC");
 	} else {
 		next();
 	}
@@ -78,9 +79,9 @@ io.on('connection', function(socket){
 			if(ss.isBlocked) {
 				return sendToClient('reg-complete', "TOO_MUCH_TRAFFIC", '0.0:' + __line);
 			} else if(ss.isRegistered) {
-				traffic_handler.log(socket_session, 16);
+				traffic_handler.log(socket_session, 64);
 			} else {
-				traffic_handler.register(socket_session, 16);
+				traffic_handler.register(socket_session, 64);
 			}
 			
 			account.register(data, IP, function(err, usr) {
@@ -100,9 +101,9 @@ io.on('connection', function(socket){
 			if(ss.isBlocked) {
 				return sendToClient('login-complete', "TOO_MUCH_TRAFFIC", '1.0:' + __line);
 			} else if(ss.isRegistered) {
-				traffic_handler.log(socket_session, 8);
+				traffic_handler.log(socket_session, 32);
 			} else {
-				traffic_handler.register(socket_session, 8);
+				traffic_handler.register(socket_session, 32);
 			}
 			
 			account.login(data, IP, function(err, usr, userSession) {
@@ -121,9 +122,9 @@ io.on('connection', function(socket){
 			if(ss.isBlocked) {
 				return sendToClient('logout-complete', "TOO_MUCH_TRAFFIC", '2.0:' + __line);
 			} else if(ss.isRegistered) {
-				traffic_handler.log(socket_session, 16);
+				traffic_handler.log(socket_session, 32);
 			} else {
-				traffic_handler.register(socket_session, 16);
+				traffic_handler.register(socket_session, 32);
 			}
 			
 			account.logout(data, function(err) {
@@ -141,11 +142,11 @@ io.on('connection', function(socket){
 	socket.on('create-serv', function(data){
 		traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
-				return sendToClient('creation-complete', "Please don't overload our servers.", '3.0:' + __line);
+				return sendToClient('creation-complete', "TOO_MUCH_TRAFFIC", '3.0:' + __line);
 			} else if(ss.isRegistered) {
-				traffic_handler.log(socket_session, 16);
+				traffic_handler.log(socket_session, 64);
 			} else {
-				traffic_handler.register(socket_session, 16);
+				traffic_handler.register(socket_session, 64);
 			}
 			
 			server.create(data, IP, function(err) {
@@ -163,11 +164,11 @@ io.on('connection', function(socket){
 	socket.on('start-server', function(data){
 		traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
-				return sendToClient('server-checked', "Please don't overload our servers.", '4.0:' + __line);
+				return sendToClient('server-checked', "TOO_MUCH_TRAFFIC", '4.0:' + __line);
 			} else if(ss.isRegistered) {
-				traffic_handler.log(socket_session, 8);
+				traffic_handler.log(socket_session, 16);
 			} else {
-				traffic_handler.register(socket_session, 8);
+				traffic_handler.register(socket_session, 16);
 			}
 			
 			server.start(data, IP, function(err, serv_type) {
@@ -183,11 +184,11 @@ io.on('connection', function(socket){
 	socket.on('stop-server', function(data) {
 		traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
-				return sendToClient('server-stopped', "Please don't overload our servers.", '5.0:' + __line);
+				return sendToClient('server-stopped', "TOO_MUCH_TRAFFIC", '5.0:' + __line);
 			} else if(ss.isRegistered) {
-				traffic_handler.log(socket_session, 8);
+				traffic_handler.log(socket_session, 16);
 			} else {
-				traffic_handler.register(socket_session, 8);
+				traffic_handler.register(socket_session, 16);
 			}
 			
 			server.stop(data, IP, function(err) {
@@ -203,82 +204,20 @@ io.on('connection', function(socket){
 	socket.on('console-cmd', function(data) {
 		traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
-				return sendToClient('console-query', "Please don't overload our servers.", '6.0:' + __line);
+				return sendToClient('console-query', "TOO_MUCH_TRAFFIC", '7.0:' + __line);
 			} else if(ss.isRegistered) {
 				traffic_handler.log(socket_session, 4);
 			} else {
 				traffic_handler.register(socket_session, 4);
 			}
 			
-			if(typeof data.session != 'string' || (data.session).length < 24) {
-				return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
-			} else if(Math.round((new Date).getTime() / 60000 > (data.session).substring(16))) {
-				return sendToClient('console-query', "Session has expired.", '15.' + __line);
-			} else if(typeof data.id == 'number') {
+			server.sendCMD(data, IP, function(err, data) {
+				if(err) {
+					return sendToClient('console-query', err.error, formatErr(err, 7, __line));
+				}
 				
-				// Get user data
-				user.get(data.id, function(err, line, dat) {
-					if(err) {
-						return sendToClient('console-query', err, '26.' + __line + '.' + line);
-					}
-					
-					// Check if session is valid
-					if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
-						
-						// Session valid, get server data
-						fs.readFile(path.join(__dirname, 'users/', data.server, '/server/server.properties'), 'utf8', function(err, dat) {
-							if (err) {
-								return sendToClient('console-query', err, '27.' + __line);
-							}
-							
-							props = data.split("\n");
-							var serv_type = props[1].trim();
-							var serv_IP = "";
-							var rcon_port = 0;
-							var rcon_pass = "";
-							
-							if(serv_type == 0) {
-								
-								// Minecraft
-								fs.readFile(path.join(__dirname, 'users/', data.id, '/server/server.properties'), 'utf8', function(err, dat) {
-									if(err) {
-										return sendToClient('console-query', err, '28.' + __line);
-									}
-									
-									props = dat.split("\n");
-									for(i = 0; i < props.length; i++) {
-										if(props[i].substring(0, 9) == 'server-ip') {
-											serv_IP = props[i].substring(10);
-										} else if(props[i].substring(0, 9) == 'rcon.port') {
-											rcon_port = props[i].substring(10);
-										} else if(props[i].substring(0, 13) == 'rcon.password') {
-											rcon_pass = props[i].substring(14);
-										}
-									}
-									
-									var conn = new Rcon(serv_IP, rcon_port, rcon_pass);
-									
-									conn.on('auth', function() {
-										conn.send(data.cmd);
-									}).on('response', function(data) {
-										sendToClient('console-query', data);
-									}).on('error', function(err) {
-										return sendToClient('console-query', err, '29.' + __line);
-									});
-									
-									conn.connect();
-								});
-							} else {
-								return sendToClient('console-query', "This game does not support RCON :(", '30.' + __line);
-							}
-						});
-                    } else {
-                        return sendToClient('console-query', "Invalid session.", '21.' + __line);
-                    }
-                });
-            } else {
-				return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
-            }
+				sendToClient('console-query', data);
+			});
         });
     });
 	
@@ -287,11 +226,11 @@ io.on('connection', function(socket){
 	socket.on('check-app', function(data) {
         traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
-				return sendToClient('app-status', "Please don't overload our servers.", '7.0:' + __line);
+				return sendToClient('app-status', "TOO_MUCH_TRAFFIC", '7.0:' + __line);
 			} else if(ss.isRegistered) {
-				traffic_handler.log(socket_session, 16);
+				traffic_handler.log(socket_session, 64);
 			} else {
-				traffic_handler.register(socket_session, 16);
+				traffic_handler.register(socket_session, 64);
 			}
 			
 			fs.writeFile(path.join(__dirname, '../apps/new/', data.id, '.txt'), data.app, function(err, dat) {
@@ -319,11 +258,11 @@ io.on('connection', function(socket){
 	socket.on('get-main-stats', function(data) {
         traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
-				return sendToClient('main-stats', "Please don't overload our servers.", '8.0:' + __line);
+				return sendToClient('main-stats', "TOO_MUCH_TRAFFIC", '8.0:' + __line);
 			} else if(ss.isRegistered) {
-				traffic_handler.log(socket_session, 16);
+				traffic_handler.log(socket_session, 64);
 			} else {
-				traffic_handler.register(socket_session, 16);
+				traffic_handler.register(socket_session, 64);
 			}
             
             user.getTotal(function(err, serverCount) {
