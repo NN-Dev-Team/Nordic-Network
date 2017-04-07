@@ -1,4 +1,5 @@
 var httpsSync = require('http-sync');
+var path = require('path');
 
 Date.prototype.getWeek = function() {
 	var date = new Date(this.getTime());
@@ -10,7 +11,7 @@ Date.prototype.getWeek = function() {
 
 exports.addJar = function copyLatestStableJar(dest, callback) {
 	var cbCalled = false;
-	var src = __dirname + "../versions/mc/minecraft_server.1.9.2.jar";
+	var src = path.join(__dirname, "../versions/mc/minecraft_server.1.9.2.jar");
 	dest += "/minecraft_server.jar";
 	
 	var read = fs.createReadStream(src);
