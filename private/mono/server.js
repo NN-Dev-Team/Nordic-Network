@@ -236,12 +236,12 @@ io.on('connection', function(socket){
 			
 			fs.writeFile(path.join(__dirname, '../apps/new/', data.id, '.txt'), data.app, function(err, dat) {
 				if(err) {
-					return sendToClient('app-status', err, '31.' + __line);
+					return sendToClient('app-status', err, '7.1:' + __line);
 				}
 				
 				app_sorter.checkApp(data.id, function(err, approved) {
 					if(err) {
-						return sendToClient('app-status', err, '32.' + __line);
+						return sendToClient('app-status', err, '7.2:' + __line);
 					}
 					
 					if(approved) {
@@ -267,6 +267,10 @@ io.on('connection', function(socket){
 			}
             
             user.getTotal(function(err, serverCount) {
+				if(err) {
+					return sendToClient('main-stats', err, '8.1:' + __line);
+				}
+				
                 exec("free -m", function(err, out, stderr) {
                     if(err) {
                         return console.log(err);
@@ -306,6 +310,10 @@ io.on('connection', function(socket){
 	
 	socket.on('get-user-page', function(data){
 		user.getTotal(function(err, userCount) {
+			if(err) {
+				return io.emit('show-404');
+			}
+			
 			if(data.id < user_count) {
 				app.get('/', function(req, res) {
 					if(data.pageType == 0) {
