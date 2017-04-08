@@ -14,8 +14,7 @@
     "rcon": "^1.0.3",
     "socket.io": "^1.7.3",
     "socket.io-client": "^1.7.3",
-    "toobusy-js": "^0.4.3",
-    "http-sync": "^0.1.2"
+    "toobusy-js": "^0.4.3"
   },
   "repository": {
     "type": "git",
