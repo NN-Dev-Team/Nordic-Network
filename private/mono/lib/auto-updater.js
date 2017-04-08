@@ -1,4 +1,4 @@
-var httpsSync = require('http-sync');
+// var httpsSync = require('http-sync');
 var path = require('path');
 
 Date.prototype.getWeek = function() {
