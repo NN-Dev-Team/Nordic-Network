@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+		<title>Nordic Network - Console</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Load universal CSS from file -->
+		<link rel="stylesheet" href="/css/universal.css">
+		<!-- Load custom CSS from file -->    
+		<link rel="stylesheet" href="/css/controlpanel.css">
+		<!-- Load JQuery from CDN -->
+		<script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<!-- Load bootstrap CSS from CDN -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<!-- Load bootstrap JS from CDN -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<!-- Load Socket.io -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+		<!-- Load JQuery Waypoints from CDN -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
+		<!-- Load Socket.io from CDN -->
+		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+        <!-- Load Sidebar CSS from file -->    
+		<link rel="stylesheet" href="/css/sidebar.css">
+        <!-- Load Fontastic CSS from file -->
+        <link rel="stylesheet" href="/css/fontastic.css">
+		<!-- Load SweetAlert -->
+		<script src="/sweetalert/dist/sweetalert.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/sweetalert/dist/sweetalert.css">
+        <!-- Load Chart.JS from CDN -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.js"></script>
+		<script type="text/javascript" src="/js/sidebar.js"></script>
+		<script type="text/javascript" src="/js/controlpanel-console.js"></script>
+        <script>
+            var myChart = new Chart({...})
+        </script>
+	</head>
+    
+    
+    
+    
+    
+<body id="cpbody">
+
+    <div id="wrapper">
+
+<!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Nordic Network
+                    </a>
+                </li>
+                <li>
+                    <a href="/user.html" onclick="collapseAll(0)"><img src="/pics/usrleaves.jpg" id="usrimg" class="img-circle"/>&nbsp; iSasFTW <span class="glyphicon glyphicon-user"></span></a>
+                </li>
+                <li>
+                <br>
+                </li>
+                <li>
+                    <a href="/control-panel.html" onclick="collapseAll(0)">Dashboard <span class="glyphicon glyphicon-tasks"></span></a>
+                </li>
+                <li>
+                    <a href="#collapse1" data-toggle="collapse" onclick="collapseAll(1)">Manage Server &nbsp;<span class="icon-cog-1"></span></a>
+                    <div id="collapse1" class="collapse">
+                    <ul>
+                        <li><a href="">FTP &nbsp;<span class="icon-cloud-upload-1"></span></a></li>
+                        <li><a href="/cp-console.html">Console &nbsp;<span class="icon-terminal"></span></a></li>
+                        <li><a href="#">Version / Game &nbsp;<span class="icon-gamepad"></span></a></li>
+                        <li><a href="/delserver.html">Delete / Reset &nbsp;<span class="glyphicon glyphicon-remove"></span></a></li>
+                    </ul>
+                    </div>
+                </li>
+                <li>
+                    
+                    <a href="#collapse2" data-toggle="collapse" onclick="collapseAll(2)">Manage Website &nbsp;<span class="icon-globe"></span></a>
+                    <div id="collapse2" class="collapse">
+                    <ul>
+                    <li><a href="#">Editor &nbsp;<span class="icon-wrench-1"></span></a></li>
+                    <li><a href="#">Guide &nbsp;<span class="icon-book-2"></span></a></li>
+                    </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+
+        
+        
+        
+        
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+            
+        <h1>Console</h1>
+            
+        <!-- Console -->
+          
+            <div id="consolewrapper">
+                <div id="console">
+                    <textarea readonly="" onclick="Focus()"></textarea>
+                    
+                    <div id="consolebuttons">
+                    <button class="glyphicon glyphicon-adjust" id="cnslchangecolor" onclick="changeTheme(0)"></button>
+                    <button id="cnslautochat" class="glyphicon glyphicon-envelope"></button>
+                    </div>
+                    
+                    
+                    <br />
+                    <input id="consoleinput" type="text">
+                
+                </div>
+            </div>
+            
+            
+        
+            
+            
+            
+        </div>
+    </div>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+</body>
+
+</html>
