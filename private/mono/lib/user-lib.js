@@ -177,7 +177,7 @@ exports.getTotal = function getUserCount(callback) {
 			return callback(err, __line);
 		}
 		
-		callback(err, Number(data.trim()));
+		callback(Number(data.trim()));
 	});
 }
 
