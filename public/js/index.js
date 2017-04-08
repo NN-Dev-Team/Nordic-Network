@@ -92,6 +92,7 @@ $(document).ready(function(){
 			if(data.success) {
 				console.log("Successfully received stats!");
 				if(data.info.servers) {
+					addCookie('stats-servers', data.info.servers, 1);
 					$('#stats-servers').html((data.info.servers).toLocaleString()); // Amount of servers created
 				}
 				
@@ -100,6 +101,10 @@ $(document).ready(function(){
 				console.log("Failed to get stats");
 				console.log("Reason: " + data.error);
 				console.log("ID: " + data.id);
+				
+				if(getCookie('stats-servers')) {
+					$('#stats-servers').html(getCookie('stats-servers').toLocaleString());
+				}
 			}
 		});
     }, 'text');
