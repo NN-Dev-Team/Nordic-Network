@@ -32,8 +32,8 @@ exports.register = function regUsr(data, IP, callback) {
                     }
 
                     // User doesn't exist yet, check if enough disk space is available
-                    diskspace.check('/', function(err, total, free) {
-                        if(free < 2147483648) {
+                    diskspace.check('/', function(err, res) {
+                        if(res.free < 2147483648) {
                             user.delOld(function(err, line, success) {
                                 if(err) {
                                     return callback({"error": err, "id": 5, "line": __line});
@@ -41,7 +41,7 @@ exports.register = function regUsr(data, IP, callback) {
 
                                 if(success) {
                                     user.add(usr, data.email, hash, function(err, line) {
-                                        if (err) {
+                                        if(err) {
                                             return callback({"error": err, "id": 6, "line": __line});
                                         }
 
@@ -55,6 +55,7 @@ exports.register = function regUsr(data, IP, callback) {
 
                             // Enough disk space available, register user
                             user.add(usr, data.email, hash, function(err, line) {
+								
                                 if(err) {
                                     return callback({"error": err, "id": 8, "line": __line + '.' + line});
                                 }
