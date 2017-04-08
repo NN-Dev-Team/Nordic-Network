@@ -1,5 +1,6 @@
 var fs = require('fs');
 var path = require('path');
+var mkdir = require('mkdirp');
 
 //////////////// 'user-id/user.txt' file structure ////////////////
 //                                                               //
@@ -177,7 +178,7 @@ exports.getTotal = function getUserCount(callback) {
 			return callback(err, __line);
 		}
 		
-		callback(Number(data.trim()));
+		callback(err, Number(data.trim()));
 	});
 }
 
