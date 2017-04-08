@@ -21,7 +21,7 @@ $(document).ready(function() {
 			var socket = io('http://' + host);
 		}
 		
-		socket.on('connect_failed', function() {
+		socket.on('connect_error', function() {
 			swal("Unable to connect to server.", "It seems our game servers are down.\nPlease be patient while we work on a fix!", "error");
 		});
 		

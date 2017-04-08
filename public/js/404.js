@@ -20,7 +20,8 @@ $(document).ready(function(){
 		
 		var disconnected = false;
 		
-		socket.on('connect_failed', function() {
+		socket.on('connect_error', function() {
+			disconnected = true;
 			swal("Unable to connect to server.", "It seems our game servers are down.\nPlease be patient while we work on a fix!", "error");
 		});
 		
