@@ -80,7 +80,7 @@ $(document).ready(function(){
 		
 		socket.emit("get-main-stats");
 		
-		socket.on('connect_failed', function() {
+		socket.on('connect_error', function() {
 			console.log("ERROR: Unable to connect to server.");
 		});
 		
