@@ -1,0 +1,47 @@
+    <!-- Nav -->
+<nav id="nav-nomargin" class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" onclick="setTimeout(changeOpacity, 10)" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a id="navbar-logo" class="navbar-brand" href="/index#top">
+	    <img src="/favicon.ico" />
+	    Nordic Network
+	  </a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+		<li><a href="/index/#top">Home</a></li>
+        <li><a href="/index/#index-info">Features</a></li>  
+        <li><a href="/index/#pricing">Pricing</a></li> 
+        <li><a href="/knowledgebase">Support</a></li> 
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/control-panel"><span class="glyphicon glyphicon-tasks"></span> Dashboard</a></li>
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+		<li>
+			<div class="dropdown" id="currency-dropdown">
+				<a href="#" class="dropdown-toggle" id="changeCurrency" data-toggle="dropdown" aria-expanded="false">
+					<img width="50px" src="/pics/icons/uk-icon.png" onload="changeFlag(getCookie('currency'));$(this).removeAttr('onload')">
+				</a>
+				<ul class="dropdown-menu">
+					<li class="currency-item">
+						<a href="#" onclick="changeFlag(0);changeCurrency(0);event.preventDefault()">
+							<img width="75px" src="/pics/icons/uk-icon.png">
+						</a>
+					</li>
+					<li class="currency-item">
+						<a href="#" onclick="changeFlag(1);changeCurrency(1);event.preventDefault()">
+							<img width="75px" src="/pics/icons/us-icon.png">
+						</a>
+					</li>
+				</ul>
+			</div>
+		</li>
+      </ul>
+    </div>
+  </div>
+</nav>

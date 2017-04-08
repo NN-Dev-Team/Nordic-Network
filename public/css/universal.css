@@ -1,0 +1,86 @@
+@font-face {
+    font-family: Viking;
+    src: url(../fonts/Viking.ttf);
+}
+
+body {
+    position: relative;
+}
+
+#nav-nomargin {
+   margin-bottom: 0px;
+   border-bottom: 1px solid rgba(127, 127, 127, 0.4);
+   box-shadow: 0 1px 1px rgba(127, 127, 127, 0.2);
+   background-color: rgba(248, 248, 248, 0.95);
+}
+
+.navbar-brand {
+	font-family: Viking;
+}
+
+#myNavbar {
+	margin: 6px;
+}
+
+#myNavbar > ul > li > a:hover {
+	color: #333;
+}
+
+.navbar-header button {
+	margin-top: 14px;
+}
+
+#navbar-logo {
+	height: 100%;
+}
+
+#navbar-logo img {
+	display: inline-block;
+}
+
+@media screen and (max-device-width: 360px) and (max-device-height: 640px) {
+	#navbar-logo {
+		font-size: medium;
+	}
+}
+
+#footer {
+    color: white;
+    text-align: center;
+    font-size 2vh;
+    background-image: url(https://bukkit.org/smilies/obsidian.png);
+	background-size: cover;
+	background-position: center;
+}
+
+#footer p {
+	margin-top: 10px;
+}
+
+#center-text-footer {
+    display: inline-block;
+}
+
+#changeCurrency {
+	outline: none;
+}
+
+#changeCurrency img {
+	visibility: hidden;
+}
+
+#currency-dropdown {
+	padding: 12px 15px;
+}
+
+.currency-item {
+	margin-left: calc(50% - 38px);
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.currency-item a {
+	padding: 0 !important;
+	outline: none;
+	background-color: white !important;
+}

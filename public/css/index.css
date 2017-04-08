@@ -1,0 +1,197 @@
+.jumbotron {
+    background-image: url('../pics/277H.jpg');
+    background-size: 100% 100%;
+    min-height: 100vh;
+    text-align: center;
+    padding-top: 0px;
+    -webkit-overflow-scrolling: touch;
+}
+
+#title {
+    margin-top: 20px;
+    color: #ffffff;
+	font-family: 'Yatra One', cursive;
+}
+
+#subtitle {
+	color: #ddf;
+	font-family: 'David Libre', serif;
+}
+
+#getserver {
+    font-size: 3vh;
+	padding: 12px 48px;
+}
+
+#features-title {
+    text-align: center;
+	font-family: 'David Libre', serif;
+}
+
+#feature-img-container {
+    align-content: center;
+}
+
+#jumbo-container {
+    margin-top: 10px;
+    margin-bottom: 35vh;
+}
+
+.glyphicon-chevron-down {
+	position: absolute !important;
+	top: 85vh !important;
+	left: 25%;
+	right: 25%;
+}
+
+#feature-container {
+	padding-bottom: 54px;
+}
+
+#feature-text {
+    color: black;
+    text-align: center;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+#feature-text-title {
+    text-align: center;
+	font-family: 'David Libre', serif;
+}
+
+.white-glyphicon, .white-glyphicon a {
+    color: #ffffff;
+    font-size: 45px;
+	animation-name: bounce;
+	animation-duration: 4s;
+	animation-iteration-count: infinite;
+}
+
+.white-glyphicon:hover {
+    text-decoration: none;
+	color: white;
+}
+
+@keyframes bounce {
+	0%, 75% {
+		transform: translateY(0px);
+	}
+	82.5% {
+		transform: translateY(10px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}
+
+#pricing-title {
+    text-align: center;
+	font-family: 'David Libre', serif;
+}
+
+.pricing-text {
+    color: black;
+    text-align: center;
+}
+
+#pricing-text-title {
+    text-align: center;
+	font-family: 'David Libre', serif;
+}
+
+#about-text-container {
+    background-image: url(http://wallpapercave.com/wp/rlyvfvI.jpg);
+	background-position: center;
+	box-shadow: 0 0 8px 16px white inset;
+	text-align: center;
+	color: rgba(255, 255, 255, 0.75);
+    padding-top: 54px;
+	padding-bottom: 74px;
+}
+
+#cookies {
+    background-color: #76c9b9;
+    font-size: 2vh;
+    font: url("../fonts/Viking.ttf");  
+}
+
+#cookies p {
+    color: #fff; 
+}
+
+#cookies p a {
+    color: #fff;
+}
+
+#cookie-notice {
+    width: 100%;
+	padding-top: 10px;
+	position: fixed;
+	bottom: 0;
+	background-color: #f8f8f8;
+	border-top: 1px solid rgba(127, 127, 127, 0.5);
+	z-index: 1;
+	text-align: center;
+	display: none;
+}
+
+#cookie-notice-button {
+	margin-left: 20px;
+    display: none;
+}
+
+#stats-txt {
+	margin: 0;
+}
+
+#nav-nomargin {
+   background-color: rgba(248, 248, 248, 0);
+   border-bottom: 1px solid rgba(127, 127, 127, 0);
+   box-shadow: 0 1px 1px rgba(127, 127, 127, 0);
+   visibility: hidden;
+}
+
+#navbar-logo {
+	color: #fff;
+}
+
+#myNavbar > ul > li > a {
+	color: #fff;
+}
+
+#pricing-row {
+	padding-left: 12%;
+}
+
+.pricing-box {
+	min-width: 20%;
+	float: left;
+	padding: 1%;
+	margin-right: 2%;
+	cursor: pointer;
+}
+
+.pricing-box-free {
+	border: 1px solid #9c7;
+	border-bottom: 50px solid #9c7;
+	box-shadow: 1px 1px 1px #8b6;
+}
+
+.pricing-box-premium {
+	border: 1px solid #97c;
+	border-bottom: 50px solid #97c;
+	box-shadow: 1px 1px 1px #86b;
+}
+
+.pricing-text-bottom {
+	margin-bottom: 34px;
+}
+
+.pricing-price {
+	margin-bottom: -50px;
+	color: black;
+    text-align: center;
+	font-family: 'David Libre', serif;
+	visibility: hidden;
+}
