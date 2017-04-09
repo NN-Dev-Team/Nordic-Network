@@ -41,7 +41,7 @@
 					}
 				} else {
 					console.log("Failed to start server.");
-					console.log("Reason: ", data.reason);
+					console.log("Error: ", data.error);
 					console.log("ID: ", data.id);
 				}
 			});
@@ -51,7 +51,7 @@
 					console.log("Successfully closed server.");
 				} else {
 					console.log("Failed to stop server.");
-					console.log("Reason: ", data.reason);
+					console.log("Error: ", data.error);
 					console.log("ID: ", data.id);
 				}
 			});
@@ -71,7 +71,7 @@
 					console.log("Successfully created account!");
 				} else {
 					console.log("Failed to create account.");
-					console.log("Reason: ", data.reason);
+					console.log("Error: ", data.error);
 					console.log("ID: ", data.id);
 				}
 			});
@@ -87,7 +87,7 @@
 					addCookie("user_id", data.info.id, 0.1);
 				} else {
 					console.log("Failed to create server.");
-					console.log("Reason: ", data.reason);
+					console.log("Error: ", data.error);
 					console.log("ID: ", data.id);
 				}
 			});
@@ -102,10 +102,9 @@
 					console.log("Successfully logged in!");
 					addCookie("user_id", data.info.user, 1);
 					addCookie("session", data.info.session, 1);
-					location.reload();
 				} else {
 					console.log("Failed to login.");
-					console.log("Reason: ", data.reason);
+					console.log("Error: ", data.error);
 					console.log("ID: ", data.id);
 				}
 			});
@@ -124,7 +123,7 @@
 					$('version').text(data.info.version);
 				} else {
 					console.log("Failed to get status.");
-					console.log("Reason: ", data.reason);
+					console.log("Error: ", data.error);
 					console.log("ID: ", data.id);
 				}
 			});
