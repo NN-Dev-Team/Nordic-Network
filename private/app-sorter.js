@@ -1,7 +1,8 @@
 var fs = require('fs');
+var path = require('path');
 
 exports.checkApp = function sortApp(app, callback) { 
-	fs.readFile('apps/new/' + app, 'utf8', function(err, data) {
+	fs.readFile(path.join('apps/new/', app), 'utf8', function(err, data) {
 		if(err) {
 			console.log(err);
 			return callback(err);
@@ -47,7 +48,7 @@ exports.checkApp = function sortApp(app, callback) {
 			// Application DECLINED; too short
 			// Delete application file
 			
-			fs.unlink('apps/' + file, function(err) {
+			fs.unlink(path.join('apps/', file), function(err) {
 				if(err) {
 					return callback(err);
 				}
