@@ -67,7 +67,7 @@ Object.defineProperty(global, '__line', {
 });
 
 exports.get = function getUserData(id, callback) {
-	fs.readFile(path.join(__dirname, '../users/', id, '/user.txt'), 'utf8', function(err, data) {
+	fs.readFile(path.join(__dirname, '../users/', id.toString(), '/user.txt'), 'utf8', function(err, data) {
 		if(err) {
 			return callback(err, __line);
 		}
@@ -86,89 +86,77 @@ exports.find = function findEmailMatch(email, callback) {
 		var files_processed = 0;
 		
 		for(i = 0; i < files.length; i++) {
-			if(files[i] == "user.txt") {
-				files_processed++;
-			} else {
-				fs.readFile(path.join(__dirname, '../users/', files[i], '/user.txt'), 'utf8', function(err, data) {
-					if(err) {
-						return callback({"error": err, "line": __line});
-					}
-					
-					var content = data.split("\n");
-					
-					if(content[0].trim() == email) {
-						callback({"error": err, "line": __line}, true, {"content": content, "usr": files[i]});
-						email_found = true;
-					}
-					
+			(function(file) {
+				if(file == "user.txt") {
 					files_processed++;
-				});
-			}
+				} else {
+					fs.readFile(path.join(__dirname, '../users/', file, '/user.txt'), 'utf8', function(err, data) {
+						if(err) {
+							return callback({"error": err, "line": __line});
+						}
+						
+						var content = data.split("\n");
+						
+						if(content[0].trim() == email) {
+							email_found = true;
+							callback(err, true, {"content": content, "usr": file});
+						}
+						
+						files_processed++;
+						
+						if(!email_found && files_processed == files.length) {
+							callback(err, false);
+						}
+					});
+				}
+			})(files[i]);
 			
 			if(email_found) {
-				files_processed = files.length;
 				break;
 			}
 		}
-		
-		var i_id = setInterval(function() {
-			if(files_processed == files.length) {
-				if(!email_found) {
-					callback({"error": err, "line": __line}, false);
-				}
-				
-				clearInterval(i_id);
-			}
-		}, 0);
 	});
 }
 
 exports.findSession = function findSessionMatch(session, callback) { // Currently unused; should it be removed?
 	fs.readdir(path.join(__dirname, '../users'), function(err, files) {
 		if(err) {
-			return callback(err, __line);
+			return callback({"error": err, "line": __line});
 		}
 		
 		var session_found = false;
 		var files_processed = 0;
 		
 		for(i = 0; i < files.length; i++) {
-			if(files[i] == "user.txt") {
-				files_processed++;
-			} else {
-				fs.readFile(path.join(__dirname, '../users/', files[i], '/user.txt'), 'utf8', function(err, data) {
-					if(err) {
-						return callback(err, __line);
-					}
-					
-					var content = data.split("\n");
-					
-					if(content[2].trim() == email) {
-						callback(err, __line, true, files[i]);
-						session_found = true;
-					}
-					
+			(function(file) {
+				if(file == "user.txt") {
 					files_processed++;
-				});
-			}
+				} else {
+					fs.readFile(path.join(__dirname, '../users/', file, '/user.txt'), 'utf8', function(err, data) {
+						if(err) {
+							return callback({"error": err, "line": __line});
+						}
+						
+						var content = data.split("\n");
+						
+						if(content[2].trim() == email) {
+							session_found = true;
+							callback(err, true, file);
+						}
+						
+						files_processed++;
+						
+						if(files_processed == files.length) {
+							callback(err, false);
+						}
+					});
+				}
+			})(files[i]);
 			
 			if(session_found) {
-				files_processed = files.length;
 				break;
 			}
 		}
-		
-		while(files_processed < files.length);
-		
-		var i_id = setInterval(function() {
-			if(files_processed == files.length) {
-				if(!session_found) {
-					callback(err, __line, false);
-				}
-				
-				clearInterval(i_id);
-			}
-		}, 0);
 	});
 }
 
@@ -184,7 +172,7 @@ exports.getTotal = function getUserCount(callback) {
 
 exports.add = function addUser(data, callback) {
 	if(typeof data.user === 'undefined') {
-		getUserCount(function(err, usr) {
+		exports.getTotal(function(err, usr) {
 			if(err) {
 				return callback({"error": err, "line": __line});
 			}
@@ -208,14 +196,16 @@ exports.add = function addUser(data, callback) {
 	}
 }
 
-function createUser(usr, email, hash) {
-	mkdir(path.join(__dirname, '../users/', usr), function(err) {
+function createUser(usr, email, hash, callback) {
+	var user = usr.toString();
+	
+	mkdir(path.join(__dirname, '../users/', user), function(err) {
 		if(err) {
 			return callback({"error": err, "line": __line});
 		}
 		
 		// Add email & hash to user file
-		fs.writeFile(path.join(__dirname, "../users/", usr, "/user.txt"), email + "\n" + hash, function(err, data) {
+		fs.writeFile(path.join(__dirname, "../users/", user, "/user.txt"), email + "\n" + hash, function(err, data) {
 			if(err) {
 				return callback({"error": err, "line": __line});
 			}
@@ -232,9 +222,8 @@ function createUser(usr, email, hash) {
 	});
 }
 
-// Not used anywhere atm; should we still keep it?
 exports.changeProp = function editLine(usr, prop, val, callback) {
-    var usrpath = path.join(__dirname, "../users/", usr, "/user.txt");
+    var usrpath = path.join(__dirname, "../users/", usr.toString(), "/user.txt");
     
     fs.readFile(usrpath, 'utf8', function(err, data) {
         if(err) {
@@ -265,48 +254,42 @@ exports.delOld = function delOldUser(callback) {
 		var files_processed = 0;
 		
 		for(i = 0; i < files.length; i++) {
-			if(files[i] == "user.txt") {
-				files_processed++;
-			} else {
-				fs.readFile(path.join(__dirname, '../users/', files[i], '/server/.properties'), 'utf8', function(err, data) {
-					if(err) {
-						return callback({"error": err, "line": __line});
-					}
-					
-					var content = data.split("\n");
-					var today = new Date();
-					
-					if(today.getTime() - content[3].trim() > 8589934591) { // '.properties' structure is in 'server-handler.js'
-						rmdirAsync(path.join(__dirname, '../users/', files[i], '/server'), function(err) {
-							if(err) {
-								return callback({"error": err, "line": __line});
-							}
-							
-							callback({"error": err, "line": __line}, true, files[i]);
-							deadUsr_found = true;
-						});
-					}
-					
+			(function(file) {
+				if(file == "user.txt") {
 					files_processed++;
-				});
-			}
+				} else {
+					fs.readFile(path.join(__dirname, '../users/', file, '/server/.properties'), 'utf8', function(err, data) {
+						if(err) {
+							return callback({"error": err, "line": __line});
+						}
+						
+						var content = data.split("\n");
+						var today = new Date();
+						
+						if(today.getTime() - content[3].trim() > 8589934591) { // '.properties' structure is in 'server-handler.js'
+							deadUsr_found = true;
+							
+							rmdirAsync(path.join(__dirname, '../users/', file, '/server'), function(err) {
+								if(err) {
+									return callback({"error": err, "line": __line});
+								}
+								
+								callback({"error": err, "line": __line}, true, file);
+							});
+						}
+						
+						files_processed++;
+						
+						if(files_processed == files.length) {
+							callback(err, false);
+						}
+					});
+				}
+			}(files[i]);
 			
 			if(deadUsr_found) {
-				files_processed = files.length;
 				break;
 			}
 		}
-		
-		while(files_processed < files.length);
-		
-		var i_id = setInterval(function() {
-			if(files_processed == files.length) {
-				if(!deadUsr_found) {
-					callback({"error": err, "line": __line}, false);
-				}
-				
-				clearInterval(i_id);
-			}
-		}, 0);
 	});
 }

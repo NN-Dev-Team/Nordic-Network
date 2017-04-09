@@ -1,8 +1,9 @@
+var fs = require('fs');
 var bcrypt = require('bcryptjs');
 var path = require('path');
 var randomstring = require('randomstring');
-var user = require('./user-lib.js');
 var diskspace = require('diskspace');
+var user = require('./user-lib.js');
 
 ////////////////////////////////    REGISTRATION    ////////////////////////////////
 
@@ -94,7 +95,7 @@ exports.login = function login(data, IP, callback) {
 						userSession += Math.round(((new Date()).getTime() / 60000) + 60*24);
 						info.content[2] = userSession;
 						
-						fs.writeFile(path.join(__dirname, "../users/", info.usr, "/user.txt"), info.content.join("\n"), function(err, data) {
+						fs.writeFile(path.join(__dirname, "../users/", info.usr.toString(), "/user.txt"), info.content.join("\n"), function(err, data) {
 							if(err) {
 								return callback({"error": err, "id": 3, "line": __line});
 							}

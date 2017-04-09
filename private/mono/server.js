@@ -42,24 +42,24 @@ app.use(function(req, res, next) {
 setInterval(traffic_handler.resetTraffic, 4096);
 
 // Send data to client
-function sendToClient(name, data, id) {
+function sendToClient(socket, name, data, id) {
 	if(id) {
-		io.emit(name, {"success": false, "error": data, "id": id});
+		socket.emit(name, {"success": false, "error": data, "id": id});
 	} else if(data) {
-		io.emit(name, {"success": true, "info": data});
+		socket.emit(name, {"success": true, "info": data});
 	} else {
-		io.emit(name, {"success": true});
+		socket.emit(name, {"success": true});
 	}
 }
 
 // Send data to all clients
-function broadcast(name, data, id) {
+function broadcast(socket, name, data, id) {
 	if(id) {
-		io.broadcast.emit(name, {"success": false, "error": data, "id": id});
+		socket.broadcast.emit(name, {"success": false, "error": data, "id": id});
 	} else if(data) {
-		io.broadcast.emit(name, {"success": true, "info": data});
+		socket.broadcast.emit(name, {"success": true, "info": data});
 	} else {
-		io.broadcast.emit(name, {"success": true});
+		socket.broadcast.emit(name, {"success": true});
 	}
 }
 
@@ -78,7 +78,7 @@ io.on('connection', function(socket){
 	socket.on('register', function(data){
 		traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
-				return sendToClient('reg-complete', "TOO_MUCH_TRAFFIC", '0.0:' + __line);
+				return sendToClient(socket, 'reg-complete', "TOO_MUCH_TRAFFIC", '0.0:' + __line);
 			} else if(ss.isRegistered) {
 				traffic_handler.log(socket_session, 64);
 			} else {
@@ -87,11 +87,11 @@ io.on('connection', function(socket){
 			
 			account.register(data, IP, function(err, usr) {
 				if(err) {
-					return sendToClient('reg-complete', err.error, formatErr(err, 0, __line));
+					return sendToClient(socket, 'reg-complete', err.error, formatErr(err, 0, __line));
 				}
 				
-				sendToClient('reg-complete');
-				broadcast('main-stats', {"servers": usr});
+				sendToClient(socket, 'reg-complete');
+				broadcast(socket, 'main-stats', {"servers": usr});
 			});
 		});
 	});
@@ -100,7 +100,7 @@ io.on('connection', function(socket){
 	socket.on('login', function(data){
 		traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
-				return sendToClient('login-complete', "TOO_MUCH_TRAFFIC", '1.0:' + __line);
+				return sendToClient(socket, 'login-complete', "TOO_MUCH_TRAFFIC", '1.0:' + __line);
 			} else if(ss.isRegistered) {
 				traffic_handler.log(socket_session, 32);
 			} else {
@@ -109,10 +109,10 @@ io.on('connection', function(socket){
 			
 			account.login(data, IP, function(err, usr, userSession) {
 				if(err) {
-					return sendToClient('login-complete', err.error, formatErr(err, 1, __line));
+					return sendToClient(socket, 'login-complete', err.error, formatErr(err, 1, __line));
 				}
 				
-				sendToClient('login-complete', {"user": usr, "session": userSession});
+				sendToClient(socket, 'login-complete', {"user": usr, "session": userSession});
 			});
 		});
 	});
@@ -121,7 +121,7 @@ io.on('connection', function(socket){
     socket.on('logout', function(data) {
         traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
-				return sendToClient('logout-complete', "TOO_MUCH_TRAFFIC", '2.0:' + __line);
+				return sendToClient(socket, 'logout-complete', "TOO_MUCH_TRAFFIC", '2.0:' + __line);
 			} else if(ss.isRegistered) {
 				traffic_handler.log(socket_session, 32);
 			} else {
@@ -130,10 +130,10 @@ io.on('connection', function(socket){
 			
 			account.logout(data, function(err) {
 				if(err) {
-					return sendToClient('logout-complete', err.error, formatErr(err, 2, __line));
+					return sendToClient(socket, 'logout-complete', err.error, formatErr(err, 2, __line));
 				}
 				
-				sendToClient('logout-complete');
+				sendToClient(socket, 'logout-complete');
 			});
         });
     });
@@ -143,7 +143,7 @@ io.on('connection', function(socket){
 	socket.on('create-serv', function(data){
 		traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
-				return sendToClient('creation-complete', "TOO_MUCH_TRAFFIC", '3.0:' + __line);
+				return sendToClient(socket, 'creation-complete', "TOO_MUCH_TRAFFIC", '3.0:' + __line);
 			} else if(ss.isRegistered) {
 				traffic_handler.log(socket_session, 64);
 			} else {
@@ -152,10 +152,10 @@ io.on('connection', function(socket){
 			
 			server.create(data, IP, function(err) {
 				if(err) {
-					return sendToClient('creation-complete', err.error, formatErr(err, 3, __line));
+					return sendToClient(socket, 'creation-complete', err.error, formatErr(err, 3, __line));
 				}
 				
-				sendToClient('creation-complete');
+				sendToClient(socket, 'creation-complete');
 			});
 		});
 	});
@@ -165,7 +165,7 @@ io.on('connection', function(socket){
 	socket.on('start-server', function(data){
 		traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
-				return sendToClient('server-checked', "TOO_MUCH_TRAFFIC", '4.0:' + __line);
+				return sendToClient(socket, 'server-checked', "TOO_MUCH_TRAFFIC", '4.0:' + __line);
 			} else if(ss.isRegistered) {
 				traffic_handler.log(socket_session, 16);
 			} else {
@@ -174,10 +174,10 @@ io.on('connection', function(socket){
 			
 			server.start(data, IP, function(err, serv_type) {
 				if(err) {
-					return sendToClient('server-checked', err.error, formatErr(err, 4, __line));
+					return sendToClient(socket, 'server-checked', err.error, formatErr(err, 4, __line));
 				}
 				
-				sendToClient('server-checked', serv_type);
+				sendToClient(socket, 'server-checked', serv_type);
 			});
 		});
 	});
@@ -185,7 +185,7 @@ io.on('connection', function(socket){
 	socket.on('stop-server', function(data) {
 		traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
-				return sendToClient('server-stopped', "TOO_MUCH_TRAFFIC", '5.0:' + __line);
+				return sendToClient(socket, 'server-stopped', "TOO_MUCH_TRAFFIC", '5.0:' + __line);
 			} else if(ss.isRegistered) {
 				traffic_handler.log(socket_session, 16);
 			} else {
@@ -194,10 +194,10 @@ io.on('connection', function(socket){
 			
 			server.stop(data, IP, function(err) {
 				if(err) {
-					return sendToClient('server-stopped', err.error, formatErr(err, 5, __line));
+					return sendToClient(socket, 'server-stopped', err.error, formatErr(err, 5, __line));
 				}
 				
-				sendToClient('server-stopped');
+				sendToClient(socket, 'server-stopped');
 			});
 		});
 	});
@@ -205,7 +205,7 @@ io.on('connection', function(socket){
 	socket.on('console-cmd', function(data) {
 		traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
-				return sendToClient('console-query', "TOO_MUCH_TRAFFIC", '6.0:' + __line);
+				return sendToClient(socket, 'console-query', "TOO_MUCH_TRAFFIC", '6.0:' + __line);
 			} else if(ss.isRegistered) {
 				traffic_handler.log(socket_session, 4);
 			} else {
@@ -214,10 +214,10 @@ io.on('connection', function(socket){
 			
 			server.sendCMD(data, IP, function(err, data) {
 				if(err) {
-					return sendToClient('console-query', err.error, formatErr(err, 6, __line));
+					return sendToClient(socket, 'console-query', err.error, formatErr(err, 6, __line));
 				}
 				
-				sendToClient('console-query', data);
+				sendToClient(socket, 'console-query', data);
 			});
         });
     });
@@ -227,25 +227,25 @@ io.on('connection', function(socket){
 	socket.on('check-app', function(data) {
         traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
-				return sendToClient('app-status', "TOO_MUCH_TRAFFIC", '7.0:' + __line);
+				return sendToClient(socket, 'app-status', "TOO_MUCH_TRAFFIC", '7.0:' + __line);
 			} else if(ss.isRegistered) {
 				traffic_handler.log(socket_session, 64);
 			} else {
 				traffic_handler.register(socket_session, 64);
 			}
 			
-			fs.writeFile(path.join(__dirname, '../apps/new/', data.id, '.txt'), data.app, function(err, dat) {
+			fs.writeFile(path.join(__dirname, '../apps/new/', data.id.toString(), '.txt'), data.app, function(err, dat) {
 				if(err) {
-					return sendToClient('app-status', err, '7.1:' + __line);
+					return sendToClient(socket, 'app-status', err, '7.1:' + __line);
 				}
 				
-				app_sorter.checkApp(data.id, function(err, approved) {
+				app_sorter.checkApp(data.id.toString(), function(err, approved) {
 					if(err) {
-						return sendToClient('app-status', err, '7.2:' + __line);
+						return sendToClient(socket, 'app-status', err, '7.2:' + __line);
 					}
 					
 					if(approved) {
-						sendToClient('app-status');
+						sendToClient(socket, 'app-status');
 					} else {
 						return console.log("[!!] Possible hacker detected (with IP: " + IP + ")");
 					}
@@ -259,7 +259,7 @@ io.on('connection', function(socket){
 	socket.on('get-main-stats', function(data) {
         traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
-				return sendToClient('main-stats', "TOO_MUCH_TRAFFIC", '8.0:' + __line);
+				return sendToClient(socket, 'main-stats', "TOO_MUCH_TRAFFIC", '8.0:' + __line);
 			} else if(ss.isRegistered) {
 				traffic_handler.log(socket_session, 64);
 			} else {
@@ -268,7 +268,7 @@ io.on('connection', function(socket){
             
             user.getTotal(function(err, serverCount) {
 				if(err) {
-					return sendToClient('main-stats', err, '8.1:' + __line);
+					return sendToClient(socket, 'main-stats', err, '8.1:' + __line);
 				}
 				
                 exec("free -m", function(err, out, stderr) {
@@ -300,7 +300,7 @@ io.on('connection', function(socket){
                         c++;
                     }
                     
-                    sendToClient('main-stats', {"servers": serverCount, "max": mem_max, "used": mem_used});
+                    sendToClient(socket, 'main-stats', {"servers": serverCount, "max": mem_max, "used": mem_used});
                 });
             });
         });
@@ -311,15 +311,15 @@ io.on('connection', function(socket){
 	socket.on('get-user-page', function(data){
 		user.getTotal(function(err, userCount) {
 			if(err) {
-				return io.emit('show-404');
+				return socket.emit('show-404');
 			}
 			
 			if(data.id < user_count) {
 				app.get('/', function(req, res) {
 					if(data.pageType == 0) {
-						res.sendFile(path.join(__dirname, '/users/', data.id, '/server-page.html'), function(err) {
+						res.sendFile(path.join(__dirname, '/users/', data.id.toString(), '/server-page.html'), function(err) {
 							if(err) {
-								return io.emit('show-404');
+								return socket.emit('show-404');
 							}
 						});
 					} else if(data.pageType == 1) {
@@ -327,7 +327,7 @@ io.on('connection', function(socket){
 					}
 				});
 			} else {
-				return io.emit('show-404');
+				return socket.emit('show-404');
 			}
 		});
 	});
