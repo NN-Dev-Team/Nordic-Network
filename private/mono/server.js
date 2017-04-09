@@ -87,7 +87,7 @@ io.on('connection', function(socket){
 			
 			account.register(data, IP, function(err, usr) {
 				if(err) {
-					return sendToClient('reg-complete', err.error, formatErr(err, 1, __line));
+					return sendToClient('reg-complete', err.error, formatErr(err, 0, __line));
 				}
 				
 				sendToClient('reg-complete');
@@ -109,7 +109,7 @@ io.on('connection', function(socket){
 			
 			account.login(data, IP, function(err, usr, userSession) {
 				if(err) {
-					return sendToClient('login-complete', err.error, formatErr(err, 2, __line));
+					return sendToClient('login-complete', err.error, formatErr(err, 1, __line));
 				}
 				
 				sendToClient('login-complete', {"user": usr, "session": userSession});
@@ -130,7 +130,7 @@ io.on('connection', function(socket){
 			
 			account.logout(data, function(err) {
 				if(err) {
-					return sendToClient('logout-complete', err.error, formatErr(err, 3, __line));
+					return sendToClient('logout-complete', err.error, formatErr(err, 2, __line));
 				}
 				
 				sendToClient('logout-complete');
@@ -152,7 +152,7 @@ io.on('connection', function(socket){
 			
 			server.create(data, IP, function(err) {
 				if(err) {
-					return sendToClient('creation-complete', err.error, formatErr(err, 4, __line));
+					return sendToClient('creation-complete', err.error, formatErr(err, 3, __line));
 				}
 				
 				sendToClient('creation-complete');
@@ -174,7 +174,7 @@ io.on('connection', function(socket){
 			
 			server.start(data, IP, function(err, serv_type) {
 				if(err) {
-					return sendToClient('server-checked', err.error, formatErr(err, 5, __line));
+					return sendToClient('server-checked', err.error, formatErr(err, 4, __line));
 				}
 				
 				sendToClient('server-checked', serv_type);
@@ -194,7 +194,7 @@ io.on('connection', function(socket){
 			
 			server.stop(data, IP, function(err) {
 				if(err) {
-					return sendToClient('server-stopped', err.error, formatErr(err, 6, __line));
+					return sendToClient('server-stopped', err.error, formatErr(err, 5, __line));
 				}
 				
 				sendToClient('server-stopped');
@@ -205,7 +205,7 @@ io.on('connection', function(socket){
 	socket.on('console-cmd', function(data) {
 		traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
-				return sendToClient('console-query', "TOO_MUCH_TRAFFIC", '7.0:' + __line);
+				return sendToClient('console-query', "TOO_MUCH_TRAFFIC", '6.0:' + __line);
 			} else if(ss.isRegistered) {
 				traffic_handler.log(socket_session, 4);
 			} else {
@@ -214,7 +214,7 @@ io.on('connection', function(socket){
 			
 			server.sendCMD(data, IP, function(err, data) {
 				if(err) {
-					return sendToClient('console-query', err.error, formatErr(err, 7, __line));
+					return sendToClient('console-query', err.error, formatErr(err, 6, __line));
 				}
 				
 				sendToClient('console-query', data);

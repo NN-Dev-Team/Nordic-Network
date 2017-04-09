@@ -79,7 +79,7 @@ exports.get = function getUserData(id, callback) {
 exports.find = function findEmailMatch(email, callback) {
 	fs.readdir(path.join(__dirname, '../users'), function(err, files) {
 		if(err) {
-			return callback(err, __line);
+			return callback({"error": err, "line": __line});
 		}
 		
 		var email_found = false;
@@ -91,13 +91,13 @@ exports.find = function findEmailMatch(email, callback) {
 			} else {
 				fs.readFile(path.join(__dirname, '../users/', files[i], '/user.txt'), 'utf8', function(err, data) {
 					if(err) {
-						return callback(err, __line);
+						return callback({"error": err, "line": __line});
 					}
 					
 					var content = data.split("\n");
 					
 					if(content[0].trim() == email) {
-						callback(err, __line, true, content, files[i]);
+						callback({"error": err, "line": __line}, true, {"content": content, "usr": files[i]});
 						email_found = true;
 					}
 					
@@ -114,7 +114,7 @@ exports.find = function findEmailMatch(email, callback) {
 		var i_id = setInterval(function() {
 			if(files_processed == files.length) {
 				if(!email_found) {
-					callback(err, __line, false);
+					callback({"error": err, "line": __line}, false);
 				}
 				
 				clearInterval(i_id);
@@ -182,22 +182,48 @@ exports.getTotal = function getUserCount(callback) {
 	});
 }
 
-exports.add = function addUser(usr, email, hash, callback) {
+exports.add = function addUser(data, callback) {
+	if(typeof data.user === 'undefined') {
+		getUserCount(function(err, usr) {
+			if(err) {
+				return callback({"error": err, "line": __line});
+			}
+			
+			createUser(usr, data.email, data.hash, function(err) {
+				if(err) {
+					return callback({"error": err, "line": __line});
+				}
+				
+				callback(err, usr + 1);
+			});
+		});
+	} else {
+		createUser(data.user, data.email, data.hash, function(err) {
+			if(err) {
+				return callback({"error": err, "line": __line});
+			}
+			
+			callback(err, data.user + 1);
+		});
+	}
+}
+
+function createUser(usr, email, hash) {
 	mkdir(path.join(__dirname, '../users/', usr), function(err) {
 		if(err) {
-			return callback(err, __line);
+			return callback({"error": err, "line": __line});
 		}
 		
 		// Add email & hash to user file
-		fs.writeFile(path.join(__dirname, "../users/", usr, "/user.txt"), data.email + "\n" + hash, function(err, data) {
+		fs.writeFile(path.join(__dirname, "../users/", usr, "/user.txt"), email + "\n" + hash, function(err, data) {
 			if(err) {
-				return callback(err, __line);
+				return callback({"error": err, "line": __line});
 			}
 			
 			// Make sure next user registered doesn't get the same user id
-			fs.writeFile(path.join(__dirname, "../users/user.txt"), Number(usr) + 1, function(err, data) {
+			fs.writeFile(path.join(__dirname, "../users/user.txt"), usr + 1, function(err, data) {
 				if(err) {
-					return callback(err, __line);
+					return callback({"error": err, "line": __line});
 				}
 				
 				callback();
@@ -232,7 +258,7 @@ exports.changeProp = function editLine(usr, prop, val, callback) {
 exports.delOld = function delOldUser(callback) {
 	fs.readdir(path.join(__dirname, '../users'), function(err, files) {
 		if(err) {
-			return callback(err, __line);
+			return callback({"error": err, "line": __line});
 		}
 		
 		var deadUsr_found = false;
@@ -244,7 +270,7 @@ exports.delOld = function delOldUser(callback) {
 			} else {
 				fs.readFile(path.join(__dirname, '../users/', files[i], '/server/.properties'), 'utf8', function(err, data) {
 					if(err) {
-						return callback(err, __line);
+						return callback({"error": err, "line": __line});
 					}
 					
 					var content = data.split("\n");
@@ -253,10 +279,10 @@ exports.delOld = function delOldUser(callback) {
 					if(today.getTime() - content[3].trim() > 8589934591) { // '.properties' structure is in 'server-handler.js'
 						rmdirAsync(path.join(__dirname, '../users/', files[i], '/server'), function(err) {
 							if(err) {
-								return callback(err, __line);
+								return callback({"error": err, "line": __line});
 							}
 							
-							callback(err, __line, true);
+							callback({"error": err, "line": __line}, true, files[i]);
 							deadUsr_found = true;
 						});
 					}
@@ -276,7 +302,7 @@ exports.delOld = function delOldUser(callback) {
 		var i_id = setInterval(function() {
 			if(files_processed == files.length) {
 				if(!deadUsr_found) {
-					callback(err, __line, false);
+					callback({"error": err, "line": __line}, false);
 				}
 				
 				clearInterval(i_id);

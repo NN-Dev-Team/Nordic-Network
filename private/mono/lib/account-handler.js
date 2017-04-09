@@ -22,9 +22,9 @@ exports.register = function regUsr(data, IP, callback) {
                 }
 
                 // Search the database to check if the user already exists
-                user.find(data.email, function(err, line, found, dat, last, usr) {
+                user.find(data.email, function(err, found, info) {
                     if(err) {
-                        return callback({"error": err, "id": 3, "line": __line});
+                        return callback({"error": err.error, "id": 3, "line": __line + '.' + err.line});
                     }
 
                     if(found) {
@@ -34,15 +34,15 @@ exports.register = function regUsr(data, IP, callback) {
                     // User doesn't exist yet, check if enough disk space is available
                     diskspace.check('/', function(err, res) {
                         if(res.free < 2147483648) {
-                            user.delOld(function(err, line, success) {
+                            user.delOld(function(err, success, usr) {
                                 if(err) {
-                                    return callback({"error": err, "id": 5, "line": __line});
+                                    return callback({"error": err.error, "id": 5, "line": __line + '.' + err.line});
                                 }
 
                                 if(success) {
-                                    user.add(usr, data.email, hash, function(err, line) {
+                                    user.add({"user": usr, "email": data.email, "hash": hash}, function(err) {
                                         if(err) {
-                                            return callback({"error": err, "id": 6, "line": __line});
+                                            return callback({"error": err.error, "id": 6, "line": __line + '.' + err.line});
                                         }
 
                                         callback(err, usr);
@@ -54,10 +54,10 @@ exports.register = function regUsr(data, IP, callback) {
                         } else {
 
                             // Enough disk space available, register user
-                            user.add(usr, data.email, hash, function(err, line) {
+                            user.add({"email": data.email, "hash": hash}, function(err, usr) {
 								
                                 if(err) {
-                                    return callback({"error": err, "id": 8, "line": __line + '.' + line});
+                                    return callback({"error": err.error, "id": 8, "line": __line + '.' + err.line});
                                 }
 
                                 callback(err, usr);
@@ -78,13 +78,13 @@ exports.login = function login(data, IP, callback) {
 	if(typeof data.email != 'string' || typeof data.pass != 'string') {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	} else if(((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
-		user.find(data.email, function(err, line, found, dat, usr) {
+		user.find(data.email, function(err, found, info) {
 			if(err) {
 				return callback({"error": err, "id": 1, "line": __line + '.' + line});
 			}
 			
 			if(found) {
-				bcrypt.compare(data.pass, dat[1].trim(), function(err, valid) {
+				bcrypt.compare(data.pass, info.content[1].trim(), function(err, valid) {
 					if(err) {
 						return callback({"error": err, "id": 2, "line": __line});
 					}
@@ -92,14 +92,14 @@ exports.login = function login(data, IP, callback) {
 					if(valid) {
 						var userSession = randomstring.generate(16);
 						userSession += Math.round(((new Date()).getTime() / 60000) + 60*24);
-						dat[2] = userSession;
+						info.content[2] = userSession;
 						
-						fs.writeFile(path.join(__dirname, "../users/", usr, "/user.txt"), dat.join("\n"), function(err, data) {
+						fs.writeFile(path.join(__dirname, "../users/", info.usr, "/user.txt"), info.content.join("\n"), function(err, data) {
 							if(err) {
 								return callback({"error": err, "id": 3, "line": __line});
 							}
 							
-							callback(err, usr, userSession);
+							callback(err, info.usr, userSession);
 						});
 					} else {
 						return callback({"error": "INCORRECT_LOGIN_DETAILS", "id": 4, "line": __line});
