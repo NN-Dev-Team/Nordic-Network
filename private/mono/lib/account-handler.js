@@ -8,7 +8,7 @@ var user = require('./user-lib.js');
 ////////////////////////////////    REGISTRATION    ////////////////////////////////
 
 exports.register = function regUsr(data, IP, callback) {
-	if (typeof data.email != 'string' || typeof data.pass != 'string') {
+	if (!data || typeof data.email != 'string' || typeof data.pass != 'string') {
         return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
     } else if (((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
         bcrypt.genSalt(10, function(err, salt) {
@@ -76,7 +76,7 @@ exports.register = function regUsr(data, IP, callback) {
 ////////////////////////////////    LOGIN    ////////////////////////////////
 
 exports.login = function login(data, IP, callback) {
-	if(typeof data.email != 'string' || typeof data.pass != 'string') {
+	if(!data || typeof data.email != 'string' || typeof data.pass != 'string') {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	} else if(((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
 		user.find(data.email, function(err, found, info) {
@@ -123,7 +123,11 @@ exports.login = function login(data, IP, callback) {
 
 ////////////////////////////////    LOGOUT    ////////////////////////////////
 
-exports.logout = function forgetSession(data, callback) {
+exports.logout = function forgetSession(data, IP, callback) {
+	if(!data || typeof data.id != 'number' || typeof data.session != 'string') {
+		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
+	}
+	
 	user.get(data.id, function(err, dat) {
 		if(err) {
 			return callback({"error": err.error, "id": 1, "line": __line + '.' + err.line});

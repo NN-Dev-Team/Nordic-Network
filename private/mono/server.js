@@ -128,7 +128,7 @@ io.on('connection', function(socket){
 				traffic_handler.register(socket_session, 32);
 			}
 			
-			account.logout(data, function(err) {
+			account.logout(data, IP, function(err) {
 				if(err) {
 					return sendToClient(socket, 'logout-complete', err.error, formatErr(err, 2, __line));
 				}
@@ -234,6 +234,10 @@ io.on('connection', function(socket){
 				traffic_handler.register(socket_session, 64);
 			}
 			
+			if(!data || typeof data.id != 'number' || typeof data.app != 'string') {
+				return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
+			}
+			
 			fs.writeFile(path.join(__dirname, '../apps/new/', data.id.toString(), '.txt'), data.app, function(err, dat) {
 				if(err) {
 					return sendToClient(socket, 'app-status', err, '7.1:' + __line);
@@ -256,7 +260,7 @@ io.on('connection', function(socket){
 	
 	////////////////////////////////    INDEX    ////////////////////////////////
 	
-	socket.on('get-main-stats', function(data) {
+	socket.on('get-main-stats', function() {
         traffic_handler.isBlocked(socket_session, function(ss) {
 			if(ss.isBlocked) {
 				return sendToClient(socket, 'main-stats', "TOO_MUCH_TRAFFIC", '8.0:' + __line);
@@ -309,6 +313,10 @@ io.on('connection', function(socket){
 	////////////////////////////////    USER & SERVER PAGES    ////////////////////////////////
 	
 	socket.on('get-user-page', function(data){
+		if(!data || typeof data.id != 'number' || typeof data.pageType != 'number') {
+			return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
+		}
+		
 		user.getTotal(function(err, userCount) {
 			if(err) {
 				return socket.emit('show-404');
