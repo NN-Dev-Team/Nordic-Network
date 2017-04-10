@@ -25,6 +25,6 @@
   },
   "scripts": {
         "preinstall": "npm install pm2",
-        "start": "pm2 start --attach private/mono/server.js"
+        "start": "node private/mono/server.js"
   }
 }
