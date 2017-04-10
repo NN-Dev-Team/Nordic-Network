@@ -35,13 +35,15 @@ exports.create = function createServer(data, IP, callback) {
 	} else if(typeof data.id == 'number') {
 		
 		// User id specified, get user session
-		user.get(data.id, function(err, line, dat) {
+		user.get(data.id, function(err, dat) {
 			if(err) {
-				return callback({"error": err, "id": 3, "line": __line});
+				return callback({"error": err.error, "id": 3, "line": __line + "." + err.line});
 			}
 			
+			var session = dat[2].trim();
+			
 			// Check if session is valid
-			if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
+			if(session == data.session && session != "SESSION EXPIRED") {
 				
 				// Session valid, create server
 				mkdir(path.join(__dirname, "../users/", data.id.toString(), "/server"), function(err) {
@@ -228,9 +230,9 @@ exports.sendCMD = function sendCommand(data, IP, callback) {
 	} else if(typeof data.id == 'number') {
 		
 		// Get user data
-		user.get(data.id, function(err, line, dat) {
+		user.get(data.id, function(err, dat) {
 			if(err) {
-				return callback({"error": err, "id": 2, "line": __line + '.' + line});
+				return callback({"error": err.error, "id": 2, "line": __line + '.' + err.line});
 			}
 			
 			// Check if session is valid
