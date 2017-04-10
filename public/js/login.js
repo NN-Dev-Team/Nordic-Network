@@ -29,9 +29,10 @@ $(document).ready(function() {
 			if(data.success){
 				addCookie("user_id", data.info.user, 1);
 				addCookie("session", data.info.session, 1);
-				location.reload();
+				
+				window.location.href = "/";
 			} else {
-				swal("Failed to login", "Reason: " + data.error + "\nID: " + data.id, "error");
+				swal("Failed to login", "Error: " + data.error + "\nID: " + data.id, "error");
 			}
 		});
 		
