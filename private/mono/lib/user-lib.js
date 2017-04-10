@@ -285,7 +285,7 @@ exports.delOld = function delOldUser(callback) {
 						}
 					});
 				}
-			}(files[i]);
+			}(files[i]));
 			
 			if(deadUsr_found) {
 				break;
