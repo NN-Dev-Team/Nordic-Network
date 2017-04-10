@@ -42,14 +42,12 @@ $(document).ready(function() {
 		
 		$('#logout-button').click(function(){
 			socket.emit('logout', {"id": getCookie("user_id"), "session": getCookie("session")});
+			delCookie('user_id');
 			delCookie('session');
-			return false;
 		});
 		
 		socket.on('logout-complete', function(data) {
-			if(data.success) {
-				delCookie('session');
-			} else {
+			if(!data.success) {
 				swal("Failed to logout.", "Somehow?!", "error");
 			}
 		});
