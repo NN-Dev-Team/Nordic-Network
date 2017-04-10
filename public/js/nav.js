@@ -40,7 +40,7 @@ $(document).ready(function() {
 			swal("Disconnected from server", "Hmm, looks like something went wrong. Please report this to our development team at https://github.com/NN-Dev-Team/Nordic-Network/issues", "error");
 		});
 		
-		$('button #logout').click(function(){
+		$('#logout-button').click(function(){
 			socket.emit('logout', {"id": getCookie("user_id"), "session": getCookie("session")});
 			delCookie('session');
 			return false;
