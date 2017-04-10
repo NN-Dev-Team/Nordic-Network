@@ -26,7 +26,7 @@ function boolify(obj, ignoreCase) {
 ////////////////////////////////    SERVER CREATION    ////////////////////////////////
 
 exports.create = function createServer(data, IP, callback) {
-	if(typeof data.session != 'string' || (data.session).length < 24) {
+	if(!data || typeof data.session != 'string' || (data.session).length < 24) {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	} else if(Math.round((new Date).getTime() / 60000 > (data.session).substring(16))) {
 		return callback({"error": "SESSION_EXPIRED", "id": 1, "line": __line});
@@ -79,7 +79,7 @@ exports.create = function createServer(data, IP, callback) {
 ////////////////////////////////    STARTING SERVER    ////////////////////////////////
 
 exports.start = function startServer(data, IP, callback) {
-	if(typeof data.server != 'number' || typeof data.session != 'string') {
+	if(!data || typeof data.server != 'number' || typeof data.session != 'string') {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	}
 	
@@ -140,7 +140,7 @@ exports.start = function startServer(data, IP, callback) {
 ////////////////////////////////    STOPPING SERVER    ////////////////////////////////
 
 exports.stop = function stopServer(data, IP, callback) {
-	if(typeof data.server != 'number' || typeof data.session != 'string') {
+	if(!data || typeof data.server != 'number' || typeof data.session != 'string') {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	}
 	
@@ -223,7 +223,7 @@ exports.stop = function stopServer(data, IP, callback) {
 ////////////////////////////////    SEND COMMAND TO SERVER    ////////////////////////////////
 
 exports.sendCMD = function sendCommand(data, IP, callback) {
-	if(typeof data.session != 'string' || (data.session).length < 24) {
+	if(!data || typeof data.session != 'string' || (data.session).length < 24) {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	} else if(Math.round((new Date).getTime() / 60000 > (data.session).substring(16))) {
 		return callback({"error": "SESSION_EXPIRED", "id": 1, "line": __line});
