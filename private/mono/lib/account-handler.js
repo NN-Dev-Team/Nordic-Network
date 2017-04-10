@@ -1,7 +1,7 @@
 var fs = require('fs');
 var bcrypt = require('bcryptjs');
 var path = require('path');
-var randomstring = require('randomstring');
+var crypto = require('crypto');
 var diskspace = require('diskspace');
 var user = require('./user-lib.js');
 
@@ -91,23 +91,29 @@ exports.login = function login(data, IP, callback) {
 					}
 					
 					if(valid) {
-						var userSession = randomstring.generate(16);
-						userSession += Math.round(((new Date()).getTime() / 60000) + 60*24);
-						info.content[2] = userSession;
-						
-						fs.writeFile(path.join(__dirname, "../users/", info.usr.toString(), "/user.txt"), info.content.join("\n"), function(err, data) {
+						crypto.randomBytes(16, function(err, buf) {
 							if(err) {
 								return callback({"error": err, "id": 3, "line": __line});
 							}
 							
-							callback(err, info.usr, userSession);
+							var userSession = buf.toString('hex');
+							userSession += "_" + Math.round(((new Date()).getTime() / 60000) + 60*24);
+							info.content[2] = userSession;
+							
+							fs.writeFile(path.join(__dirname, "../users/", info.usr.toString(), "/user.txt"), info.content.join("\n"), function(err, data) {
+								if(err) {
+									return callback({"error": err, "id": 4, "line": __line});
+								}
+								
+								callback(err, info.usr, userSession);
+							});
 						});
 					} else {
-						return callback({"error": "INCORRECT_LOGIN_DETAILS", "id": 4, "line": __line});
+						return callback({"error": "INCORRECT_LOGIN_DETAILS", "id": 5, "line": __line});
 					}
 				});
 			} else {
-				return callback({"error": "INCORRECT_LOGIN_DETAILS", "id": 4, "line": __line});
+				return callback({"error": "INCORRECT_LOGIN_DETAILS", "id": 6, "line": __line});
 			}
 		});
 	} else {
@@ -118,19 +124,19 @@ exports.login = function login(data, IP, callback) {
 ////////////////////////////////    LOGOUT    ////////////////////////////////
 
 exports.logout = function forgetSession(data, callback) {
-	user.get(data.id, function(err, line, dat) {
+	user.get(data.id, function(err, dat) {
 		if(err) {
-			return callback({"error": err, "id": 1, "line": __line + '.' + line});
+			return callback({"error": err.error, "id": 1, "line": __line + '.' + err.line});
 		}
         
         if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
             user.changeProp(data.id, 2, "SESSION EXPIRED", function(err, line) {
-                if(err) {
+				if(err) {
 					return callback({"error": err, "id": 2, "line": __line});
-                }
-                
-                sendToClient('logout-complete');
-            });
-        }
+				}
+				
+				sendToClient('logout-complete');
+			});
+		}
 	});
 }
