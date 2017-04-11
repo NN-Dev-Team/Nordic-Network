@@ -28,16 +28,14 @@ function boolify(obj, ignoreCase) {
 exports.create = function createServer(data, IP, callback) {
 	if(!data || typeof data.session != 'string' || (data.session).length < 24) {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
-	} else if(Math.round((new Date).getTime() / 60000 > (data.session).substring(16))) {
-		return callback({"error": "SESSION_EXPIRED", "id": 1, "line": __line});
 	} else if(data.type < 0 || data.type > 2) {
-		return callback({"error": "INVALID_SERV_TYPE", "id": 2, "line": __line});
+		return callback({"error": "INVALID_SERV_TYPE", "id": 1, "line": __line});
 	} else if(typeof data.id == 'number') {
 		
 		// User id specified, get user session
 		user.get(data.id, function(err, dat) {
 			if(err) {
-				return callback({"error": err.error, "id": 3, "line": __line + "." + err.line});
+				return callback({"error": err.error, "id": 2, "line": __line + "." + err.line});
 			}
 			
 			var session = dat[2].trim();
@@ -48,18 +46,18 @@ exports.create = function createServer(data, IP, callback) {
 				// Session valid, create server
 				mkdir(path.join(__dirname, "../users/", data.id.toString(), "/server"), function(err) {
 					if(err) {
-						return callback({"error": err, "id": 4, "line": __line});
+						return callback({"error": err, "id": 3, "line": __line});
 					}
 					
 					fs.writeFile(path.join(__dirname, "../users/", data.id.toString(), "/server/.properties"), "0\n" + data.type + "\n0\n0", {mode: 0o600}, function(err, dat) {
 						if(err) {
-							return callback({"error": err, "id": 5, "line": __line});
+							return callback({"error": err, "id": 4, "line": __line});
 						}
 						
 						if(data.type == 0) {
 							mcLib.addJar(path.join(__dirname, "../users/", data.id.toString(), "/server"), function(err) {
 								if(err) {
-									return callback({"error": err, "id": 6, "line": __line});
+									return callback({"error": err, "id": 5, "line": __line});
 								}
 								
 								callback();
@@ -68,7 +66,7 @@ exports.create = function createServer(data, IP, callback) {
 					});
 				});
 			} else {
-				return callback({"error": "INVALID_SESSION", "id": 7, "line": __line});
+				return callback({"error": "SESSION_EXPIRED", "id": 6, "line": __line});
 			}
 		});
 	} else {
@@ -96,9 +94,8 @@ exports.start = function startServer(data, IP, callback) {
 		var serv_rank = props[2].trim();
 		var serv_ram = [256, 512, 1024, 2048, 4096];
 		
-		fs.readFile(path.join(__dirname, '../users/', server, "/user.txt"), 'utf8', function(err, dat) {
-			props = dat.split("\n");
-			var user_session = props[2].trim();
+		user.get(server, function(err, dat) {
+			var user_session = dat[2].trim();
 			
 			if(serv_isSleeping) {
 				// Stop sleeping process; stop sleep-mode jar
@@ -131,7 +128,7 @@ exports.start = function startServer(data, IP, callback) {
 					callback({"error": "FEATURE_WIP_OR_DELETED", "id": 4, "line": __line});
 				}
 			} else {
-				return callback({"error": "INVALID_SESSION", "id": 5, "line": __line});
+				return callback({"error": "SESSION_EXPIRED", "id": 5, "line": __line});
 			}
 		});
 	});
@@ -151,27 +148,24 @@ exports.stop = function stopServer(data, IP, callback) {
 			return callback({"error": err, "id": 1, "line": __line});
 		}
 		
-		props = dat.split("\n");
+		var props = dat.split("\n");
 		var serv_isSleeping = boolify(props[0].trim());
 		var serv_type = props[1].trim();
 		var serv_IP = "";
 		var rcon_port = 0;
 		var rcon_pass = "";
 		
-		if(serv_isSleeping) {
-			// Stop sleeping process; stop sleep-mode jar
-			// TODO
-			
-			return callback();
-		}
-		
-		fs.readFile(path.join(__dirname, '../users/', server, "/user.txt"), 'utf8', function(err, dat) {
-			props = dat.split("\n");
-			var user_session = props[2].trim();
+		user.get(server, function(err, dat) {
+			var user_session = dat[2].trim();
 			
 			// Check if session is matching
 			if(user_session == data.session && user_session != "SESSION EXPIRED") {
-				if(serv_type == 0) {
+				if(serv_isSleeping) {
+					// Stop sleeping process; stop sleep-mode jar
+					// TODO
+					
+					return callback();
+				} else if(serv_type == 0) {
 					// Minecraft PC
 					
 					fs.readFile(path.join(__dirname, '../users/', server, '/server/server.properties'), 'utf8', function(err, data) {
@@ -214,7 +208,7 @@ exports.stop = function stopServer(data, IP, callback) {
 					callback({"error": "FEATURE_WIP_OR_DELETED", "id": 4, "line": __line});
 				}
 			} else {
-				return callback({"error": "INVALID_SESSION", "id": 5, "line": __line});
+				return callback({"error": "SESSION_EXPIRED", "id": 5, "line": __line});
 			}
 		});
 	});
@@ -225,14 +219,12 @@ exports.stop = function stopServer(data, IP, callback) {
 exports.sendCMD = function sendCommand(data, IP, callback) {
 	if(!data || typeof data.session != 'string' || (data.session).length < 24) {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
-	} else if(Math.round((new Date).getTime() / 60000 > (data.session).substring(16))) {
-		return callback({"error": "SESSION_EXPIRED", "id": 1, "line": __line});
 	} else if(typeof data.id == 'number') {
 		
 		// Get user data
 		user.get(data.id, function(err, dat) {
 			if(err) {
-				return callback({"error": err.error, "id": 2, "line": __line + '.' + err.line});
+				return callback({"error": err.error, "id": 1, "line": __line + '.' + err.line});
 			}
 			
 			// Check if session is valid
@@ -241,7 +233,7 @@ exports.sendCMD = function sendCommand(data, IP, callback) {
 				// Session valid, get server data
 				fs.readFile(path.join(__dirname, '../users/', data.id.toString(), '/server/server.properties'), 'utf8', function(err, dat) {
 					if (err) {
-						return callback({"error": err, "id": 3, "line": __line});
+						return callback({"error": err, "id": 2, "line": __line});
 					}
 					
 					props = data.split("\n");
@@ -255,7 +247,7 @@ exports.sendCMD = function sendCommand(data, IP, callback) {
 						// Minecraft
 						fs.readFile(path.join(__dirname, '../users/', data.id.toString(), '/server/server.properties'), 'utf8', function(err, dat) {
 							if(err) {
-								return callback({"error": err, "id": 4, "line": __line});
+								return callback({"error": err, "id": 3, "line": __line});
 							}
 							
 							props = dat.split("\n");
@@ -276,17 +268,17 @@ exports.sendCMD = function sendCommand(data, IP, callback) {
 							}).on('response', function(data) {
 								callback(err, data);
 							}).on('error', function(err) {
-								return callback({"error": err, "id": 5, "line": __line});
+								return callback({"error": err, "id": 4, "line": __line});
 							});
 							
 							conn.connect();
 						});
 					} else {
-						return callback({"error": "NO_RCON_SUPPORT", "id": 6, "line": __line});
+						return callback({"error": "NO_RCON_SUPPORT", "id": 5, "line": __line});
 					}
 				});
 			} else {
-				return callback({"error": "INVALID_SESSION", "id": 7, "line": __line});
+				return callback({"error": "SESSION_EXPIRED", "id": 6, "line": __line});
 			}
 		});
 	} else {
