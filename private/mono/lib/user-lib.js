@@ -69,10 +69,23 @@ Object.defineProperty(global, '__line', {
 exports.get = function getUserData(id, callback) {
 	fs.readFile(path.join(__dirname, '../users/', id.toString(), '/user.txt'), 'utf8', function(err, data) {
 		if(err) {
-			return callback(err, __line);
+			return callback({"error": err, "line": __line});
 		}
 		
-		callback(err, __line, data.split("\n"));
+		var dat = data.split("\n");
+		var session = dat[2].trim();
+		
+		if(Math.round((new Date()).getTime() / 60000) > session.substring(session.indexOf("_") + 1, session.length)) {
+			exports.changeProp(usr, 2, "SESSION EXPIRED", function(err, line) {
+				if(err) {
+					return callback({"error": err, "line": __line});
+				}
+				
+				callback({"error": err, "line": __line}, dat);
+			});
+		} else {
+			callback({"error": err, "line": __line}, dat);
+		}
 	});
 }
 
