@@ -167,20 +167,18 @@
 .pricing-box {
 	min-width: 20%;
 	float: left;
-	padding: 1%;
+	padding: 1em;
 	margin-right: 2%;
 	cursor: pointer;
 }
 
-.pricing-box-free {
+.box-free {
 	border: 1px solid #9c7;
-	border-bottom: 50px solid #9c7;
 	box-shadow: 1px 1px 1px #8b6;
 }
 
-.pricing-box-premium {
+.box-premium {
 	border: 1px solid #97c;
-	border-bottom: 50px solid #97c;
 	box-shadow: 1px 1px 1px #86b;
 }
 
@@ -188,8 +186,22 @@
 	margin-bottom: 34px;
 }
 
+.pricing-price-box {
+	width: calc(100% + 2em);
+	height: 50px;
+	margin: -1em;
+}
+
+.bg-free {
+	background-color: #9c7;
+}
+
+.bg-premium {
+	background-color: #97c;
+}
+
 .pricing-price {
-	margin-bottom: -50px;
+	line-height: 50px;
 	color: black;
     text-align: center;
 	font-family: 'David Libre', serif;
