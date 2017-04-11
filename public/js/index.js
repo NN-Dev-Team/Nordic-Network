@@ -64,6 +64,10 @@ $(document).ready(function(){
 		$(this).css("border-bottom", "50px solid #97c");
 	});
 	
+	if(getCookie('stats-servers')) {
+		$('#stats-servers').html(getCookie('stats-servers').toLocaleString());
+	}
+	
 	$.get("../properties.txt", function(data) {
         values = data.split("\n");
 		
@@ -101,10 +105,6 @@ $(document).ready(function(){
 				console.log("Failed to get stats");
 				console.log("Reason: " + data.error);
 				console.log("ID: " + data.id);
-				
-				if(getCookie('stats-servers')) {
-					$('#stats-servers').html(getCookie('stats-servers').toLocaleString());
-				}
 			}
 		});
     }, 'text');
