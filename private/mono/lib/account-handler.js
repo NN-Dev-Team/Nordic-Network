@@ -109,11 +109,11 @@ exports.login = function login(data, IP, callback) {
 							});
 						});
 					} else {
-						return callback({"error": "INCORRECT_LOGIN_DETAILS", "id": 5, "line": __line});
+						return callback({"error": "INCORRECT_LOGIN_DETAILS", "id": 5, "line": "?"}); // "line" = "?" for security reasons
 					}
 				});
 			} else {
-				return callback({"error": "INCORRECT_LOGIN_DETAILS", "id": 6, "line": __line});
+				return callback({"error": "INCORRECT_LOGIN_DETAILS", "id": 5, "line": "?"}); // "line" = "?" for security reasons
 			}
 		});
 	} else {
