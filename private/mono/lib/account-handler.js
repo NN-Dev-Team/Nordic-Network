@@ -23,7 +23,7 @@ exports.register = function regUsr(data, IP, callback) {
                 }
 
                 // Search the database to check if the user already exists
-                user.find(data.email, function(err, found, info) {
+                user.find({"email": data.email, "IP": IP}, function(err, found, info) {
                     if(err) {
                         return callback({"error": err.error, "id": 3, "line": __line + '.' + err.line});
                     }
@@ -41,7 +41,7 @@ exports.register = function regUsr(data, IP, callback) {
                                 }
 
                                 if(success) {
-                                    user.add({"user": usr, "email": data.email, "hash": hash}, function(err) {
+                                    user.add({"user": usr, "email": data.email, "hash": hash, "IP": IP}, function(err) {
                                         if(err) {
                                             return callback({"error": err.error, "id": 6, "line": __line + '.' + err.line});
                                         }
@@ -55,7 +55,7 @@ exports.register = function regUsr(data, IP, callback) {
                         } else {
 
                             // Enough disk space available, register user
-                            user.add({"email": data.email, "hash": hash}, function(err, usr) {
+                            user.add({"email": data.email, "hash": hash, "IP": IP}, function(err, usr) {
 								
                                 if(err) {
                                     return callback({"error": err.error, "id": 8, "line": __line + '.' + err.line});
@@ -79,7 +79,7 @@ exports.login = function login(data, IP, callback) {
 	if(!data || typeof data.email != 'string' || typeof data.pass != 'string') {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	} else if(((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
-		user.find(data.email, function(err, found, info) {
+		user.find({"email": data.email}, function(err, found, info) {
 			if(err) {
 				return callback({"error": err, "id": 1, "line": __line + '.' + line});
 			}
@@ -134,9 +134,9 @@ exports.logout = function forgetSession(data, IP, callback) {
 		}
         
         if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
-            user.changeProp(data.id, 2, "SESSION EXPIRED", function(err, line) {
+            user.changeProp(data.id, 2, "SESSION EXPIRED", function(err) {
 				if(err) {
-					return callback({"error": err, "id": 2, "line": __line});
+					return callback({"error": err.error, "id": 2, "line": __line + "." + err.line});
 				}
 				
 				sendToClient('logout-complete');
