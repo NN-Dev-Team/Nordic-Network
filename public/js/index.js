@@ -48,20 +48,20 @@ $(document).ready(function(){
 		$('#jumbo-container').css('margin-bottom', '30vh');
 	}
 	
-	$(".pricing-box-free").hover(function() {
+	$(".box-free").hover(function() {
 		$(this).css("border", "1px solid #7b6");
-		$(this).css("border-bottom", "50px solid #7b6");
+		$(this).children(".bg-free").css("background-color", "#7b6");
 	}, function() {
 		$(this).css("border", "1px solid #9c7");
-		$(this).css("border-bottom", "50px solid #9c7");
+		$(this).children(".bg-free").css("background-color", "#9c7");
 	});
 	
-	$(".pricing-box-premium").hover(function() {
+	$(".box-premium").hover(function() {
 		$(this).css("border", "1px solid #85b");
-		$(this).css("border-bottom", "50px solid #85b");
+		$(this).children(".bg-premium").css("background-color", "#85b");
 	}, function() {
 		$(this).css("border", "1px solid #97c");
-		$(this).css("border-bottom", "50px solid #97c");
+		$(this).children(".bg-premium").css("background-color", "#97c");
 	});
 	
 	if(getCookie('stats-servers')) {

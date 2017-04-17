@@ -1,11 +1,14 @@
 var fs = require('fs');
 var path = require('path');
 
+function checkSpelling(app, callback) {
+	callback(err, 5); // WIP; this callback is temporary
+}
+
 exports.checkApp = function sortApp(app, callback) { 
-	fs.readFile(path.join('apps/new/', app), 'utf8', function(err, data) {
+	fs.readFile(path.join(__dirname, '../apps/new/', app), 'utf8', function(err, data) {
 		if(err) {
-			console.log(err);
-			return callback(err);
+			return callback({"error": err, "line": __line});
 		}
 		
 		data = data.replace(/(\r)/gm, "");
@@ -23,9 +26,9 @@ exports.checkApp = function sortApp(app, callback) {
 			approvalPoints += 1000 - Math.abs(word_count - avr_word_count);
 			approvalPoints += 10 - Math.abs(row_count - avr_row_count);
 			
-			checkSpelling(function(err, err_percentage) {
+			checkSpelling(app, function(err, err_percentage) {
 				if(err) {
-					return callback(err);
+					return callback({"error": err, "line": __line});
 				}
 				
 				if(err_percentage < 3) {
@@ -36,7 +39,7 @@ exports.checkApp = function sortApp(app, callback) {
 					
 					fs.unlink(dir + '/' + file, function(err) {
 						if(err) {
-							return callback(err);
+							return callback({"error": err, "line": __line});
 						}
 						
 						callback(err, false);
@@ -48,9 +51,9 @@ exports.checkApp = function sortApp(app, callback) {
 			// Application DECLINED; too short
 			// Delete application file
 			
-			fs.unlink(path.join('apps/', file), function(err) {
+			fs.unlink(path.join(__dirname, '../apps/', file), function(err) {
 				if(err) {
-					return callback(err);
+					return callback({"error": err, "line": __line});
 				}
 				
 				callback(err, false);
