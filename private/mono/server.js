@@ -3,8 +3,8 @@ var user = require('./lib/user-lib.js');
 var account = require('./lib/account-handler.js');
 var server = require('./lib/server-handler.js');
 var traffic_handler = require('./lib/traffic-handler.js');
-var app_sorter = require('../app-sorter');
-// var mcLib = require('./lib/auto-updater.js');
+var app_sorter = require('./lib/app-sorter');
+// var mcLib = require('./lib/auto-updater.js'); // ONLY RUNS ON LINUX
 var fs = require('fs');
 var express = require('express');
 var app = express();
@@ -238,14 +238,14 @@ io.on('connection', function(socket){
 				return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 			}
 			
-			fs.writeFile(path.join(__dirname, '../apps/new/', data.id.toString(), '.txt'), data.app, function(err, dat) {
+			fs.writeFile(path.join(__dirname, 'apps/new/', data.id.toString(), '.txt'), data.app, function(err, dat) {
 				if(err) {
 					return sendToClient(socket, 'app-status', err, '7.1:' + __line);
 				}
 				
 				app_sorter.checkApp(data.id.toString(), function(err, approved) {
 					if(err) {
-						return sendToClient(socket, 'app-status', err, '7.2:' + __line);
+						return sendToClient(socket, 'app-status', err.error, '7.2:' + __line + "." + err.line);
 					}
 					
 					if(approved) {
