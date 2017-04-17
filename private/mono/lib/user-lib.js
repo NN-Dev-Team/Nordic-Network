@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var mkdir = require('mkdirp');
+var file_helper = require('./file-lib.js');
 
 //////////////// 'user-id/user.txt' file structure ////////////////
 //                                                               //
@@ -89,45 +90,60 @@ exports.get = function getUserData(id, callback) {
 	});
 }
 
-exports.find = function findEmailMatch(email, callback) {
-	fs.readdir(path.join(__dirname, '../users'), function(err, files) {
-		if(err) {
-			return callback({"error": err, "line": __line});
-		}
+exports.find = function findEmailOrIPMatch(info, callback) {
+	fs.readFile(path.join(__dirname, '../users/ips.txt'), 'utf8', function(err, data) {
+		var email = info.email;
 		
-		var email_found = false;
-		var files_processed = 0;
-		
-		for(i = 0; i < files.length; i++) {
-			(function(file) {
-				if(file == "user.txt") {
-					files_processed++;
-				} else {
-					fs.readFile(path.join(__dirname, '../users/', file, '/user.txt'), 'utf8', function(err, data) {
-						if(err) {
-							return callback({"error": err, "line": __line});
-						}
-						
-						var content = data.split("\n");
-						
-						if(content[0].trim() == email) {
-							email_found = true;
-							callback(err, true, {"content": content, "usr": file});
-						}
-						
-						files_processed++;
-						
-						if(!email_found && files_processed == files.length) {
-							callback(err, false);
-						}
-					});
-				}
-			})(files[i]);
+		if(info.IP) {
+			var IP = info.IP;
+			var ips = data.split("\n");
 			
-			if(email_found) {
-				break;
+			for(var ip = 0; ip < ips.length; ip++) {
+				if(IP == ips[ip].trim()) {
+					return callback(err, true);
+				}
 			}
 		}
+		
+		fs.readdir(path.join(__dirname, '../users'), function(err, files) {
+			if(err) {
+				return callback({"error": err, "line": __line});
+			}
+			
+			var email_found = false;
+			var files_processed = 0;
+			
+			for(i = 0; i < files.length; i++) {
+				(function(file) {
+					if(file == "user.txt" || file == "ips.txt") {
+						files_processed++;
+					} else {
+						fs.readFile(path.join(__dirname, '../users/', file, '/user.txt'), 'utf8', function(err, data) {
+							if(err) {
+								return callback({"error": err, "line": __line});
+							}
+							
+							var content = data.split("\n");
+							
+							if(content[0].trim() == email) {
+								email_found = true;
+								callback(err, true, {"content": content, "usr": file});
+							}
+							
+							files_processed++;
+							
+							if(!email_found && files_processed == files.length) {
+								callback(err, false);
+							}
+						});
+					}
+				})(files[i]);
+				
+				if(email_found) {
+					break;
+				}
+			}
+		});
 	});
 }
 
@@ -142,7 +158,7 @@ exports.findSession = function findSessionMatch(session, callback) { // Currentl
 		
 		for(i = 0; i < files.length; i++) {
 			(function(file) {
-				if(file == "user.txt") {
+				if(file == "user.txt" || file == "ips.txt") {
 					files_processed++;
 				} else {
 					fs.readFile(path.join(__dirname, '../users/', file, '/user.txt'), 'utf8', function(err, data) {
@@ -190,7 +206,7 @@ exports.add = function addUser(data, callback) {
 				return callback({"error": err, "line": __line});
 			}
 			
-			createUser(usr, data.email, data.hash, function(err) {
+			createUser(usr, data.email, data.hash, data.IP, function(err) {
 				if(err) {
 					return callback({"error": err, "line": __line});
 				}
@@ -199,7 +215,7 @@ exports.add = function addUser(data, callback) {
 			});
 		});
 	} else {
-		createUser(data.user, data.email, data.hash, function(err) {
+		createUser(data.user, data.email, data.hash, data.IP, function(err) {
 			if(err) {
 				return callback({"error": err, "line": __line});
 			}
@@ -209,7 +225,7 @@ exports.add = function addUser(data, callback) {
 	}
 }
 
-function createUser(usr, email, hash, callback) {
+function createUser(usr, email, hash, IP, callback) {
 	var user = usr.toString();
 	
 	mkdir(path.join(__dirname, '../users/', user), function(err) {
@@ -229,32 +245,39 @@ function createUser(usr, email, hash, callback) {
 					return callback({"error": err, "line": __line});
 				}
 				
-				callback();
+				// Register IP
+				registerIP(IP, function(err) {
+					if(err) {
+						return callback({"error": err.error, "line": __line + "." + err.line});
+					}
+					
+					callback();
+				});
 			});
 		});
 	});
 }
 
+function registerIP(IP, callback) {
+	file_helper.addLine(path.join(__dirname, '../users/ips.txt'), IP, function(err) {
+		if(err) {
+			return callback({"error": err.error, "line": __line + "." + err.line});
+		}
+		
+		callback();
+	});
+}
+
 exports.changeProp = function editLine(usr, prop, val, callback) {
     var usrpath = path.join(__dirname, "../users/", usr.toString(), "/user.txt");
-    
-    fs.readFile(usrpath, 'utf8', function(err, data) {
-        if(err) {
-            return callback(err, __line);
-        }
-        
-        var propValues = data.split("\n");
-        propValues[prop] = val;
-        var newContent = propValues.join("\n");
-        
-        fs.writeFile(usrpath, newContent, function(err, data) {
-            if(err) {
-                return callback(err, __line);
-            }
-            
-            callback();
-        });
-    });
+	
+	file_helper.editLine(usrpath, val, function(err) {
+		if(err) {
+			return callback({"error": err.error, "line": __line + "." + err.line});
+		}
+		
+		callback();
+	});
 }
 
 exports.delOld = function delOldUser(callback) {
@@ -268,7 +291,7 @@ exports.delOld = function delOldUser(callback) {
 		
 		for(i = 0; i < files.length; i++) {
 			(function(file) {
-				if(file == "user.txt") {
+				if(file == "user.txt" || file == "ips.txt") {
 					files_processed++;
 				} else {
 					fs.readFile(path.join(__dirname, '../users/', file, '/server/.properties'), 'utf8', function(err, data) {
