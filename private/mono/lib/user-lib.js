@@ -77,15 +77,15 @@ exports.get = function getUserData(id, callback) {
 		var session = dat[2].trim();
 		
 		if(Math.round((new Date()).getTime() / 60000) > session.substring(session.indexOf("_") + 1, session.length)) {
-			exports.changeProp(usr, 2, "SESSION EXPIRED", function(err, line) {
+			exports.changeProp(usr, 2, "SESSION EXPIRED", function(err) {
 				if(err) {
 					return callback({"error": err, "line": __line});
 				}
 				
-				callback({"error": err, "line": __line}, dat);
+				callback({"error": err.error, "line": __line + "." + err.line}, dat);
 			});
 		} else {
-			callback({"error": err, "line": __line}, dat);
+			callback(err, dat);
 		}
 	});
 }
