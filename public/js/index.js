@@ -41,13 +41,6 @@ function addAnimations() {
 }
 
 $(document).ready(function(){
-	var cookiesAccepted = getCookie('displayCookieConsent');
-	if(cookiesAccepted != 'y') {
-		$('#cookie-notice').css('display', 'block');
-		$('#cookie-notice-button').css('display', 'inline-block');
-		$('#jumbo-container').css('margin-bottom', '30vh');
-	}
-	
 	$(".box-free").hover(function() {
 		$(this).css("border", "1px solid #7b6");
 		$(this).children(".bg-free").css("background-color", "#7b6");

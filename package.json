@@ -2,7 +2,6 @@
   "name": "nordic-network",
   "version": "0.6.0",
   "description": "Dynamic Hosting Service",
-  "main": "private/mono/server.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "braintree": "^1.47.1",
@@ -18,12 +17,5 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/NN-Dev-Team/Nordic-Network.git"
-  },
-  "engines": {
-        "node": "4.1.1"
-  },
-  "scripts": {
-        "preinstall": "npm install pm2",
-        "start": "pm2 start --attach private/mono/server.js"
   }
 }
