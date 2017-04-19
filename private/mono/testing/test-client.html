@@ -15,10 +15,12 @@
 			} else {
 				console.log("Successfully created socket");
 			}
+			
+			window.cookie = "";
 
 			function getCookie(name) {
 				name += "=";
-				var ca = document.cookie.split(';');
+				var ca = window.cookie.split(';');
 				for(var i=0; i<ca.length; i++) {
 					var c = ca[i];
 					while (c.charAt(0)==' ') c = c.substring(1);
@@ -31,7 +33,7 @@
 				var day = new Date();
 				day.setTime(day.getTime() + (time*24*60*60*1000));
 				var expires = "expires="+day.toUTCString();
-				document.cookie = name + "=" + value + "; " + expires + "; path=/";
+				window.cookie = name + "=" + value + "; " + expires + "; path=/";
 			}
 			
 			socket.on('server-checked', function(data){
