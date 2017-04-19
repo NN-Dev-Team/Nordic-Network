@@ -24,7 +24,7 @@ fs.readFile(path.join(__dirname, 'properties.txt'), 'utf8', function (err, data)
 		return console.log(err);
 	}
 	
-	var port = process.env.PORT || data.trim();
+	var port = data.trim();
 	http.listen(port, function(){
 		console.log('listening on *:' + port);
 	});
