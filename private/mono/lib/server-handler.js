@@ -1,6 +1,8 @@
 var mkdir = require('mkdirp');
 var path = require('path');
 var user = require('./user-lib.js');
+var fs = require('fs');
+var exec = require('child_process').exec;
 
 //////////////// 'server/.properties' file structure ////////////////
 //                                                                 //
@@ -95,6 +97,10 @@ exports.start = function startServer(data, IP, callback) {
 		var serv_ram = [256, 512, 1024, 2048, 4096];
 		
 		user.get(server, function(err, dat) {
+			if(err) {
+				return callback({"error": err.error, "id": 2, "line": __line + "." + err.line});
+			}
+			
 			var user_session = dat[2].trim();
 			
 			if(serv_isSleeping) {
@@ -109,26 +115,26 @@ exports.start = function startServer(data, IP, callback) {
 				if(serv_type == 0) {
 					// Minecraft PC
 					
-					exec("java -Xmx" + serv_ram[serv_rank] + "M -Xms" + serv_ram[serv_rank] + "M -jar " + path.join(__dirname, "../users/", server) + "/server/minecraft_server.jar nogui", function(err2, out, stderr) {
-						if(err2) {
-							return callback({"error": stderr, "id": 2, "line": __line});
+					exec("cd " + path.join(__dirname, "../users/", server, "/server") + " && java -Xmx" + serv_ram[serv_rank] + "M -Xms" + serv_ram[serv_rank] + "M -jar ./minecraft_server.jar nogui", function(err, out, stderr) {
+						if(err) {
+							return callback({"error": stderr, "id": 4, "line": __line});
 						}
 						
-						callback(err2, serv_type);
+						callback(err, serv_type);
 					});
 				} else if(serv_type == 1) {
 					// Minecraft PE
 					// TODO
 					
-					callback({"error": "FEATURE_WIP_OR_DELETED", "id": 3, "line": __line});
+					callback({"error": "FEATURE_WIP_OR_DELETED", "id": 5, "line": __line});
 				} else {
 					// Minecraft Win 10
 					// TODO
 					
-					callback({"error": "FEATURE_WIP_OR_DELETED", "id": 4, "line": __line});
+					callback({"error": "FEATURE_WIP_OR_DELETED", "id": 6, "line": __line});
 				}
 			} else {
-				return callback({"error": "SESSION_EXPIRED", "id": 5, "line": __line});
+				return callback({"error": "SESSION_EXPIRED", "id": 7, "line": __line});
 			}
 		});
 	});
@@ -156,6 +162,10 @@ exports.stop = function stopServer(data, IP, callback) {
 		var rcon_pass = "";
 		
 		user.get(server, function(err, dat) {
+			if(err) {
+				return callback({"error": err.error, "id": 2, "line": __line + "." + err.line});
+			}
+			
 			var user_session = dat[2].trim();
 			
 			// Check if session is matching
@@ -170,7 +180,7 @@ exports.stop = function stopServer(data, IP, callback) {
 					
 					fs.readFile(path.join(__dirname, '../users/', server, '/server/server.properties'), 'utf8', function(err, data) {
 						if(err) {
-							return callback({"error": err, "id": 2, "line": __line});
+							return callback({"error": err, "id": 3, "line": __line});
 						}
 						
 						props = data.split("\n");
@@ -200,15 +210,15 @@ exports.stop = function stopServer(data, IP, callback) {
 					// Minecraft PE
 					// TODO
 					
-					callback({"error": "FEATURE_WIP_OR_DELETED", "id": 3, "line": __line});
+					callback({"error": "FEATURE_WIP_OR_DELETED", "id": 4, "line": __line});
 				} else {
 					// Minecraft Win 10
 					// TODO
 					
-					callback({"error": "FEATURE_WIP_OR_DELETED", "id": 4, "line": __line});
+					callback({"error": "FEATURE_WIP_OR_DELETED", "id": 5, "line": __line});
 				}
 			} else {
-				return callback({"error": "SESSION_EXPIRED", "id": 5, "line": __line});
+				return callback({"error": "SESSION_EXPIRED", "id": 6, "line": __line});
 			}
 		});
 	});
