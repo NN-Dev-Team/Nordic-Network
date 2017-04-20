@@ -3,6 +3,7 @@ var path = require('path');
 var user = require('./user-lib.js');
 var fs = require('fs');
 var exec = require('child_process').exec;
+// var mcLib = require('./lib/auto-updater.js'); // ONLY RUNS ON LINUX
 
 //////////////// 'server/.properties' file structure ////////////////
 //                                                                 //

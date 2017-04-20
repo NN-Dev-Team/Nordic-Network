@@ -4,7 +4,6 @@ var account = require('./lib/account-handler.js');
 var server = require('./lib/server-handler.js');
 var traffic_handler = require('./lib/traffic-handler.js');
 var app_sorter = require('./lib/app-sorter');
-// var mcLib = require('./lib/auto-updater.js'); // ONLY RUNS ON LINUX
 var fs = require('fs');
 var express = require('express');
 var app = express();
