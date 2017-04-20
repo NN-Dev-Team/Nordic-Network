@@ -4,7 +4,6 @@ var account = require('./lib/account-handler.js');
 var server = require('./lib/server-handler.js');
 var traffic_handler = require('./lib/traffic-handler.js');
 var app_sorter = require('./lib/app-sorter');
-// var mcLib = require('./lib/auto-updater.js'); // ONLY RUNS ON LINUX
 var fs = require('fs');
 var express = require('express');
 var app = express();
@@ -24,7 +23,7 @@ fs.readFile(path.join(__dirname, 'properties.txt'), 'utf8', function (err, data)
 		return console.log(err);
 	}
 	
-	var port = process.env.PORT || data.trim();
+	var port = data.trim();
 	http.listen(port, function(){
 		console.log('listening on *:' + port);
 	});
