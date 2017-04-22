@@ -149,12 +149,12 @@ io.on('connection', function(socket){
 				traffic_handler.register(socket_session, 64);
 			}
 			
-			server.create(data, IP, function(err) {
+			server.create(data, IP, function(err, usr) {
 				if(err) {
 					return sendToClient(socket, 'creation-complete', err.error, formatErr(err, 3, __line));
 				}
 				
-				sendToClient(socket, 'creation-complete');
+				sendToClient(socket, 'creation-complete', {"id": usr});
 			});
 		});
 	});
