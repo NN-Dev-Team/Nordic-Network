@@ -1,5 +1,6 @@
-var httpsSync = require('http-sync');
+var https = require('https');
 var path = require('path');
+var fs = require('fs');
 
 Date.prototype.getWeek = function() {
 	var date = new Date(this.getTime());
@@ -16,12 +17,12 @@ exports.addJar = function copyLatestStableJar(dest, callback) {
 	
 	var read = fs.createReadStream(src);
 	read.on("error", function(err) {
-		done(err);
+		done({"error": err, "line": __line});
 	});
 	
 	var write = fs.createWriteStream(dest);
 	write.on("error", function(err) {
-		done(err);
+		done({"error": err, "line": __line});
 	});
 	write.on("close", function(ex) {
 		done();
@@ -63,11 +64,13 @@ exports.getSnapshot = function getMCSnapshotUrl(year, week) {
 				protocol: 'https'
 			};
 			
-			var req = httpsSync.request(opts);
-			var res = req.end();
-			if(res.statusCode != 403) {
-				sUrl = url;
-			}
+			var req = https.request(opts, function(res) {
+				if(res.statusCode != 403) {
+					sUrl = url;
+				}
+			});
+			
+			req.end();
 		}
 	} while(year != thisYear || week != thisWeek);
 	
@@ -90,11 +93,13 @@ exports.getPre = function getMCPreUrl(version) {
 				protocol: 'https'
 			};
 			
-			var req = httpsSync.request(opts);
-			var res = req.end();
-			if(res.statusCode != 403) {
-				preUrl = url;
-			}
+			var req = https.request(opts, function(res) {
+				if(res.statusCode != 403) {
+					preUrl = url;
+				}
+			});
+			
+			req.end();
 		}
 		
 		thisVersion += 0.1;
