@@ -3,7 +3,7 @@ var path = require('path');
 var user = require('./user-lib.js');
 var fs = require('fs');
 var exec = require('child_process').exec;
-// var mcLib = require('./lib/auto-updater.js'); // ONLY RUNS ON LINUX
+var mcLib = require('./auto-updater.js');
 
 //////////////// 'server/.properties' file structure ////////////////
 //                                                                 //
@@ -60,10 +60,10 @@ exports.create = function createServer(data, IP, callback) {
 						if(data.type == 0) {
 							mcLib.addJar(path.join(__dirname, "../users/", data.id.toString(), "/server"), function(err) {
 								if(err) {
-									return callback({"error": err, "id": 5, "line": __line});
+									return callback({"error": err.error, "id": 5, "line": __line + "." + err.line});
 								}
 								
-								callback();
+								callback(err, data.id);
 							});
 						}
 					});
