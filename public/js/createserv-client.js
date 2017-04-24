@@ -56,8 +56,8 @@ $(document).ready(function() {
 			}
 		});
 		
-		$('button #create-server').click(function(){
-			socket.emit('create-serv', { "id": Number(getCookie("user_id")), "session": getCookie("session"), "type": type });
+		$('button#create-server').click(function(){
+			socket.emit('create-serv', {"id": Number(getCookie("user_id")), "session": getCookie("session"), "type": type});
 			console.log("Starting server...");
 		});
     }, 'text');

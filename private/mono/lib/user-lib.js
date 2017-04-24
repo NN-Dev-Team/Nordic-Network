@@ -76,7 +76,7 @@ exports.get = function getUserData(id, callback) {
 		var dat = data.split("\n");
 		var session = dat[2].trim();
 		
-		if(Math.round((new Date()).getTime() / 60000) > session.substring(session.indexOf("_") + 1, session.length)) {
+		if(Math.round((new Date()).getTime() / 60000) > Number(session.substring(session.indexOf("_") + 1, session.length))) {
 			exports.changeProp(usr, 2, "SESSION EXPIRED", function(err) {
 				if(err) {
 					return callback({"error": err, "line": __line});
