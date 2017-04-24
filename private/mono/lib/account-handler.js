@@ -97,7 +97,7 @@ exports.login = function login(data, IP, callback) {
 							}
 							
 							var userSession = buf.toString('hex');
-							userSession += "_" + Math.round(((new Date()).getTime() / 60000) + 60*24);
+							userSession += "_" + Math.round(((new Date()).getTime() / 60000) + 60*24*7);
 							info.content[2] = userSession;
 							
 							fs.writeFile(path.join(__dirname, "../users/", info.usr.toString(), "/user.txt"), info.content.join("\n"), function(err, data) {
