@@ -113,16 +113,21 @@ exports.start = function startServer(data, IP, callback) {
 			if(user_session == data.session && user_session != "SESSION EXPIRED") {
 				
 				// Run server
-				if(serv_type == 0) {
+				if(serv_type[0] == 0) {
 					// Minecraft PC
 					
-					exec("cd " + path.join(__dirname, "../users/", server, "/server") + " && java -Xmx" + serv_ram[serv_rank] + "M -Xms" + serv_ram[serv_rank] + "M -jar ./minecraft_server.jar nogui", function(err, out, stderr) {
-						if(err) {
-							return callback({"error": stderr, "id": 4, "line": __line});
-						}
-						
-						callback(err, serv_type);
-					});
+					if(serv_type == 0.1) {
+						// Run resource-saving server
+						// TODO
+					} else {
+						exec("cd " + path.join(__dirname, "../users/", server, "/server") + " && java -Xmx" + serv_ram[serv_rank] + "M -Xms" + serv_ram[serv_rank] + "M -jar ./minecraft_server.jar nogui", function(err, out, stderr) {
+							if(err) {
+								return callback({"error": stderr, "id": 4, "line": __line});
+							}
+							
+							callback(err, serv_type);
+						});
+					}
 				} else if(serv_type == 1) {
 					// Minecraft PE
 					// TODO
@@ -179,34 +184,39 @@ exports.stop = function stopServer(data, IP, callback) {
 				} else if(serv_type == 0) {
 					// Minecraft PC
 					
-					fs.readFile(path.join(__dirname, '../users/', server, '/server/server.properties'), 'utf8', function(err, data) {
-						if(err) {
-							return callback({"error": err, "id": 3, "line": __line});
-						}
-						
-						props = data.split("\n");
-						for(i = 0; i < props.length; i++) {
-							if(props[i].substring(0, 9) == 'server-ip') {
-								serv_IP = props[i].substring(10);
-							} else if(props[i].substring(0, 9) == 'rcon.port') {
-								rcon_port = props[i].substring(10);
-							} else if(props[i].substring(0, 13) == 'rcon.password') {
-								rcon_pass = props[i].substring(14);
+					if(serv_type == 0.1) {
+						// Stop resource-saving server; has different configuration files and the server itself can't be stopped in the same way
+						// TODO
+					} else {
+						fs.readFile(path.join(__dirname, '../users/', server, '/server/server.properties'), 'utf8', function(err, data) {
+							if(err) {
+								return callback({"error": err, "id": 3, "line": __line});
 							}
-						}
-						
-						var conn = new Rcon(serv_IP, rcon_port, rcon_pass);
-						
-						conn.on('auth', function() {
-							conn.send('stop');
-						}).on('error', function(err) {
-							callback(); // Just sending a normal callback since the error usually seems to be that the server has stopped
-						}).on('end', function() {
-							callback();
+							
+							props = data.split("\n");
+							for(i = 0; i < props.length; i++) {
+								if(props[i].substring(0, 9) == 'server-ip') {
+									serv_IP = props[i].substring(10);
+								} else if(props[i].substring(0, 9) == 'rcon.port') {
+									rcon_port = props[i].substring(10);
+								} else if(props[i].substring(0, 13) == 'rcon.password') {
+									rcon_pass = props[i].substring(14);
+								}
+							}
+							
+							var conn = new Rcon(serv_IP, rcon_port, rcon_pass);
+							
+							conn.on('auth', function() {
+								conn.send('stop');
+							}).on('error', function(err) {
+								callback(); // Just sending a normal callback since the error usually seems to be that the server has stopped
+							}).on('end', function() {
+								callback();
+							});
+							
+							conn.connect();
 						});
-						
-						conn.connect();
-					});
+					}
 				} else if(serv_type == 1) {
 					// Minecraft PE
 					// TODO
