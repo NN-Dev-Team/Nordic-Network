@@ -192,7 +192,7 @@ exports.findSession = function findSessionMatch(session, callback) { // Currentl
 exports.getTotal = function getUserCount(callback) {
 	fs.readFile(path.join(__dirname, "../users/user.txt"), 'utf8', function(err, data) {
 		if(err) {
-			return callback(err, __line);
+			return callback({"error": err, "line": __line});
 		}
 		
 		callback(err, Number(data.trim()));
