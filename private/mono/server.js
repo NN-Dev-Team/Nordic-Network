@@ -3,13 +3,13 @@ var user = require('./lib/user-lib.js');
 var account = require('./lib/account-handler.js');
 var server = require('./lib/server-handler.js');
 var traffic_handler = require('./lib/traffic-handler.js');
+var stats = require('./lib/stats.js');
 var app_sorter = require('./lib/app-sorter');
 var fs = require('fs');
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var exec = require('child_process').exec;
 var Rcon = require('rcon');
 var diskspace = require('diskspace');
 var path = require('path');
@@ -269,42 +269,12 @@ io.on('connection', function(socket){
 				traffic_handler.register(socket_session, 64);
 			}
             
-            user.getTotal(function(err, serverCount) {
+            stats.getMain(function(err, serverCount, mem_max, mem_used) {
 				if(err) {
-					return sendToClient(socket, 'main-stats', err, '8.1:' + __line);
+					return sendToClient(socket, 'main-stats', err.error, formatError(err, 8, __line));
 				}
 				
-                exec("free -m", function(err, out, stderr) {
-                    if(err) {
-                        return console.log(err);
-                    }
-                    
-                    var c = out.indexOf("-/+ buffers/cache");
-                    
-                    while(!(Number(out[c]))) {
-                        c++;
-                    }
-                    
-                    var mem_max = "";
-                    
-                    while(Number(out[c])) {
-                        mem_max += out[c];
-                        c++;
-                    }
-                    
-                    while(!(Number(out[c]))) {
-                        c++;
-                    }
-                    
-                    var mem_used = "";
-                    
-                    while(Number(out[c])) {
-                        mem_used += out[c];
-                        c++;
-                    }
-                    
-                    sendToClient(socket, 'main-stats', {"servers": serverCount, "max": mem_max, "used": mem_used});
-                });
+                sendToClient(socket, 'main-stats', {"servers": serverCount, "max": mem_max, "used": mem_used});
             });
         });
 	});
