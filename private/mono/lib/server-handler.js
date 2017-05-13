@@ -11,6 +11,8 @@ var mcLib = require('./auto-updater.js');
 //  LINE 1: Type; number                                           //
 //  LINE 2: Rank; number                                           //
 //  LINE 3: Last time server was online; number (ms since 1970)    //
+//  LINE 4: Donations; string (currency_char + number)             //
+//  LINE 5: Playing time during last 2 weeks; number               //
 //                                                                 //
 /////////////////////////////////////////////////////////////////////
 
