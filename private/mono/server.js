@@ -68,20 +68,19 @@ function formatErr(err, id, line) {
 
 io.on('connection', function(socket){
 	var IP = socket.request.connection.remoteAddress;
-	var socket_session = socket.id;
 	
 	////////////////////////////////    ACCOUNT HANDLING    ////////////////////////////////
 	
 	
 	// Registration
 	socket.on('register', function(data){
-		traffic_handler.isBlocked(socket_session, function(ss) {
+		traffic_handler.isBlocked(IP, function(ss) {
 			if(ss.isBlocked) {
 				return sendToClient(socket, 'reg-complete', "TOO_MUCH_TRAFFIC", '0.0:' + __line);
 			} else if(ss.isRegistered) {
-				traffic_handler.log(socket_session, 64);
+				traffic_handler.log(IP, 64);
 			} else {
-				traffic_handler.register(socket_session, 64);
+				traffic_handler.register(IP, 64);
 			}
 			
 			account.register(data, IP, function(err, usr) {
@@ -97,13 +96,13 @@ io.on('connection', function(socket){
 	
 	// Login
 	socket.on('login', function(data){
-		traffic_handler.isBlocked(socket_session, function(ss) {
+		traffic_handler.isBlocked(IP, function(ss) {
 			if(ss.isBlocked) {
 				return sendToClient(socket, 'login-complete', "TOO_MUCH_TRAFFIC", '1.0:' + __line);
 			} else if(ss.isRegistered) {
-				traffic_handler.log(socket_session, 32);
+				traffic_handler.log(IP, 32);
 			} else {
-				traffic_handler.register(socket_session, 32);
+				traffic_handler.register(IP, 32);
 			}
 			
 			account.login(data, IP, function(err, usr, userSession) {
@@ -118,13 +117,13 @@ io.on('connection', function(socket){
     
 	// Logout
     socket.on('logout', function(data) {
-        traffic_handler.isBlocked(socket_session, function(ss) {
+        traffic_handler.isBlocked(IP, function(ss) {
 			if(ss.isBlocked) {
 				return sendToClient(socket, 'logout-complete', "TOO_MUCH_TRAFFIC", '2.0:' + __line);
 			} else if(ss.isRegistered) {
-				traffic_handler.log(socket_session, 32);
+				traffic_handler.log(IP, 32);
 			} else {
-				traffic_handler.register(socket_session, 32);
+				traffic_handler.register(IP, 32);
 			}
 			
 			account.logout(data, IP, function(err) {
@@ -140,13 +139,13 @@ io.on('connection', function(socket){
 	////////////////////////////////    SERVER CREATION    ////////////////////////////////
 	
 	socket.on('create-serv', function(data){
-		traffic_handler.isBlocked(socket_session, function(ss) {
+		traffic_handler.isBlocked(IP, function(ss) {
 			if(ss.isBlocked) {
 				return sendToClient(socket, 'creation-complete', "TOO_MUCH_TRAFFIC", '3.0:' + __line);
 			} else if(ss.isRegistered) {
-				traffic_handler.log(socket_session, 64);
+				traffic_handler.log(IP, 64);
 			} else {
-				traffic_handler.register(socket_session, 64);
+				traffic_handler.register(IP, 64);
 			}
 			
 			server.create(data, IP, function(err, usr) {
@@ -162,13 +161,13 @@ io.on('connection', function(socket){
 	////////////////////////////////    CONTROL PANEL    ////////////////////////////////
 	
 	socket.on('start-server', function(data){
-		traffic_handler.isBlocked(socket_session, function(ss) {
+		traffic_handler.isBlocked(IP, function(ss) {
 			if(ss.isBlocked) {
 				return sendToClient(socket, 'server-checked', "TOO_MUCH_TRAFFIC", '4.0:' + __line);
 			} else if(ss.isRegistered) {
-				traffic_handler.log(socket_session, 16);
+				traffic_handler.log(IP, 16);
 			} else {
-				traffic_handler.register(socket_session, 16);
+				traffic_handler.register(IP, 16);
 			}
 			
 			server.start(data, IP, function(err, serv_type) {
@@ -182,13 +181,13 @@ io.on('connection', function(socket){
 	});
 	
 	socket.on('stop-server', function(data) {
-		traffic_handler.isBlocked(socket_session, function(ss) {
+		traffic_handler.isBlocked(IP, function(ss) {
 			if(ss.isBlocked) {
 				return sendToClient(socket, 'server-stopped', "TOO_MUCH_TRAFFIC", '5.0:' + __line);
 			} else if(ss.isRegistered) {
-				traffic_handler.log(socket_session, 16);
+				traffic_handler.log(IP, 16);
 			} else {
-				traffic_handler.register(socket_session, 16);
+				traffic_handler.register(IP, 16);
 			}
 			
 			server.stop(data, IP, function(err) {
@@ -202,13 +201,13 @@ io.on('connection', function(socket){
 	});
 	
 	socket.on('console-cmd', function(data) {
-		traffic_handler.isBlocked(socket_session, function(ss) {
+		traffic_handler.isBlocked(IP, function(ss) {
 			if(ss.isBlocked) {
 				return sendToClient(socket, 'console-query', "TOO_MUCH_TRAFFIC", '6.0:' + __line);
 			} else if(ss.isRegistered) {
-				traffic_handler.log(socket_session, 4);
+				traffic_handler.log(IP, 4);
 			} else {
-				traffic_handler.register(socket_session, 4);
+				traffic_handler.register(IP, 4);
 			}
 			
 			server.sendCMD(data, IP, function(err, data) {
@@ -224,13 +223,13 @@ io.on('connection', function(socket){
 	////////////////////////////////    APPLICATIONS    ////////////////////////////////
 	
 	socket.on('check-app', function(data) {
-        traffic_handler.isBlocked(socket_session, function(ss) {
+        traffic_handler.isBlocked(IP, function(ss) {
 			if(ss.isBlocked) {
 				return sendToClient(socket, 'app-status', "TOO_MUCH_TRAFFIC", '7.0:' + __line);
 			} else if(ss.isRegistered) {
-				traffic_handler.log(socket_session, 64);
+				traffic_handler.log(IP, 64);
 			} else {
-				traffic_handler.register(socket_session, 64);
+				traffic_handler.register(IP, 64);
 			}
 			
 			if(!data || typeof data.id != 'number' || typeof data.app != 'string') {
@@ -260,13 +259,13 @@ io.on('connection', function(socket){
 	////////////////////////////////    INDEX    ////////////////////////////////
 	
 	socket.on('get-main-stats', function() {
-        traffic_handler.isBlocked(socket_session, function(ss) {
+        traffic_handler.isBlocked(IP, function(ss) {
 			if(ss.isBlocked) {
 				return sendToClient(socket, 'main-stats', "TOO_MUCH_TRAFFIC", '8.0:' + __line);
 			} else if(ss.isRegistered) {
-				traffic_handler.log(socket_session, 64);
+				traffic_handler.log(IP, 64);
 			} else {
-				traffic_handler.register(socket_session, 64);
+				traffic_handler.register(IP, 64);
 			}
             
             stats.getMain(function(err, serverCount, mem_max, mem_used) {
@@ -312,6 +311,6 @@ io.on('connection', function(socket){
 	////////////////////////////////    DISCONNECTION HANDLING    ////////////////////////////////
 	
 	socket.on('disconnect', function() {
-		traffic_handler.removeSession(socket_session);
+		traffic_handler.removeIP(IP);
 	});
 });
