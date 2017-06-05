@@ -1,8 +1,8 @@
 var traffic = [];
 
-function getIDFromSocket(socket) {
+function getIDFromIP(IP) {
 	for(var i = 0; i < traffic.length; i++) {
-		if(traffic[i][0] == socket) {
+		if(traffic[i][0] == IP) {
 			return i;
 		}
 	}
@@ -14,8 +14,8 @@ exports.resetTraffic = function reset() {
 	}
 }
 
-exports.isBlocked = function checkTraffic(socket, callback) {
-	var id = getIDFromSocket(socket);
+exports.isBlocked = function checkTraffic(IP, callback) {
+	var id = getIDFromIP(IP);
 	
 	if(typeof id === "undefined") {
 		callback({"isRegistered": false});
@@ -24,14 +24,14 @@ exports.isBlocked = function checkTraffic(socket, callback) {
 	}
 }
 
-exports.register = function addSocket(socket, val, callback) {
-	traffic.push([socket, val]);
+exports.register = function addIP(IP, val, callback) {
+	traffic.push([IP, val]);
 }
 
-exports.log = function incrTraffic(socket, incr) {
-	traffic[getIDFromSocket(socket)][1] += incr;
+exports.log = function incrTraffic(IP, incr) {
+	traffic[getIDFromIP(IP)][1] += incr;
 }
 
-exports.removeSession = function forgetSocket(socket) {
-	traffic.splice(getIDFromSocket(socket), 1);
+exports.removeIP = function forgetIP(IP) {
+	traffic.splice(getIDFromIP(IP), 1);
 }
