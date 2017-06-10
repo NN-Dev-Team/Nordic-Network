@@ -1,3 +1,2 @@
-testuser@nordic-network.tk
-$2a$10$LA9eIL9vnrPLtlAJ0caS6.b4xW76rTYqOPxLkaBnveKF85e6WvebC
-d76a95421d9b9cdecf0eaffe09815f64_24882473
+testuser@nordic-network.co.uk
+$2a$10$ofiO9ATI0VnfEDJ8bVPWx.3wNqcdh/DrDEbIyGUPySSdL8j.obGuu

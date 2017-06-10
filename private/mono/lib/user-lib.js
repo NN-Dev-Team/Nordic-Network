@@ -117,6 +117,10 @@ exports.find = function findEmailOrIPMatch(info, callback) {
 				(function(file) {
 					if(file == "user.txt" || file == "ips.txt") {
 						files_processed++;
+						
+						if(!email_found && files_processed == files.length) {
+							callback(err, false);
+						}
 					} else {
 						fs.readFile(path.join(__dirname, '../users/', file, '/user.txt'), 'utf8', function(err, data) {
 							if(err) {
@@ -160,6 +164,10 @@ exports.findSession = function findSessionMatch(session, callback) { // Currentl
 			(function(file) {
 				if(file == "user.txt" || file == "ips.txt") {
 					files_processed++;
+					
+					if(files_processed == files.length) {
+						callback(err, false);
+					}
 				} else {
 					fs.readFile(path.join(__dirname, '../users/', file, '/user.txt'), 'utf8', function(err, data) {
 						if(err) {
@@ -293,6 +301,10 @@ exports.delOld = function delOldUser(callback) {
 			(function(file) {
 				if(file == "user.txt" || file == "ips.txt") {
 					files_processed++;
+					
+					if(files_processed == files.length) {
+						callback(err, false);
+					}
 				} else {
 					fs.readFile(path.join(__dirname, '../users/', file, '/server/.properties'), 'utf8', function(err, data) {
 						if(err) {
@@ -305,12 +317,12 @@ exports.delOld = function delOldUser(callback) {
 						if(today.getTime() - content[3].trim() > 8589934591) { // '.properties' structure is in 'server-handler.js'
 							deadUsr_found = true;
 							
-							rmdirAsync(path.join(__dirname, '../users/', file, '/server'), function(err) {
+							rmdirAsync(path.join(__dirname, '../users/', file), function(err) {
 								if(err) {
 									return callback({"error": err, "line": __line});
 								}
 								
-								callback({"error": err, "line": __line}, true, file);
+								return callback({"error": err, "line": __line}, true, file);
 							});
 						}
 						
