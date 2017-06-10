@@ -1,19 +1,19 @@
 {
   "name": "nordic-network",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Dynamic Hosting Service",
   "main": "private/mono/server.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "braintree": "^1.47.1",
-    "diskspace": "^1.0.3",
-    "express": "^4.15.2",
+    "braintree": "^2.1.1",
+    "diskspace": "^2.0.0",
+    "express": "^4.15.3",
     "mkdirp": "^0.5.1",
-    "pm2": "^2.4.5",
+    "pm2": "^2.5.0",
     "rcon": "^1.0.3",
-    "socket.io": "^1.7.3",
-    "socket.io-client": "^1.7.3",
-    "toobusy-js": "^0.4.3"
+    "socket.io": "^2.0.2",
+    "socket.io-client": "^2.0.2",
+    "toobusy-js": "^0.5.1"
   },
   "repository": {
     "type": "git",
