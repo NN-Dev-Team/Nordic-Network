@@ -10,8 +10,6 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var Rcon = require('rcon');
-var diskspace = require('diskspace');
 var path = require('path');
 
 var values = [];
