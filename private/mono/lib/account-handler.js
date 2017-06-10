@@ -9,68 +9,71 @@ var user = require('./user-lib.js');
 
 exports.register = function regUsr(data, IP, callback) {
 	if (!data || typeof data.email != 'string' || typeof data.pass != 'string') {
-        return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
-    } else if (((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
-        bcrypt.genSalt(10, function(err, salt) {
-            if(err) {
-                return callback({"error": err, "id": 1, "line": __line});
-            }
+		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
+	} else if (((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
+		bcrypt.genSalt(10, function(err, salt) {
+			if(err) {
+				return callback({"error": err, "id": 1, "line": __line});
+			}
 
-            // Hash password
-            bcrypt.hash(data.pass, salt, function(err, hash) {
-                if(err) {
-                    return callback({"error": err, "id": 2, "line": __line});
-                }
+			// Hash password
+			bcrypt.hash(data.pass, salt, function(err, hash) {
+				if(err) {
+					return callback({"error": err, "id": 2, "line": __line});
+				}
 
-                // Search the database to check if the user already exists
-                user.find({"email": data.email, "IP": IP}, function(err, found, info) {
-                    if(err) {
-                        return callback({"error": err.error, "id": 3, "line": __line + '.' + err.line});
-                    }
+				// Search the database to check if the user already exists
+				user.find({"email": data.email, "IP": IP}, function(err, found, info) {
+					if(err) {
+						return callback({"error": err.error, "id": 3, "line": __line + '.' + err.line});
+					}
 
-                    if(found) {
+					if(found) {
 						return callback({"error": "USER_ALREADY_EXISTS", "id": 4, "line": __line});
-                    }
+					}
 
-                    // User doesn't exist yet, check if enough disk space is available
-                    diskspace.check('/', function(err, res) {
-                        if(res.free < 2147483648) {
-                            user.delOld(function(err, success, usr) {
-                                if(err) {
-                                    return callback({"error": err.error, "id": 5, "line": __line + '.' + err.line});
-                                }
+					// User doesn't exist yet, check if enough disk space is available
+					diskspace.check('/', function(err, res) { // Does not work on Windows since you need to specify the 'C' drive there
+						if(err) {
+							return callback({"error": err, "id": 5, "line": __line});
+						}
+						
+						if(res.free < 2147483648) {
+							user.delOld(function(err, success, usr) {
+								if(err) {
+									return callback({"error": err.error, "id": 6, "line": __line + '.' + err.line});
+								}
 
-                                if(success) {
-                                    user.add({"user": usr, "email": data.email, "hash": hash, "IP": IP}, function(err) {
-                                        if(err) {
-                                            return callback({"error": err.error, "id": 6, "line": __line + '.' + err.line});
-                                        }
+								if(success) {
+									user.add({"user": usr, "email": data.email, "hash": hash, "IP": IP}, function(err) {
+										if(err) {
+											return callback({"error": err.error, "id": 7, "line": __line + '.' + err.line});
+										}
 
-                                        callback(err, usr);
-                                    });
-                                } else {
-                                    return callback({"error": "NOT_ENOUGH_DISKSPACE", "id": 7, "line": __line});
-                                }
-                            });
-                        } else {
+										callback(err, usr);
+									});
+								} else {
+									return callback({"error": "NOT_ENOUGH_DISKSPACE", "id": 8, "line": __line});
+								}
+							});
+						} else {
 
-                            // Enough disk space available, register user
-                            user.add({"email": data.email, "hash": hash, "IP": IP}, function(err, usr) {
-								
-                                if(err) {
-                                    return callback({"error": err.error, "id": 8, "line": __line + '.' + err.line});
-                                }
+							// Enough disk space available, register user
+							user.add({"email": data.email, "hash": hash, "IP": IP}, function(err, usr) {
+								if(err) {
+									return callback({"error": err.error, "id": 9, "line": __line + '.' + err.line});
+								}
 
-                                callback(err, usr);
-                            });
-                        }
-                    });
-                });
-            });
-        });
-    } else {
-        return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
-    }
+								callback(err, usr);
+							});
+						}
+					});
+				});
+			});
+		});
+	} else {
+		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
+	}
 }
 
 ////////////////////////////////    LOGIN    ////////////////////////////////
@@ -132,9 +135,9 @@ exports.logout = function forgetSession(data, IP, callback) {
 		if(err) {
 			return callback({"error": err.error, "id": 1, "line": __line + '.' + err.line});
 		}
-        
-        if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
-            user.changeProp(data.id, 2, "SESSION EXPIRED", function(err) {
+		
+		if(dat[2].trim() == data.session && dat[2].trim() != "SESSION EXPIRED") {
+			user.changeProp(data.id, 2, "SESSION EXPIRED", function(err) {
 				if(err) {
 					return callback({"error": err.error, "id": 2, "line": __line + "." + err.line});
 				}
