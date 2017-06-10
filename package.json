@@ -4,15 +4,15 @@
   "description": "Dynamic Hosting Service",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "braintree": "^1.47.1",
-    "diskspace": "^1.0.3",
+    "braintree": "^2.1.1",
+    "diskspace": "^2.0.0",
     "express": "^4.15.3",
     "mkdirp": "^0.5.1",
     "pm2": "^2.5.0",
     "rcon": "^1.0.3",
-    "socket.io": "^1.7.4",
-    "socket.io-client": "^1.7.4",
-    "toobusy-js": "^0.4.3"
+    "socket.io": "^2.0.2",
+    "socket.io-client": "^2.0.2",
+    "toobusy-js": "^0.5.1"
   },
   "repository": {
     "type": "git",
