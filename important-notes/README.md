@@ -145,7 +145,9 @@ XP can be obtained in the following ways:
 
 Due to the lack of donations on smaller servers, this means that revenue from premium servers may be used to pay for them. According to several sources though, rich content pages generate more ad gain, so we might still get a lot from ads if we make sure the server pages look good and have much content like a blog for example :)
 
-(Each Rank 3 premium server can pay *completely* for 4 Rank 1 free servers)
+(For example, each Rank 3 premium server can pay for about 3 Rank 1 free servers)
+
+**Also, note that the XP requirements for the ranks will change automatically each month.** This is done for it to be easier to adjust to less or more donations, and means that the XP requirements specified here may only apply for the first month(s).
 
 --------
 
