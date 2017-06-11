@@ -4,9 +4,14 @@ var fs = require('fs');
 var path = require('path');
 
 const HARDWARE_COSTS = 102; // £
+const TOTAL_RAM = 62; // GB (actually 64 GB but 2 GB is reserved for other processes)
 
 exports.getHWCosts = function getHWCostsConst() {
 	return HARDWARE_COSTS;
+}
+
+exports.getTotalRAM = function getTotalRAMConst() {
+	return TOTAL_RAM;
 }
 
 exports.getMain = function getMainStats(callback) {
