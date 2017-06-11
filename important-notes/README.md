@@ -17,7 +17,7 @@ XP can be obtained in the following ways:
 
 --------
 
-**Hardware Costs:** From ~£? to ~£?
+**Hardware Costs:** From ~£0.44 to ~£0.47
 
 **Payment Period:** 15 days
 
@@ -45,7 +45,7 @@ XP can be obtained in the following ways:
 
 --------
 
-**Hardware Costs:** From ~£? to ~£?
+**Hardware Costs:** From ~£0.88 to ~£0.94
 
 **Payment Period:** 15 days
 
@@ -79,7 +79,7 @@ XP can be obtained in the following ways:
 
 --------
 
-**Hardware Costs:** From ~£? to ~£?
+**Hardware Costs:** From ~£1.75 to ~£1.89
 
 **Payment Period:** 30 days
 
@@ -113,7 +113,7 @@ XP can be obtained in the following ways:
 
 --------
 
-**Hardware Costs:** From ~£? to ~£?
+**Hardware Costs:** From ~£3.51 to ~£3.77
 
 **Payment Period:** 30 days
 
