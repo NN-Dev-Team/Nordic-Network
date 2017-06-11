@@ -10,7 +10,7 @@ Minecraft Ranks
 
 --------
 
-**Price:** From ~£? to ~£?
+**Hardware Costs:** From ~£? to ~£?
 
 **Payment Period:** 15 days
 
@@ -38,7 +38,7 @@ Minecraft Ranks
 
 --------
 
-**Price:** From ~£? to ~£?
+**Hardware Costs:** From ~£? to ~£?
 
 **Payment Period:** 15 days
 
@@ -72,7 +72,7 @@ Minecraft Ranks
 
 --------
 
-**Price:** From ~£? to ~£?
+**Hardware Costs:** From ~£? to ~£?
 
 **Payment Period:** 30 days
 
@@ -106,7 +106,7 @@ Minecraft Ranks
 
 --------
 
-**Price:** From ~£? to ~£?
+**Hardware Costs:** From ~£? to ~£?
 
 **Payment Period:** 30 days
 
