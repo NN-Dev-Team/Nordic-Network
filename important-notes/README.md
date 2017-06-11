@@ -4,55 +4,123 @@ Minecraft Ranks
 
 --------
 
-#### Rank 1:
-**Weekly Cost:** From ~£0.06 to ~£0.11
+### Rank 1:
 
-**Weekly Votes:** 20
+----
 
-**Weekly Ad Earnings:** From ~£0.004 to ~£0.15, average ~£0.015
+*Dynamic Plan*
+
+----
+
+**Price:** From ~£? to ~£?
+
+**Payment Period:** 15 days
+
+**XP required to keep rank:** 30
+
+**XP required to rank up:** 45
 
 **Features:** 256 MB RAM & 1 GB disk space
 
+----
+
+*No premium plan is available for this rank.*
+
 --------
 
-#### Rank 2:
-**Weekly Cost:** From ~£0.12 to ~£0.21
+### Rank 2:
 
-**Weekly Votes:** 50
+----
 
-**Weekly Ad Earnings:** From ~£0.01 to ~£0.39, average ~£0.039
+*Dynamic Plan*
+
+----
+
+**Price:** From ~£? to ~£?
+
+**Payment Period:** 15 days
+
+**XP required to keep rank:** 30
+
+**XP required to rank up:** 45
+
+**Features:** 512 MB RAM, 2 GB disk space & FTP access
+
+----
+
+*Premium Plan*
+
+----
+
+**Price:** £1.5
+
+**Payment Period:** 30 days
 
 **Features:** 512 MB RAM, 2 GB disk space & FTP access
 
 --------
 
-#### Rank 3:
-**Weekly Cost:** From ~£0.24 to ~£0.43
+### Rank 3:
 
-**Donation Plan:** $1.5 every 2 weeks
+----
 
-**Premium Plan:** $3/month
+*Dynamic Plan*
+
+----
+
+**Price:** From ~£? to ~£?
+
+**Payment Period:** 30 days
+
+**XP required to keep rank:** 250
+
+**XP required to rank up:** 350
 
 **Features:** 1 GB RAM, 4 GB disk space & FTP access
 
-**Premium Features:** No ads
+----
+
+*Premium Plan*
+
+----
+
+**Price:** £3
+
+**Payment Period:** 30 days
+
+**Features:** 1 GB RAM, 4 GB disk space, FTP access & no ads
 
 --------
 
-#### Rank 4:
-**Weekly Cost:** From ~£0.49 to ~£0.86
+### Rank 4:
 
-**Donation Plan:** $4/month
+----
 
-**Premium Plan:** $5/month
+*Dynamic Plan*
+
+----
+
+**Price:** From ~£? to ~£?
+
+**Payment Period:** 30 days
+
+**XP required to keep rank:** 500
+
+**XP required to rank up:** N/A
 
 **Features:** 2 GB RAM, 8 GB disk space & FTP access
 
-**Premium Features:** Your own server website/forum & no ads
+----
 
---------
+*Premium Plan*
 
-**Note:** Monthly payment is only available to premium users; that is you pay with your own money. Rank 1 & 2 don't have premium.
+----
+
+**Price:** £6
+
+**Payment Period:** 30 days
+
+**Features:** 2 GB RAM, 8 GB disk space, FTP access, your own server website/forum & no ads.
 
 --------
 
