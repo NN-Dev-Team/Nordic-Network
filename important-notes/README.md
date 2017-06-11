@@ -150,7 +150,7 @@ Due to the lack of donations on smaller servers, this means that revenue from pr
 --------
 
 #### [Statistics about donations per GB RAM](http://www.planetminecraft.com/forums/how-many-donations-your-minecraft-server-you-get-t551696.html)
-Donated money per GB RAM is now about 4$ per month, getting a bit more accurate now with more results :)
+Donated money per GB RAM is now about $4 (~£3) per month, getting a bit more accurate now with more results :)
 
 --------
 
