@@ -2,6 +2,13 @@
 Minecraft Ranks
 ----------------
 
+### Obtaining XP
+XP can be obtained in the following ways:
+* On rank 1 & 2, every playing hour gives 1 XP each.
+* On all ranks, a donation of £1 gives 100 XP.
+
+<br />
+
 ### Rank 1
 
 --------
