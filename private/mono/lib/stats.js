@@ -3,6 +3,12 @@ var user = require('./user-lib.js');
 var fs = require('fs');
 var path = require('path');
 
+const HARDWARE_COSTS = 102; // £
+
+exports.getHWCosts = function getHWCostsConst() {
+	return HARDWARE_COSTS;
+}
+
 exports.getMain = function getMainStats(callback) {
 	user.getTotal(function(err, serverCount) {
 		if(err) {
