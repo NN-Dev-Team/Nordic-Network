@@ -2,15 +2,13 @@
 Minecraft Ranks
 ----------------
 
---------
-
 ### Rank 1
 
-----
+--------
 
 *Dynamic Plan*
 
-----
+--------
 
 **Price:** From ~£? to ~£?
 
@@ -22,19 +20,23 @@ Minecraft Ranks
 
 **Features:** 256 MB RAM & 1 GB disk space
 
-----
+<br />
+
+--------
 
 *No premium plan is available for this rank.*
 
 --------
 
+<br />
+
 ### Rank 2
 
-----
+--------
 
 *Dynamic Plan*
 
-----
+--------
 
 **Price:** From ~£? to ~£?
 
@@ -46,11 +48,13 @@ Minecraft Ranks
 
 **Features:** 512 MB RAM, 2 GB disk space & FTP access
 
-----
+<br />
+
+--------
 
 *Premium Plan*
 
-----
+--------
 
 **Price:** £1.5
 
@@ -58,15 +62,15 @@ Minecraft Ranks
 
 **Features:** 512 MB RAM, 2 GB disk space & FTP access
 
---------
+<br />
 
 ### Rank 3
 
-----
+--------
 
 *Dynamic Plan*
 
-----
+--------
 
 **Price:** From ~£? to ~£?
 
@@ -78,11 +82,13 @@ Minecraft Ranks
 
 **Features:** 1 GB RAM, 4 GB disk space & FTP access
 
-----
+<br />
+
+--------
 
 *Premium Plan*
 
-----
+--------
 
 **Price:** £3
 
@@ -90,15 +96,15 @@ Minecraft Ranks
 
 **Features:** 1 GB RAM, 4 GB disk space, FTP access & no ads
 
---------
+<br />
 
 ### Rank 4
 
-----
+--------
 
 *Dynamic Plan*
 
-----
+--------
 
 **Price:** From ~£? to ~£?
 
@@ -110,17 +116,21 @@ Minecraft Ranks
 
 **Features:** 2 GB RAM, 8 GB disk space & FTP access
 
-----
+<br />
+
+--------
 
 *Premium Plan*
 
-----
+--------
 
 **Price:** £6
 
 **Payment Period:** 30 days
 
 **Features:** 2 GB RAM, 8 GB disk space, FTP access, your own server website/forum & no ads.
+
+<br />
 
 --------
 
