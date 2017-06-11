@@ -4,7 +4,7 @@ Minecraft Ranks
 
 --------
 
-### Rank 1:
+### Rank 1
 
 ----
 
@@ -28,7 +28,7 @@ Minecraft Ranks
 
 --------
 
-### Rank 2:
+### Rank 2
 
 ----
 
@@ -60,7 +60,7 @@ Minecraft Ranks
 
 --------
 
-### Rank 3:
+### Rank 3
 
 ----
 
@@ -92,7 +92,7 @@ Minecraft Ranks
 
 --------
 
-### Rank 4:
+### Rank 4
 
 ----
 
