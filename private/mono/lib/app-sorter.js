@@ -5,7 +5,7 @@ function checkSpelling(app, callback) {
 	callback(err, 5); // WIP; this callback is temporary
 }
 
-exports.checkApp = function sortApp(app, callback) { 
+exports.checkApp = function(app, callback) { 
 	fs.readFile(path.join(__dirname, '../apps/new/', app), 'utf8', function(err, data) {
 		if(err) {
 			return callback({"error": err, "line": __line});
