@@ -6,15 +6,15 @@ var path = require('path');
 const HARDWARE_COSTS = 102; // £
 const TOTAL_RAM = 62; // GB (actually 64 GB but 2 GB is reserved for other processes)
 
-exports.getHWCosts = function getHWCostsConst() {
+exports.getHWCosts = function() {
 	return HARDWARE_COSTS;
 }
 
-exports.getTotalRAM = function getTotalRAMConst() {
+exports.getTotalRAM = function() {
 	return TOTAL_RAM;
 }
 
-exports.getMain = function getMainStats(callback) {
+exports.getMain = function(callback) {
 	user.getTotal(function(err, serverCount) {
 		if(err) {
 			return callback({"error": err.error, "id": 1, "line": __line + "." + err.line});
@@ -54,7 +54,7 @@ exports.getMain = function getMainStats(callback) {
 	});
 }
 
-exports.getServerData = function getServerStats(process, callback) {
+exports.getServerData = function(process, callback) {
 	fs.readdir(path.join(__dirname, '../users'), function(err, files) {
 		if(err) {
 			return callback({"error": err, "id": 1, "line": __line});
