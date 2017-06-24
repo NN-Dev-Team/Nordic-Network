@@ -69,7 +69,6 @@ io.on('connection', function(socket){
 	
 	////////////////////////////////    ACCOUNT HANDLING    ////////////////////////////////
 	
-	
 	// Registration
 	socket.on('register', function(data){
 		traffic_handler.isBlocked(IP, function(ss) {
