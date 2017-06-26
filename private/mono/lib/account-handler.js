@@ -7,7 +7,7 @@ var user = require('./user-lib.js');
 
 ////////////////////////////////    REGISTRATION    ////////////////////////////////
 
-exports.register = function regUsr(data, IP, callback) {
+exports.register = function(data, IP, callback) {
 	if (!data || typeof data.email != 'string' || typeof data.pass != 'string') {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	} else if (((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
@@ -78,7 +78,7 @@ exports.register = function regUsr(data, IP, callback) {
 
 ////////////////////////////////    LOGIN    ////////////////////////////////
 
-exports.login = function login(data, IP, callback) {
+exports.login = function(data, IP, callback) {
 	if(!data || typeof data.email != 'string' || typeof data.pass != 'string') {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	} else if(((data.email).indexOf("@") != -1) && ((data.email).indexOf(".") != -1)) {
@@ -126,7 +126,7 @@ exports.login = function login(data, IP, callback) {
 
 ////////////////////////////////    LOGOUT    ////////////////////////////////
 
-exports.logout = function forgetSession(data, IP, callback) {
+exports.logout = function(data, IP, callback) {
 	if(!data || typeof data.id != 'number' || typeof data.session != 'string') {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	}

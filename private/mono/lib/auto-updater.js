@@ -10,7 +10,7 @@ Date.prototype.getWeek = function() {
 	return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
 }
 
-exports.addJar = function copyLatestStableJar(dest, callback) {
+exports.addJar = function(dest, callback) {
 	var cbCalled = false;
 	var src = path.join(__dirname, "../versions/mc/minecraft_server.1.11.2.jar");
 	dest += "/minecraft_server.jar";
@@ -38,7 +38,7 @@ exports.addJar = function copyLatestStableJar(dest, callback) {
 	}
 }
 
-exports.getSnapshot = function getMCSnapshotUrl(year, week) {
+exports.getSnapshot = function(year, week) {
 	var base_url = "https://s3.amazonaws.com/Minecraft.Download/versions/";
 	var url = base_url;
 	var sUrl = 0;
@@ -77,7 +77,7 @@ exports.getSnapshot = function getMCSnapshotUrl(year, week) {
 	return sUrl;
 }
 
-exports.getPre = function getMCPreUrl(version) {
+exports.getPre = function(version) {
 	var thisVersion = version;
 	var base_url = "https://s3.amazonaws.com/Minecraft.Download/versions/";
 	var url = base_url;

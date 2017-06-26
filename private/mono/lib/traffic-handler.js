@@ -8,13 +8,13 @@ function getIDFromIP(IP) {
 	}
 }
 
-exports.resetTraffic = function reset() {
+exports.resetTraffic = function() {
 	for(var i = 0; i < traffic.length; i++) {
 		traffic[i][1] = 0;
 	}
 }
 
-exports.isBlocked = function checkTraffic(IP, callback) {
+exports.isBlocked = function(IP, callback) {
 	var id = getIDFromIP(IP);
 	
 	if(typeof id === "undefined") {
@@ -24,14 +24,14 @@ exports.isBlocked = function checkTraffic(IP, callback) {
 	}
 }
 
-exports.register = function addIP(IP, val, callback) {
+exports.register = function(IP, val, callback) {
 	traffic.push([IP, val]);
 }
 
-exports.log = function incrTraffic(IP, incr) {
+exports.log = function(IP, incr) {
 	traffic[getIDFromIP(IP)][1] += incr;
 }
 
-exports.removeIP = function forgetIP(IP) {
+exports.removeIP = function(IP) {
 	traffic.splice(getIDFromIP(IP), 1);
 }
