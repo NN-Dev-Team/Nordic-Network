@@ -6,6 +6,8 @@ var path = require('path');
 const HARDWARE_COSTS = 102; // £
 const TOTAL_RAM = 62; // GB (actually 64 GB but 2 GB is reserved for other processes)
 
+const £ = 1.25; // £1 = $1.25
+
 //////////////// '../stats.txt' file structure //////////////////////
 //                                                                 //
 //  LINE 0: Current balance (in £); number                         //
@@ -64,7 +66,7 @@ exports.getMain = function(callback) {
 exports.getServerData = function(process, callback) {
 	fs.readdir(path.join(__dirname, '../users'), function(err, files) {
 		if(err) {
-			return callback({"error": err, "id": 1, "line": __line});
+			return callback({"error": err, "line": __line});
 		}
 		
 		var files_processed = 0;
@@ -80,7 +82,7 @@ exports.getServerData = function(process, callback) {
 				} else {
 					fs.readFile(path.join(__dirname, '../users/', file, '/server/.properties'), 'utf8', function(err, data) {
 						if(err) {
-							return callback({"error": err, "id": 2, "line": __line});
+							return callback({"error": err, "line": __line});
 						}
 						
 						process(data.split("\n"));
@@ -93,6 +95,38 @@ exports.getServerData = function(process, callback) {
 					});
 				}
 			})(files[i]);
+		}
+	});
+}
+
+exports.updateBalance = function(callback) {
+	fs.readFile(path.join(__dirname, '../stats.txt'), 'utf8', function(err, data) {
+		var stats = data.split("\n");
+		
+		if(new Date().getTime() >= Number(stats[1].trim())) {
+			var income = 0;
+			
+			exports.getServerData(function(props) {
+				var donations = props[5].trim();
+				
+				if(donations[0] == '£') {
+					income += Number(donations.substring(1));
+				} else if(donations[0] == '$') {
+					income += Number(donations.substring(1)) / 1.25;
+				} else {
+					console.log("[WARNING] Currency '" + donations[0] + "' is not supported! Convert this manually: " + donations);
+				}
+			}, function(err) {
+				if(err) {
+					return callback({"error": err.error, "id": 1, "line": __line + '.' + err.line});
+				}
+				
+				console.log("[DEBUG] Total donations: £" + income); // WILL BE CHANGED LATER
+				
+				callback();
+			});
+		} else {
+			callback();
 		}
 	});
 }
