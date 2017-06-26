@@ -288,7 +288,7 @@ io.on('connection', function(socket){
 			}
 			
 			if(data.id < user_count) {
-/*				app.get('/', function(req, res) { // INVALID CODE; we're not using Express. Will be changed to something else in the future.
+				app.get('/', function(req, res) { // INVALID CODE; we're not using Express. Will be changed to something else in the future.
 					if(data.pageType == 0) {
 						res.sendFile(path.join(__dirname, '/users/', data.id.toString(), '/server-page.html'), function(err) {
 							if(err) {
@@ -297,7 +297,7 @@ io.on('connection', function(socket){
 						});
 					} else if(data.pageType == 1) {
 						// Forum or something here maybe? Or user page?
-					} */
+					}
 				});
 			} else {
 				return socket.emit('show-404');

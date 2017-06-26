@@ -6,6 +6,13 @@ var path = require('path');
 const HARDWARE_COSTS = 102; // £
 const TOTAL_RAM = 62; // GB (actually 64 GB but 2 GB is reserved for other processes)
 
+//////////////// '../stats.txt' file structure //////////////////////
+//                                                                 //
+//  LINE 0: Current balance (in £); number                         //
+//  LINE 1: Next payment date; number (ms since 1970)              //
+//                                                                 //
+/////////////////////////////////////////////////////////////////////
+
 exports.getHWCosts = function() {
 	return HARDWARE_COSTS;
 }
