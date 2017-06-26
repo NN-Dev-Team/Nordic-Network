@@ -31,7 +31,7 @@ function boolify(obj, ignoreCase) {
 
 ////////////////////////////////    SERVER CREATION    ////////////////////////////////
 
-exports.create = function createServer(data, IP, callback) {
+exports.create = function(data, IP, callback) {
 	if(!data || typeof data.session != 'string' || (data.session).length < 24) {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	} else if(data.type < 0 || data.type > 2) {
@@ -82,7 +82,7 @@ exports.create = function createServer(data, IP, callback) {
 
 ////////////////////////////////    STARTING SERVER    ////////////////////////////////
 
-exports.start = function startServer(data, IP, callback) {
+exports.start = function(data, IP, callback) {
 	if(!data || typeof data.server != 'number' || typeof data.session != 'string') {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	}
@@ -151,7 +151,7 @@ exports.start = function startServer(data, IP, callback) {
 
 ////////////////////////////////    STOPPING SERVER    ////////////////////////////////
 
-exports.stop = function stopServer(data, IP, callback) {
+exports.stop = function(data, IP, callback) {
 	if(!data || typeof data.server != 'number' || typeof data.session != 'string') {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	}
@@ -240,7 +240,7 @@ exports.stop = function stopServer(data, IP, callback) {
 
 ////////////////////////////////    SEND COMMAND TO SERVER    ////////////////////////////////
 
-exports.sendCMD = function sendCommand(data, IP, callback) {
+exports.sendCMD = function(data, IP, callback) {
 	if(!data || typeof data.session != 'string' || (data.session).length < 24) {
 		return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 	} else if(typeof data.id == 'number') {
