@@ -69,7 +69,6 @@ io.on('connection', function(socket){
 	
 	////////////////////////////////    ACCOUNT HANDLING    ////////////////////////////////
 	
-	
 	// Registration
 	socket.on('register', function(data){
 		traffic_handler.isBlocked(IP, function(ss) {
@@ -289,7 +288,7 @@ io.on('connection', function(socket){
 			}
 			
 			if(data.id < user_count) {
-				app.get('/', function(req, res) {
+				app.get('/', function(req, res) { // INVALID CODE; we're not using Express. Will be changed to something else in the future.
 					if(data.pageType == 0) {
 						res.sendFile(path.join(__dirname, '/users/', data.id.toString(), '/server-page.html'), function(err) {
 							if(err) {
