@@ -6,7 +6,7 @@ var path = require('path');
 const HARDWARE_COSTS = 102; // £
 const TOTAL_RAM = 62; // GB (actually 64 GB but 2 GB is reserved for other processes)
 
-const £ = 1.25; // £1 = $1.25
+const poundTo$ = 1.25; // £1 = $1.25
 
 //////////////// '../stats.txt' file structure //////////////////////
 //                                                                 //
@@ -112,7 +112,7 @@ exports.updateBalance = function(callback) {
 				if(donations[0] == '£') {
 					income += Number(donations.substring(1));
 				} else if(donations[0] == '$') {
-					income += Number(donations.substring(1)) / 1.25;
+					income += Number(donations.substring(1)) / poundTo$;
 				} else {
 					console.log("[WARNING] Currency '" + donations[0] + "' is not supported! Convert this manually: " + donations);
 				}
