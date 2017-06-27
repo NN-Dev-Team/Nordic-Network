@@ -47,7 +47,7 @@ exports.register = function(data, IP, callback) {
 								if(success) {
 									user.add({"user": usr, "email": data.email, "hash": hash, "IP": IP}, function(err) {
 										if(err) {
-											return callback({"error": err.error, "id": 7, "line": __line + '.' + err.line});
+											return callback({"error": err.error, "id": 9, "line": __line + '.' + err.line});
 										}
 
 										callback(err, usr);
@@ -61,7 +61,7 @@ exports.register = function(data, IP, callback) {
 							// Enough disk space available, register user
 							user.add({"email": data.email, "hash": hash, "IP": IP}, function(err, usr) {
 								if(err) {
-									return callback({"error": err.error, "id": 9, "line": __line + '.' + err.line});
+									return callback({"error": err.error, "id": 7, "line": __line + '.' + err.line});
 								}
 
 								callback(err, usr);
@@ -90,13 +90,13 @@ exports.login = function(data, IP, callback) {
 			if(found) {
 				bcrypt.compare(data.pass, info.content[1].trim(), function(err, valid) {
 					if(err) {
-						return callback({"error": err, "id": 2, "line": __line});
+						return callback({"error": err, "id": 3, "line": __line});
 					}
 					
 					if(valid) {
 						crypto.randomBytes(16, function(err, buf) {
 							if(err) {
-								return callback({"error": err, "id": 3, "line": __line});
+								return callback({"error": err, "id": 4, "line": __line});
 							}
 							
 							var userSession = buf.toString('hex');
@@ -105,18 +105,18 @@ exports.login = function(data, IP, callback) {
 							
 							fs.writeFile(path.join(__dirname, "../users/", info.usr.toString(), "/user.txt"), info.content.join("\n"), function(err, data) {
 								if(err) {
-									return callback({"error": err, "id": 4, "line": __line});
+									return callback({"error": err, "id": 5, "line": __line});
 								}
 								
 								callback(err, info.usr, userSession);
 							});
 						});
 					} else {
-						return callback({"error": "INCORRECT_LOGIN_DETAILS", "id": 5, "line": "?"}); // "line" = "?" for security reasons
+						return callback({"error": "INCORRECT_LOGIN_DETAILS", "id": 2, "line": "?"}); // "line" = "?" for security reasons
 					}
 				});
 			} else {
-				return callback({"error": "INCORRECT_LOGIN_DETAILS", "id": 5, "line": "?"}); // "line" = "?" for security reasons
+				return callback({"error": "INCORRECT_LOGIN_DETAILS", "id": 2, "line": "?"}); // "line" = "?" for security reasons
 			}
 		});
 	} else {

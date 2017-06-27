@@ -32,7 +32,7 @@ exports.checkApp = function(app, callback) {
 				}
 				
 				if(err_percentage < 3) {
-					callback(); // WIP; this callback is temporary
+					callback(err, true); // WIP; this callback is temporary
 				} else {
 					// Application DECLINED; too many spelling errors
 					// Delete application file
@@ -42,7 +42,7 @@ exports.checkApp = function(app, callback) {
 							return callback({"error": err, "line": __line});
 						}
 						
-						callback(err, false);
+						callback();
 					});
 				}
 			});
@@ -56,7 +56,7 @@ exports.checkApp = function(app, callback) {
 					return callback({"error": err, "line": __line});
 				}
 				
-				callback(err, false);
+				callback();
 			});
 		}
 	});
