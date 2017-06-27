@@ -109,6 +109,7 @@ exports.updateBalance = function(callback) {
 			exports.getServerData(function(props) {
 				var donations = props[5].trim();
 				
+				// Currency convertion will be done using Stripe API when implemented
 				if(donations[0] == '£') {
 					income += Number(donations.substring(1));
 				} else if(donations[0] == '$') {
@@ -118,15 +119,29 @@ exports.updateBalance = function(callback) {
 				}
 			}, function(err) {
 				if(err) {
-					return callback({"error": err.error, "id": 1, "line": __line + '.' + err.line});
+					return callback({"error": err.error, "id": 2, "line": __line + '.' + err.line});
 				}
 				
-				console.log("[DEBUG] Total donations: £" + income); // WILL BE CHANGED LATER
+				stats[0] = Number(stats[0].trim()); // Making sure we only get a number
+				stats[0] -= HARDWARE_COSTS;
+				stats[0] += income;
 				
-				callback();
+				// DEBUG INFO; WILL BE REMOVED LATER
+				console.log("[DEBUG] Income: £" + income);
+				console.log("[DEBUG] Expenses: £" + HARDWARE_COSTS);
+				console.log("[DEBUG] Remaining: £" + stats[0]);
+				
+				
+				fs.writeFile(path.join(__dirname, '../stats.txt'), stats.join("\n"), function(err) {
+					if(err) {
+						return callback({"error": err, "id": 3, "line": __line});
+					}
+					
+					callback(err, stats[0]);
+				});
 			});
 		} else {
-			callback();
+			callback({"id": 1});
 		}
 	});
 }
