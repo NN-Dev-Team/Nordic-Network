@@ -89,31 +89,30 @@ exports.start = function(data, IP, callback) {
 	
 	var server = data.server.toString();
 	
-	fs.readFile(path.join(__dirname, '../users/', server, '/server/.properties'), 'utf8', function(err, dat) {
-		if (err) {
-			return callback({"error": err, "id": 1, "line": __line});
+	user.get(server, function(err, dat) {
+		if(err) {
+			return callback({"error": err.error, "id": 1, "line": __line + "." + err.line});
 		}
 		
-		props = dat.split("\n");
-		var serv_isSleeping = boolify(props[0].trim());
-		var serv_type = props[1].trim();
-		var serv_rank = props[2].trim();
-		var serv_ram = [256, 512, 1024, 2048, 4096];
+		var user_session = dat[2].trim();
 		
-		user.get(server, function(err, dat) {
-			if(err) {
-				return callback({"error": err.error, "id": 2, "line": __line + "." + err.line});
-			}
-			
-			var user_session = dat[2].trim();
-			
-			if(serv_isSleeping) {
-				// Stop sleeping process; stop sleep-mode jar
-				// TODO
-			}
-			
-			// Check if session is matching
-			if(user_session == data.session && user_session != "SESSION EXPIRED") {
+		// Check if session is matching
+		if(user_session == data.session && user_session != "SESSION EXPIRED") {
+			fs.readFile(path.join(__dirname, '../users/', server, '/server/.properties'), 'utf8', function(err, dat) {
+				if (err) {
+					return callback({"error": err, "id": 3, "line": __line});
+				}
+				
+				props = dat.split("\n");
+				var serv_isSleeping = boolify(props[0].trim());
+				var serv_type = props[1].trim();
+				var serv_rank = props[2].trim();
+				var serv_ram = [256, 512, 1024, 2048, 4096];
+				
+				if(serv_isSleeping) {
+					// Stop sleeping process; stop sleep-mode jar
+					// TODO
+				}
 				
 				// Run server
 				if(serv_type[0] == 0) {
@@ -142,10 +141,10 @@ exports.start = function(data, IP, callback) {
 					
 					callback({"error": "FEATURE_WIP_OR_DELETED", "id": 5, "line": __line});
 				}
-			} else {
-				return callback({"error": "SESSION_EXPIRED", "id": 3, "line": __line});
-			}
-		});
+			});
+		} else {
+			return callback({"error": "SESSION_EXPIRED", "id": 2, "line": __line});
+		}
 	});
 }
 
@@ -158,27 +157,27 @@ exports.stop = function(data, IP, callback) {
 	
 	var server = data.server.toString();
 	
-	fs.readFile(path.join(__dirname, '../users/', server, '/server/.properties'), 'utf8', function(err, dat) {
-		if (err) {
-			return callback({"error": err, "id": 1, "line": __line});
+	user.get(server, function(err, dat) {
+		if(err) {
+			return callback({"error": err.error, "id": 1, "line": __line + "." + err.line});
 		}
 		
-		var props = dat.split("\n");
-		var serv_isSleeping = boolify(props[0].trim());
-		var serv_type = props[1].trim();
-		var serv_IP = "";
-		var rcon_port = 0;
-		var rcon_pass = "";
+		var user_session = dat[2].trim();
 		
-		user.get(server, function(err, dat) {
-			if(err) {
-				return callback({"error": err.error, "id": 2, "line": __line + "." + err.line});
-			}
-			
-			var user_session = dat[2].trim();
-			
-			// Check if session is matching
-			if(user_session == data.session && user_session != "SESSION EXPIRED") {
+		// Check if session is matching
+		if(user_session == data.session && user_session != "SESSION EXPIRED") {
+			fs.readFile(path.join(__dirname, '../users/', server, '/server/.properties'), 'utf8', function(err, dat) {
+				if (err) {
+					return callback({"error": err, "id": 3, "line": __line});
+				}
+				
+				var props = dat.split("\n");
+				var serv_isSleeping = boolify(props[0].trim());
+				var serv_type = props[1].trim();
+				var serv_IP = "";
+				var rcon_port = 0;
+				var rcon_pass = "";
+				
 				if(serv_isSleeping) {
 					// Stop sleeping process; stop sleep-mode jar
 					// TODO
@@ -231,10 +230,10 @@ exports.stop = function(data, IP, callback) {
 					
 					callback({"error": "FEATURE_WIP_OR_DELETED", "id": 5, "line": __line});
 				}
-			} else {
-				return callback({"error": "SESSION_EXPIRED", "id": 3, "line": __line});
-			}
-		});
+			});
+		} else {
+			return callback({"error": "SESSION_EXPIRED", "id": 2, "line": __line});
+		}
 	});
 }
 
