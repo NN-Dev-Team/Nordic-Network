@@ -101,6 +101,10 @@ exports.getServerData = function(process, callback) {
 
 exports.updateBalance = function(callback) {
 	fs.readFile(path.join(__dirname, '../stats.txt'), 'utf8', function(err, data) {
+		if(err) {
+			return callback({"error": err, "id": 1, "line": __line});
+		}
+		
 		var stats = data.split("\n");
 		
 		if(new Date().getTime() >= Number(stats[1].trim())) {
@@ -119,29 +123,30 @@ exports.updateBalance = function(callback) {
 				}
 			}, function(err) {
 				if(err) {
-					return callback({"error": err.error, "id": 2, "line": __line + '.' + err.line});
+					return callback({"error": err.error, "id": 3, "line": __line + '.' + err.line});
 				}
 				
 				stats[0] = Number(stats[0].trim()); // Making sure we only get a number
 				stats[0] -= HARDWARE_COSTS;
 				stats[0] += income;
 				
+				stats[1] = Number(stats[1].trim());
+				stats[1] += 2592000000;
+				
 				// DEBUG INFO; WILL BE REMOVED LATER
 				console.log("[DEBUG] Income: £" + income);
 				console.log("[DEBUG] Expenses: £" + HARDWARE_COSTS);
-				console.log("[DEBUG] Remaining: £" + stats[0]);
-				
 				
 				fs.writeFile(path.join(__dirname, '../stats.txt'), stats.join("\n"), function(err) {
 					if(err) {
-						return callback({"error": err, "id": 3, "line": __line});
+						return callback({"error": err, "id": 4, "line": __line});
 					}
 					
 					callback(err, stats[0]);
 				});
 			});
 		} else {
-			callback({"id": 1});
+			callback({"id": 2});
 		}
 	});
 }

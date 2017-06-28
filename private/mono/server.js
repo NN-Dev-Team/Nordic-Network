@@ -38,6 +38,26 @@ app.use(function(req, res, next) {
 // Reset traffic
 setInterval(traffic_handler.resetTraffic, 4096);
 
+// Update balance
+setInterval(checkBalance, 6143);
+
+function checkBalance() {
+	stats.updateBalance(function(err, new_balance) {
+		if(err) {
+			if(err.id != 2) {
+				console.log("[!!] ERROR: " + err.error);
+				console.log("[!!] ID: " + formatError(err, -1, __line));
+			}
+			
+			return;
+		}
+		
+		console.log("[DEBUG] Remaining: £" + new_balance); // Just for debugging; will be removed later
+		
+		// TODO: Tweak XP requirements based on the balance
+	});
+}
+
 // Send data to client
 function sendToClient(socket, name, data, id) {
 	if(id) {
