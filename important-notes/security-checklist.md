@@ -1,5 +1,5 @@
 ### The Security Checklist
-Current progress: ~20% done.
+Current progress: ~30% done.
 
 If something is ~~strikethroughed~~ it means it's not (yet) necessary for this project.
 
