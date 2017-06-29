@@ -2,57 +2,142 @@
 Minecraft Ranks
 ----------------
 
+### Obtaining XP
+XP can be obtained in the following ways:
+* On rank 1 & 2, every playing hour gives 1 XP each.
+* On all ranks, a donation of £1 gives 100 XP.
+
+<br />
+
+### Rank 1
+
+**Hardware Costs:** From ~£0.44 to ~£0.47
+
 --------
 
-#### Rank 1:
-**Weekly Cost:** From ~£0.06 to ~£0.11
+*Dynamic Plan*
 
-**Weekly Votes:** 20
+--------
 
-**Weekly Ad Earnings:** From ~£0.004 to ~£0.15, average ~£0.015
+**Payment Period:** 15 days
+
+**XP required to keep rank:** 30
+
+**XP required to rank up:** 45
 
 **Features:** 256 MB RAM & 1 GB disk space
 
+<br />
+
 --------
 
-#### Rank 2:
-**Weekly Cost:** From ~£0.12 to ~£0.21
+*No premium plan is available for this rank.*
 
-**Weekly Votes:** 50
+--------
 
-**Weekly Ad Earnings:** From ~£0.01 to ~£0.39, average ~£0.039
+<br />
+
+### Rank 2
+
+**Hardware Costs:** From ~£0.88 to ~£0.94
+
+--------
+
+*Dynamic Plan*
+
+--------
+
+**Payment Period:** 15 days
+
+**XP required to keep rank:** 30
+
+**XP required to rank up:** 45
 
 **Features:** 512 MB RAM, 2 GB disk space & FTP access
 
+<br />
+
 --------
 
-#### Rank 3:
-**Weekly Cost:** From ~£0.24 to ~£0.43
+*Premium Plan*
 
-**Donation Plan:** $1.5 every 2 weeks
+--------
 
-**Premium Plan:** $3/month
+**Price:** £1.5
+
+**Payment Period:** 30 days
+
+**Features:** 512 MB RAM, 2 GB disk space & FTP access
+
+<br />
+
+### Rank 3
+
+**Hardware Costs:** From ~£1.75 to ~£1.89
+
+--------
+
+*Dynamic Plan*
+
+--------
+
+**Payment Period:** 30 days
+
+**XP required to keep rank:** 250
+
+**XP required to rank up:** 350
 
 **Features:** 1 GB RAM, 4 GB disk space & FTP access
 
-**Premium Features:** No ads
+<br />
 
 --------
 
-#### Rank 4:
-**Weekly Cost:** From ~£0.49 to ~£0.86
+*Premium Plan*
 
-**Donation Plan:** $4/month
+--------
 
-**Premium Plan:** $5/month
+**Price:** £3
+
+**Payment Period:** 30 days
+
+**Features:** 1 GB RAM, 4 GB disk space, FTP access & no ads
+
+<br />
+
+### Rank 4
+
+**Hardware Costs:** From ~£3.51 to ~£3.77
+
+--------
+
+*Dynamic Plan*
+
+--------
+
+**Payment Period:** 30 days
+
+**XP required to keep rank:** 500
+
+**XP required to rank up:** N/A
 
 **Features:** 2 GB RAM, 8 GB disk space & FTP access
 
-**Premium Features:** Your own server website/forum & no ads
+<br />
 
 --------
 
-**Note:** Monthly payment is only available to premium users; that is you pay with your own money. Rank 1 & 2 don't have premium.
+*Premium Plan*
+
+--------
+
+**Price:** £6
+
+**Payment Period:** 30 days
+
+**Features:** 2 GB RAM, 8 GB disk space, FTP access, your own server website/forum & no ads.
+
+<br />
 
 --------
 
@@ -60,12 +145,14 @@ Minecraft Ranks
 
 Due to the lack of donations on smaller servers, this means that revenue from premium servers may be used to pay for them. According to several sources though, rich content pages generate more ad gain, so we might still get a lot from ads if we make sure the server pages look good and have much content like a blog for example :)
 
-(Each Rank 3 premium server can pay *completely* for 4 Rank 1 free servers)
+(For example, each Rank 3 premium server can pay for about 3 Rank 1 free servers)
+
+**Also, note that the XP requirements for the ranks will change automatically each month.** This is done for it to be easier to adjust to less or more donations, and means that the XP requirements specified here may only apply for the first month(s).
 
 --------
 
 #### [Statistics about donations per GB RAM](http://www.planetminecraft.com/forums/how-many-donations-your-minecraft-server-you-get-t551696.html)
-Donated money per GB RAM is now about 4$ per month, getting a bit more accurate now with more results :)
+Donated money per GB RAM is now about $4 (~£3) per month, getting a bit more accurate now with more results :)
 
 --------
 
