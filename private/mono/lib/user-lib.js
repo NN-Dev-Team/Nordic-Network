@@ -333,7 +333,7 @@ exports.delOld = function(callback) {
 						}
 					});
 				}
-			})(files[i]);
+			}(files[i]));
 			
 			if(deadUsr_found) {
 				break;
