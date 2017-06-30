@@ -67,7 +67,7 @@ Object.defineProperty(global, '__line', {
   }
 });
 
-exports.get = function getUserData(id, callback) {
+exports.get = function(id, callback) {
 	fs.readFile(path.join(__dirname, '../users/', id.toString(), '/user.txt'), 'utf8', function(err, data) {
 		if(err) {
 			return callback({"error": err, "line": __line});
@@ -90,7 +90,7 @@ exports.get = function getUserData(id, callback) {
 	});
 }
 
-exports.find = function findEmailOrIPMatch(info, callback) {
+exports.find = function(info, callback) {
 	fs.readFile(path.join(__dirname, '../users/ips.txt'), 'utf8', function(err, data) {
 		var email = info.email;
 		
@@ -151,7 +151,7 @@ exports.find = function findEmailOrIPMatch(info, callback) {
 	});
 }
 
-exports.findSession = function findSessionMatch(session, callback) { // Currently unused; should it be removed?
+exports.findSession = function(session, callback) { // Currently unused; should it be removed?
 	fs.readdir(path.join(__dirname, '../users'), function(err, files) {
 		if(err) {
 			return callback({"error": err, "line": __line});
@@ -197,7 +197,7 @@ exports.findSession = function findSessionMatch(session, callback) { // Currentl
 	});
 }
 
-exports.getTotal = function getUserCount(callback) {
+exports.getTotal = function(callback) {
 	fs.readFile(path.join(__dirname, "../users/user.txt"), 'utf8', function(err, data) {
 		if(err) {
 			return callback({"error": err, "line": __line});
@@ -207,7 +207,7 @@ exports.getTotal = function getUserCount(callback) {
 	});
 }
 
-exports.add = function addUser(data, callback) {
+exports.add = function(data, callback) {
 	if(typeof data.user === 'undefined') {
 		exports.getTotal(function(err, usr) {
 			if(err) {
@@ -276,7 +276,7 @@ function registerIP(IP, callback) {
 	});
 }
 
-exports.changeProp = function editLine(usr, prop, val, callback) {
+exports.changeProp = function(usr, prop, val, callback) {
     var usrpath = path.join(__dirname, "../users/", usr.toString(), "/user.txt");
 	
 	file_helper.editLine(usrpath, val, function(err) {
@@ -288,7 +288,7 @@ exports.changeProp = function editLine(usr, prop, val, callback) {
 	});
 }
 
-exports.delOld = function delOldUser(callback) {
+exports.delOld = function(callback) {
 	fs.readdir(path.join(__dirname, '../users'), function(err, files) {
 		if(err) {
 			return callback({"error": err, "line": __line});

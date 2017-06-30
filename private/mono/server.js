@@ -38,6 +38,26 @@ app.use(function(req, res, next) {
 // Reset traffic
 setInterval(traffic_handler.resetTraffic, 4096);
 
+// Update balance
+setInterval(checkBalance, 6143);
+
+function checkBalance() {
+	stats.updateBalance(function(err, new_balance) {
+		if(err) {
+			if(err.id != 2) {
+				console.log("[!!] ERROR: " + err.error);
+				console.log("[!!] ID: " + formatError(err, -1, __line));
+			}
+			
+			return;
+		}
+		
+		console.log("[DEBUG] Remaining: £" + new_balance); // Just for debugging; will be removed later
+		
+		// TODO: Tweak XP requirements based on the balance
+	});
+}
+
 // Send data to client
 function sendToClient(socket, name, data, id) {
 	if(id) {
@@ -68,7 +88,6 @@ io.on('connection', function(socket){
 	var IP = socket.request.connection.remoteAddress;
 	
 	////////////////////////////////    ACCOUNT HANDLING    ////////////////////////////////
-	
 	
 	// Registration
 	socket.on('register', function(data){
@@ -289,7 +308,7 @@ io.on('connection', function(socket){
 			}
 			
 			if(data.id < user_count) {
-				app.get('/', function(req, res) {
+				app.get('/', function(req, res) { // INVALID CODE; we're not using Express. Will be changed to something else in the future.
 					if(data.pageType == 0) {
 						res.sendFile(path.join(__dirname, '/users/', data.id.toString(), '/server-page.html'), function(err) {
 							if(err) {

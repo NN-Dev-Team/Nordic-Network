@@ -3,7 +3,27 @@ var user = require('./user-lib.js');
 var fs = require('fs');
 var path = require('path');
 
-exports.getMain = function getMainStats(callback) {
+const HARDWARE_COSTS = 102; // £
+const TOTAL_RAM = 62; // GB (actually 64 GB but 2 GB is reserved for other processes)
+
+const poundTo$ = 1.25; // £1 = $1.25
+
+//////////////// '../stats.txt' file structure //////////////////////
+//                                                                 //
+//  LINE 0: Current balance (in £); number                         //
+//  LINE 1: Next payment date; number (ms since 1970)              //
+//                                                                 //
+/////////////////////////////////////////////////////////////////////
+
+exports.getHWCosts = function() {
+	return HARDWARE_COSTS;
+}
+
+exports.getTotalRAM = function() {
+	return TOTAL_RAM;
+}
+
+exports.getMain = function(callback) {
 	user.getTotal(function(err, serverCount) {
 		if(err) {
 			return callback({"error": err.error, "id": 1, "line": __line + "." + err.line});
@@ -43,31 +63,34 @@ exports.getMain = function getMainStats(callback) {
 	});
 }
 
-exports.getServerData = function getServerStats(callback) {
+exports.getServerData = function(process, callback) {
 	fs.readdir(path.join(__dirname, '../users'), function(err, files) {
 		if(err) {
-			return callback({"error": err, "id": 1, "line": __line});
+			return callback({"error": err, "line": __line});
 		}
 		
-		var stats = [];
 		var files_processed = 0;
 		
 		for(i = 0; i < files.length; i++) {
 			(function(file) {
 				if(file == "user.txt" || file == "ips.txt") {
 					files_processed++;
+					
+					if(files_processed == files.length) {
+						callback();
+					}
 				} else {
 					fs.readFile(path.join(__dirname, '../users/', file, '/server/.properties'), 'utf8', function(err, data) {
 						if(err) {
-							return callback({"error": err, "id": 2, "line": __line});
+							return callback({"error": err, "line": __line});
 						}
 						
-						stats.push(data.split("\n"));
+						process(data.split("\n"));
 						
 						files_processed++;
 						
 						if(files_processed == files.length) {
-							callback(err, stats);
+							callback();
 						}
 					});
 				}
@@ -76,46 +99,54 @@ exports.getServerData = function getServerStats(callback) {
 	});
 }
 
-exports.getRanksFromData = function getRankCountFromData(data) {
-	var ranks = [0, 0, 0, 0, 0, 0, 0, 0];
-	
-	for(var i = 0; i < data.length; i++) {
-		ranks[data[i][2]]++;
-	}
-	
-	return ranks;
-}
-
-// Might be replaced by getRanksFromData in the future
-exports.getRanks = function getRankCount(callback) {
-	fs.readdir(path.join(__dirname, '../users'), function(err, files) {
+exports.updateBalance = function(callback) {
+	fs.readFile(path.join(__dirname, '../stats.txt'), 'utf8', function(err, data) {
 		if(err) {
 			return callback({"error": err, "id": 1, "line": __line});
 		}
 		
-		var ranks = [0, 0, 0, 0, 0, 0, 0, 0];
-		var files_processed = 0;
+		var stats = data.split("\n");
 		
-		for(i = 0; i < files.length; i++) {
-			(function(file) {
-				if(file == "user.txt" || file == "ips.txt") {
-					files_processed++;
+		if(new Date().getTime() >= Number(stats[1].trim())) {
+			var income = 0;
+			
+			exports.getServerData(function(props) {
+				var donations = props[5].trim();
+				
+				// Currency convertion will be done using Stripe API when implemented
+				if(donations[0] == '£') {
+					income += Number(donations.substring(1));
+				} else if(donations[0] == '$') {
+					income += Number(donations.substring(1)) / poundTo$;
 				} else {
-					fs.readFile(path.join(__dirname, '../users/', file, '/server/.properties'), 'utf8', function(err, data) {
-						if(err) {
-							return callback({"error": err, "id": 2, "line": __line});
-						}
-						
-						ranks[data.split("\n")[2]]++;
-						
-						files_processed++;
-						
-						if(files_processed == files.length) {
-							callback(err, ranks);
-						}
-					});
+					console.log("[WARNING] Currency '" + donations[0] + "' is not supported! Convert this manually: " + donations);
 				}
-			})(files[i]);
+			}, function(err) {
+				if(err) {
+					return callback({"error": err.error, "id": 3, "line": __line + '.' + err.line});
+				}
+				
+				stats[0] = Number(stats[0].trim()); // Making sure we only get a number
+				stats[0] -= HARDWARE_COSTS;
+				stats[0] += income;
+				
+				stats[1] = Number(stats[1].trim());
+				stats[1] += 2592000000;
+				
+				// DEBUG INFO; WILL BE REMOVED LATER
+				console.log("[DEBUG] Income: £" + income);
+				console.log("[DEBUG] Expenses: £" + HARDWARE_COSTS);
+				
+				fs.writeFile(path.join(__dirname, '../stats.txt'), stats.join("\n"), function(err) {
+					if(err) {
+						return callback({"error": err, "id": 4, "line": __line});
+					}
+					
+					callback(err, stats[0]);
+				});
+			});
+		} else {
+			callback({"id": 2});
 		}
 	});
 }

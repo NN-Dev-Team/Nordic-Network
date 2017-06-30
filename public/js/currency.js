@@ -1,4 +1,5 @@
 var currencies = ["£", "$"];
+const poundTo$ = 1.25; // £1 = $1.25
 
 function addCookie(name, value, time) {
     var day = new Date();
@@ -33,9 +34,9 @@ function getValFromStr(str, c) {
 
 function toCurrency(val, c) {
 	if(c == 0) {
-		return Math.round((val / 1.2) * 4) / 4;
+		return Math.round((val / poundTo$) * 4) / 4;
 	} else if(c == 1) {
-		return Math.round((val * 1.2) * 4) / 4;
+		return Math.round((val * poundTo$) * 4) / 4;
 	}
 }
 

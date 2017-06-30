@@ -5,7 +5,7 @@ function checkSpelling(app, callback) {
 	callback(err, 5); // WIP; this callback is temporary
 }
 
-exports.checkApp = function sortApp(app, callback) { 
+exports.checkApp = function(app, callback) { 
 	fs.readFile(path.join(__dirname, '../apps/new/', app), 'utf8', function(err, data) {
 		if(err) {
 			return callback({"error": err, "line": __line});
@@ -32,7 +32,7 @@ exports.checkApp = function sortApp(app, callback) {
 				}
 				
 				if(err_percentage < 3) {
-					callback(); // WIP; this callback is temporary
+					callback(err, true); // WIP; this callback is temporary
 				} else {
 					// Application DECLINED; too many spelling errors
 					// Delete application file
@@ -42,7 +42,7 @@ exports.checkApp = function sortApp(app, callback) {
 							return callback({"error": err, "line": __line});
 						}
 						
-						callback(err, false);
+						callback();
 					});
 				}
 			});
@@ -56,7 +56,7 @@ exports.checkApp = function sortApp(app, callback) {
 					return callback({"error": err, "line": __line});
 				}
 				
-				callback(err, false);
+				callback();
 			});
 		}
 	});
