@@ -2,6 +2,8 @@ var values = [];
 var host = "N/A";
 var port = -1;
 
+var err_reported = false;
+
 if (!String.prototype.format) {
 	String.prototype.format = function() {
 		var args = arguments;
@@ -78,7 +80,10 @@ $(document).ready(function(){
 		socket.emit("get-main-stats");
 		
 		socket.on('connect_error', function() {
-			console.log("ERROR: Unable to connect to server.");
+			if(!err_reported) {
+				console.log("ERROR: Unable to connect to server.");
+				err_reported = true;
+			}
 		});
 		
 		socket.on('disconnect', function() {
