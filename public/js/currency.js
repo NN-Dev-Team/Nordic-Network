@@ -1,5 +1,5 @@
 var currencies = ["£", "$"];
-const poundTo$ = 1.25; // £1 = $1.25
+var poundTo$ = 1.3; // £1 in $
 
 function addCookie(name, value, time) {
     var day = new Date();

@@ -1,5 +1,5 @@
 ### The Security Checklist
-Current progress: ~20% done.
+Current progress: ~30% done.
 
 If something is ~~strikethroughed~~ it means it's not (yet) necessary for this project.
 
@@ -66,17 +66,17 @@ If something is ~~strikethroughed~~ it means it's not (yet) necessary for this p
 - [ ] Check for machines with unwanted publicly `open ports`.
 - [ ] ~~Check for no/default passwords for `databases` especially MongoDB & Redis.~~
 - [ ] Use SSH to access your machines; do not setup a password, use SSH key-based authentication instead.
-- [ ] Install updates timely to act upon zero day vulnerabilities like Heartbleed, Shellshock.
+- [x] Install updates timely to act upon zero day vulnerabilities like Heartbleed, Shellshock.
 - [ ] Modify server config to use TLS 1.2 for HTTPS and disable all other schemes. (The tradeoff is good.)
 - [x] Do not leave the DEBUG mode on. In some frameworks, DEBUG mode can give access full-fledged REPL or shells or expose critical data in error messages stacktraces.
 - [x] Be prepared for bad actors & DDOS - use a hosting service that has DDOS mitigation.
-- [ ] Set up monitoring for your systems, and log stuff (use [New Relic](https://newrelic.com/) or something like that).
+- [x] Set up monitoring for your systems, and log stuff (use [New Relic](https://newrelic.com/) or something like that).
 - [ ] If developing for enterprise customers, adhere to compliance requirements. If AWS S3, consider using the feature to [encrypt data](http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html). If using AWS EC2, consider using the feature to use encrypted volumes (even boot volumes can be encrypted now).
 
 ##### PEOPLE
 - [ ] Set up an email (e.g. security@coolcorp.io) and a page for security researchers to report vulnerabilities.
-- [ ] Depending on what you are making, limit access to your user databases.
+- [x] Depending on what you are making, limit access to your user databases.
 - [x] Be polite to bug reporters.
-- [ ] Have your code review done by a fellow developer from a secure coding perspective. (More eyes)
-- [ ] In case of a hack or data breach, check previous logs for data access, ask people to change passwords. You might require an audit by external agencies depending on where you are incorporated.  
+- [x] Have your code review done by a fellow developer from a secure coding perspective. (More eyes)
+- [x] In case of a hack or data breach, check previous logs for data access, ask people to change passwords. You might require an audit by external agencies depending on where you are incorporated.  
 - [ ] Set up [Netflix's Scumblr](https://github.com/Netflix/Scumblr) to hear about talks about your organization on social platforms and Google search.
