@@ -2,6 +2,8 @@ var values = [];
 var host = "N/A";
 var port = -1;
 
+var err_reported = false;
+
 var transparent = true;
 
 function changeOpacity() {
@@ -40,7 +42,10 @@ $(document).ready(function() {
 		}
 		
 		socket.on('connect_error', function() {
-			swal("Unable to connect to server.", "It seems our game servers are down.\nPlease be patient while we work on a fix!", "error");
+			if(!err_reported) {
+				swal("Unable to connect to server.", "It seems our game servers are down.\nPlease be patient while we work on a fix!", "error");
+				err_reported = true;
+			}
 		});
 		
 		socket.on('disconnect', function() {
