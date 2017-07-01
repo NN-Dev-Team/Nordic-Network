@@ -109,7 +109,7 @@ exports.updateBalance = function(callback) {
 		
 		if(new Date().getTime() >= Number(stats[1].trim())) {
 			var income = 0;
-			var income_per_rank = [0, 0, 0, 0];
+			var income_per_rank = [0, 0, 0, 0, 0, 0, 0, 0];
 			
 			exports.getServerData(function(props) {
 				var donations = props[5].trim();
