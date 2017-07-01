@@ -6,7 +6,7 @@ var path = require('path');
 const HARDWARE_COSTS = 102; // £
 const TOTAL_RAM = 62; // GB (actually 64 GB but 2 GB is reserved for other processes)
 
-const poundTo$ = 1.25; // £1 = $1.25
+const poundTo$ = 1.3; // £1 = $1.3
 
 //////////////// '../stats.txt' file structure //////////////////////
 //                                                                 //
@@ -109,15 +109,23 @@ exports.updateBalance = function(callback) {
 		
 		if(new Date().getTime() >= Number(stats[1].trim())) {
 			var income = 0;
+			var income_per_rank = [0, 0, 0, 0];
 			
 			exports.getServerData(function(props) {
 				var donations = props[5].trim();
+				var rank = props[2].trim();
 				
 				// Currency convertion will be done using Stripe API when implemented
 				if(donations[0] == '£') {
-					income += Number(donations.substring(1));
+					var val = Number(donations.substring(1));
+					
+					income += val;
+					income_per_rank[rank] += val;
 				} else if(donations[0] == '$') {
-					income += Number(donations.substring(1)) / poundTo$;
+					var val = Number(donations.substring(1)) / poundTo$;
+					
+					income += val;
+					income_per_rank[rank] += val;
 				} else {
 					console.log("[WARNING] Currency '" + donations[0] + "' is not supported! Convert this manually: " + donations);
 				}
@@ -135,6 +143,7 @@ exports.updateBalance = function(callback) {
 				
 				// DEBUG INFO; WILL BE REMOVED LATER
 				console.log("[DEBUG] Income: £" + income);
+				console.log("[DEBUG] Income by rank: £" + income_per_rank.join(", £"));
 				console.log("[DEBUG] Expenses: £" + HARDWARE_COSTS);
 				
 				fs.writeFile(path.join(__dirname, '../stats.txt'), stats.join("\n"), function(err) {
