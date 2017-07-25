@@ -42,7 +42,7 @@ setInterval(traffic_handler.resetTraffic, 4096);
 setInterval(checkBalance, 6143);
 
 function checkBalance() {
-	stats.updateBalance(function(err, new_balance) {
+	stats.updateBalance(function(err, data) {
 		if(err) {
 			if(err.id != 2) {
 				console.log("[!!] ERROR: " + err.error);
@@ -52,7 +52,10 @@ function checkBalance() {
 			return;
 		}
 		
-		console.log("[DEBUG] Remaining: £" + new_balance); // Just for debugging; will be removed later
+		// Just for debugging; will be removed later
+		console.log("[DEBUG] Servers per rank: " + data.ranks.join(", "));
+		console.log("[DEBUG] Income by rank: £" + data.rankIncome.join(", £"));
+		console.log("[DEBUG] Remaining: £" + data.newBalance);
 		
 		// TODO: Tweak XP requirements based on the balance
 	});
