@@ -107,7 +107,7 @@ exports.start = function(data, IP, callback) {
 				var serv_isSleeping = boolify(props[0].trim());
 				var serv_type = props[1].trim();
 				var serv_rank = props[2].trim();
-				var serv_ram = [256, 512, 1024, 2048];
+				var serv_ram = [256, 512, 1024, 2048, 4096, 8192, 12288, 16384]; // In MB, as defined by the JEDEC standard (MiB if using IEC standard)
 				
 				if(serv_isSleeping) {
 					// Stop sleeping process; stop sleep-mode jar

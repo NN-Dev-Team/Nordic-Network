@@ -109,11 +109,12 @@ exports.updateBalance = function(callback) {
 		
 		if(new Date().getTime() >= Number(stats[1].trim())) {
 			var income = 0;
-			var income_per_rank = [0, 0, 0, 0];
+			var income_per_rank = [0, 0, 0, 0, 0, 0, 0, 0];
+			var ranks = [0, 0, 0, 0, 0, 0, 0, 0];
 			
 			exports.getServerData(function(props) {
 				var donations = props[5].trim();
-				var rank = props[2].trim();
+				var rank = Number(props[2].trim());
 				
 				// Currency convertion will be done using Stripe API when implemented
 				if(donations[0] == '£') {
@@ -129,6 +130,8 @@ exports.updateBalance = function(callback) {
 				} else {
 					console.log("[WARNING] Currency '" + donations[0] + "' is not supported! Convert this manually: " + donations);
 				}
+				
+				ranks[rank]++;
 			}, function(err) {
 				if(err) {
 					return callback({"error": err.error, "id": 3, "line": __line + '.' + err.line});
@@ -139,11 +142,10 @@ exports.updateBalance = function(callback) {
 				stats[0] += income;
 				
 				stats[1] = Number(stats[1].trim());
-				stats[1] += 2592000000;
+				stats[1] += 30 * 24 * 60 * 60 * 1000;
 				
 				// DEBUG INFO; WILL BE REMOVED LATER
 				console.log("[DEBUG] Income: £" + income);
-				console.log("[DEBUG] Income by rank: £" + income_per_rank.join(", £"));
 				console.log("[DEBUG] Expenses: £" + HARDWARE_COSTS);
 				
 				fs.writeFile(path.join(__dirname, '../stats.txt'), stats.join("\n"), function(err) {
@@ -151,7 +153,7 @@ exports.updateBalance = function(callback) {
 						return callback({"error": err, "id": 4, "line": __line});
 					}
 					
-					callback(err, stats[0]);
+					callback(err, {"newBalance": stats[0], "ranks": ranks, "rankIncome": income_per_rank});
 				});
 			});
 		} else {
