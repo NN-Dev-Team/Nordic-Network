@@ -161,3 +161,7 @@ exports.updateBalance = function(callback) {
 		}
 	});
 }
+
+exports.tweakXP = function(data, callback) {
+	// WIP
+}
