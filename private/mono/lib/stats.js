@@ -163,5 +163,14 @@ exports.updateBalance = function(callback) {
 }
 
 exports.tweakXP = function(data, callback) {
-	// WIP
+	fs.readFile(path.join(__dirname, '../ranks.txt'), 'utf8', function(err, data) {
+		if(err) {
+			return callback({"error": err, "id": 1, "line": __line});
+		}
+		
+		var XP = data.replace(/(\r\n|\n|\r)/gm,"").split(" ");
+		for(var i = 0; i < XP.length; i++) {
+			// WIP
+		}
+	});
 }

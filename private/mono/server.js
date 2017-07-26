@@ -57,11 +57,10 @@ function checkBalance() {
 		console.log("[DEBUG] Income by rank: £" + data.rankIncome.join(", £"));
 		console.log("[DEBUG] Remaining: £" + data.newBalance);
 		
-		// TODO: Tweak XP requirements based on the balance
 		stats.tweakXP(data, function(err) {
 			if(err) {
 				console.log("[!!] ERROR: " + err.error);
-				console.log("[!!] ID: " + formatError(err, -2, __line));
+				return console.log("[!!] ID: " + formatError(err, -2, __line));
 			}
 		});
 	});
