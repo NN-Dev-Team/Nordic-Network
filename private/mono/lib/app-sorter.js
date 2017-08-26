@@ -1,14 +1,14 @@
 var fs = require('fs');
 var path = require('path');
 
-function checkSpelling(app, callback) {
-	callback(err, 5); // WIP; this callback is temporary
+function checkSpelling(app) {
+	return [err, 5]; // WIP; this is temporary
 }
 
-exports.checkApp = function(app, callback) { 
+exports.checkApp = function(app) { 
 	fs.readFile(path.join(__dirname, '../apps/new/', app), 'utf8', function(err, data) {
 		if(err) {
-			return callback({"error": err, "line": __line});
+			return {"error": err, "line": __line};
 		}
 		
 		data = data.replace(/(\r)/gm, "");
@@ -26,26 +26,27 @@ exports.checkApp = function(app, callback) {
 			approvalPoints += 1000 - Math.abs(word_count - avr_word_count);
 			approvalPoints += 10 - Math.abs(row_count - avr_row_count);
 			
-			checkSpelling(app, function(err, err_percentage) {
-				if(err) {
-					return callback({"error": err, "line": __line});
-				}
+			var res = checkSpelling(app);
+			var err = res[0];
+			var err_percentage = res[1];
+			if(err) {
+				return {"error": err, "line": __line};
+			}
 				
-				if(err_percentage < 3) {
-					callback(err, true); // WIP; this callback is temporary
-				} else {
-					// Application DECLINED; too many spelling errors
-					// Delete application file
+			if(err_percentage < 3) {
+				return [err, true]; // WIP; this is temporary
+			} else {
+				// Application DECLINED; too many spelling errors
+				// Delete application file
+				
+				fs.unlink(dir + '/' + file, function(err) {
+					if(err) {
+						return {"error": err, "line": __line};
+					}
 					
-					fs.unlink(dir + '/' + file, function(err) {
-						if(err) {
-							return callback({"error": err, "line": __line});
-						}
-						
-						callback();
-					});
-				}
-			});
+					return;
+				});
+			}
 		} else {
 			
 			// Application DECLINED; too short
@@ -53,10 +54,10 @@ exports.checkApp = function(app, callback) {
 			
 			fs.unlink(path.join(__dirname, '../apps/', file), function(err) {
 				if(err) {
-					return callback({"error": err, "line": __line});
+					return {"error": err, "line": __line};
 				}
 				
-				callback();
+				return;
 			});
 		}
 	});
