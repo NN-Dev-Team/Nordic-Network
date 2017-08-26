@@ -259,18 +259,17 @@ io.on('connection', function(socket){
 				return sendToClient(socket, 'app-status', err, '7.1:' + __line);
 			}
 			
-			var res = app_sorter.checkApp(data.id.toString());
-			var err = res[0];
-			var approved = res[1];
-			if(err) {
-				return sendToClient(socket, 'app-status', err.error, '7.2:' + __line + "." + err.line);
-			}
-			
-			if(approved) {
-				sendToClient(socket, 'app-status');
-			} else {
-				return console.log("[!!] Possible hacker detected (with IP: " + IP + ")");
-			}
+			app_sorter.checkApp(data.id.toString(), function(err, approved) {
+				if(err) {
+					return sendToClient(socket, 'app-status', err.error, '7.2:' + __line + "." + err.line);
+				}
+				
+				if(approved) {
+					sendToClient(socket, 'app-status');
+				} else {
+					return console.log("[!!] Possible hacker detected (with IP: " + IP + ")");
+				}
+			});
 		});
 	});
 	
