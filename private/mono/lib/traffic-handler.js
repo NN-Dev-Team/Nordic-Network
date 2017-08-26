@@ -14,17 +14,17 @@ exports.resetTraffic = function() {
 	}
 }
 
-exports.isBlocked = function(IP, callback) {
+exports.isBlocked = function(IP) {
 	var id = getIDFromIP(IP);
 	
 	if(typeof id === "undefined") {
-		callback({"isRegistered": false});
+		return {"isRegistered": false};
 	} else {
-		callback({"isBlocked": traffic[id][1] > 64, "isRegistered": true});
+		return {"isBlocked": traffic[id][1] > 64, "isRegistered": true};
 	}
 }
 
-exports.register = function(IP, val, callback) {
+exports.register = function(IP, val) {
 	traffic.push([IP, val]);
 }
 

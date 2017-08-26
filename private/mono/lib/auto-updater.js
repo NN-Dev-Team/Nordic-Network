@@ -10,8 +10,8 @@ Date.prototype.getWeek = function() {
 	return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
 }
 
-exports.addJar = function(dest, callback) {
-	var cbCalled = false;
+exports.addJar = function(dest) {
+	var returned = false;
 	var src = path.join(__dirname, "../versions/mc/minecraft_server.1.11.2.jar");
 	dest += "/minecraft_server.jar";
 	
@@ -31,9 +31,9 @@ exports.addJar = function(dest, callback) {
 	read.pipe(write);
 
 	function done(err) {
-		if (!cbCalled) {
-			callback(err);
-			cbCalled = true;
+		if (!returned) {
+			returned = true;
+			return err;
 		}
 	}
 }

@@ -61,13 +61,12 @@ exports.create = function(data, IP, callback) {
 						}
 						
 						if(data.type == 0) {
-							mcLib.addJar(path.join(__dirname, "../users/", data.id.toString(), "/server"), function(err) {
-								if(err) {
-									return callback({"error": err.error, "id": 6, "line": __line + "." + err.line});
-								}
-								
-								callback(err, data.id);
-							});
+							var err = mcLib.addJar(path.join(__dirname, "../users/", data.id.toString(), "/server"));
+							if(err) {
+								return callback({"error": err.error, "id": 6, "line": __line + "." + err.line});
+							}
+							
+							callback(err, data.id);
 						}
 					});
 				});
