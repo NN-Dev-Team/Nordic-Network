@@ -1,8 +1,8 @@
 var fs = require('fs');
 var path = require('path');
 
-function checkSpelling(app, callback) {
-	callback(err, 5); // WIP; this callback is temporary
+function checkSpelling(app) {
+	return [err, 5]; // WIP; this is temporary
 }
 
 exports.checkApp = function(app, callback) { 

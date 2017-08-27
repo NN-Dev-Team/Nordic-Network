@@ -98,185 +98,177 @@ io.on('connection', function(socket){
 	////////////////////////////////    ACCOUNT HANDLING    ////////////////////////////////
 	
 	// Registration
-	socket.on('register', function(data){
-		traffic_handler.isBlocked(IP, function(ss) {
-			if(ss.isBlocked) {
-				return sendToClient(socket, 'reg-complete', "TOO_MUCH_TRAFFIC", '0.0:' + __line);
-			} else if(ss.isRegistered) {
-				traffic_handler.log(IP, 64);
-			} else {
-				traffic_handler.register(IP, 64);
+	socket.on('register', function(data) {
+		var ss = traffic_handler.isBlocked(IP);
+		if(ss.isBlocked) {
+			return sendToClient(socket, 'reg-complete', "TOO_MUCH_TRAFFIC", '0.0:' + __line);
+		} else if(ss.isRegistered) {
+			traffic_handler.log(IP, 64);
+		} else {
+			traffic_handler.register(IP, 64);
+		}
+		
+		account.register(data, IP, function(err, usr) {
+			if(err) {
+				return sendToClient(socket, 'reg-complete', err.error, formatErr(err, 0, __line));
 			}
 			
-			account.register(data, IP, function(err, usr) {
-				if(err) {
-					return sendToClient(socket, 'reg-complete', err.error, formatErr(err, 0, __line));
-				}
-				
-				sendToClient(socket, 'reg-complete');
-				broadcast(socket, 'main-stats', {"servers": usr});
-			});
+			sendToClient(socket, 'reg-complete');
+			broadcast(socket, 'main-stats', {"servers": usr});
 		});
 	});
 	
 	// Login
-	socket.on('login', function(data){
-		traffic_handler.isBlocked(IP, function(ss) {
-			if(ss.isBlocked) {
-				return sendToClient(socket, 'login-complete', "TOO_MUCH_TRAFFIC", '1.0:' + __line);
-			} else if(ss.isRegistered) {
-				traffic_handler.log(IP, 32);
-			} else {
-				traffic_handler.register(IP, 32);
+	socket.on('login', function(data) {
+		var ss = traffic_handler.isBlocked(IP);
+		if(ss.isBlocked) {
+			return sendToClient(socket, 'login-complete', "TOO_MUCH_TRAFFIC", '1.0:' + __line);
+		} else if(ss.isRegistered) {
+			traffic_handler.log(IP, 32);
+		} else {
+			traffic_handler.register(IP, 32);
+		}
+			
+		account.login(data, IP, function(err, usr, userSession) {
+			if(err) {
+				return sendToClient(socket, 'login-complete', err.error, formatErr(err, 1, __line));
 			}
 			
-			account.login(data, IP, function(err, usr, userSession) {
-				if(err) {
-					return sendToClient(socket, 'login-complete', err.error, formatErr(err, 1, __line));
-				}
-				
-				sendToClient(socket, 'login-complete', {"user": usr, "session": userSession});
-			});
+			sendToClient(socket, 'login-complete', {"user": usr, "session": userSession});
 		});
 	});
-    
+	
 	// Logout
-    socket.on('logout', function(data) {
-        traffic_handler.isBlocked(IP, function(ss) {
-			if(ss.isBlocked) {
-				return sendToClient(socket, 'logout-complete', "TOO_MUCH_TRAFFIC", '2.0:' + __line);
-			} else if(ss.isRegistered) {
-				traffic_handler.log(IP, 32);
-			} else {
-				traffic_handler.register(IP, 32);
+	socket.on('logout', function(data) {
+		var ss = traffic_handler.isBlocked(IP);
+		if(ss.isBlocked) {
+			return sendToClient(socket, 'logout-complete', "TOO_MUCH_TRAFFIC", '2.0:' + __line);
+		} else if(ss.isRegistered) {
+			traffic_handler.log(IP, 32);
+		} else {
+			traffic_handler.register(IP, 32);
+		}
+			
+		account.logout(data, IP, function(err) {
+			if(err) {
+				return sendToClient(socket, 'logout-complete', err.error, formatErr(err, 2, __line));
 			}
 			
-			account.logout(data, IP, function(err) {
-				if(err) {
-					return sendToClient(socket, 'logout-complete', err.error, formatErr(err, 2, __line));
-				}
-				
-				sendToClient(socket, 'logout-complete');
-			});
-        });
-    });
+			sendToClient(socket, 'logout-complete');
+		});
+	});
 	
 	////////////////////////////////    SERVER CREATION    ////////////////////////////////
 	
-	socket.on('create-serv', function(data){
-		traffic_handler.isBlocked(IP, function(ss) {
-			if(ss.isBlocked) {
-				return sendToClient(socket, 'creation-complete', "TOO_MUCH_TRAFFIC", '3.0:' + __line);
-			} else if(ss.isRegistered) {
-				traffic_handler.log(IP, 64);
-			} else {
-				traffic_handler.register(IP, 64);
+	socket.on('create-serv', function(data) {
+		var ss = traffic_handler.isBlocked(IP);
+		if(ss.isBlocked) {
+			return sendToClient(socket, 'creation-complete', "TOO_MUCH_TRAFFIC", '3.0:' + __line);
+		} else if(ss.isRegistered) {
+			traffic_handler.log(IP, 64);
+		} else {
+			traffic_handler.register(IP, 64);
+		}
+			
+		server.create(data, IP, function(err, usr) {
+			if(err) {
+				return sendToClient(socket, 'creation-complete', err.error, formatErr(err, 3, __line));
 			}
 			
-			server.create(data, IP, function(err, usr) {
-				if(err) {
-					return sendToClient(socket, 'creation-complete', err.error, formatErr(err, 3, __line));
-				}
-				
-				sendToClient(socket, 'creation-complete', {"id": usr});
-			});
+			sendToClient(socket, 'creation-complete', {"id": usr});
 		});
 	});
 	
 	////////////////////////////////    CONTROL PANEL    ////////////////////////////////
 	
-	socket.on('start-server', function(data){
-		traffic_handler.isBlocked(IP, function(ss) {
-			if(ss.isBlocked) {
-				return sendToClient(socket, 'server-checked', "TOO_MUCH_TRAFFIC", '4.0:' + __line);
-			} else if(ss.isRegistered) {
-				traffic_handler.log(IP, 16);
-			} else {
-				traffic_handler.register(IP, 16);
+	socket.on('start-server', function(data) {
+		var ss = traffic_handler.isBlocked(IP);
+		if(ss.isBlocked) {
+			return sendToClient(socket, 'server-checked', "TOO_MUCH_TRAFFIC", '4.0:' + __line);
+		} else if(ss.isRegistered) {
+			traffic_handler.log(IP, 16);
+		} else {
+			traffic_handler.register(IP, 16);
+		}
+			
+		server.start(data, IP, function(err, serv_type) {
+			if(err) {
+				return sendToClient(socket, 'server-checked', err.error, formatErr(err, 4, __line));
 			}
 			
-			server.start(data, IP, function(err, serv_type) {
-				if(err) {
-					return sendToClient(socket, 'server-checked', err.error, formatErr(err, 4, __line));
-				}
-				
-				sendToClient(socket, 'server-checked', serv_type);
-			});
+			sendToClient(socket, 'server-checked', serv_type);
 		});
 	});
 	
 	socket.on('stop-server', function(data) {
-		traffic_handler.isBlocked(IP, function(ss) {
-			if(ss.isBlocked) {
-				return sendToClient(socket, 'server-stopped', "TOO_MUCH_TRAFFIC", '5.0:' + __line);
-			} else if(ss.isRegistered) {
-				traffic_handler.log(IP, 16);
-			} else {
-				traffic_handler.register(IP, 16);
+		var ss = traffic_handler.isBlocked(IP);
+		if(ss.isBlocked) {
+			return sendToClient(socket, 'server-stopped', "TOO_MUCH_TRAFFIC", '5.0:' + __line);
+		} else if(ss.isRegistered) {
+			traffic_handler.log(IP, 16);
+		} else {
+			traffic_handler.register(IP, 16);
+		}
+			
+		server.stop(data, IP, function(err) {
+			if(err) {
+				return sendToClient(socket, 'server-stopped', err.error, formatErr(err, 5, __line));
 			}
 			
-			server.stop(data, IP, function(err) {
-				if(err) {
-					return sendToClient(socket, 'server-stopped', err.error, formatErr(err, 5, __line));
-				}
-				
-				sendToClient(socket, 'server-stopped');
-			});
+			sendToClient(socket, 'server-stopped');
 		});
 	});
 	
 	socket.on('console-cmd', function(data) {
-		traffic_handler.isBlocked(IP, function(ss) {
-			if(ss.isBlocked) {
-				return sendToClient(socket, 'console-query', "TOO_MUCH_TRAFFIC", '6.0:' + __line);
-			} else if(ss.isRegistered) {
-				traffic_handler.log(IP, 4);
-			} else {
-				traffic_handler.register(IP, 4);
+		var ss = traffic_handler.isBlocked(IP);
+		if(ss.isBlocked) {
+			return sendToClient(socket, 'console-query', "TOO_MUCH_TRAFFIC", '6.0:' + __line);
+		} else if(ss.isRegistered) {
+			traffic_handler.log(IP, 4);
+		} else {
+			traffic_handler.register(IP, 4);
+		}
+			
+		server.sendCMD(data, IP, function(err, data) {
+			if(err) {
+				return sendToClient(socket, 'console-query', err.error, formatErr(err, 6, __line));
 			}
 			
-			server.sendCMD(data, IP, function(err, data) {
-				if(err) {
-					return sendToClient(socket, 'console-query', err.error, formatErr(err, 6, __line));
-				}
-				
-				sendToClient(socket, 'console-query', data);
-			});
-        });
-    });
+			sendToClient(socket, 'console-query', data);
+		});
+	});
 	
 	////////////////////////////////    APPLICATIONS    ////////////////////////////////
 	
 	socket.on('check-app', function(data) {
-        traffic_handler.isBlocked(IP, function(ss) {
-			if(ss.isBlocked) {
-				return sendToClient(socket, 'app-status', "TOO_MUCH_TRAFFIC", '7.0:' + __line);
-			} else if(ss.isRegistered) {
-				traffic_handler.log(IP, 64);
-			} else {
-				traffic_handler.register(IP, 64);
+		var ss = traffic_handler.isBlocked(IP);
+		if(ss.isBlocked) {
+			return sendToClient(socket, 'app-status', "TOO_MUCH_TRAFFIC", '7.0:' + __line);
+		} else if(ss.isRegistered) {
+			traffic_handler.log(IP, 64);
+		} else {
+			traffic_handler.register(IP, 64);
+		}
+			
+		if(!data || typeof data.id != 'number' || typeof data.app != 'string') {
+			return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
+		}
+		
+		fs.writeFile(path.join(__dirname, 'apps/new/', data.id.toString(), '.txt'), data.app, function(err, dat) {
+			if(err) {
+				return sendToClient(socket, 'app-status', err, '7.1:' + __line);
 			}
 			
-			if(!data || typeof data.id != 'number' || typeof data.app != 'string') {
-				return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
-			}
-			
-			fs.writeFile(path.join(__dirname, 'apps/new/', data.id.toString(), '.txt'), data.app, function(err, dat) {
+			app_sorter.checkApp(data.id.toString(), function(err, approved) {
 				if(err) {
-					return sendToClient(socket, 'app-status', err, '7.1:' + __line);
+					return sendToClient(socket, 'app-status', err.error, '7.2:' + __line + "." + err.line);
 				}
 				
-				app_sorter.checkApp(data.id.toString(), function(err, approved) {
-					if(err) {
-						return sendToClient(socket, 'app-status', err.error, '7.2:' + __line + "." + err.line);
-					}
-					
-					if(approved) {
-						sendToClient(socket, 'app-status');
-					} else {
-						return console.log("[!!] Possible hacker detected (with IP: " + IP + ")");
-					}
-				});
+				if(approved) {
+					sendToClient(socket, 'app-status');
+				} else {
+					return console.log("[!!] Possible hacker detected (with IP: " + IP + ")");
+				}
 			});
 		});
 	});
@@ -284,28 +276,36 @@ io.on('connection', function(socket){
 	////////////////////////////////    INDEX    ////////////////////////////////
 	
 	socket.on('get-main-stats', function() {
-        traffic_handler.isBlocked(IP, function(ss) {
-			if(ss.isBlocked) {
-				return sendToClient(socket, 'main-stats', "TOO_MUCH_TRAFFIC", '8.0:' + __line);
-			} else if(ss.isRegistered) {
-				traffic_handler.log(IP, 64);
-			} else {
-				traffic_handler.register(IP, 64);
+		var ss = traffic_handler.isBlocked(IP);
+		if(ss.isBlocked) {
+			return sendToClient(socket, 'main-stats', "TOO_MUCH_TRAFFIC", '8.0:' + __line);
+		} else if(ss.isRegistered) {
+			traffic_handler.log(IP, 64);
+		} else {
+			traffic_handler.register(IP, 64);
+		}
+			
+		stats.getMain(function(err, serverCount, mem_max, mem_used) {
+			if(err) {
+				return sendToClient(socket, 'main-stats', err.error, formatError(err, 8, __line));
 			}
-            
-            stats.getMain(function(err, serverCount, mem_max, mem_used) {
-				if(err) {
-					return sendToClient(socket, 'main-stats', err.error, formatError(err, 8, __line));
-				}
-				
-                sendToClient(socket, 'main-stats', {"servers": serverCount, "max": mem_max, "used": mem_used});
-            });
-        });
+			
+			sendToClient(socket, 'main-stats', {"servers": serverCount, "max": mem_max, "used": mem_used});
+		});
 	});
 	
 	////////////////////////////////    USER & SERVER PAGES    ////////////////////////////////
 	
-	socket.on('get-user-page', function(data){
+	socket.on('get-user-page', function(data) {
+		var ss = traffic_handler.isBlocked(IP);
+		if(ss.isBlocked) {
+			return socket.emit('show-404');
+		} else if(ss.isRegistered) {
+			traffic_handler.log(IP, 32);
+		} else {
+			traffic_handler.register(IP, 32);
+		}
+		
 		if(!data || typeof data.id != 'number' || typeof data.pageType != 'number') {
 			return console.log("[!] Possible hacker detected (with IP: " + IP + ")");
 		}
