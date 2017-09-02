@@ -168,7 +168,7 @@ exports.tweakXP = function(data, callback) {
 			return callback({"error": err, "id": 1, "line": __line});
 		}
 		
-		var XP = dat.replace(/(\r\n|\n|\r)/gm,"").split(" ");
+		var XP = dat.replace(/(\r\n|\n|\r)/gm," ").split(" ");
 		for(var i = 0; i < XP.length; i++) {
 			// WIP
 		}
