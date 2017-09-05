@@ -1,5 +1,5 @@
 .jumbotron {
-    background-image: url('../pics/277H.jpg');
+    background-image: url('pics/277H.jpg');
     background-size: 100% 100%;
     min-height: 100vh;
     text-align: center;
@@ -101,7 +101,7 @@
 }
 
 #about-text-container {
-    background-image: url(http://wallpapercave.com/wp/rlyvfvI.jpg);
+    background-image: url(//wallpapercave.com/wp/rlyvfvI.jpg);
 	background-position: center;
 	box-shadow: 0 0 8px 16px white inset;
 	text-align: center;
@@ -113,7 +113,7 @@
 #cookies {
     background-color: #76c9b9;
     font-size: 2vh;
-    font: url("../fonts/Viking.ttf");  
+    font: url("fonts/Viking.ttf");  
 }
 
 #cookies p {
