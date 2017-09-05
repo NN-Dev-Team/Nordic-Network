@@ -63,7 +63,7 @@ $(document).ready(function(){
 		$('#stats-servers').html(getCookie('stats-servers').toLocaleString());
 	}
 	
-	$.get("../properties.txt", function(data) {
+	$.get("properties.txt", function(data) {
         values = data.split("\n");
 		
 		host = values[0].trim();

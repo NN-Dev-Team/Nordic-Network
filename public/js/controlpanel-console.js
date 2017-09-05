@@ -9,7 +9,7 @@ var err_reported = false;
 $(document).ready(function() {
 	$('#login-failure').css('display', 'none');
 	
-    $.get("../properties.txt", function(data) {
+    $.get("properties.txt", function(data) {
         values = data.split("\n");
 		
 		host = values[0].trim();
