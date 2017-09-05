@@ -13,9 +13,9 @@ $(document).ready(function(){
 		show404();
 	}).done(function() {
 		if(port) {
-			var socket = io('http://' + host + ":" + port);
+			var socket = io('https://' + host + ":" + port);
 		} else {
-			var socket = io('http://' + host);
+			var socket = io('https://' + host);
 		}
 		
 		var disconnected = false;

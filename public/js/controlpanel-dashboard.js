@@ -25,9 +25,9 @@ $(document).ready(function() {
 		swal("Failed to get server IP", "Please contact our admins about this error so we can fix it as soon as possible!", "error");
 	}).done(function() {
 		if(port) {
-			var socket = io('http://' + host + ":" + port);
+			var socket = io('https://' + host + ":" + port);
 		} else {
-			var socket = io('http://' + host);
+			var socket = io('https://' + host);
 		}
 		
 		socket.on('connect_error', function() {

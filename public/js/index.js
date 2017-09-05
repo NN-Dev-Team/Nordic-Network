@@ -72,9 +72,9 @@ $(document).ready(function(){
 		console.log("ERROR: Failed to get server IP");
 	}).done(function() {
 		if(port) {
-			var socket = io('http://' + host + ":" + port);
+			var socket = io('https://' + host + ":" + port);
 		} else {
-			var socket = io('http://' + host);
+			var socket = io('https://' + host);
 		}
 		
 		socket.emit("get-main-stats");
