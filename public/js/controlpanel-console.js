@@ -9,7 +9,7 @@ var err_reported = false;
 $(document).ready(function() {
 	$('#login-failure').css('display', 'none');
 	
-    $.get("../properties.txt", function(data) {
+    $.get("properties.txt", function(data) {
         values = data.split("\n");
 		
 		host = values[0].trim();
@@ -18,9 +18,9 @@ $(document).ready(function() {
 		swal("Failed to get server IP", "Please contact our admins about this error so we can fix it as soon as possible!", "error");
 	}).done(function() {
 		if(port) {
-			var socket = io('http://' + host + ":" + port);
+			var socket = io('https://' + host + ":" + port);
 		} else {
-			var socket = io('http://' + host);
+			var socket = io('https://' + host);
 		}
 		
 		socket.on('connect_error', function() {
