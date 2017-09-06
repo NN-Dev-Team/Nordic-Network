@@ -1,2 +1,2 @@
-nordicnetworkserver.herokuapp.com
+nordic-network-server.herokuapp.com
 PORT HERE, chosen automatically when using heroku
