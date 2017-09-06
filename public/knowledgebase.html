@@ -2,26 +2,27 @@
 <html lang=en>
 	<head>
 		<title>Nordic Network - Support</title>
+		<base href="https://nn-dev-team.github.io/Nordic-Network/public/">
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- Load font family -->
-		<link href="https://fonts.googleapis.com/css?family=David+Libre" rel="stylesheet"> 
+		<link href="//fonts.googleapis.com/css?family=David+Libre" rel="stylesheet"> 
 		<!-- Load universal CSS from file -->
-		<link rel="stylesheet" href="/css/universal.css">
+		<link rel="stylesheet" href="css/universal.css">
 		<!-- Load custom CSS from file -->    
-		<link rel="stylesheet" href="/css/support.css">
+		<link rel="stylesheet" href="css/support.css">
 		<!-- Load JQuery from CDN -->
-		<script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<script src="//code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 		<!-- Load bootstrap CSS from CDN -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<!-- Load bootstrap JS from CDN -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<!-- Load JQuery Waypoints from CDN -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
 		<!-- Load Fontastic CSS from file -->
-        <link rel="stylesheet" href="/css/fontastic.css">
+        <link rel="stylesheet" href="css/fontastic.css">
 		<!-- Load navbar JS -->
-		<script src="/js/nav.js"></script>
+		<script src="js/nav.js"></script>
 	</head>
 	<body>
 		<div id="support-title-bg">
@@ -33,11 +34,11 @@
 			// NOTE: This must be put LAST in the <body>
 			
 			if(getCookie('session')) {
-				$.get("/nav-user.html", function(nav) {
+				$.get("nav-user.html", function(nav) {
 					$('body').prepend(nav);
 				});
 			} else {
-				$.get("/nav-guest.html", function(nav) {
+				$.get("nav-guest.html", function(nav) {
 					$('body').prepend(nav);
 				});
 			}

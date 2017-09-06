@@ -3,7 +3,7 @@ var host = "N/A";
 var port = -1;
 
 $(document).ready(function(){
-	$.get("../properties.txt", function(data) {
+	$.get("properties.txt", function(data) {
         values = data.split("\n");
 		
 		host = values[0].trim();
@@ -13,9 +13,9 @@ $(document).ready(function(){
 		show404();
 	}).done(function() {
 		if(port) {
-			var socket = io('http://' + host + ":" + port);
+			var socket = io('https://' + host + ":" + port);
 		} else {
-			var socket = io('http://' + host);
+			var socket = io('https://' + host);
 		}
 		
 		var disconnected = false;
