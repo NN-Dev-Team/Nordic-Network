@@ -1,17 +1,16 @@
 #register {
 	margin-top: 30vh;
-    background-color: #3b3b3b;
     text-align: center;
     color: white;
 }
 
 .passwrd {
-	max-width: 50vw;
+	max-width: 30vw;
 	margin: 0 auto;
 }
 
 #email {
-	max-width: 50vw;
+	max-width: 30vw;
 	margin: 0 auto;
 }
 
@@ -19,7 +18,7 @@
 
 }
 
-#logregbody {
+body {
     background-image: url(../pics/277H.jpg);
     background-repeat: no-repeat;
     background-position: center;
