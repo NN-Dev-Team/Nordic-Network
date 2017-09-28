@@ -4,18 +4,9 @@
     color: white;
 } 
 
-#pwd {
+#email, #pwd {
     max-width: 30vw;
     margin: 0 auto;
-}
-
-#email {
-    max-width: 30vw;
-    margin: 0 auto;
-}
-
-#login-button {
-    
 }
 
 body {

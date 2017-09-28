@@ -1,8 +1,11 @@
+.jumbotron, #features-title, #feature-text, #feature-text-title, #pricing-title, .pricing-text, #pricing-text-title, #about-text-container, #cookie-notice, .pricing-price {
+	text-align: center;
+}
+
 .jumbotron {
     background-image: url('../pics/277H.jpg');
     background-size: 100% 100%;
     min-height: 100vh;
-    text-align: center;
     padding-top: 0px;
     -webkit-overflow-scrolling: touch;
 }
@@ -24,7 +27,6 @@
 }
 
 #features-title {
-    text-align: center;
 	font-family: 'David Libre', serif;
 }
 
@@ -50,13 +52,11 @@
 
 #feature-text {
     color: black;
-    text-align: center;
     margin-left: 50px;
     margin-right: 50px;
 }
 
 #feature-text-title {
-    text-align: center;
 	font-family: 'David Libre', serif;
 }
 
@@ -86,17 +86,14 @@
 }
 
 #pricing-title {
-    text-align: center;
 	font-family: 'David Libre', serif;
 }
 
 .pricing-text {
     color: black;
-    text-align: center;
 }
 
 #pricing-text-title {
-    text-align: center;
 	font-family: 'David Libre', serif;
 }
 
@@ -104,7 +101,6 @@
     background-image: url(//wallpapercave.com/wp/rlyvfvI.jpg);
 	background-position: center;
 	box-shadow: 0 0 8px 16px white inset;
-	text-align: center;
 	color: rgba(255, 255, 255, 0.75);
     padding-top: 54px;
 	padding-bottom: 74px;
@@ -132,7 +128,6 @@
 	background-color: #f8f8f8;
 	border-top: 1px solid rgba(127, 127, 127, 0.5);
 	z-index: 1;
-	text-align: center;
 	display: none;
 }
 
@@ -203,7 +198,6 @@
 .pricing-price {
 	line-height: 50px;
 	color: black;
-    text-align: center;
 	font-family: 'David Libre', serif;
 	visibility: hidden;
 }
