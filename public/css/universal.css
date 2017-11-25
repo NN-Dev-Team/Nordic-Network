@@ -23,7 +23,7 @@ body {
 }
 
 #myNavbar a {
-	color: #888;
+	color: #888; /* NOTE: May not be necessary after finishing migration to Bootstrap 4 */
 }
 
 #myNavbar > ul > li > a:hover {
@@ -36,7 +36,7 @@ body {
 
 #navbar-logo {
 	height: 100%;
-	color: #888;
+	color: #888; /* NOTE: May not be necessary after finishing migration to Bootstrap 4 */
 }
 
 #navbar-logo img {
