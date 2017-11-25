@@ -74,13 +74,12 @@ body {
 }
 
 .currency-item {
-	margin-left: calc(50% - 38px);
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
 
 .currency-item a {
-	padding: 0 !important;
+	width: 75px;
+	margin: auto;
 	outline: none;
-	background-color: white !important;
 }
