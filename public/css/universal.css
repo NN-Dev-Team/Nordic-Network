@@ -65,6 +65,10 @@ body {
 	outline: none;
 }
 
+#changeCurrency::after {
+	display: none;
+}
+
 #changeCurrency img {
 	visibility: hidden;
 }
