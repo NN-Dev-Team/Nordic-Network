@@ -36,14 +36,11 @@ body {
 
 #navbar-logo {
 	height: 100%;
+	color: #888;
 }
 
 #navbar-logo img {
 	display: inline-block;
-}
-
-#navbar-logo a {
-	color: #888;
 }
 
 @media screen and (max-device-width: 360px) and (max-device-height: 640px) {
