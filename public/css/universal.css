@@ -22,6 +22,10 @@ body {
 	margin: 6px;
 }
 
+#myNavbar > ul > li > a {
+	color: #888;
+}
+
 #myNavbar > ul > li > a:hover {
 	color: #333;
 }
