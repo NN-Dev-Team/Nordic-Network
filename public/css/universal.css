@@ -81,5 +81,6 @@ body {
 .currency-item a {
 	width: 75px;
 	margin: auto;
+	padding: 0 !important;
 	outline: none;
 }
