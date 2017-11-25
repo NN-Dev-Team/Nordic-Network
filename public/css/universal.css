@@ -22,7 +22,7 @@ body {
 	margin: 6px;
 }
 
-#myNavbar > ul > li > a {
+#myNavbar a {
 	color: #888;
 }
 
