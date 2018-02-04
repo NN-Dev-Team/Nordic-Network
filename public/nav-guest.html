@@ -1,11 +1,9 @@
     <!-- Nav -->
-<nav id="nav-nomargin" class="navbar navbar-default navbar-fixed-top">
+<nav id="nav-nomargin" class="navbar navbar-light navbar-fixed-top navbar-expand-sm">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" onclick="setTimeout(changeOpacity, 10)" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span> 
+      <button type="button" class="navbar-toggler" onclick="setTimeout(changeOpacity, 10)" data-toggle="collapse" data-target="#myNavbar">
+        <span class="navbar-toggler-icon"></span>
       </button>
       <a id="navbar-logo" class="navbar-brand" href="index#top">
 	    <img src="favicon.ico" />
@@ -28,12 +26,12 @@
 					<img width="50px" src="pics/icons/uk-icon.png" onload="changeFlag(getCookie('currency'));$(this).removeAttr('onload')">
 				</a>
 				<ul class="dropdown-menu">
-					<li class="currency-item">
+					<li class="dropdown-item currency-item">
 						<a href="#" onclick="changeFlag(0);changeCurrency(0);event.preventDefault()">
 							<img width="75px" src="pics/icons/uk-icon.png">
 						</a>
 					</li>
-					<li class="currency-item">
+					<li class="dropdown-item currency-item">
 						<a href="#" onclick="changeFlag(1);changeCurrency(1);event.preventDefault()">
 							<img width="75px" src="pics/icons/us-icon.png">
 						</a>
