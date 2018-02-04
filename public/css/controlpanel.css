@@ -17,9 +17,12 @@
     margin: 5em;
 }
 
+.cpbox button, #menu-toggle, #console, #consolebuttons, #pswrddel, #pswrdreset {
+	text-align: center;
+}
+
 .cpbox button {
     font-size: 2vh;
-    text-align: center;
     white-space: normal;
 }
 
@@ -33,7 +36,6 @@
 #menu-toggle {
     width: 5vh;
     height: 5vh;
-    text-align: center;
 }
 
 #menu-toggle span {
@@ -48,10 +50,6 @@
     min-width: 3vh;
 }
 
-#consolewrapper {
-	
-}
-
 #console {
     width: 60vw;
     height: 60vh;
@@ -59,7 +57,6 @@
     font-family: monospace;
     font: Lucida Console;
     border: 1px solid black;
-    text-align: center;
 	transition: border-radius 2s, background-color 2s, height 2s, border 2s;
 }
 
@@ -89,10 +86,6 @@
 	transition: display 2s;
 }
 
-#consolebuttons {
-    text-align: center;
-}
-
 #cnslchangecolor {
     margin-top: 2vh;
     border: none;
@@ -109,11 +102,7 @@
 	transition: background-color 2s, color 2s;
 }
 
-#cnslchangecolor::before {
-    font-size: 25px;
-}
-
-#cnslautochat::before {
+#cnslchangecolor::before, #cnslautochat::before {
     font-size: 25px;
 }
 
@@ -157,20 +146,12 @@
 	}
 }
 
-#wrapper.toggled #consolewrapper {
-	width: 100vw;
-}
-
-#wrapper.toggled textarea {
+#wrapper.toggled #consolewrapper, #wrapper.toggled textarea, #wrapper.toggled #consoleinput {
 	width: 100vw;
 }
 
 #wrapper.toggled #consolebuttons {
 	display: none;
-}
-
-#wrapper.toggled #consoleinput {
-	width: 100vw;
 }
 
 #btnsdelreset {
@@ -181,16 +162,16 @@
     font-size: 2vh;
 }
 
+#pswrddel, #pswrdreset {
+	width: 40%;
+}
+
 #pswrddel {
-    width: 40%;
     float: left;
-    text-align: center;
 }
 
 #pswrdreset {
-    width: 40%;
     float: right;
-    text-align: center;
 }
 
 #userChartID {

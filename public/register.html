@@ -2,9 +2,18 @@
 <html>
 	<head>
 		<title>Nordic Network - Register</title>
-		<base href="https://nn-dev-team.github.io/Nordic-Network/public/">
+		<script type="text/javascript">
+			if(location.host == "nn-dev-team.github.io") {
+				document.write('<base href="https://nn-dev-team.github.io/Nordic-Network/public/">');
+			} else if(location.host == "tropicsapling.github.io") {
+				document.write('<base href="https://tropicsapling.github.io/Nordic-Network/public/">');
+			} else if(location.host == "isasftw.github.io") {
+				document.write('<base href="https://isasftw.github.io/Nordic-Network/public/">');
+			}
+		</script>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 		
 		<!-- Load universal CSS from file -->
 		<link rel="stylesheet" href="css/universal.css">
@@ -17,9 +26,9 @@
 		<!-- Load bootstrap JS from CDN -->
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<!-- Load Socket.io -->
-		<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
 		<!-- Load JQuery Waypoints from CDN -->
-		<script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
 		<!-- Load SweetAlert -->
 		<script src="sweetalert/dist/sweetalert.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="sweetalert/dist/sweetalert.css">
