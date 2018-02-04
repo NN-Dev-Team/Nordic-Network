@@ -45,6 +45,7 @@ function convertCurrency(obj) {
 	
 	if(str != "FREE") {
 		var c = getCookie("currency");
+		if(c == "") c = 0;
 		var c_old = getCurrency(str);
 		
 		if(currencies[c] != str[c_old]) {

@@ -22,6 +22,10 @@ body {
 	margin: 6px;
 }
 
+#myNavbar a {
+	color: #888; /* NOTE: May not be necessary after finishing migration to Bootstrap 4 */
+}
+
 #myNavbar > ul > li > a:hover {
 	color: #333;
 }
@@ -32,6 +36,7 @@ body {
 
 #navbar-logo {
 	height: 100%;
+	color: #888; /* NOTE: May not be necessary after finishing migration to Bootstrap 4 */
 }
 
 #navbar-logo img {
@@ -47,7 +52,7 @@ body {
 #footer {
     color: white;
     text-align: center;
-    font-size 2vh;
+    font-size: 2vh;
     background-image: url(//bukkit.org/smilies/obsidian.png);
 	background-size: cover;
 	background-position: center;
@@ -65,6 +70,10 @@ body {
 	outline: none;
 }
 
+#changeCurrency::after {
+	display: none;
+}
+
 #changeCurrency img {
 	visibility: hidden;
 }
@@ -74,13 +83,13 @@ body {
 }
 
 .currency-item {
-	margin-left: calc(50% - 38px);
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
 
 .currency-item a {
+	width: 75px;
+	margin: auto;
 	padding: 0 !important;
 	outline: none;
-	background-color: white !important;
 }

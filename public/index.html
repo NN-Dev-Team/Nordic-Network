@@ -2,27 +2,37 @@
 <html lang=en>
 	<head>
 		<title>Nordic Network - Dynamic server hosting, the Nordic way</title>
-		<base href="https://nn-dev-team.github.io/Nordic-Network/public/">
+		<script type="text/javascript">
+			if(location.host == "nn-dev-team.github.io") {
+				document.write('<base href="https://nn-dev-team.github.io/Nordic-Network/public/">');
+			} else if(location.host == "tropicsapling.github.io") {
+				document.write('<base href="https://tropicsapling.github.io/Nordic-Network/public/">');
+			} else if(location.host == "isasftw.github.io") {
+				document.write('<base href="https://isasftw.github.io/Nordic-Network/public/">');
+			}
+		</script>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 		<!-- Load universal CSS from file -->
 		<link rel="stylesheet" href="css/universal.css">
 		<!-- Load custom CSS from file -->    
 		<link rel="stylesheet" href="css/index.css">
 		<!-- Load font families -->
-		<link href="//fonts.googleapis.com/css?family=David+Libre|Yatra+One" rel="stylesheet"> 
+		<link href="https://fonts.googleapis.com/css?family=David+Libre|Yatra+One" rel="stylesheet"> 
         <!-- Load Odometer Theme CSS from file -->
         <link rel="stylesheet" href="css/odometer-theme-minimal.css" />
 		<!-- Load JQuery from CDN -->
-		<script src="//code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 		<!-- Load bootstrap CSS from CDN -->
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 		<!-- Load bootstrap JS from CDN -->
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 		<!-- Load Socket.io -->
-		<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
 		<!-- Load JQuery Waypoints from CDN -->
-		<script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
 		<!-- Load Fontastic CSS from file -->
         <link rel="stylesheet" href="css/fontastic.css">
 		<!-- Load SweetAlert -->
@@ -55,7 +65,7 @@
 					<a type="button" id="getserver" class="btn btn-primary btn-lg" href="create-server">Get started</a>
 				</div>
 				
-				<a href="index/#index-info" class="glyphicon glyphicon-chevron-down white-glyphicon"></a>
+				<a href="index#index-info" class="glyphicon glyphicon-chevron-down white-glyphicon"></a>
 				
 			</div>
 		</div>
@@ -111,7 +121,7 @@
 			<br />
 			<br />
 			<br />
-			<div class="row" id="pricing-row">
+			<div id="pricing-row">
 				<div class="pricing-box box-free">
 					<img id="pricing-img" class="center-block img-circle" src="pics/icons/bulb_lg.png" height="100px" width="100px">
 					
@@ -121,7 +131,7 @@
 					<p class="pricing-text pricing-text-bottom center-block">1 GB SSD</p>
 					
 					<div class="pricing-price-box bg-free">
-						<h3 class="pricing-price currency">FREE</h3>
+						<p class="pricing-price currency">FREE</p>
 					</div>
 				</div>
 				
@@ -135,7 +145,7 @@
 					<p class="pricing-text pricing-text-bottom center-block">FTP</p>
 					
 					<div class="pricing-price-box bg-free">
-						<h3 class="pricing-price currency">£1.5 / month</h3>
+						<p class="pricing-price currency">£1.5 / month</p>
 					</div>
 				</div>
                 
@@ -150,7 +160,7 @@
 					<p class="pricing-text pricing-text-bottom center-block"><b>No advertisements</b></p>
 					
 					<div class="pricing-price-box bg-premium">
-						<h3 class="pricing-price currency">£3 / month</h3>
+						<p class="pricing-price currency">£3 / month</p>
 					</div>
 				</div>
                 
@@ -166,7 +176,7 @@
 					<p class="pricing-text pricing-text-bottom center-block"><b>Your own forum</b></p>
 					
 					<div class="pricing-price-box bg-premium">
-						<h3 class="pricing-price currency">£6 / month</h3>
+						<p class="pricing-price currency">£6 / month</p>
 					</div>
 				</div>                           
 			</div>
@@ -227,7 +237,7 @@
 		<script>
 			function addScrollSpy() {
 				$('body').scrollspy({target: "#myNavbar"}); 
-				$("#top a[href^='index/#']").on('click', function(e) {
+				$("#top a[href^='index#']").on('click', function(e) {
 					
 					// prevent default anchor click behavior
 					e.preventDefault();

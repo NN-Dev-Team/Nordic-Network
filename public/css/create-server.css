@@ -9,10 +9,6 @@ body {
    transition: all 0.5s;
 }
 
-#navbar-logo {
-	color: #fff;
-}
-
-#myNavbar > ul > li > a {
+#navbar-logo, #myNavbar > ul > li > a {
 	color: #fff;
 }

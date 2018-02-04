@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<base href="https://nn-dev-team.github.io/Nordic-Network/public/">
+		<script type="text/javascript">
+			if(location.host == "nn-dev-team.github.io") {
+				document.write('<base href="https://nn-dev-team.github.io/Nordic-Network/public/">');
+			} else if(location.host == "tropicsapling.github.io") {
+				document.write('<base href="https://tropicsapling.github.io/Nordic-Network/public/">');
+			} else if(location.host == "isasftw.github.io") {
+				document.write('<base href="https://isasftw.github.io/Nordic-Network/public/">');
+			}
+		</script>
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 	</head>
 	<body>
 		
