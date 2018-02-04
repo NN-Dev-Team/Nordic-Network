@@ -322,7 +322,7 @@ exports.delOld = function(callback) {
 									return callback({"error": err, "line": __line});
 								}
 								
-								return callback({"error": err, "line": __line}, true, file);
+								return callback(err, true, file);
 							});
 						}
 						
