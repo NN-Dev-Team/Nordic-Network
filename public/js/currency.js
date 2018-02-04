@@ -41,7 +41,7 @@ function toCurrency(val, c) {
 }
 
 function convertCurrency(obj) {
-	var str = $(obj).html();
+	var str = obj.html();
 	
 	if(str != "FREE") {
 		var c = getCookie("currency");
@@ -54,11 +54,11 @@ function convertCurrency(obj) {
 			var new_val = toCurrency(old_val, c);
 			var new_html = str.replace(old_val_str, currencies[c] + new_val);
 			
-			$(obj).html(new_html);
+			obj.html(new_html);
 		}
 	}
 	
-	$(obj).css('visibility', 'visible');
+	obj.css('visibility', 'visible');
 }
 
 function changeCurrency(c) {
