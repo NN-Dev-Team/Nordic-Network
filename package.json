@@ -6,12 +6,12 @@
     "bcryptjs": "^2.4.3",
     "braintree": "^2.3.0",
     "diskspace": "^2.0.0",
-    "express": "^4.16.1",
+    "express": "^4.16.2",
     "mkdirp": "^0.5.1",
     "pm2": "^2.7.1",
     "rcon": "^1.0.3",
-    "socket.io": "^2.0.3",
-    "socket.io-client": "^2.0.3",
+    "socket.io": "^2.0.4",
+    "socket.io-client": "^2.0.4",
     "toobusy-js": "^0.5.1"
   },
   "repository": {
