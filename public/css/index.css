@@ -155,6 +155,10 @@
 	color: #fff;
 }
 
+#myNavbar > ul > li > a:hover {
+	background-color: transparent;
+}
+
 #pricing-row {
 	display: grid;
 	grid-gap: 2rem;
