@@ -6,7 +6,7 @@
     "bcryptjs": "^2.4.3",
     "braintree": "^3.15.0",
     "diskspace": "^2.0.0",
-    "express": "^4.21.2",
+    "express": "^4.22.1",
     "mkdirp": "^0.5.6",
     "pm2": "^5.4.3",
     "rcon": "^1.0.3",
